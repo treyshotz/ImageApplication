@@ -1,0 +1,15 @@
+# Team 14
+*Here is our project. Add some more information* 
+
+
+## How our project works 
+*Make som technical description here*
+
+
+## Get started
+*Add description how to get started*
+
+
+## Questions or need help
+*Link to [our wiki](https://gitlab.stud.idi.ntnu.no/eirsteir/team-14-software-engineering/-/wikis/home) page, maybe add contact info*
+
