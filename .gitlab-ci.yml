@@ -1,0 +1,22 @@
+image: maven:latest
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+build:
+  stage: build
+  script:
+    - echo "Building project with maven"
+    - mvn verify
+
+test:
+  stage: test
+  script:
+    - echo "Running project tests with maven"
+    - mvn test
