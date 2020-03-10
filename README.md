@@ -12,7 +12,7 @@
 
 #### IntelliJ:
 *Follow these steps to run the project:*
-- Open the Maven Projects window in `View -> Tool Windows -> Maven` and click on  `ImageApplication -> Plugins -> javafx -> javafx:run` to execute the project
+- Open the Maven Projects window in `View -> Tool Windows -> Maven` and click on  `ImageApplication -> Plugins -> javafx -> javafx:compile` and then `javafx:run` to execute the project
 
 ## Questions or need help
 *Link to [our wiki](https://gitlab.stud.idi.ntnu.no/eirsteir/team-14-software-engineering/-/wikis/home) page, maybe add contact info*

@@ -15,6 +15,8 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:13" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.30" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:13" level="project" />
@@ -26,6 +28,5 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:13" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.4.2" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
   </component>
 </module>
