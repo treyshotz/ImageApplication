@@ -5,6 +5,10 @@ target/
 .idea/
 *.properties
 *.iml
+bin/
+.settings/
+.classpath
+.project
 
 # User-specific stuff
 .idea/**/workspace.xml
