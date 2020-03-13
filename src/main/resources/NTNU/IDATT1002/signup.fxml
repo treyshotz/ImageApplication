@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/" fx:controller="NTNU.IDATT1002.SecondaryController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/" fx:controller="NTNU.IDATT1002.controllers.SignUpController">
     <children>
         <Label text="Sign Up page" />
       <GridPane hgap="10.0" maxWidth="-Infinity" prefHeight="110.0" prefWidth="300.0" vgap="10.0">
