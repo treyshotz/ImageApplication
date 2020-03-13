@@ -4,6 +4,7 @@
 target/
 .idea/
 *.properties
+*.iml
 
 # User-specific stuff
 .idea/**/workspace.xml
