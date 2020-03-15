@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AuthorizerTest {
+class AuthenticationTest {
 
     @Test
     void testNullAsInputOnsetPassword() throws NoSuchAlgorithmException {
@@ -14,7 +14,7 @@ class AuthorizerTest {
          * Testing the method with null as input
          */
         try {
-            Authorizer.setPassword(null, null);
+            Authentication.setPassword(null, null);
             fail("Expected action to throw  IllegalArgumentException ");
         } catch (IllegalArgumentException e) {
             //Test is a Success
@@ -27,7 +27,7 @@ class AuthorizerTest {
          * Testing the method with an empty password and an credible username
          */
         try {
-            Authorizer.setPassword("Username", "");
+            Authentication.setPassword("Username", "");
             fail("Expected action to throw  IllegalArgumentException ");
         } catch (IllegalArgumentException e) {
             //Test is a success as you are not supposed to get anything checked with empty password
@@ -40,7 +40,7 @@ class AuthorizerTest {
          * Testing the method with an empty username and an credible username
          */
         try {
-            Authorizer.setPassword("", "Password");
+            Authentication.setPassword("", "Password");
             fail("Expected action to throw  IllegalArgumentException ");
         }
         catch (IllegalArgumentException e) {
@@ -55,7 +55,7 @@ class AuthorizerTest {
          * Testing the method with an credible username and password
          */
         try {
-            assertEquals(false, Authorizer.setPassword("Username", "Password"));
+            assertEquals(false, Authentication.setPassword("Username", "Password"));
         }
         catch (Exception e) {
             fail("Method should not throw an exception with this input");
@@ -70,7 +70,7 @@ class AuthorizerTest {
          * Testing the method with null ass input
          */
         try {
-            Authorizer.isCorrectPassword(null, null);
+            Authentication.isCorrectPassword(null, null);
             fail("Expected action to throw  IllegalArgumentException ");
         }
         catch (IllegalArgumentException e) {
@@ -84,7 +84,7 @@ class AuthorizerTest {
          * Testing the method with an empty password and an credible username
          */
         try {
-            Authorizer.isCorrectPassword("Username", "");
+            Authentication.isCorrectPassword("Username", "");
             fail("Expected action to throw  IllegalArgumentException ");
         } catch (IllegalArgumentException e) {
             //Test is a success as you are not supposed to get anything checked with empty password
@@ -97,7 +97,7 @@ class AuthorizerTest {
          * Testing the method with an empty username and an credible username
          */
         try {
-            Authorizer.isCorrectPassword("", "Password");
+            Authentication.isCorrectPassword("", "Password");
             fail("Expected action to throw  IllegalArgumentException ");
         }
         catch (IllegalArgumentException e) {
@@ -112,7 +112,7 @@ class AuthorizerTest {
          * Testing the method with an credible username and password
          */
         try {
-            assertEquals(false, Authorizer.isCorrectPassword("Username", "Password"));
+            assertEquals(false, Authentication.isCorrectPassword("Username", "Password"));
             fail("The salt is set as null automatically. The test should therefore throw IllegalArgumentException");
         }
         catch (Exception e) {
