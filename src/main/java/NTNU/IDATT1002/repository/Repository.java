@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,7 +17,7 @@ public interface Repository<T, ID> {
      * @param entity not null
      * @return the saved entity
      */
-    T save(T entity) throws IllegalArgumentException;
+    Optional<T> save(T entity);
 
     /**
      * Updates the given entity. This will completely override the given instance.
@@ -31,7 +32,7 @@ public interface Repository<T, ID> {
      *
      * @return all entities
      */
-    Iterable<T> findAll();
+    List<T> findAll();
 
     /**
      * Retrieves an entity with the given id.
@@ -42,18 +43,18 @@ public interface Repository<T, ID> {
     Optional<T> findById(ID id);
 
     /**
-     * Deletes an entity with the given id.
-     *
-     * @param id not null
-     */
-    void deleteById(ID id);
-
-    /**
      * Deletes the given entity.
      *
      * @param entity not null
      */
     void delete(T entity);
+
+    /**
+     * Deletes an entity with the given id.
+     *
+     * @param id not null
+     */
+    void deleteById(ID id);
 
     /**
      * Return the number of entities.
