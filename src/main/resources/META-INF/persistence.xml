@@ -8,6 +8,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Entity classes -->
+        <class>NTNU.IDATT1002.models.ImageAlbum</class>
 
         <properties>
             <!-- Configuring JDBC properties -->
