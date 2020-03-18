@@ -23,6 +23,7 @@
                   </ImageView>
                   <Pane prefHeight="100.0" prefWidth="343.0" />
                   <TextField fx:id="tbar_search" onAction="#switchToSearch" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+                  <Button fx:id="tbar_searchButton" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
                   <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
                   <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
                   <Pane prefHeight="100.0" prefWidth="174.0" />

@@ -15,9 +15,10 @@ public class LoggedInController {
     public Button tbar_map;
     public Button tbar_upload;
     public Button main_upload;
+    public Button tbar_searchButton;
 
-    public void switchToSearch(ActionEvent actionEvent) {
-
+    public void switchToSearch(ActionEvent actionEvent) throws IOException {
+        App.setRoot("search_page");
     }
 
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
