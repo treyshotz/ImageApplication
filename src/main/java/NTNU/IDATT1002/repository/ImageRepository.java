@@ -1,6 +1,6 @@
 package NTNU.IDATT1002.repository;
 
-import java.awt.Image;
+import NTNU.IDATT1002.models.Image;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -139,6 +139,6 @@ public class ImageRepository implements Repository<Image, Long> {
 
   @Override
   public boolean exists(Image image) {
-    return false;
+    return findById(image.getImageID()).isPresent();
   }
 }

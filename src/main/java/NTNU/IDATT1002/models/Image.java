@@ -27,13 +27,13 @@ public class Image {
 
 
   @NotBlank
-  private int imageID;
+  private long imageID;
 
   @NotBlank
-  private int albumID;
+  private long albumID;
 
   @NotBlank
-  private int metaDataID;
+  private long metaDataID;
 
   @NotBlank
   @CreationTimestamp
@@ -45,7 +45,7 @@ public class Image {
   public Image() {
   }
 
-  public Image(int imageID, int albumID, int metaDataId, Date uploadAt, String path) {
+  public Image(long imageID, long albumID, long metaDataId, Date uploadAt, String path) {
     this.imageID = imageID;
     this.albumID = albumID;
     this.metaDataID = metaDataId;
@@ -77,15 +77,15 @@ public class Image {
     this.path = path;
   }
 
-  public int getImageID() {
+  public long getImageID() {
     return imageID;
   }
 
-  public int getAlbumID() {
+  public long getAlbumID() {
     return albumID;
   }
 
-  public int getMetaDataID() {
+  public long getMetaDataID() {
     return metaDataID;
   }
 
