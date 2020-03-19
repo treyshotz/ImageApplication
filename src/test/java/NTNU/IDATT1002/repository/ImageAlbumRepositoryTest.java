@@ -158,27 +158,4 @@ class ImageAlbumRepositoryTest {
         assertEquals(2, imageAlbumCount);
     }
 
-    /**
-     * Test that checking for existence returns true when the given entity exists.
-     */
-    @Test
-    void testExistsReturnsTrueWhenEntityExists() {
-        Optional<ImageAlbum> savedImageAlbum = imageAlbumRepository.save(new ImageAlbum());
-        boolean imageAlbumExists = imageAlbumRepository.exists(savedImageAlbum.get());
-
-        assertTrue(imageAlbumExists);
-    }
-
-    /**
-     * Test that checking for existence returns false when the given entity does not exist.
-     */
-    @Test
-    void testExistsReturnsFalseWhenEntityDoesNotExist() {
-        ImageAlbum notSavedImageAlbum = new ImageAlbum();
-        notSavedImageAlbum.setId(IMAGE_ALBUM_INITIAL_ID);
-
-        boolean imageAlbumExists = imageAlbumRepository.exists(notSavedImageAlbum);
-
-        assertFalse(imageAlbumExists);
-    }
 }
