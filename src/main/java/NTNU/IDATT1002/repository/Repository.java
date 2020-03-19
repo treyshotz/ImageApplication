@@ -5,9 +5,12 @@ import java.util.Optional;
 
 
 /**
- * Entity Repository Interface Dummy. Supports regular Create, Read, Update and Delete operations.
+ * Entity Repository Interface. Supports regular Create, Read, Update and Delete operations.
+ *
  * @param <T> type of entity
  * @param <ID> type of entity id
+ * @author Eirik Steira
+ * @version 1.1 19.03.20
  */
 public interface Repository<T, ID> {
 
@@ -20,19 +23,11 @@ public interface Repository<T, ID> {
     Optional<T> save(T entity);
 
     /**
-     * Updates the given entity. This will completely override the given instance.
-     *
-     * @param entity not null
-     * @return the updated entity
-     */
-    Optional<T> update(T entity);
-
-    /**
      * Retrieves all instances of the type.
      *
      * @return all entities
      */
-    List<T> findAll();
+    List<?> findAll();
 
     /**
      * Retrieves an entity with the given id.

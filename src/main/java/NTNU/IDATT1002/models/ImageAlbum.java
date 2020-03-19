@@ -10,8 +10,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * Class ImageAlbum representing an image album. Contains {@link Image}s and the creator ({@link User})
+ *
+ * @author Eirik Steira
+ * @version 1.1 19.03.20
+ * */
 @Entity
 @Table(name = "image_album")
+@NamedQueries({
+        @NamedQuery(name = "ImageAlbum.findAllByTitle",
+        query="SELECT ia from ImageAlbum ia WHERE ia.title LIKE :queried_title ")
+})
 public class ImageAlbum {
 
     @Id
@@ -22,7 +33,7 @@ public class ImageAlbum {
     private String title;
 
     @ManyToOne
-    private User author;
+    private User user;
 
     @ManyToMany
     private List<Image> images = new ArrayList<>();;
@@ -38,63 +49,47 @@ public class ImageAlbum {
     public ImageAlbum() {
     }
 
-    public ImageAlbum(@NotBlank(message = "Title may not be blank") String title, User author, List<Image> images, String description, Date createdAt, Date updatedAt) {
-        this.title = title;
-        this.author = author;
-        this.images = images;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getId() {
+        return id;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public User getAuthor() {
-        return author;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    /**
+     * Add given image to the album.
+     *
+     * @param image the image to add
+     */
+    public void addImage(Image image) {
+
     }
 
-    public List<Image> getImages() {
-        return images;
+    /**
+     * Remove given image from the album.
+     *
+     * @param image the image to add
+     */
+    public void removeImage(Image image) {
+
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
+    /**
+     * Check if this and given entity are equal.
+     * The two are defined as equal if all individual fields are equal.
+     *
+     * @param o object to check for equality against
+     * @return true if this is equal to given object, else false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,7 +97,7 @@ public class ImageAlbum {
         ImageAlbum that = (ImageAlbum) o;
         return id.equals(that.id) &&
                 title.equals(that.title) &&
-                author.equals(that.author) &&
+                user.equals(that.user) &&
                 Objects.equals(images, that.images) &&
                 Objects.equals(description, that.description) &&
                 createdAt.equals(that.createdAt) &&

@@ -9,7 +9,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
 
     @OneToMany(
@@ -19,14 +18,24 @@ public class User {
     )
     private List<ImageAlbum> imageAlbums = new ArrayList<>();
 
+    /**
+     * Add given image album.
+     *
+     * @param imageAlbum the image album to add
+     */
     public void addImageAlbum(ImageAlbum imageAlbum) {
         imageAlbums.add(imageAlbum);
-        imageAlbum.setAuthor(this);
+        imageAlbum.setUser(this);
     }
 
+    /**
+     * Remove given image album.
+     *
+     * @param imageAlbum the image album to remove
+     */
     public void removeImageAlbum(ImageAlbum imageAlbum) {
         imageAlbums.remove(imageAlbum);
-        imageAlbum.setAuthor(null);
+        imageAlbum.setUser(null);
     }
 
 }

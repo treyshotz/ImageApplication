@@ -1,4 +1,4 @@
-package utils;
+package NTNU.IDATT1002.utils;
 
 import org.junit.jupiter.api.Test;
 
