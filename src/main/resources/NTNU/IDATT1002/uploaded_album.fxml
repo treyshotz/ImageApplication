@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadedAlbumController">
+    <children>
+        <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+                    <children>
+                        <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Images/PlaceholderLogo.png" />
+                            </image>
+                        </ImageView>
+                        <Pane prefHeight="100.0" prefWidth="343.0" />
+                        <TextField fx:id="tbar_search" onAction="#switchToSearch" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+                        <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
+                        <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+                        <Pane prefHeight="100.0" prefWidth="174.0" />
+                        <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0">
+                    <children>
+                  <ScrollPane prefHeight="1080.0" prefWidth="1920.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2100.0" prefWidth="1920.0" style="-fx-background-color: #999999;">
+                           <children>
+                                    <Pane prefHeight="981.0" prefWidth="1932.0" style="-fx-background-color: #999999;">
+                                        <children>
+                                            <Text layoutX="238.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUMTITLE:">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Text>
+                                            <TextField fx:id="album_title_field" layoutX="486.0" layoutY="110.0" prefHeight="40.0" prefWidth="488.0" promptText="Insert title here" />
+                                            <Text layoutX="238.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUMTAGS:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <TextField fx:id="album_tag_field" layoutX="411.0" layoutY="157.0" prefHeight="32.0" prefWidth="564.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <Text layoutX="239.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUMDESCRIPTION:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <TextArea fx:id="album_desc_field" layoutX="238.0" layoutY="239.0" prefHeight="140.0" prefWidth="739.0" promptText="Insert description here" />
+                                            <Text layoutX="1002.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INCLUDED METADATA:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <Pane layoutX="1002.0" layoutY="147.0" prefHeight="232.0" prefWidth="684.0" style="-fx-background-color: #ffffff;" />
+                                            <Text layoutX="868.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMAGES:">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="873.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="873.0" layoutY="655.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="873.0" layoutY="719.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <TextField fx:id="title_field" layoutX="1002.0" layoutY="552.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                            <TextField fx:id="tag_field" layoutX="963.0" layoutY="630.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextArea fx:id="desc_field" layoutX="872.0" layoutY="734.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                            <ImageView fx:id="uploaded_image" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../Images/placeholder-1920x1080.png" /> <!-- This is the URL to the image in question, needs to change in accordance with the current uploaded picture-->
+                                                </image>
+                                            </ImageView>
+
+                                    <Text layoutX="870.0" layoutY="943.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="870.0" layoutY="1017.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="870.0" layoutY="1081.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="title_field2" layoutX="1002.0" layoutY="914.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                    <TextField fx:id="tag_field2" layoutX="963.0" layoutY="992.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                    <TextArea fx:id="desc_field2" layoutX="872.0" layoutY="1096.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                    <ImageView fx:id="uploaded_image1" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="911.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Images/placeholder-1920x1080.png" />
+                                       </image>
+                                    </ImageView>
+
+                                            <Text layoutX="873.0" layoutY="1305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="873.0" layoutY="1379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="873.0" layoutY="1443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <TextField fx:id="title_field3" layoutX="1002.0" layoutY="1276.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                            <TextField fx:id="tag_field3" layoutX="963.0" layoutY="1354.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextArea fx:id="desc_field3" layoutX="872.0" layoutY="1458.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                            <ImageView fx:id="uploaded_image2" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="1273.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../Images/placeholder-1920x1080.png" /> <!-- This is the URL to the image in question, needs to change in accordance with the current uploaded picture-->
+                                                </image>
+                                            </ImageView>
+
+                                            <Text layoutX="870.0" layoutY="1667.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="870.0" layoutY="1741.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <Text layoutX="870.0" layoutY="1805.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Text>
+                                            <TextField fx:id="title_field4" layoutX="1002.0" layoutY="1638.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                            <TextField fx:id="tag_field4" layoutX="963.0" layoutY="1716.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextArea fx:id="desc_field4" layoutX="872.0" layoutY="1820.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                            <ImageView fx:id="uploaded_image3" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="1635.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../Images/placeholder-1920x1080.png" />
+                                                </image>
+                                            </ImageView>
+                                    <Button fx:id="accept_button" layoutX="880.0" layoutY="2000.0" mnemonicParsing="false" onAction="#uploadAlbum" text="ACCEPT">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Button>
+                                        </children>
+                                    </Pane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
