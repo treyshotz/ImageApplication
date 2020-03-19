@@ -1,14 +1,11 @@
-package utils;
+package NTNU.IDATT1002.utils;
 
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.SocketHandler;
 
 public class MultiplePhotos {
 
