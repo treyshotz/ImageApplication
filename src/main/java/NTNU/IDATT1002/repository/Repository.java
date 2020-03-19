@@ -58,11 +58,4 @@ public interface Repository<T, ID> {
      */
     long count();
 
-    /**
-     * Return whether the given entity exists.
-     *
-     * @param entity not null
-     * @return true if the entity exist, else false
-     */
-    boolean exists(T entity);
 }
