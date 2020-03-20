@@ -1,12 +1,16 @@
 package NTNU.IDATT1002.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
 /**
- * Entity Repository Interface Dummy. Supports regular Create, Read, Update and Delete operations.
+ * Entity Repository Interface. Supports regular Create, Read, Update and Delete operations.
+ *
  * @param <T> type of entity
  * @param <ID> type of entity id
+ * @author Eirik Steira
+ * @version 1.1 19.03.20
  */
 public interface Repository<T, ID> {
 
@@ -16,22 +20,14 @@ public interface Repository<T, ID> {
      * @param entity not null
      * @return the saved entity
      */
-    T save(T entity) throws IllegalArgumentException;
-
-    /**
-     * Updates the given entity. This will completely override the given instance.
-     *
-     * @param entity not null
-     * @return the updated entity
-     */
-    Optional<T> update(T entity);
+    Optional<T> save(T entity);
 
     /**
      * Retrieves all instances of the type.
      *
      * @return all entities
      */
-    Iterable<T> findAll();
+    List<?> findAll();
 
     /**
      * Retrieves an entity with the given id.
@@ -42,18 +38,18 @@ public interface Repository<T, ID> {
     Optional<T> findById(ID id);
 
     /**
-     * Deletes an entity with the given id.
-     *
-     * @param id not null
-     */
-    void deleteById(ID id);
-
-    /**
      * Deletes the given entity.
      *
      * @param entity not null
      */
     void delete(T entity);
+
+    /**
+     * Deletes an entity with the given id.
+     *
+     * @param id not null
+     */
+    void deleteById(ID id);
 
     /**
      * Return the number of entities.
@@ -62,11 +58,4 @@ public interface Repository<T, ID> {
      */
     long count();
 
-    /**
-     * Return whether the given entity exists.
-     *
-     * @param entity not null
-     * @return true if the entity exist, else false
-     */
-    boolean exists(T entity);
 }

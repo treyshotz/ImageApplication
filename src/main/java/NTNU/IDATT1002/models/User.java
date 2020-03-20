@@ -1,90 +1,41 @@
 package NTNU.IDATT1002.models;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "user")
 public class User {
 
-    private Integer id;
-    private String email;
+    @Id
     private String username;
-    private String firstName;
-    private String lastName;
-    private String callingCode;
-    private String phoneNumber;
-    private Date birthDate;
-    private boolean isAdmin;
-    private boolean isActive;
 
-    public User(int id, String email, String username, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate, boolean isAdmin) {
-        this.id = id;
-        this.email = email;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.callingCode = callingCode;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.isAdmin = isAdmin;
-        this.isActive = true;
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ImageAlbum> imageAlbums = new ArrayList<>();
+
+    /**
+     * Add given image album.
+     *
+     * @param imageAlbum the image album to add
+     */
+    public void addImageAlbum(ImageAlbum imageAlbum) {
+        imageAlbums.add(imageAlbum);
+        imageAlbum.setUser(this);
     }
 
-    public User(User user) {
-        this(user.getId(),
-                user.getEmail(),
-                user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getCallingCode(),
-                user.getPhoneNumber(),
-                user.getBirthDate(),
-                user.isAdmin());
+    /**
+     * Remove given image album.
+     *
+     * @param imageAlbum the image album to remove
+     */
+    public void removeImageAlbum(ImageAlbum imageAlbum) {
+        imageAlbums.remove(imageAlbum);
+        imageAlbum.setUser(null);
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getCallingCode() {
-        return callingCode;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id);
-    }
 }
