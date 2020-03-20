@@ -9,17 +9,14 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
-public class UploadedPhotoController {
+public class MapPageController {
     public TextField tbar_search;
     public ImageView tbar_logo;
     public Button tbar_explore;
     public Button tbar_map;
     public Button tbar_upload;
-    public TextField title_field;
-    public TextField tag_field;
-    public TextArea desc_field;
-    public Button accept_button;
-    public ImageView uploaded_image;
+    public Button map_search_button;
+    public TextField map_search_field;
 
     public void switchToSearch(ActionEvent actionEvent) throws IOException {
         App.setRoot("search_page");
@@ -37,8 +34,7 @@ public class UploadedPhotoController {
         App.setRoot("explore_page");
     }
 
-    public void uploadPhoto(ActionEvent actionEvent) throws IOException {
-        //write method to accept and upload the photo with chosen settings, titles etc and then setRoot to logged-in page
-        App.setRoot("logged-in");
+    public void MapSearch(ActionEvent actionEvent) {
+
     }
 }

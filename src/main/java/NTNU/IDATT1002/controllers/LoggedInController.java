@@ -25,8 +25,8 @@ public class LoggedInController {
         App.setRoot("explore_page");
     }
 
-    public void switchToMap(ActionEvent actionEvent) {
-
+    public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map_page");
     }
 
     public void switchToUpload(ActionEvent actionEvent) {
