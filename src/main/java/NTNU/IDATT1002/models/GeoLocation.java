@@ -17,7 +17,7 @@ public class GeoLocation {
      */
 
     @Id @NotBlank(message = "Geolocation-Id may not be blank")
-    private int geoLocationId;
+    private Long geoLocationId;
 
     /**
      * One to one relation between geolocationId in table Geolocation
@@ -41,7 +41,7 @@ public class GeoLocation {
      * @param longditude
      */
 
-    public GeoLocation(int geoLocationId, String altitude, String longditude){
+    public GeoLocation(Long geoLocationId, String altitude, String longditude){
         this.geoLocationId = geoLocationId;
         this.altitude = altitude;
         this.longditude = longditude;
@@ -58,7 +58,7 @@ public class GeoLocation {
                 geoLocation.getLongditude());
     }
 
-    public int getGeoLocationId() {
+    public Long getGeoLocationId() {
         return geoLocationId;
     }
 
@@ -70,7 +70,7 @@ public class GeoLocation {
         return longditude;
     }
 
-    public void setGeoLocationId(int geoLocationId) {
+    public void setGeoLocationId(Long geoLocationId) {
         this.geoLocationId = geoLocationId;
     }
 
