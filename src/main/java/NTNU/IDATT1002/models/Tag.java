@@ -23,7 +23,7 @@ public class Tag {
 
     @Id @NotBlank(message = "Tag-Id may not be blank")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int tagId;
+    private Long tagId;
 
 
     /**
@@ -48,7 +48,7 @@ public class Tag {
      * @param title
      */
 
-    public Tag(int tagId, String title){
+    public Tag(Long tagId, String title){
         this.tagId = tagId;
         this.title = title;
     }
@@ -63,7 +63,7 @@ public class Tag {
                 tag.getTitle());
     }
 
-    public int getTagId() {
+    public Long getTagId() {
         return tagId;
     }
 
@@ -71,7 +71,7 @@ public class Tag {
         return title;
     }
 
-    public void setTagId(int tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 

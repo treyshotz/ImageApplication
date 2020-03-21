@@ -24,11 +24,11 @@ public class Histogram {
      */
 
     @Id @NotBlank(message = "HistogramId may not be blank")
-    private int histogramId;
+    private Long histogramId;
 
     /**
      * One to one relations, joins histogramId
-     * On columns histogram_id in metadata
+     * On columns histogramId in metadata
      */
 
     @OneToOne
@@ -45,7 +45,7 @@ public class Histogram {
      */
 
 
-    public Histogram(int histogramId , String data){
+    public Histogram(Long histogramId , String data){
         this.histogramId = histogramId;
         this.data = data;
     }
@@ -60,7 +60,7 @@ public class Histogram {
                histogram.getData());
     }
 
-    public int getHistogramId() {
+    public Long getHistogramId() {
         return histogramId;
     }
 
@@ -68,7 +68,7 @@ public class Histogram {
         return data;
     }
 
-    public void setHistogramId(int histogramId) {
+    public void setHistogramId(Long histogramId) {
         this.histogramId = histogramId;
     }
 

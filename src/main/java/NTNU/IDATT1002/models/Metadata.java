@@ -17,7 +17,7 @@ public class Metadata {
      */
 
     @Id @NotBlank(message = "Metadata-Id may not be blank")
-    private int metadataId;
+    private Long metadataId;
 
     /**
      * One to one relation joining imageId
@@ -28,13 +28,19 @@ public class Metadata {
     @JoinColumn(name = "image_id")
     private Image image;
 
+    @OneToOne
+    private GeoLocation geoLocation;
+
     @NotBlank (message = "GeolocationId may not be blank")
-    private int geoLocationId;
+    private Long geoLocationId;
+
+    @OneToOne
+    private Histogram histogram;
 
     @NotBlank (message = "HistogramId may not be blank")
-    private int histogramId;
+    private Long histogramId;
 
-    public Metadata(int metadataId, int geoLocationId, int histogramId){
+    public Metadata(Long metadataId, Long geoLocationId, Long histogramId){
         this.metadataId = metadataId;
         this.geoLocationId = geoLocationId;
         this.histogramId = histogramId;
@@ -46,27 +52,27 @@ public class Metadata {
                 metadata.getHistogramId());
     }
 
-    public int getMetadataId() {
+    public Long getMetadataId() {
         return metadataId;
     }
 
-    public int getGeoLocationId() {
+    public Long getGeoLocationId() {
         return geoLocationId;
     }
 
-    public int getHistogramId() {
+    public Long getHistogramId() {
         return histogramId;
     }
 
-    public void setGeoLocationId(int geoLocationId) {
+    public void setGeoLocationId(Long geoLocationId) {
         this.geoLocationId = geoLocationId;
     }
 
-    public void setMetadataId(int metadataId) {
+    public void setMetadataId(Long metadataId) {
         this.metadataId = metadataId;
     }
 
-    public void setHistogramId(int histogramId) {
+    public void setHistogramId(Long histogramId) {
         this.histogramId = histogramId;
     }
 }
