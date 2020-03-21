@@ -1,22 +1,20 @@
 package NTNU.IDATT1002.models;
 
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @Table(name = "image")
-public class Image {  
-
+public class Image {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,15 +23,16 @@ public class Image {
   @ManyToMany
   private List<ImageAlbum> imageAlbums = new ArrayList<>();;
 
+  @Lob
+  @NotNull
+  @NotEmpty
+  private byte[] image;
 
   @NotBlank
-  private Long imageID;
+  private Long albumId;
 
   @NotBlank
-  private Long albumID;
-
-  @NotBlank
-  private Long metaDataID;
+  private Long metaDataId;
 
   @NotBlank
   @CreationTimestamp
@@ -45,28 +44,40 @@ public class Image {
   public Image() {
   }
 
-  public Image(Long imageID, Long albumID, Long metaDataId, Date uploadAt, String path) {
-    this.imageID = imageID;
-    this.albumID = albumID;
-    this.metaDataID = metaDataId;
+  public Image(byte[] image, Long albumId, Long metaDataId, Date uploadAt, String path) {
+    this.image = image;
+    this.albumId = albumId;
+    this.metaDataId = metaDataId;
     this.uploadAt = uploadAt;
     this.path = path;
   }
 
   public Image(Image image) {
-    this(image.getImageID(), image.getAlbumID(), image.getMetaDataID(), image.getUploadAt(), image.getPath());
+    this(image.getImage(), image.getAlbumId(), image.getMetaDataId(), image.getUploadAt(), image.getPath());
   }
 
-  public void setImageID(Long imageID) {
-    this.imageID = imageID;
+  public Long getId() {
+    return id;
   }
 
-  public void setAlbumID(Long albumID) {
-    this.albumID = albumID;
+  public void setId(Long id) {
+    this.id = id;
   }
 
-  public void setMetaDataID(Long metaDataID) {
-    this.metaDataID = metaDataID;
+  public byte[] getImage() {
+    return image;
+  }
+
+  public void setImage(byte[] image) {
+    this.image = image;
+  }
+
+  public void setAlbumId(Long albumId) {
+    this.albumId = albumId;
+  }
+
+  public void setMetaDataId(Long metaDataId) {
+    this.metaDataId = metaDataId;
   }
 
   public void setUploadAt(Date uploadAt) {
@@ -77,16 +88,13 @@ public class Image {
     this.path = path;
   }
 
-  public Long getImageID() {
-    return imageID;
+
+  public Long getAlbumId() {
+    return albumId;
   }
 
-  public Long getAlbumID() {
-    return albumID;
-  }
-
-  public Long getMetaDataID() {
-    return metaDataID;
+  public Long getMetaDataId() {
+    return metaDataId;
   }
 
   public Date getUploadAt() {
@@ -106,8 +114,7 @@ public class Image {
       return false;
     }
     Image that = (Image) o;
-    return getImageID() == that.getImageID() &&
-        getAlbumID() == that.getAlbumID();
+    return getId().equals(that.getId());
   }
 }
 
