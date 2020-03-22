@@ -67,7 +67,6 @@ class ImageAlbumRepositoryTest {
         imageAlbumRepository.save(new ImageAlbum());
 
         List<?> foundImageAlbums = imageAlbumRepository.findAll();
-
         assertEquals(2, foundImageAlbums.size());
     }
 

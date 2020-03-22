@@ -9,6 +9,7 @@
 
         <!-- Entity classes -->
         <class>NTNU.IDATT1002.models.User</class>
+        <class>NTNU.IDATT1002.models.Login</class>
         <class>NTNU.IDATT1002.models.Image</class>
         <class>NTNU.IDATT1002.models.ImageAlbum</class>
 
