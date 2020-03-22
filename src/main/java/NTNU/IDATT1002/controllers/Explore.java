@@ -104,6 +104,15 @@ public class Explore {
     }
 
     /**
+     * Method that changes stage to View Picture page for the image that was clicked
+     * @param mouseEvent
+     * @throws IOException
+     */
+    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
+        App.setRoot("view_picture");
+    }
+
+    /**
      * Method that updates content to previous "page"
      * @param actionEvent
      * @throws IOException
