@@ -6,7 +6,7 @@ import NTNU.IDATT1002.models.User;
 /**
  * Class Application State. Keeps a record of the global application state, such as the current logged in user.
  */
-final class ApplicationState {
+public final class ApplicationState {
 
     /**
      * The current logged in user.
