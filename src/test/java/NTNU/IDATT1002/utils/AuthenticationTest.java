@@ -2,75 +2,75 @@ package NTNU.IDATT1002.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticationTest {
 
+    /**
+     * Testing the method with null as input
+     */
     @Test
     void testNullAsInputOnsetPassword() throws NoSuchAlgorithmException {
-        /**
-         * Testing the method with null as input
-         */
+
         try {
-            Authentication.setPassword(null, null);
+            Authentication.setPassword(null);
             fail("Expected action to throw  IllegalArgumentException ");
         } catch (IllegalArgumentException e) {
             //Test is a Success
         }
     }
 
+    /**
+     * Testing the method with an empty password and an credible username
+     */
     @Test
     void testBlankPasswordOnsetPassword() throws NoSuchAlgorithmException {
-        /**
-         * Testing the method with an empty password and an credible username
-         */
         try {
-            Authentication.setPassword("Username", "");
+            Authentication.setPassword("");
             fail("Expected action to throw  IllegalArgumentException ");
         } catch (IllegalArgumentException e) {
             //Test is a success as you are not supposed to get anything checked with empty password
         }
     }
 
+    /**
+     * Testing the method with an empty username and an credible username
+     */
     @Test
     void testBlankUsernameOnsetPassword() throws NoSuchAlgorithmException {
-        /**
-         * Testing the method with an empty username and an credible username
-         */
         try {
-            Authentication.setPassword("", "Password");
-            fail("Expected action to throw  IllegalArgumentException ");
+            Authentication.setPassword("");
+            fail("Expected action to throw IllegalArgumentException ");
         }
         catch (IllegalArgumentException e) {
             //Test is a success as you are not supposed to get anything checked with empty password
         }
     }
 
+    /**
+     * Testing the method with an credible username and password
+     */
     @Test
     void testCredibleInputOnsetPassword() throws NoSuchAlgorithmException {
-        /**
-         * TODO: Maybe add actual user credentials as input. Change the boolean
-         * Testing the method with an credible username and password
-         */
-        try {
-            assertEquals(false, Authentication.setPassword("Username", "Password"));
-        }
-        catch (Exception e) {
-            fail("Method should not throw an exception with this input");
-        }
+            String password = "Test123";
+            ArrayList<String> credentials = Authentication.setPassword(password);
+            String salt = credentials.get(0);
+            String hash = credentials.get(1);
+            assertTrue(Authentication.isCorrectPassword(salt, password, hash));
     }
 
 
-
+    /**
+     * Testing the method with null ass input
+     */
     @Test
     void testNullAsInputOnisCorrectPassword() {
-        /**
-         * Testing the method with null ass input
-         */
         try {
-            Authentication.isCorrectPassword(null, null);
+            Authentication.isCorrectPassword(null, null, null);
             fail("Expected action to throw  IllegalArgumentException ");
         }
         catch (IllegalArgumentException e) {
@@ -78,26 +78,27 @@ class AuthenticationTest {
         }
     }
 
+    /**
+     * Testing the method with an empty password and an credible username
+     */
     @Test
     void testBlankPasswordOnisCorrectPassword() throws NoSuchAlgorithmException {
-        /**
-         * Testing the method with an empty password and an credible username
-         */
         try {
-            Authentication.isCorrectPassword("Username", "");
+            Authentication.isCorrectPassword("Username", "", "");
             fail("Expected action to throw  IllegalArgumentException ");
         } catch (IllegalArgumentException e) {
             //Test is a success as you are not supposed to get anything checked with empty password
         }
     }
 
+
+    /**
+     * Testing the method with an empty username and an credible username
+     */
     @Test
     void testBlankUsernameOnisCorrectPassword() throws NoSuchAlgorithmException {
-        /**
-         * Testing the method with an empty username and an credible username
-         */
         try {
-            Authentication.isCorrectPassword("", "Password");
+            Authentication.isCorrectPassword("", "Password", "");
             fail("Expected action to throw  IllegalArgumentException ");
         }
         catch (IllegalArgumentException e) {
@@ -105,19 +106,16 @@ class AuthenticationTest {
         }
     }
 
+
+    /**
+     * Testing the method with an credible username and password
+     */
     @Test
     void testCredibleInputOnisCorrectPassword() throws NoSuchAlgorithmException {
-        /**
-         * TODO: Maybe add actual user credentials as input. Change the boolean
-         * Testing the method with an credible username and password
-         */
-        try {
-            assertEquals(false, Authentication.isCorrectPassword("Username", "Password"));
-            fail("The salt is set as null automatically. The test should therefore throw IllegalArgumentException");
-        }
-        catch (Exception e) {
-        //Salt is set to null since it is not connected to database and should therefore throw exception
-        }
+        ArrayList<String> credentials = Authentication.setPassword("test");
+        String saltAsString = credentials.get(0);
+        String hash = credentials.get(1);
+        assertTrue(Authentication.isCorrectPassword(saltAsString, "test", hash));
     }
 }
 
