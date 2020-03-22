@@ -12,6 +12,9 @@ public class DataExchange {
     private String searchField;
     private List<File> uploadedFiles;
 
+    public DataExchange(){
+        searchField = "";
+    }
     public List<File> getUploadedFiles() {
         return uploadedFiles;
     }
