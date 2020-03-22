@@ -14,6 +14,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the buttons and changeable elements on upload_single.fxml,
+ * a page where you add descriptions to your selected image
+ * @version 1.0 22.03.2020
+ */
 public class UploadedSingle implements Initializable {
 
 
@@ -53,25 +58,7 @@ public class UploadedSingle implements Initializable {
     }
 
     /**
-     * Method that changes stage to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method for switching to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method for switching to Search page. It reads the value of the search
+     * Method that changes stage to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -84,26 +71,49 @@ public class UploadedSingle implements Initializable {
     }
 
     /**
-     * Method for switching to Upload page
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
+     * Method that changes stage to Explore page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore");
+    }
+
+    /**
+     * Method that changes stage to Albums page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
+    }
+
+    /**
+     * Method that changes stage to Map page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map");
+    }
+
+    /**
+     * Method that changes stage to Upload page
+     * @param actionEvent
+     * @throws IOException
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
         App.setRoot("upload");
     }
 
     /**
-     * Method for uploading image with title, tags and description to database
-     * Image itself is not stored but Url is
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
+     * Method for uploading image to database with title, tags and description
+     * Image itself is not stored but URL is
+     * @param actionEvent
+     * @throws IOException
      */
-    public void uploadPhoto(ActionEvent actionEvent) throws IOException {
-        //TODO: write method to accept and upload the photo with chosen settings, titles etc and then setRoot to logged-in page
+    public void uploadSingle(ActionEvent actionEvent) throws IOException {
+        //TODO: write method to accept and upload the photo with chosen settings, titles...
         App.setRoot("main");
-    }
-
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
     }
 }

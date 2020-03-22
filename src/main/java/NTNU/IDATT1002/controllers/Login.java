@@ -6,13 +6,18 @@ import NTNU.IDATT1002.App;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
+/**
+ * Controls the buttons and changeable elements on login.fxml,
+ * the page where you log into the application
+ * @version 1.0 22.03.2020
+ */
 public class Login {
 
     public Button signup;
     public Button login;
 
     /**
-     * Method that switches to sign up page
+     * Method that changes stage to Sign Up page
      * @param actionEvent
      * @throws IOException
      */
@@ -21,11 +26,12 @@ public class Login {
     }
 
     /**
-     * Method that switches to main page
+     * Method that changes stage to Main page
      * @param actionEvent
      * @throws IOException
      */
-    public void switchToMain(ActionEvent actionEvent) throws IOException {
+    public void login(ActionEvent actionEvent) throws IOException {
+        //TODO: Verify username and password
         App.setRoot("main");
     }
 }

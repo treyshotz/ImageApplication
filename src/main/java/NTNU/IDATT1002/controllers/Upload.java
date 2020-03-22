@@ -23,6 +23,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controls the buttons and changeable elements on upload.fxml,
+ * a page where you select images to upload
+ * @version 1.0 22.03.2020
+ */
 public class Upload {
     public ImageView tbar_logo;
     public TextField tbar_search;
@@ -45,6 +50,19 @@ public class Upload {
     }
 
     /**
+     * Method that changes stage to Search page. It reads the value of the search
+     * field and if not empty it is passed to dataexchange
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToSearch(ActionEvent actionEvent) throws IOException {
+        if (!tbar_search.getText().isEmpty()){
+            App.ex.setSearchField(tbar_search.getText());
+        }
+        App.setRoot("search");
+    }
+
+    /**
      * Method that changes stage to Explore page
      * @param actionEvent
      * @throws IOException
@@ -54,7 +72,16 @@ public class Upload {
     }
 
     /**
-     * Method for switching to Map page
+     * Method that changes stage to Albums page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
+    }
+
+    /**
+     * Method that changes stage to Map page
      * @param actionEvent
      * @throws IOException
      */
@@ -63,20 +90,7 @@ public class Upload {
     }
 
     /**
-     * Method for switching to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_searchBtn.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
-        }
-        App.setRoot("search");
-    }
-
-    /**
-     * Method for switching to Upload page
+     * Method that changes stage to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
@@ -84,14 +98,20 @@ public class Upload {
         App.setRoot("upload");
     }
 
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
-
+    /**
+     * Method that changs stage to Uploaded Single page
+     * If the user has chosen 1 image this method is called
+     * @throws IOException
+     */
     private void switchToUploadedSingle() throws IOException {
         App.setRoot("uploaded_single");
     }
 
+    /**
+     * Method that changs stage to Uploaded Multiple page
+     * If the user has chosen multiple images this method is called
+     * @throws IOException
+     */
     private void switchToUploadedMultiple() throws IOException {
         App.setRoot("uploaded_multiple");
     }
@@ -101,7 +121,7 @@ public class Upload {
 
     /**
      * Method that opens file browser with an image filter
-     * The user chooses what files to upload
+     * The user will choose what files to upload
      * @throws IOException
      */
     public void chooseFile() throws IOException {
@@ -112,6 +132,7 @@ public class Upload {
         List<File> list = fileChooser.showOpenMultipleDialog(uploadBtn.getScene().getWindow());
 
         if(!list.isEmpty()){
+            //Store files in DataExchange
             App.ex.setUploadedFiles(list);
             if (list.size() == 1){
                 switchToUploadedSingle();
@@ -123,7 +144,7 @@ public class Upload {
     }
 
     /**
-     * Method that finds the extension/ file type
+     * Method that finds the extension of a file
      * @param fileName the name of the file (img.jpg, img2.png ect.)
      * @return file extension (jpg, png ect.)
      */
@@ -139,8 +160,8 @@ public class Upload {
     }
 
     /**
-     * Method that decides if something hoovered over the pane is acceptable
-     * Called when something is hoovered over the pane
+     * Method that decides if something can be dropped
+     * The method is called whenever something is hoovered over the drag-drop pane
      * @param event something is dragged over the container
      */
     public void acceptDrop(DragEvent event) {
@@ -170,6 +191,7 @@ public class Upload {
     public void droppedFiles(DragEvent event) throws IOException {
         List<File> list = event.getDragboard().getFiles();
         if(!list.isEmpty()){
+            //Stores files to DataExchange
             App.ex.setUploadedFiles(list);
             if (list.size() == 1){
                 switchToUploadedSingle();

@@ -30,7 +30,7 @@
             <TextField GridPane.columnIndex="1" />
             <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button fx:id="signup" onAction="#switchToSignup" text="Sign Up" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Button fx:id="login" onAction="#switchToMain" layoutX="171.0" layoutY="74.0" text="Log In" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+            <Button fx:id="login" onAction="#login" layoutX="171.0" layoutY="74.0" text="Log In" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

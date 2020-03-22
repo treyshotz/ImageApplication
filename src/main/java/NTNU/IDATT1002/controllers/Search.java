@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -16,6 +15,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the buttons and changeable elements on search.fxml,
+ * a page where you can search for images and sort them
+ * @version 1.0 22.03.2020
+ */
 public class Search implements Initializable {
 
     public ImageView tbar_logo;
@@ -55,25 +59,7 @@ public class Search implements Initializable {
     }
 
     /**
-     * Method that changes stage to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method for switching to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method for switching to Search page. It reads the value of the search
+     * Method that changes stage to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -86,7 +72,34 @@ public class Search implements Initializable {
     }
 
     /**
-     * Method for switching to Upload page
+     * Method that changes stage to Explore page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore");
+    }
+
+    /**
+     * Method that changes stage to Albums page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
+    }
+
+    /**
+     * Method that changes stage to Map page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map");
+    }
+
+    /**
+     * Method that changes stage to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
@@ -110,9 +123,5 @@ public class Search implements Initializable {
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
         //TODO: Make method that updates content to next "page"
-    }
-
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
     }
 }

@@ -11,6 +11,11 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
+/**
+ * Controls the buttons and changeable elements on explore.fxml,
+ * a page where you explore images
+ * @version 1.0 22.03.2020
+ */
 public class Explore {
 
     public ImageView tbar_logo;
@@ -50,25 +55,7 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method for switching to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method for switching to Search page. It reads the value of the search
+     * Method that changes stage to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -81,7 +68,34 @@ public class Explore {
     }
 
     /**
-     * Method for switching to Upload page
+     * Method that changes stage to Explore page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore");
+    }
+
+    /**
+     * Method that changes stage to Albums page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
+    }
+
+    /**
+     * Method that changes stage to Map page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map");
+    }
+
+    /**
+     * Method that changes stage to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
@@ -105,24 +119,5 @@ public class Explore {
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
         //TODO: Make method that updates content to next "page"
-    }
-
-    /**
-     * Method for switching to Explore Albums page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
-
-    /**
-     * Method that opens "View picture" page for the picture that got clicked
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
-        //TODO: write method to switch to the correct picture depending on which pane gets clicked
-        App.setRoot("view_picture");
     }
 }
