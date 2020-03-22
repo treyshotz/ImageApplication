@@ -20,11 +20,7 @@ public class ExploreAlbumsController {
     public ScrollPane scrollpane;
     public Button footer_previous_page;
     public Button footer_next_page;
-    public ImageView tbar_logo1;
-    public TextField tbar_search1;
-    public Button tbar_map1;
-    public Button tbar_upload1;
-    public Button tbar_searchButton;
+    public Button tbar_searchBtn;
     public Button tbar_explore;
     public Text album_amount;
     public ChoiceBox sorted_by_choicebox;
@@ -54,21 +50,22 @@ public class ExploreAlbumsController {
     public Text album_title5;
     public Text album_desc5;
     public Text album_tags5;
+    public Button tbar_albums;
 
-    public void switchToSearch(ActionEvent actionEvent) {
-
+    public void switchToSearch(ActionEvent actionEvent) throws IOException {
+        App.setRoot("search");
     }
 
-    public void switchToMain(MouseEvent mouseEvent) {
-
+    public void switchToMain(MouseEvent mouseEvent) throws IOException {
+        App.setRoot("main");
     }
 
-    public void switchToMap(ActionEvent actionEvent) {
-
+    public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map");
     }
 
-    public void switchToUpload(ActionEvent actionEvent) {
-
+    public void switchToUpload(ActionEvent actionEvent) throws IOException {
+        App.setRoot("upload");
     }
 
     public void switchToPrevious(ActionEvent actionEvent) {
@@ -76,14 +73,18 @@ public class ExploreAlbumsController {
     }
 
     public void switchToNext(ActionEvent actionEvent) throws IOException {
-        App.setRoot("search_page_2");
-    }
-
-    public void switchToCreateAlbum(ActionEvent actionEvent) {
 
     }
 
-    public void switchToExplore(ActionEvent actionEvent) {
+    public void switchToCreateAlbum(ActionEvent actionEvent) throws IOException {
+        App.setRoot("create_album_page");
+    }
 
+    public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore");
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }

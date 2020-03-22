@@ -30,6 +30,7 @@ public class UploadedPhoto implements Initializable {
     public ImageView photo_image;
 
     public Button acceptBtn;
+    public Button tbar_albums;
 
 
     /**
@@ -100,5 +101,9 @@ public class UploadedPhoto implements Initializable {
     public void uploadPhoto(ActionEvent actionEvent) throws IOException {
         //TODO: write method to accept and upload the photo with chosen settings, titles etc and then setRoot to logged-in page
         App.setRoot("main");
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }

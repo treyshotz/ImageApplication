@@ -19,6 +19,7 @@ public class Main {
     public Button tbar_upload;
 
     public Button uploadBtn;
+    public Button tbar_albums;
 
     /**
      * Method that changes stage to Main page
@@ -67,5 +68,9 @@ public class Main {
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
         App.setRoot("upload");
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }
