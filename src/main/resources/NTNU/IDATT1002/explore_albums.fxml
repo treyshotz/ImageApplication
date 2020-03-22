@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="2148.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="NTNU.IDATT1002.controllers.ExploreAlbums">
+<AnchorPane maxHeight="2148.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.ExploreAlbums">
     <children>
       <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -142,6 +142,11 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
+                                    <Button fx:id="open_album" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                             </children>
                                         </Pane>
                                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -191,6 +196,11 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
+                                    <Button fx:id="open_album1" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                             </children>
                                         </Pane>
                                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -240,6 +250,11 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
+                                    <Button fx:id="open_album2" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                             </children>
                                         </Pane>
                                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
@@ -289,6 +304,11 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
+                                    <Button fx:id="open_album3" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                             </children>
                                         </Pane>
                                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
@@ -338,6 +358,11 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
+                                    <Button fx:id="open_album4" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                             </children>
                                         </Pane>
                                     </children>
