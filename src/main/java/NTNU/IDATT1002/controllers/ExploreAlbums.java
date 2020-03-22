@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class ExploreAlbumsController {
+public class ExploreAlbums {
     public ImageView tbar_logo;
     public TextField tbar_search;
     public Button tbar_map;
@@ -77,7 +77,7 @@ public class ExploreAlbumsController {
     }
 
     public void switchToCreateAlbum(ActionEvent actionEvent) throws IOException {
-        App.setRoot("create_album_page");
+        App.setRoot("create_album");
     }
 
     public void switchToExplore(ActionEvent actionEvent) throws IOException {

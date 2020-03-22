@@ -84,6 +84,20 @@ public class Upload {
         App.setRoot("upload");
     }
 
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
+    }
+
+    private void switchToUploadedSingle() throws IOException {
+        App.setRoot("uploaded_single");
+    }
+
+    private void switchToUploadedMultiple() throws IOException {
+        App.setRoot("uploaded_multiple");
+    }
+
+
+
 
     /**
      * Method that opens file browser with an image filter
@@ -100,10 +114,10 @@ public class Upload {
         if(!list.isEmpty()){
             App.ex.setUploadedFiles(list);
             if (list.size() == 1){
-                switchToUploadedPhoto();
+                switchToUploadedSingle();
             }
             else {
-                switchToUploadedAlbum();
+                switchToUploadedMultiple();
             }
         }
     }
@@ -158,31 +172,11 @@ public class Upload {
         if(!list.isEmpty()){
             App.ex.setUploadedFiles(list);
             if (list.size() == 1){
-                switchToUploadedPhoto();
+                switchToUploadedSingle();
             }
             else {
-                switchToUploadedAlbum();
+                switchToUploadedMultiple();
             }
         }
-    }
-
-    /**
-     * Method that switches to Uploaded Photo page
-     * @throws IOException
-     */
-    public void switchToUploadedPhoto() throws IOException {
-        App.setRoot("uploaded_photo");
-    }
-
-    /**
-     * Method that switches to Uploaded Album page
-     * @throws IOException
-     */
-    private void switchToUploadedAlbum() throws IOException {
-        App.setRoot("uploaded_album");
-    }
-
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
     }
 }

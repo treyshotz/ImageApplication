@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class UploadedAlbum {
+public class UploadedMultiple {
 
 
     public ImageView tbar_logo;

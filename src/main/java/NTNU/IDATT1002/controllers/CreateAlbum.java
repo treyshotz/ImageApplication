@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class CreateAlbumController {
+public class CreateAlbum {
     public TextField tbar_search;
     public ImageView tbar_logo;
     public Button tbar_explore;

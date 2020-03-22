@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class ViewAlbumController {
+public class ViewAlbum {
     public TextField tbar_search;
     public ImageView tbar_logo;
     public Button tbar_explore;
@@ -38,19 +38,19 @@ public class ViewAlbumController {
     public Button tbar_albums;
 
     public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        App.setRoot("search_page");
+        App.setRoot("search");
     }
 
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.setRoot("upload_page");
+        App.setRoot("upload");
     }
 
     public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map_page");
+        App.setRoot("map");
     }
 
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_page");
+        App.setRoot("explore");
     }
 
     public void openPopUpPicture(MouseEvent mouseEvent) {
