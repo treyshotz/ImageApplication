@@ -14,6 +14,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "image")
+@NamedQueries({
+        @NamedQuery(name="Image.findAllByUsername",
+                query = "SELECT ia from Image ia WHERE ia.user.username = :username")
+})
 public class Image {
 
   @Id
@@ -21,7 +25,10 @@ public class Image {
   private Long id;
 
   @ManyToMany
-  private List<ImageAlbum> imageAlbums = new ArrayList<>();;
+  private List<ImageAlbum> imageAlbums = new ArrayList<>();
+
+  @ManyToMany
+  private List<Tag> tags = new ArrayList<>();
 
   @ManyToOne
   private User user;
@@ -49,6 +56,7 @@ public class Image {
     this.user = user;
     this.metadata = metadata;
     this.path = path;
+    this.tags = new ArrayList<>();
   }
 
   public Long getId() {
@@ -83,7 +91,15 @@ public class Image {
     return imageAlbums;
   }
 
-  public Metadata getMetadata() {
+  public void addTag(Tag tag){
+      tags.add(tag);
+  }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public Metadata getMetadata() {
     return metadata;
   }
 
@@ -94,6 +110,7 @@ public class Image {
   public String getPath() {
     return path;
   }
+
 
   /**
    * Add this image in the given image album.
