@@ -34,7 +34,8 @@ public class ViewAlbumController {
     public Text picture_title_field;
     public Text picture_tagsField;
     public ImageView main_picture;
-    public Button tbar_searchButton;
+    public Button tbar_searchBtn;
+    public Button tbar_albums;
 
     public void switchToSearch(ActionEvent actionEvent) throws IOException {
         App.setRoot("search_page");
@@ -50,10 +51,6 @@ public class ViewAlbumController {
 
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
         App.setRoot("explore_page");
-    }
-
-    public void uploadPhoto(ActionEvent actionEvent) throws IOException {
-        App.setRoot("logged-in");
     }
 
     public void openPopUpPicture(MouseEvent mouseEvent) {
@@ -94,5 +91,13 @@ public class ViewAlbumController {
 
     public void createPdf(ActionEvent actionEvent) {
         //write method that generates and downloads a PDF version of the album
+    }
+
+    public void switchToMain(MouseEvent mouseEvent) throws IOException {
+        App.setRoot("main");
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }

@@ -19,6 +19,7 @@ public class Map {
 
     public TextField search;
     public Button searchBtn;
+    public Button tbar_albums;
 
     /**
      * Method that changes stage to Main page
@@ -75,6 +76,10 @@ public class Map {
      */
     public void MapSearch(ActionEvent actionEvent) {
         //TODO: Make method
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }
 

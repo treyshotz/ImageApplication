@@ -21,6 +21,7 @@ public class Explore {
     public ScrollPane scrollPane;
     public Button footer_previousBtn;
     public Button footer_nextBtn;
+    public Button tbar_albums;
 
     /**
      * Method that changes stage to Main page
@@ -87,5 +88,9 @@ public class Explore {
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
         //TODO: Make method that updates content to next "page"
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }

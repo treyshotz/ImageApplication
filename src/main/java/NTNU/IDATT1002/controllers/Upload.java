@@ -33,6 +33,7 @@ public class Upload {
 
     public Button uploadBtn;
     public Pane drag_drop;
+    public Button tbar_albums;
 
     /**
      * Method that changes stage to Main page
@@ -179,5 +180,9 @@ public class Upload {
      */
     private void switchToUploadedAlbum() throws IOException {
         App.setRoot("uploaded_album");
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }

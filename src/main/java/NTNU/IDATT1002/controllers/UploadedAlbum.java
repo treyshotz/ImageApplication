@@ -41,6 +41,7 @@ public class UploadedAlbum {
     public ImageView photo_image4;
 
     public Button acceptBtn;
+    public Button tbar_albums;
 
     /**
      * Method that changes stage to Main page
@@ -100,5 +101,9 @@ public class UploadedAlbum {
     public void uploadAlbum(ActionEvent actionEvent) throws IOException {
         //TODO: write method to accept and upload the photo with chosen settings, titles etc and then setRoot to main page
         App.setRoot("main");
+    }
+
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
     }
 }

@@ -12,26 +12,27 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Map">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="NTNU.IDATT1002.controllers.Map">
     <children>
         <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <ImageView fx:id="tbar_logo" onMouseClicked="#switchToMain" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Images/PlaceholderLogo.png" />
-                            </image>
-                        </ImageView>
-                        <Pane prefHeight="100.0" prefWidth="343.0" />
-                        <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-                        <Button fx:id="tbar_searchBtn" onAction="#switchToSearch" mnemonicParsing="false" text="SEARCH" />
-                        <Button fx:id="tbar_explore" onAction="#switchToExplore" mnemonicParsing="false" text="EXPLORE" />
-                        <Button fx:id="tbar_map" onAction="#switchToMap" mnemonicParsing="false" text="MAP" />
-                        <Pane prefHeight="100.0" prefWidth="174.0" />
-                        <Button fx:id="tbar_upload" onAction="#switchToUpload" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
-                    </children>
-                </HBox>
+            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+               <children>
+                  <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/PlaceholderLogo.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="100.0" prefWidth="343.0" />
+                  <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+                  <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
+                  <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
+                  <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
+                  <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+                  <Pane prefHeight="100.0" prefWidth="174.0" />
+                  <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+               </children>
+            </HBox>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="183.0" prefWidth="1918.0" style="-fx-background-color: #888888;">
                     <children>
                         <TextField fx:id="search" layoutX="626.0" layoutY="70.0" prefHeight="44.0" prefWidth="664.0" promptText="Search for your location">
@@ -44,7 +45,7 @@
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Text>
-                        <Button fx:id="searchBtn" onAction="#MapSearch" layoutX="1314.0" layoutY="70.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="99.0" text="SEARCH">
+                        <Button fx:id="searchBtn" layoutX="1314.0" layoutY="70.0" mnemonicParsing="false" onAction="#MapSearch" prefHeight="44.0" prefWidth="99.0" text="SEARCH">
                             <font>
                                 <Font size="18.0" />
                             </font>
