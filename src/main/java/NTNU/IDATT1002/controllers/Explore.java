@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
@@ -22,6 +23,22 @@ public class Explore {
     public Button footer_previousBtn;
     public Button footer_nextBtn;
     public Button tbar_albums;
+    public Pane pane1_1;
+    public Pane pane1_2;
+    public Pane pane1_3;
+    public Pane pane2_1;
+    public Pane pane2_2;
+    public Pane pane2_3;
+    public Pane pane3_1;
+    public Pane pane3_2;
+    public Pane pane3_3;
+    public Pane pane4_1;
+    public Pane pane4_2;
+    public Pane pane4_3;
+    public Pane pane5_1;
+    public Pane pane5_2;
+    public Pane pane5_3;
+
 
     /**
      * Method that changes stage to Main page
@@ -90,7 +107,22 @@ public class Explore {
         //TODO: Make method that updates content to next "page"
     }
 
+    /**
+     * Method for switching to Explore Albums page
+     * @param actionEvent
+     * @throws IOException
+     */
     public void switchToAlbums(ActionEvent actionEvent) throws IOException {
         App.setRoot("explore_albums");
+    }
+
+    /**
+     * Method that opens "View picture" page for the picture that got clicked
+     * @param mouseEvent
+     * @throws IOException
+     */
+    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
+        //TODO: write method to switch to the correct picture depending on which pane gets clicked
+        App.setRoot("view_picture");
     }
 }
