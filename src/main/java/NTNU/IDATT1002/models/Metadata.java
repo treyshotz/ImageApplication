@@ -2,28 +2,26 @@ package NTNU.IDATT1002.models;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 /**
  * Creates Metadata table
  */
 
 @Entity
-@Table(name = "Metadata")
+@Table(name = "metadata")
 public class Metadata {
 
     /**
      * Defines metadataId, may not be blank
      */
-
-    @Id @NotBlank(message = "Metadata-Id may not be blank")
+    @Id
+    @GeneratedValue
     private Long metadataId;
 
     /**
      * One to one relation joining imageId
      * on image_id column in image
      */
-
     @OneToOne
     @JoinColumn(name = "image_id")
     private Image image;
@@ -31,48 +29,44 @@ public class Metadata {
     @OneToOne
     private GeoLocation geoLocation;
 
-    @NotBlank (message = "GeolocationId may not be blank")
-    private Long geoLocationId;
-
     @OneToOne
     private Histogram histogram;
 
-    @NotBlank (message = "HistogramId may not be blank")
-    private Long histogramId;
-
-    public Metadata(Long metadataId, Long geoLocationId, Long histogramId){
-        this.metadataId = metadataId;
-        this.geoLocationId = geoLocationId;
-        this.histogramId = histogramId;
+    public Metadata() {
     }
 
-    public Metadata(Metadata metadata){
-        this(metadata.getMetadataId(),
-                metadata.getGeoLocationId(),
-                metadata.getHistogramId());
+    public Metadata(Image image, GeoLocation geoLocation, Histogram histogram) {
+        this.image = image;
+        this.geoLocation = geoLocation;
+        this.histogram = histogram;
     }
+
 
     public Long getMetadataId() {
         return metadataId;
     }
 
-    public Long getGeoLocationId() {
-        return geoLocationId;
+    public Image getImage() {
+        return image;
     }
 
-    public Long getHistogramId() {
-        return histogramId;
+    public GeoLocation getGeoLocation() {
+        return geoLocation;
     }
 
-    public void setGeoLocationId(Long geoLocationId) {
-        this.geoLocationId = geoLocationId;
+    public Histogram getHistogram() {
+        return histogram;
     }
 
-    public void setMetadataId(Long metadataId) {
-        this.metadataId = metadataId;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
-    public void setHistogramId(Long histogramId) {
-        this.histogramId = histogramId;
+    public void setGeoLocation(GeoLocation geoLocation) {
+        this.geoLocation = geoLocation;
+    }
+
+    public void setHistogram(Histogram histogram) {
+        this.histogram = histogram;
     }
 }

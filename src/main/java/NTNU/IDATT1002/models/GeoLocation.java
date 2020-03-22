@@ -9,21 +9,20 @@ import javax.validation.constraints.NotBlank;
  */
 
 @Entity
-@Table(name = "Geolocation")
+@Table(name = "geolocation")
 public class GeoLocation {
 
     /**
      * Defines geolocationId, this may not be blank
      */
-
-    @Id @NotBlank(message = "Geolocation-Id may not be blank")
+    @Id
+    @GeneratedValue
     private Long geoLocationId;
 
     /**
      * One to one relation between geolocationId in table Geolocation
      * Joins column geolocation_id in metadata
      */
-
     @OneToOne
     @JoinColumn(name = "metadata_id")
     private Metadata metadata;
@@ -31,31 +30,18 @@ public class GeoLocation {
     @NotBlank (message = "Altitude may not be blank")
     private String altitude;
 
-    @NotBlank (message = "Longditude may not be blank")
-    private String longditude;
+    @NotBlank (message = "Longitude may not be blank")
+    private String longitude;
 
     /**
      * Creates constructor for geolocation that takes in each parameter
-     * @param geoLocationId
+    *
      * @param altitude
-     * @param longditude
+     * @param longitude
      */
-
-    public GeoLocation(Long geoLocationId, String altitude, String longditude){
-        this.geoLocationId = geoLocationId;
+    public GeoLocation(String altitude, String longitude){
         this.altitude = altitude;
-        this.longditude = longditude;
-    }
-
-    /**
-     *  Another constructor that takes in one geolocation, and uses get-methods to define parameters
-     * @param geoLocation
-     */
-
-    public GeoLocation(GeoLocation geoLocation){
-        this(geoLocation.getGeoLocationId(),
-               geoLocation.getAltitude(),
-                geoLocation.getLongditude());
+        this.longitude = longitude;
     }
 
     public Long getGeoLocationId() {
@@ -66,8 +52,8 @@ public class GeoLocation {
         return altitude;
     }
 
-    public String getLongditude() {
-        return longditude;
+    public String getLongitude() {
+        return longitude;
     }
 
     public void setGeoLocationId(Long geoLocationId) {
@@ -78,7 +64,7 @@ public class GeoLocation {
         this.altitude = altitude;
     }
 
-    public void setLongditude(String longditude) {
-        this.longditude = longditude;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

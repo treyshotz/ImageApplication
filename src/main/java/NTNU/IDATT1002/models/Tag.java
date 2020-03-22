@@ -3,9 +3,8 @@ package NTNU.IDATT1002.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -13,16 +12,14 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "Tag")
+@Table(name = "tag")
 public class Tag {
 
     /**
      * Defines the tag-id, this cannot be blank
      */
-
-
-    @Id @NotBlank(message = "Tag-Id may not be blank")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue
     private Long tagId;
 
 
@@ -30,52 +27,84 @@ public class Tag {
      * Creates a many to many relations between tag and image
      * on table ImageTags, joining column tagId and imageId
      */
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
-            name = "ImageTags",
-            joinColumns = { @JoinColumn(name = "tagId")},
-            inverseJoinColumns = {@JoinColumn(name = "imageId")}
+            name = "image_tag",
+            joinColumns = {@JoinColumn(name = "tag_id")},
+            inverseJoinColumns = {@JoinColumn(name = "image_id")}
     )
     Set<Image> image = new HashSet<>();
 
-    @NotBlank (message = "Tag title may not be blank")
-    private String title;
+    /**
+     * Creates a many to many relations between tag and image album
+     */
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "image_album_tags",
+            joinColumns = {@JoinColumn(name = "tag_id")},
+            inverseJoinColumns = {@JoinColumn(name = "image_album_id")}
+    )
+    Set<Image> imageAlbums = new HashSet<>();
+
+    @NotBlank(message = "Tag name may not be blank")
+    private String name;
+
+    public Tag() {
+    }
 
     /**
-     * Constructor with tagId and title as parameters
-     * @param tagId
-     * @param title
+     * Contructor to set initial tag name.
+     *
+     * @param name the name of the tag
      */
+    public Tag(String name) {
+        this.name = name;
+    }
 
-    public Tag(Long tagId, String title){
+    /**
+     * Constructor with tagId and name as parameters
+     *
+     * @param tagId
+     * @param name
+     */
+    public Tag(Long tagId, String name) {
         this.tagId = tagId;
-        this.title = title;
+        this.name = name;
     }
 
     /**
      * Constructor thar takes in a tag object
+     *
      * @param tag
      */
-
-    public Tag(Tag tag){
+    public Tag(Tag tag) {
         this(tag.getTagId(),
-                tag.getTitle());
+                tag.getName());
     }
 
     public Long getTagId() {
         return tagId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(tagId, tag.tagId) &&
+                Objects.equals(name, tag.name);
+    }
+
 }

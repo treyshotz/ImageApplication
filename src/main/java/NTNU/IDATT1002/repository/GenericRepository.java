@@ -53,7 +53,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     public Optional<T> save(T entity) {
         try {
             persist(entity);
-            return Optional.of(entity);
+            return Optional.ofNullable(entity);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,7 +77,8 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
      *
      * @return all entities
      */
-    public List<?> findAll() {
+    @SuppressWarnings("unchecked")
+    public List<T> findAll() {
         return entityManager.createQuery("from " + classType.getName())
                 .getResultList();
     }

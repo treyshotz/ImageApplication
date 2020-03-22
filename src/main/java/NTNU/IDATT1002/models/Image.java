@@ -17,43 +17,38 @@ import java.util.List;
 public class Image {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue
   private Long id;
 
   @ManyToMany
   private List<ImageAlbum> imageAlbums = new ArrayList<>();;
 
+  @ManyToOne
+  private User user;
+
   @Lob
   @NotNull
   @NotEmpty
-  private byte[] image;
+  private byte[] rawImage;
 
-  @NotBlank
-  private Long albumId;
-
-  @NotBlank
-  private Long metaDataId;
-
-  @NotBlank
-  @CreationTimestamp
-  private Date uploadAt;
+  @OneToOne
+  private Metadata metadata;
 
   @NotBlank
   private String path;
 
+  @CreationTimestamp
+  private Date uploadedAt;
+
   public Image() {
   }
 
-  public Image(byte[] image, Long albumId, Long metaDataId, Date uploadAt, String path) {
-    this.image = image;
-    this.albumId = albumId;
-    this.metaDataId = metaDataId;
-    this.uploadAt = uploadAt;
+  public Image(byte[] rawImage, ImageAlbum imageAlbum, User user, Metadata metadata, String path) {
+    this.rawImage = rawImage;
+    this.addImageAlbum(imageAlbum);
+    this.user = user;
+    this.metadata = metadata;
     this.path = path;
-  }
-
-  public Image(Image image) {
-    this(image.getImage(), image.getAlbumId(), image.getMetaDataId(), image.getUploadAt(), image.getPath());
   }
 
   public Long getId() {
@@ -64,45 +59,60 @@ public class Image {
     this.id = id;
   }
 
-  public byte[] getImage() {
-    return image;
+  public byte[] getRawImage() {
+    return rawImage;
   }
 
-  public void setImage(byte[] image) {
-    this.image = image;
+  public void setRawImage(byte[] rawImage) {
+    this.rawImage = rawImage;
   }
 
-  public void setAlbumId(Long albumId) {
-    this.albumId = albumId;
+  public void setUser(User user) {
+    this.user = user;
   }
 
-  public void setMetaDataId(Long metaDataId) {
-    this.metaDataId = metaDataId;
-  }
-
-  public void setUploadAt(Date uploadAt) {
-    this.uploadAt = uploadAt;
+  public void setMetadata(Metadata metadata) {
+    this.metadata = metadata;
   }
 
   public void setPath(String path) {
     this.path = path;
   }
 
-
-  public Long getAlbumId() {
-    return albumId;
+  public List<ImageAlbum> getImageAlbums() {
+    return imageAlbums;
   }
 
-  public Long getMetaDataId() {
-    return metaDataId;
+  public Metadata getMetadata() {
+    return metadata;
   }
 
-  public Date getUploadAt() {
-    return uploadAt;
+  public Date getUploadedAt() {
+    return uploadedAt;
   }
 
   public String getPath() {
     return path;
+  }
+
+  /**
+   * Add this image in the given image album.
+   *
+   * @param imageAlbum the image album to add to
+   */
+  public void addImageAlbum(ImageAlbum imageAlbum) {
+    imageAlbum.addImage(this);
+    imageAlbums.add(imageAlbum);
+  }
+
+  /**
+   * Remove this image from the given image.
+   *
+   * @param imageAlbum the image album to remove from
+   */
+  public void removeImageAlbum(ImageAlbum imageAlbum) {
+    imageAlbum.removeImage(this);
+    imageAlbums.remove(imageAlbum);
   }
 
   @Override

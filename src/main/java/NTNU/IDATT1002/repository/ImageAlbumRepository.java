@@ -16,9 +16,9 @@ import java.util.List;
 public class ImageAlbumRepository extends GenericRepository<ImageAlbum, Long> {
 
     /**
-     * Mapping to @NamedQuery 'find all image albums by title' defined in {@link  ImageAlbum}
+     * Mapping to @NamedQuery 'find all image albums by users username' defined in {@link  ImageAlbum}
      */
-    public static final String IMAGE_ALBUM_FIND_BY_TITLE = "ImageAlbum.findAllByTitle";
+    public static final String IMAGE_ALBUM_FIND_BY_USERNAME = "ImageAlbum.findAllByUsername";
 
     /**
      * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link ImageAlbum}
@@ -31,14 +31,14 @@ public class ImageAlbumRepository extends GenericRepository<ImageAlbum, Long> {
     }
 
     /**
-     * Retrieves all image albums with the given title.
+     * Retrieves all image albums of the user with the given username.
      *
-     * @param title the image album title
-     * @return all image albums with the given title
+     * @param username the username to query for
+     * @return the list of the users image albums.
      */
-    public List<?> findAllByTitle(String title) {
-        return entityManager.createNamedQuery(IMAGE_ALBUM_FIND_BY_TITLE)
-                .setParameter("queried_title", "%" + title + "%")
+    public List<ImageAlbum> findAllByUsername(String username) {
+        return entityManager.createNamedQuery(IMAGE_ALBUM_FIND_BY_USERNAME, ImageAlbum.class)
+                .setParameter("username", username)
                 .getResultList();
     }
 
