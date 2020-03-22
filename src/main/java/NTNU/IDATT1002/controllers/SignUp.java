@@ -10,6 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Controls the buttons and changeable elements on signup.fxml,
+ * a page where you create a new user for the application
+ * @version 1.0 22.03.2020
+ */
 public class SignUp {
 
     public GridPane signup_form;
@@ -25,11 +30,13 @@ public class SignUp {
     public Button signup_btn;
 
     /**
-     * Method that switches to login page
+     * Method that changes stage to Login
      * @param actionEvent
      * @throws IOException
      */
-    public void switchToLogin(ActionEvent actionEvent) throws IOException {
+    public void signup(ActionEvent actionEvent) throws IOException {
+        //TODO: Verify that all fields is properly filled
+        //TODO: Register new user in database
         App.setRoot("login");
     }
 }

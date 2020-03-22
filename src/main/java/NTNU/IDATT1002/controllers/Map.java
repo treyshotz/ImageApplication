@@ -9,6 +9,11 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+/**
+ * Controls the buttons and changeable elements on map.fxml,
+ * a page where you can find images by location
+ * @version 1.0 22.03.2020
+ */
 public class Map {
     public ImageView tbar_logo;
     public TextField tbar_search;
@@ -31,25 +36,7 @@ public class Map {
     }
 
     /**
-     * Method that changes stage to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method for switching to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method for switching to Search page. It reads the value of the search
+     * Method that changes stage to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -62,7 +49,34 @@ public class Map {
     }
 
     /**
-     * Method for switching to Upload page
+     * Method that changes stage to Explore page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore");
+    }
+
+    /**
+     * Method that changes stage to Albums page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.setRoot("explore_albums");
+    }
+
+    /**
+     * Method that changes stage to Map page
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map");
+    }
+
+    /**
+     * Method that changes stage to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
@@ -76,10 +90,6 @@ public class Map {
      */
     public void MapSearch(ActionEvent actionEvent) {
         //TODO: Make method
-    }
-
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
     }
 }
 

@@ -78,7 +78,7 @@
                               </Text>
                            </children>
                         </Pane>
-                        <Button fx:id="acceptBtn" layoutX="493.0" layoutY="870.0" mnemonicParsing="false" onAction="#uploadPhoto" text="ACCEPT">
+                        <Button fx:id="acceptBtn" layoutX="493.0" layoutY="870.0" mnemonicParsing="false" onAction="#uploadSingle" text="ACCEPT">
                            <font>
                               <Font size="18.0" />
                            </font>
