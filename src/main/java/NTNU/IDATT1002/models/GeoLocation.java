@@ -28,19 +28,22 @@ public class GeoLocation {
     private Metadata metadata;
 
     @NotBlank (message = "Altitude may not be blank")
-    private String altitude;
+    private String latitude;
 
     @NotBlank (message = "Longitude may not be blank")
     private String longitude;
 
+    public GeoLocation() {
+
+    }
     /**
      * Creates constructor for geolocation that takes in each parameter
-    *
-     * @param altitude
+     *
+     * @param latitude
      * @param longitude
      */
-    public GeoLocation(String altitude, String longitude){
-        this.altitude = altitude;
+    public GeoLocation(String latitude, String longitude){
+        this.latitude = latitude;
         this.longitude = longitude;
     }
 
@@ -48,8 +51,8 @@ public class GeoLocation {
         return geoLocationId;
     }
 
-    public String getAltitude() {
-        return altitude;
+    public String getLatitude() {
+        return latitude;
     }
 
     public String getLongitude() {
@@ -60,8 +63,8 @@ public class GeoLocation {
         this.geoLocationId = geoLocationId;
     }
 
-    public void setAltitude(String altitude) {
-        this.altitude = altitude;
+    public void setLatitude(String altitude) {
+        this.latitude = altitude;
     }
 
     public void setLongitude(String longitude) {

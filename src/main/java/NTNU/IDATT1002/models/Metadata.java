@@ -41,7 +41,6 @@ public class Metadata {
         this.histogram = histogram;
     }
 
-
     public Long getMetadataId() {
         return metadataId;
     }

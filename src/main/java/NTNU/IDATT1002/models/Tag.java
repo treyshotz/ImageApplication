@@ -1,11 +1,17 @@
 package NTNU.IDATT1002.models;
 
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+/**
+ * Tag model
+ * @author Stian Mogen
+ */
 
 /**
  * Creates table named tag

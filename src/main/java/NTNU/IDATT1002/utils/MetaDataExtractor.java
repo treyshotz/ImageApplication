@@ -1,5 +1,8 @@
 package NTNU.IDATT1002.utils;
 
+import NTNU.IDATT1002.models.GeoLocation;
+import NTNU.IDATT1002.models.Histogram;
+import NTNU.IDATT1002.models.Image;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -10,61 +13,14 @@ import com.drew.metadata.exif.*;
 import com.drew.metadata.jpeg.JpegDirectory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MetaDataExtractor {
-
-    private final File image;
-
-    public MetaDataExtractor(File image) {
-        this.image = image;
-    }
-
-    /**
-     * Extracts all data possible for a image
-     *
-     * @return
-     * @throws ImageProcessingException
-     * @throws IOException
-     */
-    public String getAll() throws ImageProcessingException, IOException {
-        Metadata metadata = ImageMetadataReader.readMetadata(this.image);
-        String text = "";
-        for (Directory d : metadata.getDirectories()) {
-            for (Tag t : d.getTags()) {
-                text += t.toString() + " | ";
-            }
-        }
-        text += "\n";
-        return text;
-    }
-
-    /**
-     * Returns a string with the image dimension
-     *
-     * @return
-     * @throws ImageProcessingException
-     * @throws IOException
-     * @throws MetadataException
-     */
-    private String getDimension() throws ImageProcessingException, IOException, MetadataException {
-        try {
-            String dimension = "Dimension: ";
-
-            Metadata metadata = ImageMetadataReader.readMetadata(this.image);
-
-            JpegDirectory jpeg = metadata.getFirstDirectoryOfType(JpegDirectory.class);
-            dimension += jpeg.getImageHeight();
-            dimension += "x";
-            dimension += jpeg.getImageWidth();
-            return dimension;
-        } catch (NullPointerException e) {
-
-        }
-        return "No dimension found";
-    }
 
     /**
      * Returns a string with the GPS position
@@ -74,35 +30,53 @@ public class MetaDataExtractor {
      * @throws IOException
      * @throws MetadataException
      */
-    private String getGPS() throws ImageProcessingException, IOException, MetadataException {
-        try {
-            String gps = "";
+    private static GeoLocation getGPS(File file) throws ImageProcessingException, IOException, MetadataException {
+        String gps = "";
+        String latitude = "";
+        String longitude = "";
+        GeoLocation geoLocation = new GeoLocation("0", "0");
 
-            Metadata metadata = ImageMetadataReader.readMetadata(this.image);
+        try {
+            Metadata metadata = ImageMetadataReader.readMetadata(file);
 
             GpsDirectory gpspos = metadata.getFirstDirectoryOfType(GpsDirectory.class);
-            gps += "GPS position: " + gpspos.getGeoLocation();
+            gps += gpspos.getGeoLocation();
+            String[] pos = gps.split(", ");
+            latitude = pos[0];
+            longitude = pos[0];
 
-            return gps;
+            geoLocation.setLatitude(latitude);
+            geoLocation.setLongitude(longitude);
         } catch (NullPointerException e) {
-
+            e.printStackTrace();
         }
-        return "No GPS information found";
+        return geoLocation;
     }
 
-    /**
-     * Returns all predetermined metadata as an ArrayList
-     * @return
-     * @throws IOException
-     * @throws MetadataException
-     * @throws ImageProcessingException
-     */
-    public ArrayList<String> getNecessary() throws IOException, MetadataException, ImageProcessingException {
-        ArrayList<String> information = new ArrayList<String>();
+    public static Histogram getHistorgram(File file) throws ImageProcessingException, IOException {
+        String text = "";
+        Metadata metadata = ImageMetadataReader.readMetadata(file);
+        Histogram histogram = new Histogram();
 
-        information.add(getGPS());
-        information.add(getDimension());
-
-        return information;
+        for(Directory d : metadata.getDirectories()) {
+            for (Tag t : d.getTags()) {
+                text += t.toString() + " | ";
+            }
+        }
+        histogram.setData(text);
+        return histogram;
     }
+
+    public static NTNU.IDATT1002.models.Metadata assembleMetaData(File file) {
+        NTNU.IDATT1002.models.Metadata metadata = new NTNU.IDATT1002.models.Metadata();
+        try {
+            metadata.setGeoLocation(getGPS(file));
+            metadata.setHistogram(getHistorgram(file));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return metadata;
+    }
+
 }
