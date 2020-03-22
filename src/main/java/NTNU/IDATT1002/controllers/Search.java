@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -36,6 +37,36 @@ public class Search implements Initializable {
     public Button footer_previousBtn;
     public Button footer_nextBtn;
     public Button tbar_albums;
+    public Pane pane1;
+    public ImageView picture;
+    public Text tag_field;
+    public Text title_field;
+    public Text desc_field;
+    public Button openPic_btn;
+    public Pane pane11;
+    public ImageView picture1;
+    public Text tag_field1;
+    public Text title_field1;
+    public Text desc_field1;
+    public Button openPic_btn1;
+    public Pane pane12;
+    public ImageView picture2;
+    public Text tag_field2;
+    public Text title_field2;
+    public Text desc_field2;
+    public Button openPic_btn2;
+    public Pane pane13;
+    public ImageView picture3;
+    public Text tag_field3;
+    public Text title_field3;
+    public Text desc_field3;
+    public Button openPic_btn3;
+    public Pane pane14;
+    public ImageView picture4;
+    public Text tag_field4;
+    public Text title_field4;
+    public Text desc_field4;
+    public Button openPic_btn4;
 
 
     /**
@@ -123,5 +154,15 @@ public class Search implements Initializable {
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
         //TODO: Make method that updates content to next "page"
+    }
+
+    /**
+     * Method for opening the chosen picture
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToPicture(ActionEvent actionEvent) throws IOException {
+        //TODO: Make method that opens the chosen picture
+        App.setRoot("view_picture");
     }
 }
