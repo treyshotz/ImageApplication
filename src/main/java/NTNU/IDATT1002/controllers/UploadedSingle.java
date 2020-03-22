@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UploadedPhoto implements Initializable {
+public class UploadedSingle implements Initializable {
 
 
     public ImageView tbar_logo;
