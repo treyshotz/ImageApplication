@@ -13,23 +13,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadedAlbumController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadedAlbum">
     <children>
         <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+                <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tbar_logo" onMouseClicked="#switchToMain" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/PlaceholderLogo.png" />
                             </image>
                         </ImageView>
                         <Pane prefHeight="100.0" prefWidth="343.0" />
-                        <TextField fx:id="tbar_search" onAction="#switchToSearch" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-                        <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
-                        <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+                        <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+                        <Button fx:id="tbar_searchBtn" onAction="#switchToSearch" mnemonicParsing="false" text="SEARCH" />
+                        <Button fx:id="tbar_explore" onAction="#switchToExplore" mnemonicParsing="false" text="EXPLORE" />
+                        <Button fx:id="tbar_map" onAction="#switchToMap" mnemonicParsing="false" text="MAP" />
                         <Pane prefHeight="100.0" prefWidth="174.0" />
-                        <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+                        <Button fx:id="tbar_upload" onAction="#switchToUpload" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0">
@@ -45,19 +46,19 @@
                                                     <Font name="System Bold" size="36.0" />
                                                 </font>
                                             </Text>
-                                            <TextField fx:id="album_title_field" layoutX="486.0" layoutY="110.0" prefHeight="40.0" prefWidth="488.0" promptText="Insert title here" />
+                                            <TextField layoutX="486.0" layoutY="110.0" prefHeight="40.0" prefWidth="488.0" promptText="Insert title here" />
                                             <Text layoutX="238.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUMTAGS:">
                                                 <font>
                                                     <Font name="System Bold" size="24.0" />
                                                 </font>
                                             </Text>
-                                            <TextField fx:id="album_tag_field" layoutX="411.0" layoutY="157.0" prefHeight="32.0" prefWidth="564.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextField layoutX="411.0" layoutY="157.0" prefHeight="32.0" prefWidth="564.0" promptText="#Blue, #water, #summer, etc..." />
                                             <Text layoutX="239.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUMDESCRIPTION:">
                                                 <font>
                                                     <Font name="System Bold" size="24.0" />
                                                 </font>
                                             </Text>
-                                            <TextArea fx:id="album_desc_field" layoutX="238.0" layoutY="239.0" prefHeight="140.0" prefWidth="739.0" promptText="Insert description here" />
+                                            <TextArea layoutX="238.0" layoutY="239.0" prefHeight="140.0" prefWidth="739.0" promptText="Insert description here" />
                                             <Text layoutX="1002.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INCLUDED METADATA:">
                                                 <font>
                                                     <Font name="System Bold" size="24.0" />
@@ -84,10 +85,10 @@
                                                     <Font name="System Bold" size="24.0" />
                                                 </font>
                                             </Text>
-                                            <TextField fx:id="title_field" layoutX="1002.0" layoutY="552.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
-                                            <TextField fx:id="tag_field" layoutX="963.0" layoutY="630.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
-                                            <TextArea fx:id="desc_field" layoutX="872.0" layoutY="734.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
-                                            <ImageView fx:id="uploaded_image" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
+                                            <TextField fx:id="photo_title" layoutX="1002.0" layoutY="552.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                            <TextField fx:id="photo_tag" layoutX="963.0" layoutY="630.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextArea fx:id="photo_desc" layoutX="872.0" layoutY="734.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                            <ImageView fx:id="photo_image" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../../Images/placeholder-1920x1080.png" /> <!-- This is the URL to the image in question, needs to change in accordance with the current uploaded picture-->
                                                 </image>
@@ -108,10 +109,10 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
-                                    <TextField fx:id="title_field2" layoutX="1002.0" layoutY="914.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
-                                    <TextField fx:id="tag_field2" layoutX="963.0" layoutY="992.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
-                                    <TextArea fx:id="desc_field2" layoutX="872.0" layoutY="1096.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
-                                    <ImageView fx:id="uploaded_image1" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="911.0" pickOnBounds="true" preserveRatio="true">
+                                    <TextField fx:id="photo_title2" layoutX="1002.0" layoutY="914.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                    <TextField fx:id="photo_tag2" layoutX="963.0" layoutY="992.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                    <TextArea fx:id="photo_desc2" layoutX="872.0" layoutY="1096.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                    <ImageView fx:id="photo_image2" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="911.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../Images/placeholder-1920x1080.png" />
                                        </image>
@@ -132,10 +133,10 @@
                                                     <Font name="System Bold" size="24.0" />
                                                 </font>
                                             </Text>
-                                            <TextField fx:id="title_field3" layoutX="1002.0" layoutY="1276.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
-                                            <TextField fx:id="tag_field3" layoutX="963.0" layoutY="1354.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
-                                            <TextArea fx:id="desc_field3" layoutX="872.0" layoutY="1458.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
-                                            <ImageView fx:id="uploaded_image2" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="1273.0" pickOnBounds="true" preserveRatio="true">
+                                            <TextField fx:id="photo_title3" layoutX="1002.0" layoutY="1276.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                            <TextField fx:id="photo_tag3" layoutX="963.0" layoutY="1354.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextArea fx:id="photo_desc3" layoutX="872.0" layoutY="1458.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                            <ImageView fx:id="photo_image3" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="1273.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../../Images/placeholder-1920x1080.png" /> <!-- This is the URL to the image in question, needs to change in accordance with the current uploaded picture-->
                                                 </image>
@@ -156,15 +157,15 @@
                                                     <Font name="System Bold" size="24.0" />
                                                 </font>
                                             </Text>
-                                            <TextField fx:id="title_field4" layoutX="1002.0" layoutY="1638.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
-                                            <TextField fx:id="tag_field4" layoutX="963.0" layoutY="1716.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
-                                            <TextArea fx:id="desc_field4" layoutX="872.0" layoutY="1820.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
-                                            <ImageView fx:id="uploaded_image3" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="1635.0" pickOnBounds="true" preserveRatio="true">
+                                            <TextField fx:id="photo_title4" layoutX="1002.0" layoutY="1638.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                                            <TextField fx:id="photo_tag4" layoutX="963.0" layoutY="1716.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                                            <TextArea fx:id="photo_desc4" layoutX="872.0" layoutY="1820.0" prefHeight="140.0" prefWidth="822.0" promptText="Insert description here" />
+                                            <ImageView fx:id="photo_image4" fitHeight="325.0" fitWidth="608.0" layoutX="238.0" layoutY="1635.0" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../../Images/placeholder-1920x1080.png" />
                                                 </image>
                                             </ImageView>
-                                    <Button fx:id="accept_button" layoutX="880.0" layoutY="2000.0" mnemonicParsing="false" onAction="#uploadAlbum" text="ACCEPT">
+                                    <Button fx:id="acceptBtn" layoutX="880.0" layoutY="2000.0" mnemonicParsing="false" onAction="#uploadAlbum" text="ACCEPT">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>

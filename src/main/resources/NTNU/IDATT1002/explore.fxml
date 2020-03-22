@@ -13,23 +13,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.ExploreController">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Explore">
    <children>
       <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="tbar_logo" onMouseClicked="#switchToMain" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Images/PlaceholderLogo.png" />
                </image>
             </ImageView>
             <Pane prefHeight="100.0" prefWidth="343.0" />
-            <TextField fx:id="tbar_search" onAction="#switchToSearch" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-            <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+            <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+            <Button fx:id="tbar_searchBtn" onAction="#switchToSearch" mnemonicParsing="false" text="SEARCH" />
+            <Button fx:id="tbar_explore" onAction="#switchToExplore" mnemonicParsing="false" text="EXPLORE" />
+            <Button fx:id="tbar_map" onAction="#switchToMap" mnemonicParsing="false" text="MAP" />
             <Pane prefHeight="100.0" prefWidth="174.0" />
-            <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+            <Button fx:id="tbar_upload" onAction="#switchToUpload" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
          </children>
       </HBox>
-      <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="100.0" prefHeight="980.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="100.0" prefHeight="980.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <content>
             <AnchorPane maxHeight="1920.0" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="1920.0">
                <children>
@@ -151,8 +153,8 @@
                            <children>
                               <HBox alignment="CENTER" layoutY="-2.0" prefHeight="84.0" prefWidth="1920.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="footer_previous_page" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
-                                    <Button fx:id="footer_next_page" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
+                                    <Button fx:id="footer_previousBtn" onAction="#switchToPrevious" mnemonicParsing="false" text="PREVIOUS" />
+                                    <Button fx:id="footer_nextBtn" onAction="#switchToNext" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" text="NEXT" />
                                  </children>
                               </HBox>
                            </children></Pane>

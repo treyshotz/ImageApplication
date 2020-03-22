@@ -1,39 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="NTNU.IDATT1002.controllers.SearchPageController">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Search">
     <children>
-      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
-         <children>
-            <ImageView fx:id="tbar_logo1" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Images/PlaceholderLogo.png" />
-               </image>
-            </ImageView>
-            <Pane prefHeight="100.0" prefWidth="561.0" />
-            <TextField fx:id="tbar_search1" onAction="#switchToSearch" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-            <Button fx:id="tbar_map1" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
-            <Pane prefHeight="100.0" prefWidth="174.0" />
-            <Button fx:id="tbar_upload1" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="40.0" prefWidth="114.0" text="UPLOAD" />
-         </children>
-      </HBox>
+       <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+             <ImageView fx:id="tbar_logo" onMouseClicked="#switchToMain" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                   <Image url="@../../Images/PlaceholderLogo.png" />
+                </image>
+             </ImageView>
+             <Pane prefHeight="100.0" prefWidth="343.0" />
+             <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+             <Button fx:id="tbar_searchBtn" onAction="#switchToSearch" mnemonicParsing="false" text="SEARCH" />
+             <Button fx:id="tbar_explore" onAction="#switchToExplore" mnemonicParsing="false" text="EXPLORE" />
+             <Button fx:id="tbar_map" onAction="#switchToMap" mnemonicParsing="false" text="MAP" />
+             <Pane prefHeight="100.0" prefWidth="174.0" />
+             <Button fx:id="tbar_upload" onAction="#switchToUpload" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+          </children>
+       </HBox>
         <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" layoutY="100.0" prefHeight="980.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <content>
                 <AnchorPane maxHeight="1920.0" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="1920.0">
@@ -42,22 +33,22 @@
                             <top>
                                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6d6d6d;" BorderPane.alignment="CENTER">
                            <children>
-                              <Text fill="WHITE" layoutX="337.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Found">
+                              <Text fill="WHITE" layoutX="282.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Found">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="465.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
+                              <Text fill="WHITE" layoutX="398.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
                                  <font>
                                     <Font name="System Bold Italic" size="36.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="513.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="results for your search, sorted by:">
+                              <Text fill="WHITE" layoutX="439.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="results for your search" wrappingWidth="350.982421875">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <ChoiceBox layoutX="1063.0" layoutY="78.0" prefHeight="40.0" prefWidth="166.0" value="Most Popular">
+                              <ChoiceBox fx:id="sorted_by_choicebox" layoutX="1189.0" layoutY="80.0" prefHeight="40.0" prefWidth="166.0" value="Most Popular">
                                   <items>
                                       <FXCollections fx:factory="observableArrayList">
                                           <String fx:value="Most Popular" />
@@ -66,6 +57,16 @@
                                       </FXCollections>
                                   </items>
                               </ChoiceBox>
+                              <Text fx:id="search_result" fill="WHITE" layoutX="799.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="result" wrappingWidth="166.9999771118164">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="972.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text=", sorted by:" wrappingWidth="184.341796875">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
                            </children></Pane>
                             </top>
                             <left>
@@ -290,8 +291,8 @@
                                     <children>
                                         <HBox alignment="CENTER" layoutY="-2.0" prefHeight="84.0" prefWidth="1920.0" spacing="20.0">
                                             <children>
-                                                <Button fx:id="footer_previous_page" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
-                                                <Button fx:id="footer_next_page" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
+                                                <Button fx:id="footer_previousBtn" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
+                                                <Button fx:id="footer_nextBtn" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
                                             </children>
                                         </HBox>
                                     </children></Pane>

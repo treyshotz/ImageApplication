@@ -12,30 +12,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadedPhotoController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadedPhoto">
     <children>
         <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+                <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tbar_logo" onMouseClicked="#switchToMain" fitHeight="69.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../Images/PlaceholderLogo.png" />
                             </image>
                         </ImageView>
                         <Pane prefHeight="100.0" prefWidth="343.0" />
-                        <TextField fx:id="tbar_search" onAction="#switchToSearch" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-                        <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
-                        <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+                        <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+                        <Button fx:id="tbar_searchBtn" onAction="#switchToSearch" mnemonicParsing="false" text="SEARCH" />
+                        <Button fx:id="tbar_explore" onAction="#switchToExplore" mnemonicParsing="false" text="EXPLORE" />
+                        <Button fx:id="tbar_map" onAction="#switchToMap" mnemonicParsing="false" text="MAP" />
                         <Pane prefHeight="100.0" prefWidth="174.0" />
-                        <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+                        <Button fx:id="tbar_upload" onAction="#switchToUpload" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0">
                <children>
                   <Pane prefHeight="981.0" prefWidth="851.0" style="-fx-background-color: #777777;">
                      <children>
-                        <ImageView fx:id="uploaded_image" fitHeight="455.0" fitWidth="952.0" layoutX="19.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="photo_image" fitHeight="455.0" fitWidth="952.0" layoutX="19.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/placeholder-1920x1080.png" /> <!-- This is the URL to the image in question, needs to change in accordance with the current uploaded picture-->
                            </image>
@@ -64,9 +65,9 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="title_field" layoutX="256.0" layoutY="83.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
-                        <TextField fx:id="tag_field" layoutX="217.0" layoutY="161.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
-                        <TextArea fx:id="desc_field" layoutX="126.0" layoutY="265.0" prefHeight="147.0" prefWidth="822.0" promptText="Insert description here" />
+                        <TextField fx:id="photo_title" layoutX="256.0" layoutY="83.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                        <TextField fx:id="photo_tag" layoutX="217.0" layoutY="161.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                        <TextArea fx:id="photo_desc" layoutX="126.0" layoutY="265.0" prefHeight="147.0" prefWidth="822.0" promptText="Insert description here" />
                         <Pane layoutX="125.0" layoutY="470.0" prefHeight="364.0" prefWidth="822.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <Text layoutX="218.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOT YET IMPLEMENTED">
@@ -76,7 +77,7 @@
                               </Text>
                            </children>
                         </Pane>
-                        <Button fx:id="accept_button" layoutX="493.0" layoutY="870.0" mnemonicParsing="false" onAction="#uploadPhoto" text="ACCEPT">
+                        <Button fx:id="acceptBtn" onAction="#uploadPhoto" layoutX="493.0" layoutY="870.0" mnemonicParsing="false" text="ACCEPT">
                            <font>
                               <Font size="18.0" />
                            </font>
