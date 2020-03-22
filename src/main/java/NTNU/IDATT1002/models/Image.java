@@ -126,7 +126,7 @@ public class Image {
     Image that = (Image) o;
     return getId().equals(that.getId());
   }
-}
+} 
 
 
 
