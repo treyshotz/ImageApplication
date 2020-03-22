@@ -41,8 +41,4 @@ public class CreateAlbumController {
 
     }
 
-    public void uploadPhoto(ActionEvent actionEvent) throws IOException {
-        //write method to accept and upload the photo with chosen settings, titles etc and then setRoot to logged-in page
-        App.setRoot("logged-in");
-    }
 }
