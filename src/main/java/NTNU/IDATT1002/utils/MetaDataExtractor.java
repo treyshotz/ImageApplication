@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class ExtractMetaData {
+public class MetaDataExtractor {
 
     private final File image;
 
-    public ExtractMetaData(File image) {
+    public MetaDataExtractor(File image) {
         this.image = image;
     }
 

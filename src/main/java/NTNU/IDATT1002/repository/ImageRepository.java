@@ -16,15 +16,15 @@ import NTNU.IDATT1002.models.Image;
 
 public class ImageRepository extends GenericRepository<Image, Long> {
 
-  /**
-   * Constructor to inject {@link EntityManager} dependency.
-   *
-   * @param entityManager the entity manager to utilize
-   */
-  public ImageRepository(EntityManager entityManager) {
-    super(entityManager);
-    setClassType(Image.class);
-  }
+    /**
+     * Constructor to inject {@link EntityManager} dependency.
+     *
+     * @param entityManager the entity manager to utilize
+     */
+    public ImageRepository(EntityManager entityManager) {
+      super(entityManager);
+      setClassType(Image.class);
+    }
 }
 
 

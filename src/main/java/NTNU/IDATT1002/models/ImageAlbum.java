@@ -20,13 +20,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "image_album")
 @NamedQueries({
-        @NamedQuery(name = "ImageAlbum.findAllByTitle",
-        query="SELECT ia from ImageAlbum ia WHERE ia.title LIKE :queried_title ")
+        @NamedQuery(name="ImageAlbum.findAllByUsername",
+                query = "SELECT ia from ImageAlbum ia WHERE ia.user.username = :username")
 })
 public class ImageAlbum {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @NotBlank(message = "Title may not be blank")
@@ -37,6 +37,9 @@ public class ImageAlbum {
 
     @ManyToMany
     private List<Image> images = new ArrayList<>();;
+
+    @ManyToMany
+    private List<Tag> tags = new ArrayList<>();;
 
     private String description;
 
@@ -53,25 +56,58 @@ public class ImageAlbum {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
     /**
-     * Add given image to the album.
+     * Add given image to this album.
      *
      * @param image the image to add
      */
     public void addImage(Image image) {
-
+        image.addImageAlbum(this);
+        images.add(image);
     }
 
     /**
@@ -80,7 +116,26 @@ public class ImageAlbum {
      * @param image the image to add
      */
     public void removeImage(Image image) {
+        image.removeImageAlbum(this);
+        images.remove(image);
+    }
 
+    /**
+     * Add given tag to this album
+     *
+     * @param tag the tag to add
+     */
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    /**
+     * Remove given tag to this album
+     *
+     * @param tag the tag to add
+     */
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
     }
 
     /**

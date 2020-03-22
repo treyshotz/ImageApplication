@@ -45,6 +45,12 @@ public class User {
     )
     private List<ImageAlbum> imageAlbums = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Image> images = new ArrayList<>();
 
     public User() {
     }
@@ -59,32 +65,6 @@ public class User {
         this.birthDate = birthDate;
         this.isAdmin = false;
         this.isActive = true;
-        this.imageAlbums = imageAlbums;
-    }
-
-    public User(User user) {
-        this(user.getEmail(),
-                user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getCallingCode(),
-                user.getPhoneNumber(),
-                user.getBirthDate(),
-                user.isAdmin(),
-                user.isActive()
-        );
-    }
-
-    public User(String email, String username, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate, boolean isAdmin, boolean isActive) {
-        this.email = email;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.callingCode = callingCode;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.isAdmin = isAdmin;
-        this.isActive = isActive;
         this.imageAlbums = imageAlbums;
     }
 
@@ -124,6 +104,10 @@ public class User {
         return isActive;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     /**
      * Add given image album.
      *
@@ -142,6 +126,26 @@ public class User {
     public void removeImageAlbum(ImageAlbum imageAlbum) {
         imageAlbums.remove(imageAlbum);
         imageAlbum.setUser(null);
+    }
+
+    /**
+     * Add given image.
+     *
+     * @param image the image to add
+     */
+    public void addImage(Image image) {
+        images.add(image);
+        image.setUser(this);
+    }
+
+    /**
+     * Remove given image.
+     *
+     * @param image the image to remove
+     */
+    public void removeImageAlbum(Image image) {
+        images.remove(image);
+        image.setUser(null);
     }
 
     @Override

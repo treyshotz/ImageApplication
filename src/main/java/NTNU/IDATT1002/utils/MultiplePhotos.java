@@ -20,7 +20,7 @@ public class MultiplePhotos {
         ArrayList<String> data = new ArrayList<String>();
 
         for(File i : this.images) {
-            ExtractMetaData e = new ExtractMetaData(i);
+            MetaDataExtractor e = new MetaDataExtractor(i);
             String n = e.getAll().toString();
             data.add(n);
         }

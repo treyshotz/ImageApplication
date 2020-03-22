@@ -1,36 +1,28 @@
 package NTNU.IDATT1002.models;
 
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Creates histogram table
  */
 
 @Entity
-@Table(name = "Histogram")
+@Table(name = "histogram")
 public class Histogram {
 
     /**
      * Defines id, may not be blank
      */
-
-    @Id @NotBlank(message = "HistogramId may not be blank")
+    @Id
+    @GeneratedValue
     private Long histogramId;
 
     /**
      * One to one relations, joins histogramId
      * On columns histogramId in metadata
      */
-
     @OneToOne
     @JoinColumn(name = "metadata_id")
     private Metadata metadata;
@@ -38,26 +30,16 @@ public class Histogram {
     @NotBlank (message = "Data may not be blank")
     private String data;
 
-    /**
-     * Constrtuctor for Histogram, taking in both histogramId and data
-     * @param histogramId
-     * @param data
-     */
-
-
-    public Histogram(Long histogramId , String data){
-        this.histogramId = histogramId;
-        this.data = data;
+    public Histogram() {
     }
 
     /**
-     * Constructor taking in a histogram object as parameter
-     * @param histogram
+     * Constrtuctor for Histogram, taking in both histogramId and data
+     *
+     * @param data
      */
-
-    public Histogram(Histogram histogram){
-        this(histogram.getHistogramId(),
-               histogram.getData());
+    public Histogram(String data){
+        this.data = data;
     }
 
     public Long getHistogramId() {

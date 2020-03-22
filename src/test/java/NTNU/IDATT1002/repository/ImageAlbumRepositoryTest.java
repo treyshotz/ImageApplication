@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.repository;
 
 import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,8 @@ import javax.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -26,6 +28,9 @@ class ImageAlbumRepositoryTest {
 
     private ImageAlbumRepository imageAlbumRepository;
 
+    private UserRepository userRepository;
+
+    private User currentUser;
 
     /**
      * Setup test data - An {@link EntityManager} and an {@link ImageAlbumRepository}.
@@ -36,6 +41,11 @@ class ImageAlbumRepositoryTest {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         imageAlbumRepository = new ImageAlbumRepository(entityManager);
+        userRepository = new UserRepository(entityManager);
+
+        currentUser = new User();
+        currentUser.setUsername("testUser");
+        userRepository.save(currentUser);
     }
 
     /**
@@ -82,39 +92,6 @@ class ImageAlbumRepositoryTest {
         assertEquals(IMAGE_ALBUM_INITIAL_ID, foundImageAlbum.get().getId());
     }
 
-    /**
-     * Test that finding all entities by title with a single match returns a list with only that instance.
-     */
-    @Test
-    void testFindAllByTitleWithSingleMatchReturnsListWithSingleInstance() {
-        ImageAlbum imageAlbum = new ImageAlbum();
-        imageAlbum.setTitle(IMAGE_ALBUM_TITLE);
-
-        Optional<ImageAlbum> savedImageAlbum = imageAlbumRepository.save(imageAlbum);
-        List<?> foundImageAlbums = imageAlbumRepository.findAllByTitle(IMAGE_ALBUM_TITLE);
-
-        assertEquals(1, foundImageAlbums.size());
-        assertEquals(savedImageAlbum.get(), foundImageAlbums.get(0));
-    }
-
-    /**
-     * Test that finding all entities by title with multiple matches returns a list with all matching instances.
-     */
-    @Test
-    void testFindAllByTitleWithMultipleMatchesReturnsListWithInstances() {
-        ImageAlbum imageAlbum = new ImageAlbum();
-        imageAlbum.setTitle(IMAGE_ALBUM_TITLE);
-
-        imageAlbumRepository.save(imageAlbum);
-
-        imageAlbum = new ImageAlbum();
-        imageAlbum.setTitle(IMAGE_ALBUM_TITLE + "Test");
-
-        imageAlbumRepository.save(imageAlbum);
-        List<?> foundImageAlbums = imageAlbumRepository.findAllByTitle(IMAGE_ALBUM_TITLE);
-
-        assertEquals(2, foundImageAlbums.size());
-    }
 
     /**
      * Test that deleting an entity by id removes said entity.
@@ -155,6 +132,25 @@ class ImageAlbumRepositoryTest {
         long imageAlbumCount = imageAlbumRepository.count();
 
         assertEquals(2, imageAlbumCount);
+    }
+
+    /**
+     * Test that finding image albums by username returns all image albums
+     * created by the user with the given username.
+     */
+    @Test
+    void testFindByUsernameReturnsAllImageAlbumsWithGivenUser() {
+        ImageAlbum imageAlbumWithUser = new ImageAlbum();
+        imageAlbumWithUser.setUser(currentUser);
+
+        imageAlbumRepository.save(imageAlbumWithUser);
+        Optional<ImageAlbum> expectedImageAlbum = imageAlbumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        
+        List<ImageAlbum> foundImageAlbums = imageAlbumRepository.
+                findAllByUsername(currentUser.getUsername());
+
+        assertEquals(1, foundImageAlbums.size());
+        assertTrue(foundImageAlbums.contains(expectedImageAlbum.get()));
     }
 
 }
