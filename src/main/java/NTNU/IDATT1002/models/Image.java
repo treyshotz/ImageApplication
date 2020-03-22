@@ -101,7 +101,6 @@ public class Image {
    * @param imageAlbum the image album to add to
    */
   public void addImageAlbum(ImageAlbum imageAlbum) {
-    imageAlbum.addImage(this);
     imageAlbums.add(imageAlbum);
   }
 
@@ -111,7 +110,6 @@ public class Image {
    * @param imageAlbum the image album to remove from
    */
   public void removeImageAlbum(ImageAlbum imageAlbum) {
-    imageAlbum.removeImage(this);
     imageAlbums.remove(imageAlbum);
   }
 

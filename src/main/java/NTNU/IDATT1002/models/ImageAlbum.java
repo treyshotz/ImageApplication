@@ -56,6 +56,38 @@ public class ImageAlbum {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -76,28 +108,8 @@ public class ImageAlbum {
         this.images = images;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<Image> getImages() {
-        return images;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     /**

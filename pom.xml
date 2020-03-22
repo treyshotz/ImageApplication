@@ -114,6 +114,20 @@
             <scope>test</scope>
             <version>1.4.194</version>
         </dependency>
+
+        <!-- Pdf -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.56</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
