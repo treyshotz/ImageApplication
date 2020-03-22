@@ -56,6 +56,11 @@ public class ExploreAlbums {
     public Text album_desc5;
     public Text album_tags5;
     public Button tbar_albums;
+    public Button open_album4;
+    public Button open_album3;
+    public Button open_album2;
+    public Button open_album1;
+    public Button open_album;
 
     /**
      * Method that changes stage to Main page
@@ -140,5 +145,15 @@ public class ExploreAlbums {
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
         //TODO: Make method that updates content
+    }
+
+    /**
+     * Method to open specific albums using the "Open Album" button
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToViewAlbum(ActionEvent actionEvent) throws IOException {
+        //TODO: write method to open the specific album chosen
+        App.setRoot("view_album");
     }
 }
