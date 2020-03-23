@@ -17,7 +17,7 @@ public class Login {
     public Button login;
 
     /**
-     * Method that changes stage to Sign Up page
+     * Method that changes scene to Sign Up page
      * @param actionEvent
      * @throws IOException
      */
@@ -26,7 +26,7 @@ public class Login {
     }
 
     /**
-     * Method that changes stage to Main page
+     * Method that changes scene to Main page
      * @param actionEvent
      * @throws IOException
      */

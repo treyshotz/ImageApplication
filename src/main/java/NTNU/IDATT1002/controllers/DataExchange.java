@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Class for storing temporary variables between controllers,
- * when tha stage changes
+ * when the scene changes
  * @version 1.0 22.03.2020
  */
 public class DataExchange {

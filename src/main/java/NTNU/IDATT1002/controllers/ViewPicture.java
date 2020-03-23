@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 
 /**
- * Controls the buttons and changeable elements on view_picture.fxml,
+ * Controls the buttons and changeable elements on view_.fxml,
  * a page where get a more detailed view of a picture
  * @version 1.0 22.03.2020
  */
@@ -41,7 +41,7 @@ public class ViewPicture implements Initializable{
     }
 
     /**
-     * Method that changes stage to Main page
+     * Method that changes scene to Main page
      * @param mouseEvent
      * @throws IOException
      */
@@ -50,7 +50,7 @@ public class ViewPicture implements Initializable{
     }
 
     /**
-     * Method that changes stage to Search page. It reads the value of the search
+     * Method that changes scene to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -63,7 +63,7 @@ public class ViewPicture implements Initializable{
     }
 
     /**
-     * Method that changes stage to Explore page
+     * Method that changes scene to Explore page
      * @param actionEvent
      * @throws IOException
      */
@@ -72,7 +72,7 @@ public class ViewPicture implements Initializable{
     }
 
     /**
-     * Method that changes stage to Albums page
+     * Method that changes scene to Albums page
      * @param actionEvent
      * @throws IOException
      */
@@ -81,7 +81,7 @@ public class ViewPicture implements Initializable{
     }
 
     /**
-     * Method that changes stage to Map page
+     * Method that changes scene to Map page
      * @param actionEvent
      * @throws IOException
      */
@@ -90,7 +90,7 @@ public class ViewPicture implements Initializable{
     }
 
     /**
-     * Method that changes stage to Upload page
+     * Method that changes scene to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
