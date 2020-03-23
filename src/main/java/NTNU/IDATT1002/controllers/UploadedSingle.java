@@ -133,6 +133,8 @@ public class UploadedSingle implements Initializable {
    */
 
   public void uploadSingle(ActionEvent actionEvent) throws IOException {
+    imageService = new ImageService();
+    applicationState = new ApplicationState();
     List<File> list = App.ex.getUploadedFiles();
     File fil = list.get(0);
     imageService.createImage(applicationState.getCurrentUser(), fil);
