@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,10 +50,10 @@ public class ImageService {
      * @param file the file uploaded
      * @return Optional containing the saved image
      */
-    public Optional<Image> createImage(User user, File file) {
+    public Optional<Image> createImage(User user, File file, ArrayList<Tag> tags) {
         Image image = new Image();
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
-        Metadata metadata = MetaDataExtractor.assembleMetaData(file);
+        Metadata metadata = MetaDataExtractor.assembleMetaData(file, image);
         metadata = metadataRepository.save(metadata).orElse(null);
 
         //TODO: Unsure what to do with imageAlbum
@@ -61,6 +62,7 @@ public class ImageService {
         image.setUser(null);
         image.setMetadata(metadata);
         image.setPath(file.getPath());
+        //image.addTags(tags);
         return imageRepository.save(image);
     }
 

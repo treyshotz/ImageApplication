@@ -47,6 +47,7 @@ public class MetaDataExtractor {
 
             geoLocation.setLatitude(latitude);
             geoLocation.setLongitude(longitude);
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -67,11 +68,14 @@ public class MetaDataExtractor {
         return histogram;
     }
 
-    public static NTNU.IDATT1002.models.Metadata assembleMetaData(File file) {
+    public static NTNU.IDATT1002.models.Metadata assembleMetaData(File file, Image image) {
+
         NTNU.IDATT1002.models.Metadata metadata = new NTNU.IDATT1002.models.Metadata();
         try {
+            metadata.setImage(image);
             metadata.setGeoLocation(getGPS(file));
             metadata.setHistogram(getHistorgram(file));
+
         }
         catch (Exception e) {
             e.printStackTrace();

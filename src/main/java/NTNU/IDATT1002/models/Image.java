@@ -91,6 +91,10 @@ public class Image {
     return imageAlbums;
   }
 
+  public void addTags(ArrayList<Tag> tags) {
+    tags.addAll(tags);
+  }
+
   public void addTag(Tag tag){
       tags.add(tag);
   }
