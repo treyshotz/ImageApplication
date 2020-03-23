@@ -5,10 +5,13 @@ import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.LoginRepository;
 import NTNU.IDATT1002.repository.UserRepository;
+import NTNU.IDATT1002.utils.Authentication;
+import org.apache.log4j.helpers.AbsoluteTimeDateFormat;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -49,10 +52,10 @@ public class UserService {
      */
     public Optional<User> createUser(String email, String username, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate, String password) {
         User user = new User(email, username, firstName, lastName, callingCode, phoneNumber, birthDate);
-        Login login = new Login(user, "", "");
+        Login login = new Login();
+        login.setUser(user);
         userRepository.save(user);
-        loginRepository.save(login);
-        loginRepository.setPassword(username, password);
+        setPassword(username, password);
 
         return userRepository.save(user);
     }
@@ -65,10 +68,16 @@ public class UserService {
      * @return
      */
     public boolean logIn(String username, String password) {
-        if(loginRepository.logIn(username, password)) {
-            User user = loginRepository.findById(username).get().getUser();
-            ApplicationState.setCurrentUser(user);
-            return true;
+        try {
+            Optional<Login> login = loginRepository.findById(username);
+            if (login.isPresent()) {
+                String salt = login.get().getPasswordSalt();
+                String hash = login.get().getHash();
+                return Authentication.isCorrectPassword(salt, password, hash);
+            }
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -81,7 +90,48 @@ public class UserService {
      * @param newPassword that will be set
      * @return
      */
-    public boolean changePassword(String username, String oldPassword, String newPassword) {
-        return loginRepository.changePassword(username, oldPassword, newPassword);
+    private boolean changePassword(String username, String oldPassword, String newPassword) {
+        ArrayList<String> info = new ArrayList<>();
+        try {
+            Optional<Login> login = loginRepository.findById(username);
+            if(login.isPresent()) {
+                String salt = login.get().getPasswordSalt();
+                String expectedHash = login.get().getHash();
+                if(Authentication.isCorrectPassword(salt, oldPassword,expectedHash)) {
+                    info = Authentication.setPassword(newPassword);
+                    String saltString = info.get(0);
+                    String hashString = info.get(1);
+                    login.get().setPasswordSalt(saltString);
+                    login.get().setHash(hashString);
+
+                    loginRepository.save(login.get());
+                    return true;
+                }
+            }
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+         }
+        return false;
+    }
+
+    private boolean setPassword(String username, String password) {
+        ArrayList<String> info = new ArrayList<>();
+        try {
+             Optional<Login> login = loginRepository.findById(username);
+             if(login.isPresent()) {
+                 info = Authentication.setPassword(password);
+                 String saltString = info.get(0);
+                 String hashString = info.get(1);
+                 login.get().setPasswordSalt(saltString);
+                 login.get().setHash(hashString);
+                 loginRepository.save(login.get());
+                 return true;
+             }
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
