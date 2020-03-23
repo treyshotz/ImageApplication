@@ -108,6 +108,30 @@ public class User {
         this.username = username;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCallingCode(String callingCode) {
+        this.callingCode = callingCode;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     /**
      * Add given image album.
      *

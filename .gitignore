@@ -9,6 +9,7 @@ bin/
 .settings/
 .classpath
 .project
+t14-test-images
 
 # User-specific stuff
 .idea/**/workspace.xml

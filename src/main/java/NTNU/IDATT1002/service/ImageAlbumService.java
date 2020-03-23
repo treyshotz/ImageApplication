@@ -60,10 +60,22 @@ public class ImageAlbumService {
         imageAlbum.setTitle(title);
         imageAlbum.setDescription(description);
         imageAlbum.setUser(user);
-        imageAlbum.setTags(tags);
+        imageAlbum.setTags(getOrCreateTags(tags));
         imageAlbum.setImages(images);
 
         return imageAlbumRepository.save(imageAlbum);
+    }
+
+    /**
+     * Gets or creates given tags in given list.
+     *
+     * @param tags the list of tags
+     * @return a list of persisted tags
+     */
+    private List<Tag> getOrCreateTags(List<Tag> tags) {
+        return tags.stream()
+                .map(tag -> tagRepository.findOrCreate(tag).orElse(null))
+                .collect(Collectors.toList());
     }
 
     /**
