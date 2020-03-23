@@ -43,6 +43,10 @@ public class ImageAlbumService {
         this.tagRepository = new TagRepository(entityManager);
     }
 
+    public Optional<ImageAlbum> getImageAlbumById(Long imageAlbumId) {
+        return imageAlbumRepository.findById(imageAlbumId);
+    }
+
     /**
      * Retrieves all image albums.
      *
