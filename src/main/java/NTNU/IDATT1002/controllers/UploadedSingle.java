@@ -1,6 +1,13 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.ApplicationState;
+import NTNU.IDATT1002.models.Tag;
+import NTNU.IDATT1002.models.User;
+import NTNU.IDATT1002.service.ImageService;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,103 +24,132 @@ import java.util.ResourceBundle;
 /**
  * Controls the buttons and changeable elements on upload_single.fxml,
  * a page where you add descriptions to your selected image
+ *
  * @version 1.0 22.03.2020
  */
 public class UploadedSingle implements Initializable {
 
 
-    public ImageView tbar_logo;
-    public TextField tbar_search;
-    public Button tbar_searchBtn;
-    public Button tbar_explore;
-    public Button tbar_map;
-    public Button tbar_upload;
+  ImageService imageService;
+  NTNU.IDATT1002.models.Image image;
+  ApplicationState applicationState;
 
-    public TextField photo_title;
-    public TextField photo_tag;
-    public TextArea photo_desc;
-    public ImageView photo_image;
+  public ImageView tbar_logo;
+  public TextField tbar_search;
+  public Button tbar_searchBtn;
+  public Button tbar_explore;
+  public Button tbar_map;
+  public Button tbar_upload;
 
-    public Button acceptBtn;
-    public Button tbar_albums;
+  public TextField photo_title;
+  public TextField photo_tag;
+  public TextArea photo_desc;
+  public ImageView photo_image;
+
+  public Button acceptBtn;
+  public Button tbar_albums;
 
 
-    /**
-     * Method that runs when the controller is loaded
-     * Sets the image url on the page to be the uploaded images url
-     * @param location
-     * @param resources
-     */
-    public void initialize(URL location, ResourceBundle resources) {
-        photo_image.setImage(new Image(App.ex.getUploadedFiles().get(0).toURI().toString()));
+  /**
+   * Method that runs when the controller is loaded
+   * Sets the image url on the page to be the uploaded images url
+   *
+   * @param location
+   * @param resources
+   */
+  public void initialize(URL location, ResourceBundle resources) {
+    photo_image.setImage(new Image(App.ex.getUploadedFiles().get(0).toURI().toString()));
+  }
+
+  /**
+   * Method that changes stage to Main page
+   *
+   * @param mouseEvent
+   * @throws IOException
+   */
+  public void switchToMain(MouseEvent mouseEvent) throws IOException {
+    App.setRoot("main");
+  }
+
+  /**
+   * Method that changes stage to Search page. It reads the value of the search
+   * field and if not empty it is passed to dataexchange
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void switchToSearch(ActionEvent actionEvent) throws IOException {
+    if (!tbar_search.getText().isEmpty()) {
+      App.ex.setSearchField(tbar_search.getText());
     }
+    App.setRoot("search");
+  }
 
-    /**
-     * Method that changes scene to Main page
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void switchToMain(MouseEvent mouseEvent) throws IOException {
-        App.setRoot("main");
-    }
+  /**
+   * Method that changes stage to Explore page
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void switchToExplore(ActionEvent actionEvent) throws IOException {
+    App.setRoot("explore");
+  }
 
-    /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_search.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
-        }
-        App.setRoot("search");
-    }
+  /**
+   * Method that changes stage to Albums page
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+    App.setRoot("explore_albums");
+  }
 
-    /**
-     * Method that changes scene to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
+  /**
+   * Method that changes stage to Map page
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void switchToMap(ActionEvent actionEvent) throws IOException {
+    App.setRoot("map");
+  }
 
-    /**
-     * Method that changes scene to Albums page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
+  /**
+   * Method that changes stage to Upload page
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
+  public void switchToUpload(ActionEvent actionEvent) throws IOException {
+    App.setRoot("upload");
+  }
 
-    /**
-     * Method that changes scene to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
+  /**
+   * Method for uploading image to database with title, tags and description
+   * Image itself is not stored but URL is
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
 
-    /**
-     * Method that changes scene to Upload page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.setRoot("upload");
-    }
+  public void uploadSingle(ActionEvent actionEvent) throws IOException {
 
-    /**
-     * Method for uploading image to database with title, tags and description
-     * Image itself is not stored but URL is
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void uploadSingle(ActionEvent actionEvent) throws IOException {
-        //TODO: write method to accept and upload the photo with chosen settings, titles...
-        App.setRoot("main");
-    }
+    String tagTekst = photo_tag.toString();
+    List<File> list = App.ex.getUploadedFiles();
+    list.stream().forEach(x -> {
+      image = imageService.createImage(applicationState.getCurrentUser(), x).get();
+      List tags = chopChopStringiBoi(tagTekst);
+      tags.stream().forEach(y -> {
+        imageService.addTagToImage(image, new Tag((Tag) y));
+      });
+    });
+
+    App.setRoot("main");
+  }
+
+  public List<String> chopChopStringiBoi(String tagTekst) {
+    List<String> tags =  Arrays.asList(tagTekst.split(" #"));
+    return tags;
+  }
 }
