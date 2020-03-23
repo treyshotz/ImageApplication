@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
  *
  * @version 1.0 22.03.20
  */
-public class UserRepository extends GenericRepository<User, Long> {
+public class UserRepository extends GenericRepository<User, String> {
 
     /**
      * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link User}

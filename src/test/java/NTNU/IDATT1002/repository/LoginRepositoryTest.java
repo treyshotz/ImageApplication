@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,8 +28,8 @@ class LoginRepositoryTest {
 
     private LoginRepository loginRepository;
 
-    private String id1;
-    private String id2;
+    private String username1;
+    private String username2;
     private String password;
     private String newPassword;
     private Date date;
@@ -49,17 +47,17 @@ class LoginRepositoryTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplicationTest");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        loginRepository = new LoginRepository(entityManager);
 
-        id1 = "test1";
-        id2 = "test2";
+        username1 = "test1";
+        username2 = "test2";
         password = "Test123";
         newPassword = "Test321";
         date = new Date(System.currentTimeMillis());
-        user1 = new User("epost", id1, "fornavn", "etternavn", "test" , "test", date);
-        user2 = new User("epost2" , id2, "fornavn2", "etternavn2", "test2", "test2", date);
+        user1 = new User(username1,"email","firstName", "lastName", "test" , "test", date);
+        user2 = new User(username2, "email2" , "firstName2", "lastName2", "test2", "test2", date);
         login1 = new Login(user1, "test", "test");
         login2 = new Login(user2, "test2", "test2");
-        loginRepository = new LoginRepository(entityManager);
     }
 
     /**
@@ -101,10 +99,10 @@ class LoginRepositoryTest {
     void testFindByIdReturnsOptionalWithEntityWithId() {
 
         loginRepository.save(login1);
-        Optional<Login> foundLogins = loginRepository.findById(id1);
+        Optional<Login> foundLogins = loginRepository.findById(username1);
 
         assertTrue(foundLogins.isPresent());
-        assertEquals(id1, foundLogins.get().getUser().getUsername());
+        assertEquals(username1, foundLogins.get().getUser().getUsername());
     }
 
     /**
@@ -113,10 +111,10 @@ class LoginRepositoryTest {
     @Test
     void testDeleteById() {
         loginRepository.save(login1);
-        Optional<Login> foundLogins = loginRepository.findById(id1);
+        Optional<Login> foundLogins = loginRepository.findById(username1);
 
-        foundLogins.ifPresent(Login -> loginRepository.deleteById(id1));
-        Optional<Login> deletedLogin = loginRepository.findById(id1);
+        foundLogins.ifPresent(Login -> loginRepository.deleteById(username1));
+        Optional<Login> deletedLogin = loginRepository.findById(username1);
 
         assertTrue(deletedLogin.isEmpty());
     }
@@ -145,7 +143,7 @@ class LoginRepositoryTest {
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
 
-        assertTrue(loginRepository.logIn(id1, password));
+        assertTrue(loginRepository.logIn(username1, password));
     }
 
     /**
@@ -159,7 +157,7 @@ class LoginRepositoryTest {
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
 
-        assertTrue(loginRepository.changePassword(id1, password, newPassword));
+        assertTrue(loginRepository.changePassword(username1, password, newPassword));
     }
 
     /**
@@ -173,9 +171,9 @@ class LoginRepositoryTest {
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
 
-        assertTrue(loginRepository.logIn(id1, password));
-        assertTrue(loginRepository.changePassword(id1, password, newPassword));
-        assertTrue(loginRepository.logIn(id1, newPassword));
+        assertTrue(loginRepository.logIn(username1, password));
+        assertTrue(loginRepository.changePassword(username1, password, newPassword));
+        assertTrue(loginRepository.logIn(username1, newPassword));
     }
 
     /**
@@ -188,7 +186,7 @@ class LoginRepositoryTest {
         String hash = credentials.get(1);
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
-        assertFalse(loginRepository.logIn(id1, newPassword));
+        assertFalse(loginRepository.logIn(username1, newPassword));
     }
 
     /**
@@ -201,8 +199,8 @@ class LoginRepositoryTest {
         String hash = credentials.get(1);
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
-        assertFalse(loginRepository.changePassword(id1, newPassword, password));
-        assertTrue(loginRepository.logIn(id1, password));
+        assertFalse(loginRepository.changePassword(username1, newPassword, password));
+        assertTrue(loginRepository.logIn(username1, password));
     }
 
     /**
@@ -215,7 +213,7 @@ class LoginRepositoryTest {
         String hash = credentials.get(1);
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
-        assertFalse(loginRepository.logIn(id1, null));
+        assertFalse(loginRepository.logIn(username1, null));
     }
 
     /**
@@ -228,6 +226,6 @@ class LoginRepositoryTest {
         String hash = credentials.get(1);
         Login login3 = new Login(user1, salt, hash);
         loginRepository.save(login3);
-        assertFalse(loginRepository.changePassword(id1, null, newPassword));
+        assertFalse(loginRepository.changePassword(username1, null, newPassword));
     }
 }
