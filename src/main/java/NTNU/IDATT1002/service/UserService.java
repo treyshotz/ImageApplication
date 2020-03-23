@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.service;
 
+import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
@@ -70,7 +71,10 @@ public class UserService {
             if (login.isPresent()) {
                 String salt = login.get().getPasswordSalt();
                 String hash = login.get().getHash();
-                return Authentication.isCorrectPassword(salt, password, hash);
+                if(Authentication.isCorrectPassword(salt, password, hash)) {
+                    ApplicationState.setCurrentUser(login.get().getUser());
+                    return true;
+                }
             }
         }
         catch (IllegalArgumentException e) {

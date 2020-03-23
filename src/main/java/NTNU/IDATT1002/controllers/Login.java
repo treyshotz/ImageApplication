@@ -3,6 +3,8 @@ package NTNU.IDATT1002.controllers;
 import java.io.IOException;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.ApplicationState;
+import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
