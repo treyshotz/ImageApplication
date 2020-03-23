@@ -2,25 +2,21 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Controls the buttons and changeable elements on view_picture.fxml,
  * a page where get a more detailed view of a picture
  * @version 1.0 22.03.2020
  */
-public class ViewPicture implements Initializable {
+public class ViewPicture {
     public ImageView tbar_logo;
     public TextField tbar_search;
     public Button tbar_explore;
@@ -33,11 +29,6 @@ public class ViewPicture implements Initializable {
     public Pane metadata_pane;
     public Button tbar_searchBtn;
     public Button tbar_albums;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        picture.setImage(new Image(App.ex.getChosenImg()));
-    }
 
     /**
      * Method that changes stage to Main page
