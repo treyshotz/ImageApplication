@@ -126,7 +126,7 @@ public class UploadedSingle implements Initializable {
   }
 
   /**
-   * Method for uploading image to database with title, tags and description
+   * Method for uploading image to database with tags
    * Image itself is not stored but URL is
    *
    * @param actionEvent
@@ -135,11 +135,10 @@ public class UploadedSingle implements Initializable {
 
   public void uploadSingle(ActionEvent actionEvent) throws IOException {
 
-    String tagTekst = photo_tag.toString();
     List<File> list = App.ex.getUploadedFiles();
     list.stream().forEach(x -> {
       image = imageService.createImage(applicationState.getCurrentUser(), x).get();
-      List tags = chopChopStringiBoi(tagTekst);
+      List tags = tagStringSplit(photo_tag);
       tags.stream().forEach(y -> {
         imageService.addTagToImage(image, new Tag((Tag) y));
       });
@@ -148,8 +147,14 @@ public class UploadedSingle implements Initializable {
     App.setRoot("main");
   }
 
-  public List<String> chopChopStringiBoi(String tagTekst) {
-    List<String> tags =  Arrays.asList(tagTekst.split(" #"));
+  /***
+   * Method for splitting the tag textField into tags in a list
+   * @param photo_tag
+   * @return list of string
+   */
+  public List<String> tagStringSplit(TextField photo_tag) {
+    String tagTekst = photo_tag.toString();
+    List<String> tags = Arrays.asList(tagTekst.split(" #"));
     return tags;
   }
 }
