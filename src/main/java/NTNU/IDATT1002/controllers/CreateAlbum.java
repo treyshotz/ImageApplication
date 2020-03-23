@@ -1,6 +1,9 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.ApplicationState;
+import NTNU.IDATT1002.models.User;
+import NTNU.IDATT1002.service.ImageAlbumService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -32,6 +35,12 @@ public class CreateAlbum {
     public Button create_album_button;
     public Button tbar_albums;
     public Button tbar_searchBtn;
+
+    private ImageAlbumService imageAlbumService;
+
+    public CreateAlbum() {
+        imageAlbumService = new ImageAlbumService();
+    }
 
     /**
      * Method that changes stage to Main page
@@ -89,5 +98,19 @@ public class CreateAlbum {
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
         App.setRoot("upload");
+    }
+
+    /**
+     * Create an empty image album. The user will default to the currently logged in user.
+     *
+     * @param actionEvent
+     */
+    public void createEmptyImageAlbum(ActionEvent actionEvent) {
+        String title =  album_title_field.getText();
+        String description = album_desc_field.getText();
+        String tags = album_tag_field.getText();
+        User user = ApplicationState.getCurrentUser();
+
+        imageAlbumService.createImageAlbum(title, description, user, tags);
     }
 }

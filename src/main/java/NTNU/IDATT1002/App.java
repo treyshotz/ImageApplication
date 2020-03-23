@@ -19,6 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         ex = new DataExchange();
         scene = new Scene(loadFXML("login"));
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
     }

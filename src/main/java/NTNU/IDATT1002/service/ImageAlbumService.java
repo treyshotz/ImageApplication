@@ -11,9 +11,11 @@ import NTNU.IDATT1002.service.filters.ImageAlbumFilter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -42,7 +44,16 @@ public class ImageAlbumService {
     }
 
     /**
-     * Saves a new image album with the given input.
+     * Retrieves all image albums.
+     *
+     * @return list of all image albums.
+     */
+    public List<ImageAlbum> getAllImageAlbums() {
+        return imageAlbumRepository.findAll();
+    }
+
+    /**
+     * Create a new image album with all fields populated.
      *
      * @param title the title of the image album
      * @param description the description of the image album
@@ -81,20 +92,39 @@ public class ImageAlbumService {
     /**
      * Retrieves all image albums created by the given user by username.
      *
+     * @param title the title of the image album
+     * @param description the description of the image album
+     * @param user the user of the image album
+     * @param tagsAsString the tags of the image album as strings
+     */
+    public Optional<ImageAlbum> createImageAlbum(String title, String description, User user, String tagsAsString) {
+        List<Tag> tags = getTagsFromString(tagsAsString);
+        return createImageAlbum(title, description, user, tags, new ArrayList<>());
+    }
+
+    /**
+     * Retrieves tags from text field and converts them to a list of tag objects.
+     *
+     * @return the list of tag objects
+     */
+    private List<Tag> getTagsFromString(String tagsAsString) {
+        String[] tags = tagsAsString
+                .trim()
+                .split("[, ?.@]+");
+
+        return Stream.of(tags)
+                .map(Tag::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Retrieves all image albums created by the given user by username.
+     *
      * @param user the user to query by
      * @return list of all image albums created by the user
      */
     public List<ImageAlbum> getImageAlbumFromUser(User user) {
         return imageAlbumRepository.findAllByUsername(user.getUsername());
-    }
-
-    /**
-     * Retrieves all image albums.
-     *
-     * @return list of all image albums.
-     */
-    public List<ImageAlbum> getAllImageAlbums() {
-        return imageAlbumRepository.findAll();
     }
 
 

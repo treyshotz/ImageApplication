@@ -83,7 +83,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="create_album_button" layoutX="641.0" layoutY="867.0" mnemonicParsing="false" text="CREATE ALBUM">
+                  <Button fx:id="create_album_button" layoutX="641.0" layoutY="867.0" mnemonicParsing="false" onAction="#createEmptyImageAlbum" text="CREATE ALBUM">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
