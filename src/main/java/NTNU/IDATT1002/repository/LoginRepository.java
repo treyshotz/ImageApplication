@@ -93,4 +93,32 @@ public class LoginRepository extends GenericRepository<Login, String>{
         }
         return false;
     }
+
+    /**
+     * Method for setting the password on the user for the first time
+     *
+     * @param username of the user that will have the password set
+     * @param password password that will be set
+     * @return
+     */
+    public boolean setPassword(String username, String password) {
+        ArrayList<String> info = new ArrayList<>();
+        try {
+            Optional<Login> login = findById(username);
+            if(login.isPresent()) {
+                info = Authentication.setPassword(password);
+                String saltString = info.get(0);
+                String hastString = info.get(1);
+                login.get().setPasswordSalt(saltString);
+                login.get().setHash(hastString);
+
+                save(login.get());
+                return true;
+            }
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

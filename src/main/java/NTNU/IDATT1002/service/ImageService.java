@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * Image service
- * @author Stian Mogen, Eirik Steira, Madslun
+ * @author Stian Mogen, Eirik Steira, madslun
  * @version 1.0 22.03.2020
  */
 
