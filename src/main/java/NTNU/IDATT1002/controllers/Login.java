@@ -38,6 +38,7 @@ public class Login {
      * @throws IOException
      */
     public void login(ActionEvent actionEvent) throws IOException {
+        userService = new UserService();
         String username = Username.getText();
         String password = Password.getText();
         if(userService.logIn(username, password)); {
