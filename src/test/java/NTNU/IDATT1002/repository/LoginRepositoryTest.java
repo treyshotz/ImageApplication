@@ -1,3 +1,4 @@
+
 package NTNU.IDATT1002.repository;
 
 import NTNU.IDATT1002.models.Login;
@@ -16,12 +17,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 /**
  * Tests for {@link LoginRepository}
  *
  * @author madslun
  * @version 1.0 17.03.20
  */
+
 
 class LoginRepositoryTest {
 
@@ -39,10 +42,12 @@ class LoginRepositoryTest {
     private Login login2;
 
 
-    /**
+
+/**
      * Sets up some testdata for thorough testing
      * So much information has been added for making sure every part works as intended
      */
+
     @BeforeEach
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplicationTest");
@@ -60,18 +65,22 @@ class LoginRepositoryTest {
         login2 = new Login(user2, "test2", "test2");
     }
 
-    /**
+
+/**
      * Test that saving an entity returns the saved instance
      */
+
     @Test
     void testSaveReturnsInstance() {
         Optional<Login> optionalLogin = loginRepository.save(login1);
         assertTrue(optionalLogin.isPresent());
     }
 
-    /**
+
+/**
      * Test that finding all entities returns all entities
      */
+
     @Test
     void testSaveReturnsAllSavedEntities() {
 
@@ -82,9 +91,11 @@ class LoginRepositoryTest {
         assertEquals(2, foundLogins.size());
     }
 
-    /**
+
+/**
      * Test that saving invalid entity will fail and return empty optional
      */
+
     @Test
     void testSaveInvalidEntityReturnsEmptyOptional() {
         Optional<Login> savedLogin = loginRepository.save(null);
@@ -92,9 +103,11 @@ class LoginRepositoryTest {
         assertTrue(savedLogin.isEmpty());
     }
 
-    /**
+
+/**
      * Test that finding entity by id returns optional with the correct id
      */
+
     @Test
     void testFindByIdReturnsOptionalWithEntityWithId() {
 
@@ -105,7 +118,7 @@ class LoginRepositoryTest {
         assertEquals(username1, foundLogins.get().getUser().getUsername());
     }
 
-    /**
+/**
      * Test that deleting by id removes the given entity and returns empty optional
      */
     @Test
@@ -119,9 +132,10 @@ class LoginRepositoryTest {
         assertTrue(deletedLogin.isEmpty());
     }
 
-    /**
+/**
      * Test that count returns correct amount of enities
      */
+
     @Test
     void testCountReturnsAmountOfSavedEntities() {
         loginRepository.save(login1);
@@ -130,102 +144,5 @@ class LoginRepositoryTest {
         long loginCount = loginRepository.count();
 
         assertEquals(2, loginCount);
-    }
-
-    /**
-     * Test that a created user can log in
-     */
-    @Test
-    void testLogin() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-
-        assertTrue(loginRepository.logIn(username1, password));
-    }
-
-    /**
-     * Test that a created user can change the password
-     */
-    @Test
-    void testChangePassword() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-
-        assertTrue(loginRepository.changePassword(username1, password, newPassword));
-    }
-
-    /**
-     * Test that a user can log in, change password then log in again
-     */
-    @Test
-    void testLoginWithNewPassword() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-
-        assertTrue(loginRepository.logIn(username1, password));
-        assertTrue(loginRepository.changePassword(username1, password, newPassword));
-        assertTrue(loginRepository.logIn(username1, newPassword));
-    }
-
-    /**
-     * Test that trying to login with wrong password returns false
-     */
-    @Test
-    void testWrongPasswordDoesNotLogIn() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-        assertFalse(loginRepository.logIn(username1, newPassword));
-    }
-
-    /**
-     * Test that trying to change password with wrong password returns false
-     */
-    @Test
-    void testWrongPasswordDoesNotChangePassword() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-        assertFalse(loginRepository.changePassword(username1, newPassword, password));
-        assertTrue(loginRepository.logIn(username1, password));
-    }
-
-    /**
-     * Test that trying to login with null returns false
-     */
-    @Test
-    void testLoginWithNullReturnsFalse() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-        assertFalse(loginRepository.logIn(username1, null));
-    }
-
-    /**
-     * Test that trying to login with null returns false
-     */
-    @Test
-    void testChangeWithNullReturnsFalse() {
-        ArrayList<String> credentials = Authentication.setPassword(password);
-        String salt = credentials.get(0);
-        String hash = credentials.get(1);
-        Login login3 = new Login(user1, salt, hash);
-        loginRepository.save(login3);
-        assertFalse(loginRepository.changePassword(username1, null, newPassword));
     }
 }

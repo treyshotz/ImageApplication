@@ -3,8 +3,13 @@ package NTNU.IDATT1002.controllers;
 import java.io.IOException;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.ApplicationState;
+import NTNU.IDATT1002.models.User;
+import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 /**
  * Controls the buttons and changeable elements on login.fxml,
@@ -13,8 +18,12 @@ import javafx.scene.control.Button;
  */
 public class Login {
 
+
+    public TextField Username;
+    public PasswordField Password;
     public Button signup;
     public Button login;
+    private UserService userService;
 
     /**
      * Method that changes scene to Sign Up page
@@ -31,7 +40,12 @@ public class Login {
      * @throws IOException
      */
     public void login(ActionEvent actionEvent) throws IOException {
-        //TODO: Verify username and password
-        App.setRoot("main");
+        userService = new UserService();
+        String username = Username.getText();
+        String password = Password.getText();
+        if(userService.logIn(username, password)); {
+            App.setRoot("main");
+        }
+        //TODO: Else raise warning maybe?
     }
 }
