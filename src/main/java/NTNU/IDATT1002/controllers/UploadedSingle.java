@@ -154,7 +154,7 @@ public class UploadedSingle implements Initializable {
    */
   public List<String> tagStringSplit(TextField photo_tag) {
     String tagTekst = photo_tag.toString();
-    List<String> tags = Arrays.asList(tagTekst.split(" #"));
-    return tags;
+    return Arrays.asList(tagTekst.split("(?=#)"));
+
   }
 }
