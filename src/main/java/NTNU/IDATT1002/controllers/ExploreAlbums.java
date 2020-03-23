@@ -414,7 +414,7 @@ public class ExploreAlbums implements Initializable {
     public void switchToViewAlbum(ActionEvent actionEvent) throws IOException {
         Button source = (Button) actionEvent.getSource();
         Long albumId = Long.parseLong(source.getId());
-        App.ex.setAlbumId(albumId);
+        App.ex.setChosenAlbumId(albumId);
 
         App.setRoot("view_album");
     }
