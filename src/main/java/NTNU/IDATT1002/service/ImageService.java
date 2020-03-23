@@ -1,10 +1,11 @@
 package NTNU.IDATT1002.service;
-import NTNU.IDATT1002.models.*;
-import NTNU.IDATT1002.repository.ImageAlbumRepository;
+import NTNU.IDATT1002.models.Image;
+import NTNU.IDATT1002.models.Metadata;
+import NTNU.IDATT1002.models.Tag;
+import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.ImageRepository;
-import NTNU.IDATT1002.repository.TagRepository;
 import NTNU.IDATT1002.repository.MetadataRepository;
-import NTNU.IDATT1002.service.filters.ImageAlbumFilter;
+import NTNU.IDATT1002.repository.TagRepository;
 import NTNU.IDATT1002.service.filters.ImageFilter;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
@@ -52,6 +53,7 @@ public class ImageService {
         Image image = new Image();
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
         Metadata metadata = MetaDataExtractor.assembleMetaData(file);
+        metadata = metadataRepository.save(metadata).orElse(null);
 
         //TODO: Unsure what to do with imageAlbum
         image.setRawImage(bFile);
