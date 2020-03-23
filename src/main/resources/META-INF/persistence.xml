@@ -31,8 +31,8 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
 
-            <!-- Drop and create tables on startup -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <!-- Update tables on startup -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>
