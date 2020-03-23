@@ -12,6 +12,7 @@ public class DataExchange {
     private String searchField;
     private List<File> uploadedFiles;
     private Long chosenAlbumId;
+    private String chosenImg;
 
     public DataExchange(){
         searchField = "";
@@ -28,6 +29,10 @@ public class DataExchange {
         return chosenAlbumId;
     }
 
+    public String getChosenImg() {
+        return chosenImg;
+    }
+
     public void setUploadedFiles(List<File> uploadedFiles) {
         this.uploadedFiles = uploadedFiles;
     }
@@ -36,7 +41,13 @@ public class DataExchange {
         this.searchField = searchField;
     }
 
-    public void setChosenAlbumId(Long albumId) {
-        this.chosenAlbumId = albumId;
+    public void setChosenAlbumId(Long chosenAlbumId) {
+        this.chosenAlbumId = chosenAlbumId;
     }
+
+    public void setChosenImg(String chosenImg) {
+        this.chosenImg = chosenImg;
+    }
+
 }
+
