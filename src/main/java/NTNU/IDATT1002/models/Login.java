@@ -39,6 +39,10 @@ public class Login {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setHash(String hash) {
         this.hash = hash;
     }
