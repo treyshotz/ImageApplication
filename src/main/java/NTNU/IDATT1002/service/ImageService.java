@@ -68,8 +68,6 @@ public class ImageService {
         metadata.setHistogram(histogram);
         histogram.setMetadata(metadata);
 
-        System.out.println(metadata.getGeoLocation().getLatitude());
-        System.out.println(metadata.getHistogram().getData());
 
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
@@ -126,7 +124,7 @@ public class ImageService {
      */
 
     //This search method is for futureproofing, when we will search using additional parameters than just tags
-    public List<Image> searchImageAlbums(String query) {
+    public List<Image> searchImages(String query) {
         List<Image> allImages = imageRepository.findAll();
         return allImages.stream()
                 .filter(ImageFilter.filter(query))
