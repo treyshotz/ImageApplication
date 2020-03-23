@@ -23,23 +23,14 @@ public class Histogram {
      * One to one relations, joins histogramId
      * On columns histogramId in metadata
      */
-    @OneToOne
-    @JoinColumn(name = "metadata_id")
+    @OneToOne(mappedBy = "histogram")
     private Metadata metadata;
 
-    @NotBlank (message = "Data may not be blank")
+    @Lob
+    @NotBlank(message = "Data may not be blank")
     private String data;
 
     public Histogram() {
-    }
-
-    /**
-     * Constrtuctor for Histogram, taking in both histogramId and data
-     *
-     * @param data
-     */
-    public Histogram(String data){
-        this.data = data;
     }
 
     public Long getHistogramId() {
@@ -58,4 +49,7 @@ public class Histogram {
         this.data = data;
     }
 
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
 }

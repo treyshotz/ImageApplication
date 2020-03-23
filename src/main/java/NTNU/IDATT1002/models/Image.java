@@ -38,7 +38,7 @@ public class Image {
   @NotEmpty
   private byte[] rawImage;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Metadata metadata;
 
   @NotBlank
@@ -89,6 +89,10 @@ public class Image {
 
   public List<ImageAlbum> getImageAlbums() {
     return imageAlbums;
+  }
+
+  public void addTags(ArrayList<Tag> tags) {
+    tags.addAll(tags);
   }
 
   public void addTag(Tag tag){

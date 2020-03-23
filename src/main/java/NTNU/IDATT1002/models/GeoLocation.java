@@ -23,8 +23,7 @@ public class GeoLocation {
      * One to one relation between geolocationId in table Geolocation
      * Joins column geolocation_id in metadata
      */
-    @OneToOne
-    @JoinColumn(name = "metadata_id")
+    @OneToOne(mappedBy = "geolocation")
     private Metadata metadata;
 
     @NotBlank (message = "Altitude may not be blank")
@@ -69,5 +68,9 @@ public class GeoLocation {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
     }
 }

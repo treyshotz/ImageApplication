@@ -1,11 +1,6 @@
 package NTNU.IDATT1002.service;
-import NTNU.IDATT1002.models.Image;
-import NTNU.IDATT1002.models.Metadata;
-import NTNU.IDATT1002.models.Tag;
-import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.repository.ImageRepository;
-import NTNU.IDATT1002.repository.MetadataRepository;
-import NTNU.IDATT1002.repository.TagRepository;
+import NTNU.IDATT1002.models.*;
+import NTNU.IDATT1002.repository.*;
 import NTNU.IDATT1002.service.filters.ImageFilter;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
@@ -14,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +25,9 @@ public class ImageService {
     private ImageRepository imageRepository;
     private MetadataRepository metadataRepository;
     private TagRepository tagRepository;
+    private HistorgramRepository historgramRepository;
+    private GeoLocatioRepository geoLocatioRepository;
+    private MetaDataExtractor metaDataExtractor;
 
     /**
      * Inject entity manager instance to the repositories.
@@ -40,6 +39,10 @@ public class ImageService {
         this.imageRepository = new ImageRepository(entityManager);
         this.metadataRepository = new MetadataRepository(entityManager);
         this.tagRepository = new TagRepository(entityManager);
+        this.historgramRepository = new HistorgramRepository(entityManager);
+        this.geoLocatioRepository = new GeoLocatioRepository(entityManager);
+        this.metaDataExtractor = new MetaDataExtractor();
+
     }
 
     /**
@@ -49,18 +52,30 @@ public class ImageService {
      * @param file the file uploaded
      * @return Optional containing the saved image
      */
-    public Optional<Image> createImage(User user, File file) {
-        Image image = new Image();
-        byte[] bFile = ImageUtil.convertToBytes(file.getPath());
-        Metadata metadata = MetaDataExtractor.assembleMetaData(file);
-        metadata = metadataRepository.save(metadata).orElse(null);
+    public Optional<Image> createImage(User user, File file, ArrayList<Tag> tags) {
 
-        //TODO: Unsure what to do with imageAlbum
+        GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
+        Histogram histogram = metaDataExtractor.getHistogram(file);
+
+        Image image = new Image();
+        Metadata metadata = new Metadata();
+        metadata.setImage(image);
+        image.setMetadata(metadata);
+
+        metadata.setGeoLocation(geoLocation);
+        geoLocation.setMetadata(metadata);
+
+        metadata.setHistogram(histogram);
+        histogram.setMetadata(metadata);
+
+
+        byte[] bFile = ImageUtil.convertToBytes(file.getPath());
+
+        //TODO: Add image tags and add image to imageAlbum
         image.setRawImage(bFile);
         image.setUser(user);
-        image.setUser(null);
-        image.setMetadata(metadata);
         image.setPath(file.getPath());
+//        image.addTags(tags);
         return imageRepository.save(image);
     }
 
@@ -109,7 +124,7 @@ public class ImageService {
      */
 
     //This search method is for futureproofing, when we will search using additional parameters than just tags
-    public List<Image> searchImageAlbums(String query) {
+    public List<Image> searchImages(String query) {
         List<Image> allImages = imageRepository.findAll();
         return allImages.stream()
                 .filter(ImageFilter.filter(query))

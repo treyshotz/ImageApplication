@@ -2,25 +2,36 @@ package NTNU.IDATT1002.utils;
 
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Histogram;
-import NTNU.IDATT1002.models.Image;
+import NTNU.IDATT1002.repository.GeoLocatioRepository;
+import NTNU.IDATT1002.repository.HistorgramRepository;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
-import com.drew.metadata.Tag;
-import com.drew.metadata.exif.*;
-import com.drew.metadata.jpeg.JpegDirectory;
+import com.drew.metadata.exif.GpsDirectory;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
+/**
+ * Class MetaDataExtractor. Extracts metadata and geolocation and histogram from it.
+ */
 public class MetaDataExtractor {
+
+    private GeoLocatioRepository geoLocationRepository;
+    private HistorgramRepository historgramRepository;
+
+    public MetaDataExtractor() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplication");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        this.historgramRepository = new HistorgramRepository(entityManager);
+        this.geoLocationRepository = new GeoLocatioRepository(entityManager);
+    }
 
     /**
      * Returns a string with the GPS position
@@ -30,7 +41,7 @@ public class MetaDataExtractor {
      * @throws IOException
      * @throws MetadataException
      */
-    private static GeoLocation getGPS(File file) throws ImageProcessingException, IOException, MetadataException {
+    public GeoLocation getGeoLocation(File file) {
         String gps = "";
         String latitude = "";
         String longitude = "";
@@ -47,36 +58,42 @@ public class MetaDataExtractor {
 
             geoLocation.setLatitude(latitude);
             geoLocation.setLongitude(longitude);
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException | ImageProcessingException | IOException e) {
             e.printStackTrace();
         }
         return geoLocation;
     }
 
-    public static Histogram getHistorgram(File file) throws ImageProcessingException, IOException {
-        String text = "";
-        Metadata metadata = ImageMetadataReader.readMetadata(file);
+    /**
+     * TODO: Decide what data to store.
+     *
+     * @param file
+     * @return
+     */
+    public Histogram getHistogram(File file) {
+//        Metadata metadata = null;
+//
+//        try {
+//            metadata = ImageMetadataReader.readMetadata(file);
+//        } catch (IOException | ImageProcessingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        StringBuilder data = new StringBuilder();
+//        assert metadata != null;
+//        for(Directory d : metadata.getDirectories()) {
+//            for (Tag t : d.getTags()) {
+//                data.append(t.toString()).append(" | ");
+//            }
+//        }
+//        histogram.setData(data.toString());
+
+
         Histogram histogram = new Histogram();
+        histogram.setData("INSERT DATA HERE");
 
-        for(Directory d : metadata.getDirectories()) {
-            for (Tag t : d.getTags()) {
-                text += t.toString() + " | ";
-            }
-        }
-        histogram.setData(text);
         return histogram;
-    }
-
-    public static NTNU.IDATT1002.models.Metadata assembleMetaData(File file) {
-        NTNU.IDATT1002.models.Metadata metadata = new NTNU.IDATT1002.models.Metadata();
-        try {
-            metadata.setGeoLocation(getGPS(file));
-            metadata.setHistogram(getHistorgram(file));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return metadata;
     }
 
 }
