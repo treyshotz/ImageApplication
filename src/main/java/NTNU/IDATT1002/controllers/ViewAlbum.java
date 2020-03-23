@@ -1,6 +1,9 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.service.ImageAlbumService;
+import NTNU.IDATT1002.utils.PdfDocument;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -40,6 +43,7 @@ public class ViewAlbum {
     public ImageView main_picture;
     public Button tbar_searchBtn;
     public Button tbar_albums;
+
 
     /**
      * Method that changes scene to Main page
@@ -136,6 +140,12 @@ public class ViewAlbum {
     }
 
     public void createPdf(ActionEvent actionEvent) {
-        //write method that generates and downloads a PDF version of the album
+        ImageAlbumService imageAlbumService = new ImageAlbumService();
+        Long currentAlbumId = App.ex.getChosenAlbumId();
+
+        ImageAlbum imageAlbum = imageAlbumService.getImageAlbumById(currentAlbumId)
+                .orElseThrow(IllegalArgumentException::new);
+        PdfDocument document = new PdfDocument(imageAlbum, "./Album.pdf");
+        document.createPdfDocument();
     }
 }
