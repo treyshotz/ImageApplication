@@ -1,7 +1,6 @@
 package NTNU.IDATT1002;
 
 import NTNU.IDATT1002.controllers.DataExchange;
-import NTNU.IDATT1002.database.LoadDatabase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,8 +17,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        LoadDatabase.load();
         ex = new DataExchange();
         scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
