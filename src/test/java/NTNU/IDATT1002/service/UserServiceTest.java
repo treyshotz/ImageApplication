@@ -96,15 +96,12 @@ class UserServiceTest {
     void testChangeWithNullAsOldPasswordReturnsFalse() {
       String newPassword = "WillnotWork";
       Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
-      assertTrue(user.isPresent());
       assertFalse(userService.changePassword(username, null, newPassword));
   }
 
   @Test
     void testChangeWithNullAsNewPasswordReturnsFalse() {
       Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
-      assertTrue(user.isPresent());
       assertFalse(userService.changePassword(username, password, null));
   }
-
 }
