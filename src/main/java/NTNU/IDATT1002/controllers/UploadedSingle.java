@@ -2,13 +2,8 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
-
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.ImageService;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,9 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import javax.persistence.Table;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -141,7 +139,8 @@ public class UploadedSingle implements Initializable {
     List<File> list = App.ex.getUploadedFiles();
     File fil = list.get(0);
     ArrayList<Tag> tags = new ArrayList<>();
-    imageService.createImage(applicationState.getCurrentUser(), fil, tags);
+    System.out.println("SHITFUCK");
+    imageService.createImage(ApplicationState.getCurrentUser(), fil, tags);
    /* list.stream().forEach(x -> {
       image = imageService.createImage(applicationState.getCurrentUser(), x).get();
       List tags = tagStringSplit(photo_tag);

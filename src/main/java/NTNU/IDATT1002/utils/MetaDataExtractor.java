@@ -5,25 +5,19 @@ import NTNU.IDATT1002.models.Histogram;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import NTNU.IDATT1002.repository.HistorgramRepository;
-import NTNU.IDATT1002.repository.MetadataRepository;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
 import com.drew.metadata.Tag;
-import com.drew.metadata.exif.*;
-import com.drew.metadata.jpeg.JpegDirectory;
+import com.drew.metadata.exif.GpsDirectory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class MetaDataExtractor {
@@ -47,7 +41,7 @@ public class MetaDataExtractor {
      * @throws IOException
      * @throws MetadataException
      */
-    private GeoLocation getGPS(File file) throws ImageProcessingException, IOException, MetadataException {
+    public GeoLocation getGeoLocation(File file) {
         String gps = "";
         String latitude = "";
         String longitude = "";
@@ -64,26 +58,32 @@ public class MetaDataExtractor {
 
             geoLocation.setLatitude(latitude);
             geoLocation.setLongitude(longitude);
-            geoLocationRepository.save(geoLocation);
         }
-        catch (NullPointerException e) {
+        catch (NullPointerException | ImageProcessingException | IOException e) {
             e.printStackTrace();
         }
         return geoLocation;
     }
 
-    public Histogram getHistorgram(File file) throws ImageProcessingException, IOException {
-        String text = "";
-        Metadata metadata = ImageMetadataReader.readMetadata(file);
-        Histogram histogram = new Histogram();
+    public Histogram getHistogram(File file) {
+        Metadata metadata = null;
 
+        try {
+            metadata = ImageMetadataReader.readMetadata(file);
+        } catch (IOException | ImageProcessingException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder data = new StringBuilder();
+        assert metadata != null;
         for(Directory d : metadata.getDirectories()) {
             for (Tag t : d.getTags()) {
-                text += t.toString() + " | ";
+                data.append(t.toString()).append(" | ");
             }
         }
-        histogram.setData(text);
-        historgramRepository.save(histogram);
+        Histogram histogram = new Histogram();
+        histogram.setData(data.toString());
+
         return histogram;
     }
 
@@ -92,8 +92,8 @@ public class MetaDataExtractor {
         NTNU.IDATT1002.models.Metadata metadata = new NTNU.IDATT1002.models.Metadata();
         try {
             metadata.setImage(image);
-            metadata.setGeoLocation(getGPS(file));
-            metadata.setHistogram(getHistorgram(file));
+            metadata.setGeoLocation(getGeoLocation(file));
+            metadata.setHistogram(getHistogram(file));
 
         }
         catch (Exception e) {

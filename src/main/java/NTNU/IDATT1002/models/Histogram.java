@@ -2,7 +2,6 @@ package NTNU.IDATT1002.models;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 /**
  * Creates histogram table
@@ -27,19 +26,12 @@ public class Histogram {
     @JoinColumn(name = "metadata_id")
     private Metadata metadata;
 
-    @NotBlank (message = "Data may not be blank")
+//    @Column(name="data", length=294967295)
+//    @NotBlank (message = "Data may not be blank")
+    @Lob
     private String data;
 
     public Histogram() {
-    }
-
-    /**
-     * Constrtuctor for Histogram, taking in both histogramId and data
-     *
-     * @param data
-     */
-    public Histogram(String data){
-        this.data = data;
     }
 
     public Long getHistogramId() {

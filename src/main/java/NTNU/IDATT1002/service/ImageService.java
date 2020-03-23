@@ -1,11 +1,6 @@
 package NTNU.IDATT1002.service;
-import NTNU.IDATT1002.models.Image;
-import NTNU.IDATT1002.models.Metadata;
-import NTNU.IDATT1002.models.Tag;
-import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.repository.ImageRepository;
-import NTNU.IDATT1002.repository.MetadataRepository;
-import NTNU.IDATT1002.repository.TagRepository;
+import NTNU.IDATT1002.models.*;
+import NTNU.IDATT1002.repository.*;
 import NTNU.IDATT1002.service.filters.ImageFilter;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
@@ -30,6 +25,8 @@ public class ImageService {
     private ImageRepository imageRepository;
     private MetadataRepository metadataRepository;
     private TagRepository tagRepository;
+    private HistorgramRepository historgramRepository;
+    private GeoLocatioRepository geoLocatioRepository;
     private MetaDataExtractor metaDataExtractor;
 
     /**
@@ -42,6 +39,8 @@ public class ImageService {
         this.imageRepository = new ImageRepository(entityManager);
         this.metadataRepository = new MetadataRepository(entityManager);
         this.tagRepository = new TagRepository(entityManager);
+        this.historgramRepository = new HistorgramRepository(entityManager);
+        this.geoLocatioRepository = new GeoLocatioRepository(entityManager);
         this.metaDataExtractor = new MetaDataExtractor();
 
     }
@@ -54,21 +53,32 @@ public class ImageService {
      * @return Optional containing the saved image
      */
     public Optional<Image> createImage(User user, File file, ArrayList<Tag> tags) {
+
+        GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
+        Histogram histogram = metaDataExtractor.getHistogram(file);
+
+        geoLocation = geoLocatioRepository.save(geoLocation).orElse(null);
+        histogram = historgramRepository.save(histogram).orElse(null);
+
         Image image = new Image();
-        Metadata metadata = metaDataExtractor.assembleMetaData(file, image);
+        Metadata metadata = new Metadata();
+        metadata.setImage(image);
+        metadata.setGeoLocation(geoLocation);
+        metadata.setHistogram(histogram);
+
         System.out.println(metadata.getGeoLocation().getLatitude());
         System.out.println(metadata.getHistogram().getData());
 
+        metadata = metadataRepository.save(metadata).orElse(null);
 
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
-        metadata = metadataRepository.save(metadata).get();
 
         //TODO: Unsure what to do with imageAlbum
         image.setRawImage(bFile);
         image.setUser(user);
         image.setMetadata(metadata);
         image.setPath(file.getPath());
-        //image.addTags(tags);
+//        image.addTags(tags);
         return imageRepository.save(image);
     }
 
