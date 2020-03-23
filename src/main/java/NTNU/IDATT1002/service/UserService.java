@@ -52,11 +52,8 @@ public class UserService {
      */
     public Optional<User> createUser(String email, String username, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate, String password) {
         User user = new User(email, username, firstName, lastName, callingCode, phoneNumber, birthDate);
-        Login login = new Login();
-        login.setUser(user);
-        userRepository.save(user);
-        setPassword(username, password);
-
+        Login login = new Login(user, "", "");
+        setPassword(login, password);
         return userRepository.save(user);
     }
 
@@ -90,7 +87,7 @@ public class UserService {
      * @param newPassword that will be set
      * @return
      */
-    private boolean changePassword(String username, String oldPassword, String newPassword) {
+    boolean changePassword(String username, String oldPassword, String newPassword) {
         ArrayList<String> info = new ArrayList<>();
         try {
             Optional<Login> login = loginRepository.findById(username);
@@ -115,17 +112,15 @@ public class UserService {
         return false;
     }
 
-    private boolean setPassword(String username, String password) {
+    private boolean setPassword(Login login, String password) {
         ArrayList<String> info = new ArrayList<>();
         try {
-             Optional<Login> login = loginRepository.findById(username);
-             if(login.isPresent()) {
-                 info = Authentication.setPassword(password);
-                 String saltString = info.get(0);
-                 String hashString = info.get(1);
-                 login.get().setPasswordSalt(saltString);
-                 login.get().setHash(hashString);
-                 loginRepository.save(login.get());
+             info = Authentication.setPassword(password);
+             String saltString = info.get(0);
+             String hashString = info.get(1);
+             login.setPasswordSalt(saltString);
+             login.setHash(hashString);
+             if(loginRepository.save(login).isPresent()) {
                  return true;
              }
         }
