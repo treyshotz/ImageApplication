@@ -1,20 +1,31 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import com.sun.scenario.effect.impl.state.HVSeparableKernel;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * Controls the buttons and changeable elements on search.fxml,
@@ -29,48 +40,17 @@ public class Search implements Initializable {
     public Button tbar_explore;
     public Button tbar_map;
     public Button tbar_upload;
+    public Button tbar_albums;
 
     public Text search_result;
     public ScrollPane scrollpane;
     public ChoiceBox sorted_by_choicebox;
-
-    public Button footer_previousBtn;
-    public Button footer_nextBtn;
-    public Button tbar_albums;
-    public Pane pane1;
-    public ImageView picture;
-    public Text tag_field;
-    public Text title_field;
-    public Text desc_field;
-    public Button openPic_btn;
-    public Pane pane11;
-    public ImageView picture1;
-    public Text tag_field1;
-    public Text title_field1;
-    public Text desc_field1;
-    public Button openPic_btn1;
-    public Pane pane12;
-    public ImageView picture2;
-    public Text tag_field2;
-    public Text title_field2;
-    public Text desc_field2;
-    public Button openPic_btn2;
-    public Pane pane13;
-    public ImageView picture3;
-    public Text tag_field3;
-    public Text title_field3;
-    public Text desc_field3;
-    public Button openPic_btn3;
-    public Pane pane14;
-    public ImageView picture4;
-    public Text tag_field4;
-    public Text title_field4;
-    public Text desc_field4;
-    public Button openPic_btn4;
+    public VBox vBox;
 
 
     /**
-     * Method that writes the word that is searched for
+     * Method that writes the word that is searched for.
+     * Also generates HBoxes with image title, tags...
      * @param location
      * @param resources
      */
@@ -78,6 +58,62 @@ public class Search implements Initializable {
     if (!App.ex.getSearchField().isEmpty()){
             search_result.setText(App.ex.getSearchField());
         }
+        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png");
+        for(int i = 0; i < urls.size(); i++) {
+            HBox h = new HBox();
+            h.setPrefHeight(300);
+            h.setPrefWidth(1920);
+            h.setAlignment(Pos.CENTER);
+            h.setStyle("-fx-background-color: #999999;");
+
+            Pane p = new Pane();
+            p.setPrefWidth(1400);
+            p.setPrefHeight(300);
+
+            ImageView iV = new ImageView();
+            iV.setImage(new Image(urls.get(i)));
+            iV.setFitHeight(300);
+            iV.setFitWidth(500);
+            iV.pickOnBoundsProperty().setValue(true);
+            iV.setPreserveRatio(true);
+            iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override public void handle(MouseEvent e) {
+                    try{
+                        switchToPicture(e);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            Text title = setText("TITLE:", 550, 66, 153, "System Bold", 48);
+            Text tag = setText("TAG:", 550, 97, 70, "System Bold", 24);
+            Text desc = setText("DESCRIPTION:", 550, 126, 129, "System Bold", 18);
+            Text title_Field = setText(urls.get(i), 700, 66, "System Bold", 48);
+            Text tag_Field = setText("####", 700, 97, "System Bold", 24);
+            Text desc_Field = setText("####", 700, 126, "System Bold", 18);
+
+            p.getChildren().addAll(iV, title, tag, desc, title_Field, tag_Field, desc_Field);
+            h.getChildren().add(p);
+            vBox.getChildren().add(h);
+        }
+    }
+
+    public Text setText(String text, int layoutX, int layoutY, double wrappingWidth, String fontName, double fontSize){
+        Text t = new Text(text);
+        t.setLayoutX(layoutX);
+        t.setLayoutY(layoutY);
+        t.setWrappingWidth(wrappingWidth);
+        t.setFont(Font.font(fontName, fontSize));
+        return t;
+    }
+
+    public Text setText(String text, int layoutX, int layoutY, String fontName, double fontSize){
+        Text t = new Text(text);
+        t.setLayoutX(layoutX);
+        t.setLayoutY(layoutY);
+        t.setFont(Font.font(fontName, fontSize));
+        return t;
     }
 
     /**
@@ -157,12 +193,14 @@ public class Search implements Initializable {
     }
 
     /**
-     * Method for opening the chosen picture
-     * @param actionEvent
+     * Method for opening the chosen picture.
+     * @param mouseEvent what is clicked on
      * @throws IOException
      */
-    public void switchToPicture(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that opens the chosen picture
-        App.setRoot("view_picture");
+    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
+        if(mouseEvent.getSource() instanceof ImageView){
+            App.ex.setChosenImg(((ImageView) mouseEvent.getSource()).getImage().getUrl());
+            App.setRoot("view_picture");
+        }
     }
 }
