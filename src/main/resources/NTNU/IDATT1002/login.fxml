@@ -27,8 +27,8 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" GridPane.halignment="RIGHT" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="Username" GridPane.columnIndex="1" />
+            <PasswordField fx:id="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button fx:id="signup" onAction="#switchToSignup" text="Sign Up" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Button fx:id="login" onAction="#login" layoutX="171.0" layoutY="74.0" text="Log In" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
          </children>
