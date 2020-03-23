@@ -51,7 +51,7 @@ public class UserService {
      * @return Optional with the user
      */
     public Optional<User> createUser(String email, String username, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate, String password) {
-        User user = new User(email, username, firstName, lastName, callingCode, phoneNumber, birthDate);
+        User user = new User(username, email, firstName, lastName, callingCode, phoneNumber, birthDate);
         Login login = new Login(user, "", "");
         setPassword(login, password);
         return userRepository.save(user);
