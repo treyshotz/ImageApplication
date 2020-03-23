@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
-    @Id @NotBlank(message = "Username may not be blank")
+    @Id
     private String username;
 
     @Email
@@ -55,9 +55,9 @@ public class User {
     public User() {
     }
 
-    public User(String email, String username, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate) {
-        this.email = email;
+    public User(String username, String email, String firstName, String lastName, String callingCode, String phoneNumber, Date birthDate) {
         this.username = username;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.callingCode = callingCode;
@@ -65,7 +65,6 @@ public class User {
         this.birthDate = birthDate;
         this.isAdmin = false;
         this.isActive = true;
-        this.imageAlbums = imageAlbums;
     }
 
     public String getEmail() {
@@ -108,6 +107,29 @@ public class User {
         this.username = username;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCallingCode(String callingCode) {
+        this.callingCode = callingCode;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
     /**
      * Add given image album.
      *

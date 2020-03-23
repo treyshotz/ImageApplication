@@ -83,7 +83,7 @@
                                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6d6d6d;" BorderPane.alignment="CENTER" />
                             </right>
                             <center>
-                                <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+                                <GridPane fx:id="albums_grid_pane" alignment="CENTER" BorderPane.alignment="CENTER">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
@@ -95,281 +95,15 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
+
                                         <Pane prefHeight="200.0" prefWidth="200.0">
-                                            <children>
-                                                <ImageView fx:id="album_image" fitHeight="307.0" fitWidth="516.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../Images/placeholder-1920x1080.png" />
-                                                    </image>
-                                                </ImageView>
-                                                <Text layoutX="551.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUM:" wrappingWidth="200.0">
-                                                    <font>
-                                                        <Font name="System Bold" size="48.0" />
-                                                    </font>
-                                                </Text>
-                                                <Text layoutX="551.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTHOR:" wrappingWidth="150.0">
-                                                    <font>
-                                                        <Font name="System Bold" size="24.0" />
-                                                    </font>
-                                                </Text>
-                                                <Text layoutX="551.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:" wrappingWidth="129.0">
-                                                    <font>
-                                                        <Font name="System Bold" size="18.0" />
-                                                    </font>
-                                                </Text>
-                                                <Text fx:id="album_author" layoutX="707.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                                    <font>
-                                                        <Font name="System Bold" size="24.0" />
-                                                    </font>
-                                                </Text>
-                                                <Text fx:id="album_title" layoutX="751.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="153.0">
-                                                    <font>
-                                                        <Font name="System Bold" size="48.0" />
-                                                    </font>
-                                                </Text>
-                                                <Text fx:id="album_desc" layoutX="707.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="129.0">
-                                                    <font>
-                                                        <Font name="System Bold" size="18.0" />
-                                                    </font>
-                                                </Text>
-                                    <Text layoutX="551.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_tags" layoutX="707.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Button fx:id="open_album" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                            </children>
                                         </Pane>
-                                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                            <children>
-                                                <ImageView fx:id="album_image2" fitHeight="307.0" fitWidth="516.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../Images/placeholder-1920x1080.png" />
-                                                    </image>
-                                                </ImageView>
-                                    <Text layoutX="552.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUM:" wrappingWidth="200.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="552.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTHOR:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="552.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_author2" layoutX="708.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_title2" layoutX="752.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="153.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_desc2" layoutX="708.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="552.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_tags2" layoutX="708.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Button fx:id="open_album1" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                            </children>
-                                        </Pane>
-                                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                            <children>
-                                                <ImageView fx:id="album_image3" fitHeight="307.0" fitWidth="516.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../Images/placeholder-1920x1080.png" />
-                                                    </image>
-                                                </ImageView>
-                                    <Text layoutX="545.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUM:" wrappingWidth="200.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTHOR:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_author3" layoutX="701.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_title3" layoutX="745.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="153.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_desc3" layoutX="701.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_tags3" layoutX="701.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Button fx:id="open_album2" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                            </children>
-                                        </Pane>
-                                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
-                                            <children>
-                                                <ImageView fx:id="album_image4" fitHeight="307.0" fitWidth="516.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../Images/placeholder-1920x1080.png" />
-                                                    </image>
-                                                </ImageView>
-                                    <Text layoutX="545.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUM:" wrappingWidth="200.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTHOR:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_author4" layoutX="701.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_title4" layoutX="745.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="153.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_desc4" layoutX="701.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_tags4" layoutX="701.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Button fx:id="open_album3" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                            </children>
-                                        </Pane>
-                                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
-                                            <children>
-                                                <ImageView fx:id="album_image5" fitHeight="307.0" fitWidth="516.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../Images/placeholder-1920x1080.png" />
-                                                    </image>
-                                                </ImageView>
-                                    <Text layoutX="545.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUM:" wrappingWidth="200.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTHOR:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_author5" layoutX="701.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_title5" layoutX="745.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="153.0">
-                                       <font>
-                                          <Font name="System Bold" size="48.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_desc5" layoutX="701.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="129.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="545.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:" wrappingWidth="150.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="album_tags5" layoutX="701.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;&quot;" wrappingWidth="70.0">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Button fx:id="open_album4" layoutX="551.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToViewAlbum" text="Open Album">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                            </children>
-                                        </Pane>
+
                                     </children>
                                 </GridPane>
-                            </center>
-                            <bottom>
-                                <Pane prefHeight="150.0" prefWidth="1920.0" style="-fx-background-color: #6d6d6d;" BorderPane.alignment="CENTER">
+                                        </center>
+                                        <bottom>
+                                    <Pane prefHeight="150.0" prefWidth="1920.0" style="-fx-background-color: #6d6d6d;" BorderPane.alignment="CENTER">
                                     <children>
                                         <HBox alignment="CENTER" layoutY="-2.0" prefHeight="84.0" prefWidth="1920.0" spacing="20.0">
                                             <children>
@@ -377,10 +111,12 @@
                                                 <Button fx:id="footer_next_page" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
                                             </children>
                                         </HBox>
-                                    </children></Pane>
+                                    </children>
+                                </Pane>
                             </bottom>
                         </BorderPane>
-                    </children></AnchorPane>
+                    </children>
+                </AnchorPane>
             </content>
         </ScrollPane>
     </children>

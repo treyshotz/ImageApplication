@@ -11,6 +11,7 @@ import java.util.List;
 public class DataExchange {
     private String searchField;
     private List<File> uploadedFiles;
+    private Long albumId;
 
     public DataExchange(){
         searchField = "";
@@ -23,11 +24,19 @@ public class DataExchange {
         return searchField;
     }
 
+    public Long getAlbumId() {
+        return albumId;
+    }
+
     public void setUploadedFiles(List<File> uploadedFiles) {
         this.uploadedFiles = uploadedFiles;
     }
 
     public void setSearchField(String searchField) {
         this.searchField = searchField;
+    }
+
+    public void setAlbumId(Long albumId) {
+        this.albumId = albumId;
     }
 }
