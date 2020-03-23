@@ -2,7 +2,6 @@ package NTNU.IDATT1002.utils;
 
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Histogram;
-import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import NTNU.IDATT1002.repository.HistorgramRepository;
 import com.drew.imaging.ImageMetadataReader;
@@ -18,6 +17,9 @@ import java.io.File;
 import java.io.IOException;
 
 
+/**
+ * Class MetaDataExtractor. Extracts metadata and geolocation and histogram from it.
+ */
 public class MetaDataExtractor {
 
     private GeoLocatioRepository geoLocationRepository;
@@ -63,6 +65,12 @@ public class MetaDataExtractor {
         return geoLocation;
     }
 
+    /**
+     * TODO: Decide what data to store.
+     *
+     * @param file
+     * @return
+     */
     public Histogram getHistogram(File file) {
 //        Metadata metadata = null;
 //
@@ -83,24 +91,9 @@ public class MetaDataExtractor {
 
 
         Histogram histogram = new Histogram();
-        histogram.setData("Hello");
+        histogram.setData("INSERT DATA HERE");
 
         return histogram;
-    }
-
-    public NTNU.IDATT1002.models.Metadata assembleMetaData(File file, Image image) {
-
-        NTNU.IDATT1002.models.Metadata metadata = new NTNU.IDATT1002.models.Metadata();
-        try {
-            metadata.setImage(image);
-            metadata.setGeoLocation(getGeoLocation(file));
-            metadata.setHistogram(getHistogram(file));
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return metadata;
     }
 
 }

@@ -57,10 +57,7 @@ public class ImageService {
         GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
         Histogram histogram = metaDataExtractor.getHistogram(file);
 
-//        geoLocation = geoLocatioRepository.save(geoLocation).orElse(null);
-//        histogram = historgramRepository.save(histogram).orElse(null);
         Image image = new Image();
-
         Metadata metadata = new Metadata();
         metadata.setImage(image);
         image.setMetadata(metadata);
@@ -74,11 +71,9 @@ public class ImageService {
         System.out.println(metadata.getGeoLocation().getLatitude());
         System.out.println(metadata.getHistogram().getData());
 
-//        metadata = metadataRepository.save(metadata).orElse(null);
-
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
-        //TODO: Unsure what to do with imageAlbum
+        //TODO: Add image tags and add image to imageAlbum
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());

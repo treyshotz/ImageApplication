@@ -29,10 +29,7 @@ import java.util.ResourceBundle;
  */
 public class UploadedSingle implements Initializable {
 
-
   ImageService imageService;
-  NTNU.IDATT1002.models.Image image;
-  ApplicationState applicationState;
 
   public ImageView tbar_logo;
   public TextField tbar_search;
@@ -59,6 +56,7 @@ public class UploadedSingle implements Initializable {
    */
   public void initialize(URL location, ResourceBundle resources) {
     photo_image.setImage(new Image(App.ex.getUploadedFiles().get(0).toURI().toString()));
+    imageService = new ImageService();
   }
 
   /**
@@ -134,20 +132,10 @@ public class UploadedSingle implements Initializable {
    */
 
   public void uploadSingle(ActionEvent actionEvent) throws IOException {
-    imageService = new ImageService();
-    applicationState = new ApplicationState();
     List<File> list = App.ex.getUploadedFiles();
     File fil = list.get(0);
     ArrayList<Tag> tags = new ArrayList<>();
-    System.out.println("SHITFUCK");
     imageService.createImage(ApplicationState.getCurrentUser(), fil, tags);
-   /* list.stream().forEach(x -> {
-      image = imageService.createImage(applicationState.getCurrentUser(), x).get();
-      List tags = tagStringSplit(photo_tag);
-      tags.stream().forEach(y -> {
-        imageService.addTagToImage(image, new Tag((Tag) y));
-      });
-    });*/
 
     App.setRoot("main");
   }

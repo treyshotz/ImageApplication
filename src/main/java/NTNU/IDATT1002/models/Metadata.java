@@ -23,7 +23,6 @@ public class Metadata {
      * on image_id column in image
      */
     @OneToOne(mappedBy = "metadata")
-    @MapsId
     private Image image;
 
     @OneToOne(cascade = CascadeType.ALL)
