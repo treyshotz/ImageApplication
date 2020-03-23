@@ -2,8 +2,7 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
-import NTNU.IDATT1002.models.Tag;
-import NTNU.IDATT1002.models.User;
+
 import NTNU.IDATT1002.service.ImageService;
 import java.io.File;
 import java.util.Arrays;
@@ -134,15 +133,16 @@ public class UploadedSingle implements Initializable {
    */
 
   public void uploadSingle(ActionEvent actionEvent) throws IOException {
-
     List<File> list = App.ex.getUploadedFiles();
-    list.stream().forEach(x -> {
+    File fil = list.get(0);
+    imageService.createImage(applicationState.getCurrentUser(), fil);
+   /* list.stream().forEach(x -> {
       image = imageService.createImage(applicationState.getCurrentUser(), x).get();
       List tags = tagStringSplit(photo_tag);
       tags.stream().forEach(y -> {
         imageService.addTagToImage(image, new Tag((Tag) y));
       });
-    });
+    });*/
 
     App.setRoot("main");
   }
@@ -153,8 +153,9 @@ public class UploadedSingle implements Initializable {
    * @return list of string
    */
   public List<String> tagStringSplit(TextField photo_tag) {
-    String tagTekst = photo_tag.toString();
+    String tagTekst = photo_tag.getText();
     return Arrays.asList(tagTekst.split("(?=#)"));
+
 
   }
 }
