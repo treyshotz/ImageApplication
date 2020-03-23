@@ -1,4 +1,3 @@
-/*
 package NTNU.IDATT1002.service;
 
 import NTNU.IDATT1002.models.User;
@@ -7,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.validation.constraints.AssertTrue;
 import java.lang.management.OperatingSystemMXBean;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -58,4 +58,53 @@ class UserServiceTest {
     assertTrue(user.isPresent());
     assertTrue(userService.logIn(username, password));
   }
-}*/
+
+  @Test
+  void testLoginWithNewPassword() {
+      String newPassword = "Test321";
+      Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
+      assertTrue(user.isPresent());
+      assertTrue(userService.changePassword(username, password, newPassword));
+      assertTrue(userService.logIn(username,newPassword));
+  }
+
+  @Test
+    void testWrongPasswordDoesNotLogin() {
+      String wrongPassword = "WillnotWork";
+      Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
+      assertTrue(user.isPresent());
+      assertFalse(userService.logIn(username, wrongPassword));
+  }
+
+  @Test
+    void testWrongDoesNotChangePassword() {
+      String wrongPassword = "WillnotWork";
+      Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
+      assertTrue(user.isPresent());
+      assertFalse(userService.changePassword(username, wrongPassword, wrongPassword));
+      assertFalse(userService.logIn(username, wrongPassword));
+  }
+
+  @Test
+    void testLoginWithNullReturnsFalse() {
+      Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
+      assertTrue(user.isPresent());
+      assertFalse(userService.logIn(username, null));
+  }
+
+  @Test
+    void testChangeWithNullAsOldPasswordReturnsFalse() {
+      String newPassword = "WillnotWork";
+      Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
+      assertTrue(user.isPresent());
+      assertFalse(userService.changePassword(username, null, newPassword));
+  }
+
+  @Test
+    void testChangeWithNullAsNewPasswordReturnsFalse() {
+      Optional<User> user = userService.createUser(email, username, firstName, lastName, callingCode, phoneNumber, date, password);
+      assertTrue(user.isPresent());
+      assertFalse(userService.changePassword(username, password, null));
+  }
+
+}
