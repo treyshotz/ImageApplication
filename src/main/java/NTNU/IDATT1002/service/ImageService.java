@@ -30,6 +30,7 @@ public class ImageService {
     private ImageRepository imageRepository;
     private MetadataRepository metadataRepository;
     private TagRepository tagRepository;
+    private MetaDataExtractor metaDataExtractor;
 
     /**
      * Inject entity manager instance to the repositories.
@@ -41,6 +42,8 @@ public class ImageService {
         this.imageRepository = new ImageRepository(entityManager);
         this.metadataRepository = new MetadataRepository(entityManager);
         this.tagRepository = new TagRepository(entityManager);
+        this.metaDataExtractor = new MetaDataExtractor();
+
     }
 
     /**
@@ -52,14 +55,17 @@ public class ImageService {
      */
     public Optional<Image> createImage(User user, File file, ArrayList<Tag> tags) {
         Image image = new Image();
+        Metadata metadata = metaDataExtractor.assembleMetaData(file, image);
+        System.out.println(metadata.getGeoLocation().getLatitude());
+        System.out.println(metadata.getHistogram().getData());
+
+
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
-        Metadata metadata = MetaDataExtractor.assembleMetaData(file, image);
-        metadata = metadataRepository.save(metadata).orElse(null);
+        metadata = metadataRepository.save(metadata).get();
 
         //TODO: Unsure what to do with imageAlbum
         image.setRawImage(bFile);
         image.setUser(user);
-        image.setUser(null);
         image.setMetadata(metadata);
         image.setPath(file.getPath());
         //image.addTags(tags);
