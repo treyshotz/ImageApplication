@@ -57,26 +57,30 @@ public class ImageService {
         GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
         Histogram histogram = metaDataExtractor.getHistogram(file);
 
-        geoLocation = geoLocatioRepository.save(geoLocation).orElse(null);
-        histogram = historgramRepository.save(histogram).orElse(null);
-
+//        geoLocation = geoLocatioRepository.save(geoLocation).orElse(null);
+//        histogram = historgramRepository.save(histogram).orElse(null);
         Image image = new Image();
+
         Metadata metadata = new Metadata();
         metadata.setImage(image);
+        image.setMetadata(metadata);
+
         metadata.setGeoLocation(geoLocation);
+        geoLocation.setMetadata(metadata);
+
         metadata.setHistogram(histogram);
+        histogram.setMetadata(metadata);
 
         System.out.println(metadata.getGeoLocation().getLatitude());
         System.out.println(metadata.getHistogram().getData());
 
-        metadata = metadataRepository.save(metadata).orElse(null);
+//        metadata = metadataRepository.save(metadata).orElse(null);
 
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
         //TODO: Unsure what to do with imageAlbum
         image.setRawImage(bFile);
         image.setUser(user);
-        image.setMetadata(metadata);
         image.setPath(file.getPath());
 //        image.addTags(tags);
         return imageRepository.save(image);

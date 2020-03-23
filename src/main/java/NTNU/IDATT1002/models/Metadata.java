@@ -22,14 +22,14 @@ public class Metadata {
      * One to one relation joining imageId
      * on image_id column in image
      */
-    @OneToOne
-    @JoinColumn(name = "image_id")
+    @OneToOne(mappedBy = "metadata")
+    @MapsId
     private Image image;
 
-    @OneToOne
-    private GeoLocation geoLocation;
+    @OneToOne(cascade = CascadeType.ALL)
+    private GeoLocation geolocation;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Histogram histogram;
 
     public Metadata() {
@@ -37,7 +37,7 @@ public class Metadata {
 
     public Metadata(Image image, GeoLocation geoLocation, Histogram histogram) {
         this.image = image;
-        this.geoLocation = geoLocation;
+        this.geolocation = geolocation;
         this.histogram = histogram;
     }
 
@@ -50,7 +50,7 @@ public class Metadata {
     }
 
     public GeoLocation getGeoLocation() {
-        return geoLocation;
+        return geolocation;
     }
 
     public Histogram getHistogram() {
@@ -61,8 +61,8 @@ public class Metadata {
         this.image = image;
     }
 
-    public void setGeoLocation(GeoLocation geoLocation) {
-        this.geoLocation = geoLocation;
+    public void setGeoLocation(GeoLocation geolocation) {
+        this.geolocation = geolocation;
     }
 
     public void setHistogram(Histogram histogram) {

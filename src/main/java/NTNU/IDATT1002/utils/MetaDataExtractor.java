@@ -7,10 +7,8 @@ import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import NTNU.IDATT1002.repository.HistorgramRepository;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
-import com.drew.metadata.Tag;
 import com.drew.metadata.exif.GpsDirectory;
 
 import javax.persistence.EntityManager;
@@ -66,23 +64,26 @@ public class MetaDataExtractor {
     }
 
     public Histogram getHistogram(File file) {
-        Metadata metadata = null;
+//        Metadata metadata = null;
+//
+//        try {
+//            metadata = ImageMetadataReader.readMetadata(file);
+//        } catch (IOException | ImageProcessingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        StringBuilder data = new StringBuilder();
+//        assert metadata != null;
+//        for(Directory d : metadata.getDirectories()) {
+//            for (Tag t : d.getTags()) {
+//                data.append(t.toString()).append(" | ");
+//            }
+//        }
+//        histogram.setData(data.toString());
 
-        try {
-            metadata = ImageMetadataReader.readMetadata(file);
-        } catch (IOException | ImageProcessingException e) {
-            e.printStackTrace();
-        }
 
-        StringBuilder data = new StringBuilder();
-        assert metadata != null;
-        for(Directory d : metadata.getDirectories()) {
-            for (Tag t : d.getTags()) {
-                data.append(t.toString()).append(" | ");
-            }
-        }
         Histogram histogram = new Histogram();
-        histogram.setData(data.toString());
+        histogram.setData("Hello");
 
         return histogram;
     }

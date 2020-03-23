@@ -38,7 +38,7 @@ public class Image {
   @NotEmpty
   private byte[] rawImage;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Metadata metadata;
 
   @NotBlank

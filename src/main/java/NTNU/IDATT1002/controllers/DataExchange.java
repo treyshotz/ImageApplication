@@ -18,7 +18,6 @@ public class DataExchange {
         searchField = "";
     }
     public List<File> getUploadedFiles() {
-        System.out.println("SHITFUCK111");
         return uploadedFiles;
     }
 
