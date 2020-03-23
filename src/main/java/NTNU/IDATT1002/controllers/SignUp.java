@@ -1,8 +1,12 @@
 package NTNU.IDATT1002.controllers;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.Optional;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.models.User;
+import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -26,6 +30,7 @@ public class SignUp {
     public TextField signup_phoneCode;
     public TextField signup_phoneNr;
     public DatePicker signup_birthDate;
+    public UserService userService = new UserService();
 
     public Button signup_btn;
 
@@ -35,8 +40,22 @@ public class SignUp {
      * @throws IOException
      */
     public void signup(ActionEvent actionEvent) throws IOException {
-        //TODO: Verify that all fields is properly filled
-        //TODO: Register new user in database
-        App.setRoot("login");
+        String username = signup_username.getText();
+        String firstName = signup_firstName.getText();
+        String lastName = signup_lastName.getText();
+        String email = signup_email.getText();
+        String password = signup_password.getText();
+        String phoneCode = signup_phoneCode.getText();
+        String phoneNr = signup_phoneNr.getText();
+        //TODO: Find out how to take date as a Date object
+        Date date = new Date(System.currentTimeMillis());
+
+        if(userService.createUser(email, username, firstName, lastName, phoneCode, phoneNr, date, password).isPresent()) {
+            //TODO: Return message to user to confirm that user has been succsessfully registered
+            App.setRoot("login");
+        }
+
+
+        //TODO: Verify that all fields is properly filled. I think this will be done by Usermodel.
     }
 }
