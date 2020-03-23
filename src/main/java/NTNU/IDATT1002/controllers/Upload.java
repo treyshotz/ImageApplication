@@ -41,7 +41,7 @@ public class Upload {
     public Button tbar_albums;
 
     /**
-     * Method that changes stage to Main page
+     * Method that changes scene to Main page
      * @param mouseEvent
      * @throws IOException
      */
@@ -50,7 +50,7 @@ public class Upload {
     }
 
     /**
-     * Method that changes stage to Search page. It reads the value of the search
+     * Method that changes scene to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -63,7 +63,7 @@ public class Upload {
     }
 
     /**
-     * Method that changes stage to Explore page
+     * Method that changes scene to Explore page
      * @param actionEvent
      * @throws IOException
      */
@@ -72,7 +72,7 @@ public class Upload {
     }
 
     /**
-     * Method that changes stage to Albums page
+     * Method that changes scene to Albums page
      * @param actionEvent
      * @throws IOException
      */
@@ -81,7 +81,7 @@ public class Upload {
     }
 
     /**
-     * Method that changes stage to Map page
+     * Method that changes scene to Map page
      * @param actionEvent
      * @throws IOException
      */
@@ -90,7 +90,7 @@ public class Upload {
     }
 
     /**
-     * Method that changes stage to Upload page
+     * Method that changes scene to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
@@ -99,7 +99,7 @@ public class Upload {
     }
 
     /**
-     * Method that changs stage to Uploaded Single page
+     * Method that changs scene to Uploaded Single page
      * If the user has chosen 1 image this method is called
      * @throws IOException
      */
@@ -108,7 +108,7 @@ public class Upload {
     }
 
     /**
-     * Method that changs stage to Uploaded Multiple page
+     * Method that changs scene to Uploaded Multiple page
      * If the user has chosen multiple images this method is called
      * @throws IOException
      */

@@ -30,7 +30,7 @@ public class SignUp {
     public Button signup_btn;
 
     /**
-     * Method that changes stage to Login
+     * Method that changes scene to Login
      * @param actionEvent
      * @throws IOException
      */

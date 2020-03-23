@@ -2,21 +2,32 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Controls the buttons and changeable elements on explore.fxml,
  * a page where you explore images
  * @version 1.0 22.03.2020
  */
-public class Explore {
+public class Explore implements Initializable {
 
     public ImageView tbar_logo;
     public TextField tbar_search;
@@ -24,29 +35,70 @@ public class Explore {
     public Button tbar_explore;
     public Button tbar_map;
     public Button tbar_upload;
+    public Button tbar_albums;
     public ScrollPane scrollPane;
+    public GridPane gridPane;
     public Button footer_previousBtn;
     public Button footer_nextBtn;
-    public Button tbar_albums;
-    public Pane pane1_1;
-    public Pane pane1_2;
-    public Pane pane1_3;
-    public Pane pane2_1;
-    public Pane pane2_2;
-    public Pane pane2_3;
-    public Pane pane3_1;
-    public Pane pane3_2;
-    public Pane pane3_3;
-    public Pane pane4_1;
-    public Pane pane4_2;
-    public Pane pane4_3;
-    public Pane pane5_1;
-    public Pane pane5_2;
-    public Pane pane5_3;
 
 
     /**
-     * Method that changes stage to Main page
+     * Method that runs when explore.fxml is set as scene
+     * Generates content based on a list of images
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg","@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg","@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg");
+        //Limited elements to 15 since grid pane since is 3x15
+        //Can implement automatic row adding when this limit exceeded later
+        for(int i = 0; i < urls.size() && i < 15; i++) {
+            //Row and column in gripdane
+            int column = i%3;
+            int row = (i-column)/3;
+
+            //Make vbox container for content
+            VBox v = new VBox();
+            v.setPrefHeight(400);
+            v.setPrefWidth(400);
+            v.setAlignment(Pos.CENTER);
+            v.setStyle("-fx-background-color: #999999;");
+
+            //Image container
+            ImageView iV = new ImageView();
+            iV.setImage(new Image(urls.get(i)));
+            iV.setFitHeight(250);
+            iV.setFitWidth(400);
+            iV.pickOnBoundsProperty().setValue(true);
+            iV.setPreserveRatio(true);
+            //Link to view image page
+            iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override public void handle(MouseEvent e) {
+                    try{
+                        switchToPicture(e);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            //Text describing the picture's title and tag
+            Text title = new Text("TITLE:");
+            title.setFont(Font.font("System Bold", 24));
+            Text tag = new Text("#TAGS");
+            tag.setFont(Font.font("System Bold", 18));
+
+            //Add elements to vbox
+            v.getChildren().addAll(iV, title, tag);
+
+            //Add vbox to gridpane
+            gridPane.add(v, column, row);
+        }
+    }
+
+    /**
+     * Method that changes scene to Main page
      * @param mouseEvent
      * @throws IOException
      */
@@ -55,7 +107,7 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to Search page. It reads the value of the search
+     * Method that changes scene to Search page. It reads the value of the search
      * field and if not empty it is passed to dataexchange
      * @param actionEvent
      * @throws IOException
@@ -68,7 +120,7 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to Explore page
+     * Method that changes scene to Explore page
      * @param actionEvent
      * @throws IOException
      */
@@ -77,7 +129,7 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to Albums page
+     * Method that changes scene to Albums page
      * @param actionEvent
      * @throws IOException
      */
@@ -86,7 +138,7 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to Map page
+     * Method that changes scene to Map page
      * @param actionEvent
      * @throws IOException
      */
@@ -95,7 +147,7 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to Upload page
+     * Method that changes scene to Upload page
      * @param actionEvent the mouse has done something
      * @throws IOException this page does not exist
      */
@@ -104,12 +156,15 @@ public class Explore {
     }
 
     /**
-     * Method that changes stage to View Picture page for the image that was clicked
+     * Method that changes scene to View Picture page for the image that was clicked
      * @param mouseEvent
      * @throws IOException
      */
     public void switchToPicture(MouseEvent mouseEvent) throws IOException {
-        App.setRoot("view_picture");
+        if(mouseEvent.getSource() instanceof ImageView){
+            App.ex.setChosenImg(((ImageView) mouseEvent.getSource()).getImage().getUrl());
+            App.setRoot("view_picture");
+        }
     }
 
     /**
