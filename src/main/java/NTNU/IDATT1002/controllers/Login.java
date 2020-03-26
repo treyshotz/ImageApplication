@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javax.security.auth.login.FailedLoginException;
+
 /**
  * Controls the buttons and changeable elements on login.fxml,
  * the page where you log into the application
@@ -43,8 +45,11 @@ public class Login {
         userService = new UserService();
         String username = Username.getText();
         String password = Password.getText();
-        if(userService.logIn(username, password)); {
+        if(userService.logIn(username, password)) {
             App.setRoot("main");
+        }
+        else {
+            //TODO: Make popup window to inform the user that wrong details was entered
         }
         //TODO: Else raise warning maybe?
     }
