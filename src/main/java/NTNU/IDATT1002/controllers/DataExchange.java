@@ -1,5 +1,7 @@
 package NTNU.IDATT1002.controllers;
 
+import javafx.application.HostServices;
+
 import java.io.File;
 import java.util.List;
 
@@ -9,6 +11,8 @@ import java.util.List;
  * @version 1.0 22.03.2020
  */
 public class DataExchange {
+
+    public HostServices hostServices;
     private String searchField;
     private List<File> uploadedFiles;
     private Long chosenAlbumId;
@@ -17,6 +21,11 @@ public class DataExchange {
     public DataExchange(){
         searchField = "";
     }
+
+    public HostServices getHostServices() {
+        return hostServices;
+    }
+
     public List<File> getUploadedFiles() {
         return uploadedFiles;
     }
@@ -31,6 +40,10 @@ public class DataExchange {
 
     public String getChosenImg() {
         return chosenImg;
+    }
+
+    public void setHostServices(HostServices hostServices) {
+        this.hostServices = hostServices;
     }
 
     public void setUploadedFiles(List<File> uploadedFiles) {

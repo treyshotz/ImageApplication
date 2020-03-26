@@ -6,6 +6,7 @@ import NTNU.IDATT1002.models.Metadata;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -45,6 +46,10 @@ public class PdfDocument {
         this.imageAlbum = imageAlbum;
         this.DESTINATION_FILE = DESTINATION_FILE;
         this.document = new Document();
+    }
+
+    public File getPdfDocument() {
+        return new File(DESTINATION_FILE);
     }
 
     /**
