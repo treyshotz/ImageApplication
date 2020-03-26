@@ -75,7 +75,7 @@ public class ImageService {
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());
-//        image.addTags(tags);
+        image.addTags(tags);
         return imageRepository.save(image);
     }
 

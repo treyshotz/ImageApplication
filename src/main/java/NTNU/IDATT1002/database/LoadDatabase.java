@@ -8,6 +8,7 @@ import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.UserService;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -29,155 +30,239 @@ public class LoadDatabase {
 
     public static void load() {
 
-        User user = userService.createUser("LarseKaren@mail.com", "LarseKaren", "Larse",
-                "Karen", "+47", "00000000", new Date(), "123")
+        User user = userService.createUser("LarseKaren@mail.com",
+                "LarseKaren",
+                "Larse",
+                "Karen",
+                "+47",
+                "00000000",
+                new Date(),
+                "123")
                 .get();
-        Image image = imageService.createImage(user, new File("t14-test-images/1.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#winter"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-        imageService.addTagToImage(image, new Tag("#mountains"));
-
+        ArrayList<Tag> tags = new ArrayList<>(Arrays.asList(
+                new Tag("#winter"),
+                new Tag("#nature"),
+                new Tag("#mountains")
+        ));
+        Image image = imageService.createImage(user,
+                new File("t14-test-images/1.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("First",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#winter"), new Tag("#nature"), new Tag("#mountains")),
+                Arrays.asList(new Tag("#winter"),
+                        new Tag("#nature"),
+                        new Tag("#mountains")),
                 Arrays.asList(image));
 
 
 
-        image = imageService.createImage(user, new File("t14-test-images/7.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#winter"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-        imageService.addTagToImage(image, new Tag("#ice"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#winter"),
+                new Tag("#nature"),
+                new Tag("#ice")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/7.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Seventh",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#winter"), new Tag("#nature"), new Tag("#ice")),
+                Arrays.asList(new Tag("#winter"),
+                        new Tag("#nature"),
+                        new Tag("#ice")),
                 Arrays.asList(image));
 
 
 
-        user = userService.createUser("SteiraGuten@mail.com", "SteiraGuten", "Steira",
-                "Guten", "+47", "00000000", new Date(), "123")
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#winter"),
+                new Tag("#nature"),
+                new Tag("#water")
+        ));
+        user = userService.createUser("SteiraGuten@mail.com",
+                "SteiraGuten",
+                "Steira",
+                "Guten",
+                "+47",
+                "00000000",
+                new Date(),
+                "123")
                 .get();
-        image = imageService.createImage(user, new File("t14-test-images/2.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#mountains"));
-        imageService.addTagToImage(image, new Tag("#water"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-
+        image = imageService.createImage(user,
+                new File("t14-test-images/2.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Second",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#mountains"), new Tag("#water"), new Tag("#nature")),
+                Arrays.asList(new Tag("#mountains"),
+                        new Tag("#water"),
+                        new Tag("#nature")),
                 Arrays.asList(image));
 
 
-
-        image = imageService.createImage(user, new File("t14-test-images/10.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#fjords"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-        imageService.addTagToImage(image, new Tag("#mountains"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#fjords"),
+                new Tag("#nature"),
+                new Tag("#mountains")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/10.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Tenth",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#fjords"), new Tag("#nature"), new Tag("#mountains")),
+                Arrays.asList(new Tag("#fjords"),
+                        new Tag("#nature"),
+                        new Tag("#mountains")),
                 Arrays.asList(image));
 
 
 
-        user = userService.createUser("MogenBogen@mail.com", "MogenBogen", "Mogen",
-                "Bogen", "+47", "00000000", new Date(), "123")
+        user = userService.createUser("MogenBogen@mail.com",
+                "MogenBogen",
+                "Mogen",
+                "Bogen",
+                "+47",
+                "00000000",
+                new Date(),
+                "123")
                 .get();
-        image = imageService.createImage(user, new File("t14-test-images/3.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#mountains"));
-        imageService.addTagToImage(image, new Tag("#water"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#mountains"),
+                new Tag("#nature"),
+                new Tag("#water")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/3.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Third",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#mountains"), new Tag("#water"), new Tag("#nature")),
+                Arrays.asList(new Tag("#mountains"),
+                        new Tag("#water"),
+                        new Tag("#nature")),
                 Arrays.asList(image));
 
 
 
-
-        image = imageService.createImage(user, new File("t14-test-images/9.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#art"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-        imageService.addTagToImage(image, new Tag("#river"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#art"),
+                new Tag("#nature"),
+                new Tag("#river")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/9.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Ninth",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#art"), new Tag("#nature"), new Tag("#river")),
+                Arrays.asList(new Tag("#art"),
+                        new Tag("#nature"),
+                        new Tag("#river")),
                 Arrays.asList(image));
 
 
 
 
-        user = userService.createUser("Nicolaysen@mail.com", "Nicolaysen", "Nicolai",
-                "Sen", "+47", "00000000", new Date(), "123")
+        user = userService.createUser("Nicolaysen@mail.com",
+                "Nicolaysen",
+                "Nicolai",
+                "Sen",
+                "+47",
+                "00000000",
+                new Date(),
+                "123")
                 .get();
-        image = imageService.createImage(user, new File("t14-test-images/4.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#mountains"));
-        imageService.addTagToImage(image, new Tag("#grass"));
-        imageService.addTagToImage(image, new Tag("#nature"));
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#mountains"),
+                new Tag("#nature"),
+                new Tag("#grass")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/4.jpg"),
+                tags).get();
 
         imageAlbumService.createImageAlbum("Fourth",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#mountains"), new Tag("#grass"), new Tag("#nature")),
+                Arrays.asList(new Tag("#mountains"),
+                        new Tag("#grass"),
+                        new Tag("#nature")),
                 Arrays.asList(image));
 
 
 
-        image = imageService.createImage(user, new File("t14-test-images/5.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#mountains"));
-        imageService.addTagToImage(image, new Tag("#water"));
-        imageService.addTagToImage(image, new Tag("#dock"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#mountains"),
+                new Tag("#dock"),
+                new Tag("#water")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/5.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Fifth",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#mountains"), new Tag("#water"), new Tag("#dock")),
+                Arrays.asList(new Tag("#mountains"),
+                        new Tag("#water"),
+                        new Tag("#dock")),
                 Arrays.asList(image));
 
 
 
 
-
-        user = userService.createUser("MaseMads@mail.com", "MaseMads", "Mase",
-                "Mads", "+47", "00000000", new Date(), "123")
+        user = userService.createUser("MaseMads@mail.com",
+                "MaseMads",
+                "Mase",
+                "Mads",
+                "+47",
+                "00000000",
+                new Date(),
+                "123")
                 .get();
-        image = imageService.createImage(user, new File("t14-test-images/6.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#mountains"));
-        imageService.addTagToImage(image, new Tag("#waterfall"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#mountains"),
+                new Tag("#nature"),
+                new Tag("#waterfall")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/6.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Sixth",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#mountains"), new Tag("#waterfall"), new Tag("#nature")),
+                Arrays.asList(new Tag("#mountains"),
+                        new Tag("#waterfall"),
+                        new Tag("#nature")),
                 Arrays.asList(image));
 
 
 
 
-        user = userService.createUser("JensenMannen@mail.com", "JensenMannen", "Jense",
-                "Mannen", "+47", "00000000", new Date(), "123")
+        user = userService.createUser("JensenMannen@mail.com",
+                "JensenMannen",
+                "Jense",
+                "Mannen",
+                "+47",
+                "00000000",
+                new Date(),
+                "123")
                 .get();
-        image = imageService.createImage(user, new File("t14-test-images/8.jpg")).get();
-        imageService.addTagToImage(image, new Tag("#winter"));
-        imageService.addTagToImage(image, new Tag("#nature"));
-        imageService.addTagToImage(image, new Tag("#mountains"));
-
+        tags = new ArrayList<>(Arrays.asList(
+                new Tag("#winter"),
+                new Tag("#nature"),
+                new Tag("#mountains")
+        ));
+        image = imageService.createImage(user,
+                new File("t14-test-images/8.jpg"),
+                tags).get();
         imageAlbumService.createImageAlbum("Eighth",
                 "Lorem Ipsum",
                 user,
-                Arrays.asList(new Tag("#winter"), new Tag("#nature"), new Tag("#mountains")),
+                Arrays.asList(new Tag("#winter"),
+                        new Tag("#nature"),
+                        new Tag("#mountains")),
                 Arrays.asList(image));
 
 
