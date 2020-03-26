@@ -4,6 +4,7 @@ import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.ImageAlbum;
 import NTNU.IDATT1002.service.ImageAlbumService;
 import NTNU.IDATT1002.utils.PdfDocument;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,7 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -44,6 +48,13 @@ public class ViewAlbum {
     public Button tbar_searchBtn;
     public Button tbar_albums;
 
+    private ImageAlbumService imageAlbumService;
+
+    private static Logger logger = LoggerFactory.getLogger(ViewAlbum.class);
+
+    public ViewAlbum() {
+        this.imageAlbumService =  new ImageAlbumService();
+    }
 
     /**
      * Method that changes scene to Main page
@@ -139,13 +150,45 @@ public class ViewAlbum {
         //write method that loads the next 6 images in the album into the scrollbar-view
     }
 
+    /**
+     * Create and save album pdf to users downloads directory.
+     *
+     * @param actionEvent
+     */
     public void createPdf(ActionEvent actionEvent) {
-        ImageAlbumService imageAlbumService = new ImageAlbumService();
         Long currentAlbumId = App.ex.getChosenAlbumId();
-
         ImageAlbum imageAlbum = imageAlbumService.getImageAlbumById(currentAlbumId)
                 .orElseThrow(IllegalArgumentException::new);
-        PdfDocument document = new PdfDocument(imageAlbum, "./Album.pdf");
+
+        String destinationFile = String.format("%s/downloads/%s.pdf",
+                System.getProperty("user.home"),
+                imageAlbum.getTitle());
+
+        PdfDocument document = new PdfDocument(imageAlbum, destinationFile);
         document.createPdfDocument();
+        logger.info("[x] Saved PDF document to " + destinationFile);
+
+        displayPdfLink(document.getPdfDocument());
+    }
+
+    /**
+     * Replace create album pdf button with a button to open the given document.
+     *
+     * @param pdfDocument the pdf document to be opened
+     */
+    private void displayPdfLink(File pdfDocument) {
+        create_album_pdf.setText("Open PDF");
+        create_album_pdf.setOnAction(actionEvent -> openPdfDocument(actionEvent, pdfDocument));
+    }
+
+    /**
+     * Open given file.
+     *
+     * @param actionEvent
+     * @param file the file to open
+     */
+    private void openPdfDocument(ActionEvent actionEvent, File file) {
+        HostServices hostServices = App.ex.getHostServices();
+        hostServices.showDocument(file.getAbsolutePath());
     }
 }
