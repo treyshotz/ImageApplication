@@ -6,7 +6,7 @@ import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.ImageAlbumRepository;
 import NTNU.IDATT1002.repository.TagRepository;
-import NTNU.IDATT1002.service.filters.ImageAlbumFilter;
+import NTNU.IDATT1002.filters.ImageAlbumFilter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,4 +1,4 @@
-package NTNU.IDATT1002.service.filters;
+package NTNU.IDATT1002.filters;
 
 
 import NTNU.IDATT1002.models.Image;
