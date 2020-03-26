@@ -4,6 +4,7 @@ import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.ImageAlbum;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.ImageAlbumService;
+import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -116,7 +117,6 @@ public class ExploreAlbums implements Initializable {
      * @param pane the pane to add the image to
      */
     private void insertImageViewToPane(ImageAlbum album, Pane pane) {
-        // Set and format image
         album_image = new ImageView();
         album_image.setFitHeight(307.0);
         album_image.setFitWidth(516.0);
@@ -126,9 +126,7 @@ public class ExploreAlbums implements Initializable {
         album_image.setPreserveRatio(true);
 
         NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
-        album_image.setId(titleImage.getId().toString());
-
-        Image image = new Image("@../../Images/placeholder-1920x1080.png"); // TODO: display image here
+        Image image = ImageUtil.convertToFXImage(titleImage);
         album_image.setImage(image);
 
         pane.getChildren().add(album_image);
@@ -140,7 +138,6 @@ public class ExploreAlbums implements Initializable {
      * @param pane the pane to add the title to
      */
     private void insertAlbumTitleLabelToPane(Pane pane) {
-        // set and format title label
         Text text = new Text();
         text.setText("ALBUM: ");
         text.setFont(Font.font(48.0));
@@ -159,7 +156,6 @@ public class ExploreAlbums implements Initializable {
      * @param pane the pane to add the author label to
      */
     private void insertAlbumAuthorLabelToPane(Pane pane) {
-        // set and format author label
         Text authorLabel = new Text();
         authorLabel.setText("AUTHOR: ");
         authorLabel.setFont(Font.font(24));
@@ -178,7 +174,6 @@ public class ExploreAlbums implements Initializable {
      * @param pane the pane to add the description label to
      */
     private void insertAlbumDescriptionLabelToPane(Pane pane) {
-        // set and format description label
         Text descriptionLabel = new Text();
         descriptionLabel.setText("DESCRIPTION: ");
         descriptionLabel.setFont(Font.font(18.0));
@@ -198,7 +193,6 @@ public class ExploreAlbums implements Initializable {
      * @param pane the pane to add the author to
      */
     private void insertAlbumAuthorToPane(ImageAlbum album, Pane pane) {
-        // set and format author
         album_author = new Text();
         album_author.setId("album_author");
         album_author.setText(album.getUser().getUsername());
@@ -279,18 +273,16 @@ public class ExploreAlbums implements Initializable {
     private void insertAlbumTagsToPane(ImageAlbum album, Pane pane) {
         String tagsAsString = album.getTags().stream()
                 .map(Tag::getName)
-                .collect(Collectors.joining(", "));
-
-        System.out.println(tagsAsString);
+                .collect(Collectors.joining(" "));
 
         album_tags = new Text();
-        album_tags.setText("tag1, tag2");
+        album_tags.setText(tagsAsString);
         album_tags.setFont(Font.font(24.0));
         album_tags.setLayoutX(707.0);
         album_tags.setLayoutY(129.0);
         album_tags.setStrokeType(StrokeType.OUTSIDE);
         album_tags.setStrokeWidth(0.0);
-        album_tags.setWrappingWidth(270.0);
+        album_tags.setWrappingWidth(570.0);
 
         pane.getChildren().add(album_tags);
     }
@@ -310,6 +302,7 @@ public class ExploreAlbums implements Initializable {
         open_album.setFont(Font.font(18.0));
         open_album.setLayoutX(551.0);
         open_album.setLayoutY(250.0);
+
         open_album.setOnAction(event -> {
             try {
                 switchToViewAlbum(event);
