@@ -11,6 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.GridPane?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="NTNU.IDATT1002.controllers.ViewAlbum">
     <children>
         <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -85,51 +86,32 @@
                         <Button fx:id="scroll_button_next" layoutX="835.0" layoutY="221.0" mnemonicParsing="false" onAction="#loadNextScrollbarView" text="Next" />
                             </children>
                         </Pane>
-                        <Pane prefHeight="981.0" prefWidth="975.0" style="-fx-background-color: #999999;">
-                            <children>
-                                <Text layoutX="76.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
-                                    <font>
-                                        <Font name="System Bold" size="36.0" />
-                                    </font>
-                                </Text>
-                        <Text fx:id="album_titleField" layoutX="190.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                                <Text layoutX="76.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
-                                    <font>
-                                        <Font name="System Bold" size="24.0" />
-                                    </font>
-                                </Text>
-                        <Text fx:id="album_tagsField" layoutX="156.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#tags">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                                <Text layoutX="76.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:" wrappingWidth="164.24609375">
-                                    <font>
-                                        <Font name="System Bold" size="24.0" />
-                                    </font>
-                                </Text>
-                        <Text fx:id="desc_textField" layoutX="76.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." wrappingWidth="822.0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                                <Text layoutX="76.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PICTURE METADATA:">
-                                    <font>
-                                        <Font name="System Bold" size="24.0" />
-                                    </font>
-                                </Text>
-                                <Pane fx:id="metadata_pane" layoutX="76.0" layoutY="371.0" prefHeight="391.0" prefWidth="822.0" style="-fx-background-color: #ffffff;" />
-                                <Button fx:id="create_album_pdf" layoutX="394.0" layoutY="810.0" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                        </Pane>
+                        <GridPane fx:id="album_fields">
+                            <Pane>
+                                <children>
+
+                                    <GridPane fx:id="album_fields_grid_pane">
+                                        <Text layoutX="76.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We're sorry, but we could not find the album you were looking for :(">
+                                            <font>
+                                                <Font name="System Bold" size="24.0" />
+                                            </font>
+                                        </Text>
+                                    </GridPane>
+
+                                    <Text layoutX="76.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PICTURE METADATA:">
+                                        <font>
+                                            <Font name="System Bold" size="24.0" />
+                                        </font>
+                                    </Text>
+                                    <Pane fx:id="metadata_pane" layoutX="76.0" layoutY="371.0" prefHeight="391.0" prefWidth="822.0" style="-fx-background-color: #ffffff;" />
+                                    <Button fx:id="create_album_pdf" layoutX="394.0" layoutY="810.0" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
+                                        <font>
+                                            <Font size="18.0" />
+                                        </font>
+                                    </Button>
+                                </children>
+                            </Pane>
+                        </GridPane>
                     </children>
                 </HBox>
             </children>

@@ -48,7 +48,7 @@ public class LoadDatabase {
                 new File("t14-test-images/1.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("First",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#winter"),
                         new Tag("#nature"),
@@ -66,7 +66,7 @@ public class LoadDatabase {
                 new File("t14-test-images/7.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Seventh",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#winter"),
                         new Tag("#nature"),
@@ -93,7 +93,7 @@ public class LoadDatabase {
                 new File("t14-test-images/2.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Second",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
                         new Tag("#water"),
@@ -110,7 +110,7 @@ public class LoadDatabase {
                 new File("t14-test-images/10.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Tenth",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#fjords"),
                         new Tag("#nature"),
@@ -137,7 +137,7 @@ public class LoadDatabase {
                 new File("t14-test-images/3.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Third",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
                         new Tag("#water"),
@@ -155,7 +155,7 @@ public class LoadDatabase {
                 new File("t14-test-images/9.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Ninth",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#art"),
                         new Tag("#nature"),
@@ -184,7 +184,7 @@ public class LoadDatabase {
                 tags).get();
 
         imageAlbumService.createImageAlbum("Fourth",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
                         new Tag("#grass"),
@@ -202,7 +202,7 @@ public class LoadDatabase {
                 new File("t14-test-images/5.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Fifth",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
                         new Tag("#water"),
@@ -230,7 +230,7 @@ public class LoadDatabase {
                 new File("t14-test-images/6.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Sixth",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
                         new Tag("#waterfall"),
@@ -258,7 +258,7 @@ public class LoadDatabase {
                 new File("t14-test-images/8.jpg"),
                 tags).get();
         imageAlbumService.createImageAlbum("Eighth",
-                "Lorem Ipsum",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#winter"),
                         new Tag("#nature"),

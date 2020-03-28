@@ -21,7 +21,7 @@ public final class ApplicationState {
     /**
      * Anonymous user for developing purposes.
      */
-    private static User anonymousUser;
+    private static String anonymousUserUsername = "Anonymous";
 
     private static UserRepository userRepository;
 
@@ -47,7 +47,7 @@ public final class ApplicationState {
      */
     public static User getCurrentUser() {
         return userRepository.findById(currentUser.getUsername())
-                .orElseGet(() -> userRepository.findById(anonymousUser.getUsername())
+                .orElseGet(() -> userRepository.findById(anonymousUserUsername)
                         .orElseThrow(IllegalArgumentException::new));
     }
 }
