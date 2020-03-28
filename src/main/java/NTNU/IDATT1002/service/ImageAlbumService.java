@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static NTNU.IDATT1002.service.TagService.getTagsFromString;
 
 
 /**
@@ -106,20 +107,6 @@ public class ImageAlbumService {
         return createImageAlbum(title, description, user, tags, new ArrayList<>());
     }
 
-    /**
-     * Retrieves tags from text field and converts them to a list of tag objects.
-     *
-     * @return the list of tag objects
-     */
-    private List<Tag> getTagsFromString(String tagsAsString) {
-        String[] tags = tagsAsString
-                .trim()
-                .split("[, ?.@]+");
-
-        return Stream.of(tags)
-                .map(Tag::new)
-                .collect(Collectors.toList());
-    }
 
     /**
      * Retrieves all image albums created by the given user by username.

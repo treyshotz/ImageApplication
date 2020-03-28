@@ -59,14 +59,13 @@ public class ExploreAlbums implements Initializable {
 
     @FXML
     private GridPane albums_grid_pane;
-    private Pane paneContainer;
+    private Pane album_pane_container;
 
     private ImageAlbumService imageAlbumService;
 
     public ExploreAlbums() {
         imageAlbumService = new ImageAlbumService();
     }
-
 
     /**
      * Initialize page with all albums. Max 5 per page.
@@ -81,13 +80,13 @@ public class ExploreAlbums implements Initializable {
         int maxPerPage = Math.min(albums.size(), 5);
 
         for(int i = 0; i<maxPerPage; i++) {
-            paneContainer = new Pane();
-            paneContainer.setPrefWidth(200);
-            paneContainer.setPrefHeight(100);
+            album_pane_container = new Pane();
+            album_pane_container.setPrefWidth(200);
+            album_pane_container.setPrefHeight(100);
 
-            addSingleAlbumContentToPane(albums.get(i), paneContainer);
+            addSingleAlbumContentToPane(albums.get(i), album_pane_container);
 
-            albums_grid_pane.add(paneContainer, 0, i);
+            albums_grid_pane.add(album_pane_container, 0, i);
         }
     }
 

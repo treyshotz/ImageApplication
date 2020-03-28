@@ -30,7 +30,7 @@ public class ViewPicture implements Initializable{
     public ImageView picture;
     public Text picture_tagsField;
     public Text picture_title_field;
-    public Text desc_textField;
+    public Text picture_descField;
     public Pane metadata_pane;
     public Button tbar_searchBtn;
     public Button tbar_albums;
