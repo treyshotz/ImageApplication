@@ -1,4 +1,4 @@
-package NTNU.IDATT1002.utils;
+package NTNU.IDATT1002.service;
 
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.ImageAlbum;
@@ -18,7 +18,7 @@ import java.util.Date;
  * @author Eirik Steira
  * @version 1.0 22.03.20
  */
-public class PdfDocument {
+public class PdfDocument implements ImageAlbumDocument {
 
     /**
      * Height ratio satisfying a 16:9 ratio.
@@ -48,14 +48,14 @@ public class PdfDocument {
         this.document = new Document();
     }
 
-    public File getPdfDocument() {
+    public File getDocument() {
         return new File(DESTINATION_FILE);
     }
 
     /**
      * Create a new pdf document.
      */
-    public void createPdfDocument() {
+    public void createDocument() {
         try {
             generatePdfDocument();
         } catch (IOException | DocumentException e) {
