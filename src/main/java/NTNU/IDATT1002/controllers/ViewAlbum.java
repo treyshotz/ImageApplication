@@ -69,10 +69,12 @@ public class ViewAlbum implements Initializable {
 
     private ImageAlbumService imageAlbumService;
     private Long currentAlbumId;
+    private Logger logger;
 
     public ViewAlbum() {
         imageAlbumService = new ImageAlbumService();
         currentAlbumId = App.ex.getChosenAlbumId();
+        logger = LoggerFactory.getLogger("ImageApplicationLogger");
     }
 
     /**
