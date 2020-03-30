@@ -32,13 +32,13 @@ public class ImageAlbum {
     @NotBlank(message = "Title may not be blank")
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Tag> tags = new ArrayList<>();;
 
     private String description;

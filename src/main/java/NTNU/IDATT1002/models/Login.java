@@ -1,10 +1,7 @@
 package NTNU.IDATT1002.models;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "login")
@@ -16,7 +13,7 @@ public class Login {
     private String username;
 
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private User user;
 
     @NotBlank(message = "Hash salt may not be blank")

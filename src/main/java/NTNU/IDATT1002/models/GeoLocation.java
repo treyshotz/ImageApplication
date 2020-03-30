@@ -23,7 +23,7 @@ public class GeoLocation {
      * One to one relation between geolocationId in table Geolocation
      * Joins column geolocation_id in metadata
      */
-    @OneToOne(mappedBy = "geolocation")
+    @OneToOne(mappedBy = "geolocation", fetch = FetchType.LAZY)
     private Metadata metadata;
 
     @NotBlank (message = "Altitude may not be blank")

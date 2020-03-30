@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -55,8 +56,13 @@ public class UploadedSingle implements Initializable {
    * @param resources
    */
   public void initialize(URL location, ResourceBundle resources) {
-    photo_image.setImage(new Image(App.ex.getUploadedFiles().get(0).toURI().toString()));
-    imageService = new ImageService();
+    photo_image.setImage(new Image(App.ex.getUploadedFiles()
+            .get(0)
+            .toURI()
+            .toString()));
+
+    EntityManager entityManager = App.ex.getEntityManager();
+    imageService = new ImageService(entityManager);
   }
 
   /**

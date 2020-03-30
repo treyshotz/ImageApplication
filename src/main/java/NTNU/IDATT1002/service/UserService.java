@@ -1,17 +1,13 @@
 package NTNU.IDATT1002.service;
 
-import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.LoginRepository;
 import NTNU.IDATT1002.repository.UserRepository;
 import NTNU.IDATT1002.utils.Authentication;
-import org.apache.log4j.helpers.AbsoluteTimeDateFormat;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -30,10 +26,7 @@ public class UserService {
     /**
      * Inject entity manager instance to the repositories
      */
-    public UserService() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplication");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
+    public UserService(EntityManager entityManager) {
         this.loginRepository = new LoginRepository(entityManager);
         this.userRepository = new UserRepository(entityManager);
     }

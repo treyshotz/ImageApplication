@@ -1,13 +1,11 @@
 package NTNU.IDATT1002.service;
+import NTNU.IDATT1002.filters.ImageFilter;
 import NTNU.IDATT1002.models.*;
 import NTNU.IDATT1002.repository.*;
-import NTNU.IDATT1002.filters.ImageFilter;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +30,13 @@ public class ImageService {
     /**
      * Inject entity manager instance to the repositories.
      */
-    public ImageService() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplication");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
+    public ImageService(EntityManager entityManager) {
         this.imageRepository = new ImageRepository(entityManager);
         this.metadataRepository = new MetadataRepository(entityManager);
         this.tagRepository = new TagRepository(entityManager);
         this.historgramRepository = new HistorgramRepository(entityManager);
         this.geoLocatioRepository = new GeoLocatioRepository(entityManager);
         this.metaDataExtractor = new MetaDataExtractor();
-
     }
 
     /**

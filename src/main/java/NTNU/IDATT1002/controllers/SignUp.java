@@ -1,11 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Optional;
-
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -13,6 +8,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+
+import javax.persistence.EntityManager;
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * Controls the buttons and changeable elements on signup.fxml,
@@ -30,9 +29,15 @@ public class SignUp {
     public TextField signup_phoneCode;
     public TextField signup_phoneNr;
     public DatePicker signup_birthDate;
-    public UserService userService = new UserService();
+
+    public UserService userService;
 
     public Button signup_btn;
+
+    public SignUp() {
+        EntityManager entityManager = App.ex.getEntityManager();
+        userService = new UserService(entityManager);
+    }
 
     /**
      * Method that changes scene to Login

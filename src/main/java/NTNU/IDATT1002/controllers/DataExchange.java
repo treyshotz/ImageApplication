@@ -2,6 +2,7 @@ package NTNU.IDATT1002.controllers;
 
 import javafx.application.HostServices;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public class DataExchange {
 
+    private EntityManager entityManager;
     public HostServices hostServices;
     private String searchField;
     private List<File> uploadedFiles;
@@ -20,6 +22,10 @@ public class DataExchange {
 
     public DataExchange(){
         searchField = "";
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
     public HostServices getHostServices() {
@@ -40,6 +46,10 @@ public class DataExchange {
 
     public String getChosenImg() {
         return chosenImg;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     public void setHostServices(HostServices hostServices) {

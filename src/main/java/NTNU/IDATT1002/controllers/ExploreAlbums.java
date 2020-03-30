@@ -21,6 +21,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -64,7 +65,8 @@ public class ExploreAlbums implements Initializable {
     private ImageAlbumService imageAlbumService;
 
     public ExploreAlbums() {
-        imageAlbumService = new ImageAlbumService();
+        EntityManager entityManager = App.ex.getEntityManager();
+        imageAlbumService = new ImageAlbumService(entityManager);
     }
 
     /**

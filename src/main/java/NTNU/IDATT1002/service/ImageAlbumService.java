@@ -1,16 +1,14 @@
 package NTNU.IDATT1002.service;
 
+import NTNU.IDATT1002.filters.ImageAlbumFilter;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.ImageAlbum;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.ImageAlbumRepository;
 import NTNU.IDATT1002.repository.TagRepository;
-import NTNU.IDATT1002.filters.ImageAlbumFilter;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +34,7 @@ public class ImageAlbumService {
     /**
      * Inject entity manager instance to the repositories.
      */
-    public ImageAlbumService() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplication");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
+    public ImageAlbumService(EntityManager entityManager) {
         this.imageAlbumRepository = new ImageAlbumRepository(entityManager);
         this.tagRepository = new TagRepository(entityManager);
     }
