@@ -7,6 +7,8 @@ import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.ImageAlbumRepository;
 import NTNU.IDATT1002.repository.TagRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class ImageAlbumService {
 
     private TagRepository tagRepository;
 
+    private Logger logger;
 
     /**
      * Inject entity manager instance to the repositories.
@@ -37,6 +40,7 @@ public class ImageAlbumService {
     public ImageAlbumService(EntityManager entityManager) {
         this.imageAlbumRepository = new ImageAlbumRepository(entityManager);
         this.tagRepository = new TagRepository(entityManager);
+        logger = LoggerFactory.getLogger("ImageApplicationLogger");
     }
 
     public Optional<ImageAlbum> getImageAlbumById(Long imageAlbumId) {
@@ -102,6 +106,27 @@ public class ImageAlbumService {
         return createImageAlbum(title, description, user, tags, new ArrayList<>());
     }
 
+    /**
+     * Create and return a new document for the image album with the given id.
+     * The document is saved to the users dowloads folder.
+     *
+     * @param albumId the album id to get a document for
+     * @return the document created
+     */
+    public ImageAlbumDocument getDocument(Long albumId) {
+        ImageAlbum imageAlbum = getImageAlbumById(albumId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        String destinationFile = String.format("%s/downloads/%s.pdf",
+                System.getProperty("user.home"),
+                imageAlbum.getTitle());
+
+        ImageAlbumDocument document = new PdfDocument(imageAlbum, destinationFile);
+        document.createDocument();
+        logger.info("[x] Saved PDF document to " + destinationFile);
+
+        return document;
+    }
 
     /**
      * Retrieves all image albums created by the given user by username.

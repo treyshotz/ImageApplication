@@ -3,6 +3,7 @@ package NTNU.IDATT1002.utils;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.ImageAlbum;
 import NTNU.IDATT1002.models.User;
+import NTNU.IDATT1002.service.PdfDocument;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,13 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class PdfDocumentTest {
 
     private static final String PATH_TO_PDF = "src/test/java/tmp/generatedImageAlbumPdf.pdf";
-
-    private static final String PATH_SEPARATOR = File.pathSeparator;
-
     private ImageAlbum imageAlbum;
-
     private Image image;
-
     private User user;
 
     /**
@@ -66,9 +62,9 @@ class PdfDocumentTest {
      * Test that a pdf document is successfully created.
      */
     @Test
-    void testCreatePdfDocumentCreatesPdfDocument() {
+    void testCreateDocumentCreatesPdfDocument() {
         PdfDocument document = new PdfDocument(imageAlbum, PATH_TO_PDF);
-        document.createPdfDocument();
+        document.createDocument();
 
         assertNotNull(document);
     }

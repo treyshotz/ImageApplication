@@ -104,7 +104,7 @@
                                         </font>
                                     </Text>
                                     <Pane fx:id="metadata_pane" layoutX="76.0" layoutY="371.0" prefHeight="391.0" prefWidth="822.0" style="-fx-background-color: #ffffff;" />
-                                    <Button fx:id="create_album_pdf" layoutX="394.0" layoutY="810.0" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
+                                    <Button fx:id="create_album_document" layoutX="394.0" layoutY="810.0" mnemonicParsing="false" onAction="#createDocument" text="CREATE ALBUM PDF">
                                         <font>
                                             <Font size="18.0" />
                                         </font>
