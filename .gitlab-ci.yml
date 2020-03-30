@@ -4,10 +4,6 @@ stages:
   - build
   - test
 
-cache:
-  paths:
-    - target/
-
 build:
   stage: build
   only:
