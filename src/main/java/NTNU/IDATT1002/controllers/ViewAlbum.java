@@ -71,9 +71,7 @@ public class ViewAlbum implements Initializable {
     private ImageAlbumService imageAlbumService;
     private Long currentAlbumId;
     private Logger logger;
-
-    private Logger logger;
-
+    
     public ViewAlbum() {
         EntityManager entityManager = App.ex.getEntityManager();
         this.imageAlbumService =  new ImageAlbumService(entityManager);
