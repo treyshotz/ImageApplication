@@ -1,12 +1,11 @@
 package NTNU.IDATT1002;
 
 
+import NTNU.IDATT1002.database.EntityManagerConfig;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.UserRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  * Class Application State. Keeps a record of the global application state, such as the current logged in user.
@@ -29,8 +28,7 @@ public final class ApplicationState {
      * Initiate properties and save an anonymous user once.
      */
     static {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplication");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
         userRepository = new UserRepository(entityManager);
     }

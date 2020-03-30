@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 
 /**
@@ -39,7 +40,8 @@ public class CreateAlbum {
     private ImageAlbumService imageAlbumService;
 
     public CreateAlbum() {
-        imageAlbumService = new ImageAlbumService();
+        EntityManager entityManager = App.ex.getEntityManager();
+        imageAlbumService = new ImageAlbumService(entityManager);
     }
 
     /**

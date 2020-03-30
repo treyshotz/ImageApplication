@@ -1,17 +1,14 @@
 package NTNU.IDATT1002.controllers;
 
-import java.io.IOException;
-
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.ApplicationState;
-import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import javax.security.auth.login.FailedLoginException;
+import javax.persistence.EntityManager;
+import java.io.IOException;
 
 /**
  * Controls the buttons and changeable elements on login.fxml,
@@ -26,6 +23,11 @@ public class Login {
     public Button signup;
     public Button login;
     private UserService userService;
+
+    public Login() {
+        EntityManager entityManager = App.ex.getEntityManager();
+        userService = new UserService(entityManager);
+    }
 
     /**
      * Method that changes scene to Sign Up page
@@ -42,7 +44,6 @@ public class Login {
      * @throws IOException
      */
     public void login(ActionEvent actionEvent) throws IOException {
-        userService = new UserService();
         String username = Username.getText();
         String password = Password.getText();
         if(userService.logIn(username, password)) {

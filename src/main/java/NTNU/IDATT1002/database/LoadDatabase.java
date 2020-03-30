@@ -7,6 +7,7 @@ import NTNU.IDATT1002.service.ImageAlbumService;
 import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.UserService;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +24,11 @@ public class LoadDatabase {
     private static ImageService imageService;
 
     static {
-        userService = new UserService();
-        imageAlbumService = new ImageAlbumService();
-        imageService = new ImageService();
+        EntityManager entityManager = EntityManagerConfig.getEntityManager();
+
+        userService = new UserService(entityManager);
+        imageAlbumService = new ImageAlbumService(entityManager);
+        imageService = new ImageService(entityManager);
     }
 
     public static void load() {

@@ -24,13 +24,13 @@ public class Image {
   @GeneratedValue
   private Long id;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   private List<ImageAlbum> imageAlbums = new ArrayList<>();
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   private List<Tag> tags = new ArrayList<>();
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private User user;
 
   @Lob
@@ -38,7 +38,7 @@ public class Image {
   @NotEmpty
   private byte[] rawImage;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Metadata metadata;
 
   @NotBlank

@@ -3,7 +3,6 @@
 
 target/
 .idea/
-*.properties
 *.iml
 bin/
 .settings/

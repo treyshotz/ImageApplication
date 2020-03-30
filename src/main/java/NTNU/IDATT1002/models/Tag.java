@@ -33,7 +33,7 @@ public class Tag {
      * Creates a many to many relations between tag and image
      * on table ImageTags, joining column tagId and imageId
      */
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "image_tag",
             joinColumns = {@JoinColumn(name = "tag_id")},
@@ -44,7 +44,7 @@ public class Tag {
     /**
      * Creates a many to many relations between tag and image album
      */
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "image_album_tags",
             joinColumns = {@JoinColumn(name = "tag_id")},

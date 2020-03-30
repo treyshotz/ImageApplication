@@ -23,7 +23,7 @@ public class Histogram {
      * One to one relations, joins histogramId
      * On columns histogramId in metadata
      */
-    @OneToOne(mappedBy = "histogram")
+    @OneToOne(mappedBy = "histogram", fetch = FetchType.LAZY)
     private Metadata metadata;
 
     @Lob

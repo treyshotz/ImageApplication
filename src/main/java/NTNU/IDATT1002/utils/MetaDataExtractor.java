@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.utils;
 
+import NTNU.IDATT1002.database.EntityManagerConfig;
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Histogram;
 import NTNU.IDATT1002.repository.GeoLocatioRepository;
@@ -11,8 +12,6 @@ import com.drew.metadata.MetadataException;
 import com.drew.metadata.exif.GpsDirectory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,8 +25,7 @@ public class MetaDataExtractor {
     private HistorgramRepository historgramRepository;
 
     public MetaDataExtractor() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplication");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
         this.historgramRepository = new HistorgramRepository(entityManager);
         this.geoLocationRepository = new GeoLocatioRepository(entityManager);

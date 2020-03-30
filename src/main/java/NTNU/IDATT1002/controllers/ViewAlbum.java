@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -70,9 +71,13 @@ public class ViewAlbum implements Initializable {
     private ImageAlbumService imageAlbumService;
     private Long currentAlbumId;
 
+    private Logger logger;
+
     public ViewAlbum() {
-        imageAlbumService = new ImageAlbumService();
+        EntityManager entityManager = App.ex.getEntityManager();
+        this.imageAlbumService =  new ImageAlbumService(entityManager);
         currentAlbumId = App.ex.getChosenAlbumId();
+        logger = LoggerFactory.getLogger("ImageApplicationLogger");
     }
 
     /**

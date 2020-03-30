@@ -22,13 +22,13 @@ public class Metadata {
      * One to one relation joining imageId
      * on image_id column in image
      */
-    @OneToOne(mappedBy = "metadata")
+    @OneToOne(mappedBy = "metadata", fetch = FetchType.LAZY)
     private Image image;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private GeoLocation geolocation;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Histogram histogram;
 
     public Metadata() {
