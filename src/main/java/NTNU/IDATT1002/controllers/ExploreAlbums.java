@@ -6,8 +6,10 @@ import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.ImageAlbumService;
 import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
@@ -15,10 +17,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.StrokeType;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import javax.persistence.EntityManager;
@@ -43,24 +45,16 @@ public class ExploreAlbums implements Initializable {
     public Button tbar_explore;
 
     public ScrollPane scrollpane;
-    public Button footer_previous_page;
-    public Button footer_next_page;
+    //public Button footer_previous_page;
+    //public Button footer_next_page;
 
-    public Text album_amount;
-    public ChoiceBox sorted_by_choicebox;
-    public Button create_album_button;
+    public Text albumAmount;
+    public ChoiceBox sortedByChoicebox;
+    public Button createAlbumButton;
 
 
-    public ImageView album_image;
-    public Text album_title;
-    public Text album_author;
-    public Text album_desc;
-    public Text album_tags;
-    public Button open_album;
-
-    @FXML
-    private GridPane albums_grid_pane;
-    private Pane album_pane_container;
+    public ImageView albumImage;
+    public VBox vBox;
 
     private ImageAlbumService imageAlbumService;
 
@@ -70,7 +64,7 @@ public class ExploreAlbums implements Initializable {
     }
 
     /**
-     * Initialize page with all albums. Max 5 per page.
+     * Initialize page with all albums. Max 50 per page.
      *
      * @param url
      * @param resourceBundle
@@ -79,240 +73,161 @@ public class ExploreAlbums implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<ImageAlbum> albums = imageAlbumService.getAllImageAlbums();
 
-        int maxPerPage = Math.min(albums.size(), 5);
+        int maxPerPage = Math.min(albums.size(), 50);
 
-        for(int i = 0; i<maxPerPage; i++) {
-            album_pane_container = new Pane();
-            album_pane_container.setPrefWidth(200);
-            album_pane_container.setPrefHeight(100);
+        for(int i = 0; i < maxPerPage; i++) {
+            //A container for image and album text
+            HBox albumContainer = new HBox();
+            //Stores album id here so that it can be passed to data exchange,
+            //and the correct album will appear on View Album page when clicked
+            albumContainer.setId(albums.get(i).getId().toString());
+            albumContainer.setPrefWidth(1520);
+            albumContainer.setPrefHeight(300);
 
-            addSingleAlbumContentToPane(albums.get(i), album_pane_container);
+            insertAlbumImageToContainer(albums.get(i), albumContainer);
+            insertAlbumTextToContainer(albums.get(i), albumContainer);
 
-            albums_grid_pane.add(album_pane_container, 0, i);
+            vBox.getChildren().add(albumContainer);
         }
     }
 
     /**
-     * Add all components needed to display an album.
+     * Format and insert the first image in the given album to the given container.
      *
-     * @param album the album to display
-     * @param pane the pane to add the album to
+     * @param album the album from the database
+     * @param albumContainer the container for each separate album
      */
-    private void addSingleAlbumContentToPane(ImageAlbum album, Pane pane) {
-        insertImageViewToPane(album, pane);
-        insertAlbumTitleLabelToPane(pane);
-        insertAlbumAuthorLabelToPane(pane);
-        insertAlbumDescriptionLabelToPane(pane);
-        insertAlbumAuthorToPane(album, pane);
-        insertAlbumTitleToPane(album, pane);
-        insertAlbumDescriptionToPane(album, pane);
-        insertAlbumTagsLabelToPane(pane);
-        insertAlbumTagsToPane(album, pane);
-        insertOpenAlbumButtonToPane(album, pane);
-    }
-
-    /**
-     * Format and insert the first image in the given album to the given pane.
-     *
-     * @param album the album to display image from
-     * @param pane the pane to add the image to
-     */
-    private void insertImageViewToPane(ImageAlbum album, Pane pane) {
-        album_image = new ImageView();
-        album_image.setFitHeight(307.0);
-        album_image.setFitWidth(516.0);
-        album_image.setLayoutX(-2.0);
-        album_image.setLayoutY(-1.0);
-        album_image.setPickOnBounds(true);
-        album_image.setPreserveRatio(true);
-
-        NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
-        Image image = ImageUtil.convertToFXImage(titleImage);
-        album_image.setImage(image);
-
-        pane.getChildren().add(album_image);
-    }
-
-    /**
-     * Insert album title label to given pane.
-     *
-     * @param pane the pane to add the title to
-     */
-    private void insertAlbumTitleLabelToPane(Pane pane) {
-        Text text = new Text();
-        text.setText("ALBUM: ");
-        text.setFont(Font.font(48.0));
-        text.setLayoutX(551.0);
-        text.setLayoutY(63.0);
-        text.setStrokeType(StrokeType.OUTSIDE);
-        text.setStrokeWidth(0.0);
-        text.setWrappingWidth(200);
-
-        pane.getChildren().add(text);
-    }
-
-    /**
-     * Insert author label of the given album to the given pane
-     *
-     * @param pane the pane to add the author label to
-     */
-    private void insertAlbumAuthorLabelToPane(Pane pane) {
-        Text authorLabel = new Text();
-        authorLabel.setText("AUTHOR: ");
-        authorLabel.setFont(Font.font(24));
-        authorLabel.setLayoutX(551.0);
-        authorLabel.setLayoutY(97.0);
-        authorLabel.setStrokeType(StrokeType.OUTSIDE);
-        authorLabel.setStrokeWidth(0.0);
-        authorLabel.setWrappingWidth(150.0);
-
-        pane.getChildren().add(authorLabel);
-    }
-
-    /**
-     * Insert description label of the given album to the given pane
-     *
-     * @param pane the pane to add the description label to
-     */
-    private void insertAlbumDescriptionLabelToPane(Pane pane) {
-        Text descriptionLabel = new Text();
-        descriptionLabel.setText("DESCRIPTION: ");
-        descriptionLabel.setFont(Font.font(18.0));
-        descriptionLabel.setLayoutX(551.0);
-        descriptionLabel.setLayoutY(157.0);
-        descriptionLabel.setStrokeType(StrokeType.OUTSIDE);
-        descriptionLabel.setStrokeWidth(0.0);
-        descriptionLabel.setWrappingWidth(129.0);
-
-        pane.getChildren().add(descriptionLabel);
-    }
-
-    /**
-     * Insert author of the given album to the given pane
-     *
-     * @param album the album which author to display
-     * @param pane the pane to add the author to
-     */
-    private void insertAlbumAuthorToPane(ImageAlbum album, Pane pane) {
-        album_author = new Text();
-        album_author.setId("album_author");
-        album_author.setText(album.getUser().getUsername());
-        album_author.setFont(Font.font(24.0));
-        album_author.setLayoutX(707.0);
-        album_author.setLayoutY(97.0);
-        album_author.setStrokeType(StrokeType.OUTSIDE);
-        album_author.setStrokeWidth(0.0);
-        album_author.setWrappingWidth(270.0);
-
-        pane.getChildren().add(album_author);
-    }
-
-    /**
-     * Insert title of the given album to the given pane
-     *
-     * @param album the album which title to display
-     * @param pane the pane to add the title to
-     */
-    private void insertAlbumTitleToPane(ImageAlbum album, Pane pane) {
-        album_title = new Text();
-        album_title.setId("album_title");
-        album_title.setText(album.getTitle());
-        album_title.setFont(Font.font(48.0));
-        album_title.setLayoutX(751.0);
-        album_title.setLayoutY(65.0);
-        album_title.setStrokeType(StrokeType.OUTSIDE);
-        album_title.setStrokeWidth(0.0);
-        album_title.setWrappingWidth(653.0);
-
-        pane.getChildren().add(album_title);
-    }
-
-    /**
-     * Insert description of the given album to the given pane
-     *
-     * @param album the album which description to display
-     * @param pane the pane to add the description to
-     */
-    private void insertAlbumDescriptionToPane(ImageAlbum album, Pane pane) {
-        album_desc = new Text();
-        album_desc.setId("album_desc");
-        album_desc.setText(album.getDescription());
-        album_desc.setFont(Font.font(18.0));
-        album_desc.setLayoutX(707.0);
-        album_desc.setLayoutY(157.0);
-        album_desc.setStrokeType(StrokeType.OUTSIDE);
-        album_desc.setStrokeWidth(0.0);
-        album_desc.setWrappingWidth(229.0);
-
-        pane.getChildren().add(album_desc);
-    }
-
-    /**
-     * Insert tags label of the given album to the given pane
-     *
-     * @param pane the pane to add the tags label to
-     */
-    private void insertAlbumTagsLabelToPane(Pane pane) {
-        Text tagsLabel = new Text();
-        tagsLabel.setText("TAGS: ");
-        tagsLabel.setFont(Font.font(24));
-        tagsLabel.setLayoutX(551.0);
-        tagsLabel.setLayoutY(129.0);
-        tagsLabel.setStrokeType(StrokeType.OUTSIDE);
-        tagsLabel.setStrokeWidth(0.0);
-        tagsLabel.setWrappingWidth(150.0);
-
-        pane.getChildren().add(tagsLabel);
-    }
-
-    /**
-     * Insert tags of the given album to the given pane
-     *
-     * @param album the album which tags to display
-     * @param pane the pane to add the tags to
-     */
-    private void insertAlbumTagsToPane(ImageAlbum album, Pane pane) {
-        String tagsAsString = album.getTags().stream()
-                .map(Tag::getName)
-                .collect(Collectors.joining(" "));
-
-        album_tags = new Text();
-        album_tags.setText(tagsAsString);
-        album_tags.setFont(Font.font(24.0));
-        album_tags.setLayoutX(707.0);
-        album_tags.setLayoutY(129.0);
-        album_tags.setStrokeType(StrokeType.OUTSIDE);
-        album_tags.setStrokeWidth(0.0);
-        album_tags.setWrappingWidth(570.0);
-
-        pane.getChildren().add(album_tags);
-    }
-
-    /**
-     * Insert an 'open album' button to the given album to the given pane.
-     * If pushed it will take the user to the appropriate album.
-     *
-     * @param album the album which the button should take the user to
-     * @param pane the pane to add the button to
-     */
-    private void insertOpenAlbumButtonToPane(ImageAlbum album, Pane pane) {
-        // set and format open album button
-        open_album = new Button();
-        open_album.setId(album.getId().toString());
-        open_album.setText("Open Album");
-        open_album.setFont(Font.font(18.0));
-        open_album.setLayoutX(551.0);
-        open_album.setLayoutY(250.0);
-
-        open_album.setOnAction(event -> {
-            try {
-                switchToViewAlbum(event);
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void insertAlbumImageToContainer(ImageAlbum album, HBox albumContainer) {
+        albumImage = new ImageView();
+        albumImage.setFitHeight(300.0);
+        albumImage.setFitWidth(533.0);
+        albumImage.setPickOnBounds(true);
+        albumImage.setPreserveRatio(true);
+        albumImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent mouseEvent) {
+                try{
+                    switchToViewAlbum(mouseEvent);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
-        pane.getChildren().add(open_album);
+        NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
+        Image image = ImageUtil.convertToFXImage(titleImage);
+        albumImage.setImage(image);
+
+        albumContainer.getChildren().add(albumImage);
+    }
+
+    /**
+     * Att text elements from album to the container
+     *
+     * @param album the album to display
+     * @param albumContainer the container for each separate album
+     */
+    private void insertAlbumTextToContainer(ImageAlbum album, HBox albumContainer) {
+        //Creates a vbox so that nodes is aligned in a column
+        VBox textContainer = new VBox();
+        textContainer.setSpacing(5);
+        textContainer.setPadding(new Insets(10, 0, 0, 25));
+        textContainer.setPrefHeight(300);
+        textContainer.setPrefWidth(987);
+
+        insertAlbumTitle(album, textContainer);
+        insertAlbumAuthor(album, textContainer);
+        insertAlbumTags(album, textContainer);
+        insertAlbumDescription(album, textContainer);
+
+        albumContainer.getChildren().add(textContainer);
+    }
+
+    /**
+     * Insert title of the given album to the given container
+     * It is clickable, and switches to View Album page of that album
+     *
+     * @param album the album which title to display
+     * @param textContainer container for text elements of an album
+     */
+    private void insertAlbumTitle(ImageAlbum album, VBox textContainer) {
+        HBox content = new HBox();
+
+        Text titleLabel = new Text("Title: ");
+        titleLabel.setFont(Font.font("System", FontWeight.BOLD, 48));
+
+        Text title = new Text(album.getTitle());
+        title.setFont(Font.font("System",48));
+
+        content.getChildren().addAll(titleLabel, title);
+        content.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent mouseEvent) {
+                try{
+                    switchToViewAlbum(mouseEvent);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        textContainer.getChildren().add(content);
+    }
+
+    /**
+     * Insert author of the given album to the given container
+     *
+     * @param album the album which author to display
+     * @param textContainer container for text elements of an album
+     */
+    private void insertAlbumAuthor(ImageAlbum album, VBox textContainer) {
+        HBox content = new HBox();
+        Text authorLabel = new Text("Author: ");
+        authorLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
+
+        Text author = new Text(album.getUser().getUsername());
+        author.setFont(Font.font("System",24));
+
+        content.getChildren().addAll(authorLabel, author);
+        textContainer.getChildren().add(content);
+    }
+
+    /**
+     * Insert tags of the given album to the given container
+     *
+     * @param album the album which tags to display
+     * @param textContainer container for text elements of an album
+     */
+    private void insertAlbumTags(ImageAlbum album, VBox textContainer) {
+        HBox content = new HBox();
+        Text tagsLabel = new Text("Tags: ");
+        tagsLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+
+        String tagsAsString = album.getTags().stream()
+                .map(Tag::getName)
+                .collect(Collectors.joining(" "));
+        Text tags = new Text(tagsAsString);
+        tags.setFont(Font.font("System",16));
+
+        content.getChildren().addAll(tagsLabel, tags);
+        textContainer.getChildren().add(content);
+    }
+
+
+    /**
+     * Insert description of the given album to the given container
+     *
+     * @param album the album which description to display
+     * @param textContainer container for text elements of an album
+     */
+    private void insertAlbumDescription(ImageAlbum album, VBox textContainer) {
+        Text descriptionLabel = new Text("Description: ");
+        descriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+
+        Text description = new Text(album.getDescription());
+        description.setWrappingWidth(500);
+        description.setFont(Font.font("System",16));
+
+
+        textContainer.getChildren().addAll(descriptionLabel, description);
     }
 
     /**
@@ -401,16 +316,28 @@ public class ExploreAlbums implements Initializable {
     }
 
     /**
-     * Method to open specific albums using the "Open Album" button
-     * @param actionEvent
+     * Method to open specific albums. It takes a clicked element within an album container
+     * and finds the fx:id of the main parent, (who's id is the same as the album in the database), and
+     * passes the value to Data Exchange so that Image View will know which album was clicked
+     * @param mouseEvent
      * @throws IOException
      */
-    public void switchToViewAlbum(ActionEvent actionEvent) throws IOException {
-        Button source = (Button) actionEvent.getSource();
-        Long albumId = Long.parseLong(source.getId());
-        App.ex.setChosenAlbumId(albumId);
+    public void switchToViewAlbum(MouseEvent mouseEvent) throws IOException {
+        boolean albumIdFound = false;
+        long albumId = 0;
+        Node node = (Node) mouseEvent.getSource();
+        while (!albumIdFound){
+            if (node.getId() != null){
+                albumId = Long.parseLong(node.getId());
+                albumIdFound = true;
+            }
+            node = node.getParent();
+        }
 
-        App.setRoot("view_album");
+        if (albumId != 0) {
+            App.ex.setChosenAlbumId(albumId);
+            App.setRoot("view_album");
+        }
     }
 
 }
