@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class Login {
     public PasswordField Password;
     public Button signup;
     public Button login;
+    public Text error_msg;
     private UserService userService;
 
     public Login() {
@@ -50,8 +52,11 @@ public class Login {
             App.setRoot("main");
         }
         else {
-            //TODO: Make popup window to inform the user that wrong details was entered
+            //Combination of username and password was not correct
+            Password.setText(null);
+            Password.setPromptText("*");
+            Password.setStyle("-fx-prompt-text-fill: red");
+            error_msg.setText("Incorrect username or password");
         }
-        //TODO: Else raise warning maybe?
     }
 }
