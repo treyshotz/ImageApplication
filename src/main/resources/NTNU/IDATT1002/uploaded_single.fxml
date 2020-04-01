@@ -5,89 +5,80 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="NTNU.IDATT1002.controllers.UploadedSingle">
-    <children>
-        <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadedSingle">
+   <children>
+      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+         <children>
+            <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/PlaceholderLogo.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="100.0" prefWidth="343.0" />
+            <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+            <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
+            <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
+            <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
+            <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+            <Pane prefHeight="100.0" prefWidth="174.0" />
+            <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox alignment="CENTER" prefHeight="981.0" prefWidth="976.0" style="-fx-background-color: #444444;" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="photo_image" fitHeight="506.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Images/PlaceholderLogo.png" />
+                        <Image url="@../../Images/placeholder-1920x1080.png" />
                      </image>
                   </ImageView>
-                  <Pane prefHeight="100.0" prefWidth="343.0" />
-                  <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-                  <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
-                  <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
-                  <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
-                  <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
-                  <Pane prefHeight="100.0" prefWidth="174.0" />
-                  <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
                </children>
-            </HBox>
-                <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0">
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="981.0" prefWidth="947.0" style="-fx-background-color: #666666;" HBox.hgrow="ALWAYS">
                <children>
-                  <Pane prefHeight="981.0" prefWidth="851.0" style="-fx-background-color: #777777;">
+                  <VBox alignment="CENTER" maxWidth="799.0" prefHeight="981.0" prefWidth="799.0" spacing="10.0">
                      <children>
-                        <ImageView fx:id="photo_image" fitHeight="455.0" fitWidth="952.0" layoutX="19.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Images/placeholder-1920x1080.png" /> <!-- This is the URL to the image in question, needs to change in accordance with the current uploaded picture-->
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane prefHeight="981.0" prefWidth="1073.0" style="-fx-background-color: #999999;">
-                     <children>
-                        <Text layoutX="127.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TITLE:">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Text>
-                        <Text layoutX="127.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
+                        <TextField fx:id="photo_title" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Text>
-                        <Text layoutX="127.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
+                        <TextField fx:id="photo_tag" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DESCRIPTION:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Text>
-                        <Text layoutX="125.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="METADATA:">
+                        <TextArea fx:id="photo_desc" prefHeight="147.0" prefWidth="822.0" promptText="Insert description here" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="METADATA:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="photo_title" layoutX="256.0" layoutY="83.0" prefHeight="32.0" prefWidth="689.0" promptText="Insert title here" />
-                        <TextField fx:id="photo_tag" layoutX="217.0" layoutY="161.0" prefHeight="32.0" prefWidth="728.0" promptText="#Blue, #water, #summer, etc..." />
-                        <TextArea fx:id="photo_desc" layoutX="126.0" layoutY="265.0" prefHeight="147.0" prefWidth="822.0" promptText="Insert description here" />
-                        <Pane layoutX="125.0" layoutY="470.0" prefHeight="364.0" prefWidth="822.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <Text layoutX="218.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOT YET IMPLEMENTED">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Button fx:id="acceptBtn" layoutX="493.0" layoutY="870.0" mnemonicParsing="false" onAction="#uploadSingle" text="ACCEPT">
+                        <Pane prefHeight="364.0" prefWidth="822.0" style="-fx-background-color: #ffffff;" />
+                        <Button fx:id="acceptBtn" mnemonicParsing="false" onAction="#uploadSingle" text="ACCEPT">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
                      </children>
-                  </Pane>
+                  </VBox>
                </children>
-                </HBox>
-            </children>
-        </VBox>
-    </children>
-</AnchorPane>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

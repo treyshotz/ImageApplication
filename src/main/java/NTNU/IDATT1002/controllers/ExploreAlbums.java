@@ -71,23 +71,27 @@ public class ExploreAlbums implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<ImageAlbum> albums = imageAlbumService.getAllImageAlbums();
+        try {
+            List<ImageAlbum> albums = imageAlbumService.getAllImageAlbums();
+            int maxPerPage = Math.min(albums.size(), 50);
 
-        int maxPerPage = Math.min(albums.size(), 50);
+            for (int i = 0; i < maxPerPage; i++) {
+                //A container for image and album text
+                HBox albumContainer = new HBox();
+                //Stores album id here so that it can be passed to data exchange,
+                //and the correct album will appear on View Album page when clicked
+                albumContainer.setId(albums.get(i).getId().toString());
+                albumContainer.setPrefWidth(1520);
+                albumContainer.setPrefHeight(300);
 
-        for(int i = 0; i < maxPerPage; i++) {
-            //A container for image and album text
-            HBox albumContainer = new HBox();
-            //Stores album id here so that it can be passed to data exchange,
-            //and the correct album will appear on View Album page when clicked
-            albumContainer.setId(albums.get(i).getId().toString());
-            albumContainer.setPrefWidth(1520);
-            albumContainer.setPrefHeight(300);
+                insertAlbumImageToContainer(albums.get(i), albumContainer);
+                insertAlbumTextToContainer(albums.get(i), albumContainer);
 
-            insertAlbumImageToContainer(albums.get(i), albumContainer);
-            insertAlbumTextToContainer(albums.get(i), albumContainer);
-
-            vBox.getChildren().add(albumContainer);
+                vBox.getChildren().add(albumContainer);
+            }
+        }
+        catch (Exception e){
+            //TODO: if no albums exist... msg?
         }
     }
 
