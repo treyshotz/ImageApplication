@@ -58,7 +58,7 @@ public class Search implements Initializable {
     if (!App.ex.getSearchField().isEmpty()){
             search_result.setText(App.ex.getSearchField());
         }
-        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png");
+        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/placeholder-1920x1080.png");
         for(int i = 0; i < urls.size(); i++) {
             HBox h = new HBox();
             h.setPrefHeight(300);

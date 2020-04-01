@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Explore">
    <children>
-      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,7 +32,7 @@
             <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
          </children>
       </HBox>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="100.0" prefHeight="980.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="980.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <content>
             <AnchorPane maxHeight="1920.0" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="1920.0">
                <children>
