@@ -11,6 +11,9 @@ import javafx.scene.layout.GridPane;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -52,10 +55,11 @@ public class SignUp {
         String password = signup_password.getText();
         String phoneCode = signup_phoneCode.getText();
         String phoneNr = signup_phoneNr.getText();
-        //TODO: Find out how to take date as a Date object
-        Date date = new Date(System.currentTimeMillis());
+        LocalDate birthLocalDate = signup_birthDate.getValue();
+        Instant instant = Instant.from(birthLocalDate.atStartOfDay(ZoneId.systemDefault()));
+        Date birthDate = Date.from(instant);
 
-        if(userService.createUser(email, username, firstName, lastName, phoneCode, phoneNr, date, password).isPresent()) {
+        if(userService.createUser(email, username, firstName, lastName, phoneCode, phoneNr, birthDate, password).isPresent()) {
             //TODO: Return message to user to confirm that user has been succsessfully registered
             App.setRoot("login");
         }
