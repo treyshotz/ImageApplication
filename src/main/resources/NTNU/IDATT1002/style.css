@@ -1,0 +1,23 @@
+
+.bodybg{
+    -fx-background-image: url("../../Images/vector1.jpg");
+    -fx-background-size: cover;
+}
+
+.signupbg{
+    -fx-background-color: #10101f;
+}
+
+.button{
+    -fx-transition-duration: 0.4s;
+    -fx-background-color: blank;
+    -fx-border-width: 2px;
+    -fx-border-color: white;
+    -fx-color: white;
+
+}
+
+.button:hover{
+    -fx-background-color: rgba(193, 198, 196, 0.5);
+    -fx-color: white;
+}
