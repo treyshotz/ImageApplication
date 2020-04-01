@@ -100,4 +100,8 @@ public class SignUp {
             }
         }
     }
+
+    public void cancel(ActionEvent event) throws IOException {
+        App.setRoot("login");
+    }
 }
