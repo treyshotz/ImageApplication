@@ -27,6 +27,7 @@ public class Login {
 
     public Login(User user) {
         this.username = user.getUsername();
+        this.user = user;
     }
 
     public Login(User user, String passwordSalt , String hash) {
