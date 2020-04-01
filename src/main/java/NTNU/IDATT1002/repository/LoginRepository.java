@@ -2,7 +2,7 @@ package NTNU.IDATT1002.repository;
 
 
 import NTNU.IDATT1002.ApplicationState;
-import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.utils.Authentication;

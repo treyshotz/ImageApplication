@@ -12,18 +12,18 @@ import java.util.Objects;
 
 
 /**
- * Class ImageAlbum representing an image album. Contains {@link Image}s and the creator ({@link User})
+ * Class Album representing an album. Contains {@link Image}s and the creator ({@link User})
  *
  * @author Eirik Steira
  * @version 1.1 19.03.20
  * */
 @Entity
-@Table(name = "image_album")
+@Table(name = "album")
 @NamedQueries({
-        @NamedQuery(name="ImageAlbum.findAllByUsername",
-                query = "SELECT ia from ImageAlbum ia WHERE ia.user.username = :username")
+        @NamedQuery(name="Album.findAllByUsername",
+                query = "SELECT ia from Album ia WHERE ia.user.username = :username")
 })
-public class ImageAlbum {
+public class Album {
 
     @Id
     @GeneratedValue
@@ -49,7 +49,7 @@ public class ImageAlbum {
     @UpdateTimestamp
     private Date updatedAt;
 
-    public ImageAlbum() {
+    public Album() {
     }
 
     public void setId(Long id) {
@@ -118,7 +118,7 @@ public class ImageAlbum {
      * @param image the image to add
      */
     public void addImage(Image image) {
-        image.addImageAlbum(this);
+        image.addAlbum(this);
         images.add(image);
     }
 
@@ -128,7 +128,7 @@ public class ImageAlbum {
      * @param image the image to add
      */
     public void removeImage(Image image) {
-        image.removeImageAlbum(this);
+        image.removeAlbum(this);
         images.remove(image);
     }
 
@@ -161,7 +161,7 @@ public class ImageAlbum {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ImageAlbum that = (ImageAlbum) o;
+        Album that = (Album) o;
         return id.equals(that.id) &&
                 title.equals(that.title) &&
                 user.equals(that.user) &&

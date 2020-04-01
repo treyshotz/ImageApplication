@@ -42,15 +42,15 @@ public class Tag {
     Set<Image> image = new HashSet<>();
 
     /**
-     * Creates a many to many relations between tag and image album
+     * Creates a many to many relations between tag and album
      */
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "image_album_tags",
+            name = "album_tags",
             joinColumns = {@JoinColumn(name = "tag_id")},
-            inverseJoinColumns = {@JoinColumn(name = "image_album_id")}
+            inverseJoinColumns = {@JoinColumn(name = "album_id")}
     )
-    Set<Image> imageAlbums = new HashSet<>();
+    Set<Image> albums = new HashSet<>();
 
     @NotBlank(message = "Tag name may not be blank")
     private String name;

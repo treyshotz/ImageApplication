@@ -65,7 +65,7 @@ public class ImageService {
 
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
-        //TODO: Add image tags and add image to imageAlbum
+        //TODO: Add image tags and add image to album
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());
@@ -92,11 +92,11 @@ public class ImageService {
     }
 
     /**
-     *  Adds the given tag to the given image album.
+     *  Adds the given tag to the given album.
      *
-     * @param image the image album to add the tag to
+     * @param image the album to add the tag to
      * @param tag the tag to add
-     * @return the updated image album
+     * @return the updated album
      */
 
     public Optional<Image> addTagToImage(Image image, Tag tag) {

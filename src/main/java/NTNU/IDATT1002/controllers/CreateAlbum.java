@@ -3,7 +3,7 @@ package NTNU.IDATT1002.controllers;
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
 import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.service.ImageAlbumService;
+import NTNU.IDATT1002.service.AlbumService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -37,11 +37,11 @@ public class CreateAlbum {
     public Button tbar_albums;
     public Button tbar_searchBtn;
 
-    private ImageAlbumService imageAlbumService;
+    private AlbumService albumService;
 
     public CreateAlbum() {
         EntityManager entityManager = App.ex.getEntityManager();
-        imageAlbumService = new ImageAlbumService(entityManager);
+        albumService = new AlbumService(entityManager);
     }
 
     /**
@@ -103,16 +103,16 @@ public class CreateAlbum {
     }
 
     /**
-     * Create an empty image album. The user will default to the currently logged in user.
+     * Create an empty album. The user will default to the currently logged in user.
      *
      * @param actionEvent
      */
-    public void createEmptyImageAlbum(ActionEvent actionEvent) {
+    public void createEmptyAlbum(ActionEvent actionEvent) {
         String title =  album_title_field.getText();
         String description = album_desc_field.getText();
         String tags = album_tag_field.getText();
         User user = ApplicationState.getCurrentUser();
 
-        imageAlbumService.createImageAlbum(title, description, user, tags);
+        albumService.createAlbum(title, description, user, tags);
     }
 }

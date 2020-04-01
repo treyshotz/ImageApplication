@@ -25,7 +25,7 @@ public class Image {
   private Long id;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  private List<ImageAlbum> imageAlbums = new ArrayList<>();
+  private List<Album> albums = new ArrayList<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
   private List<Tag> tags = new ArrayList<>();
@@ -50,9 +50,9 @@ public class Image {
   public Image() {
   }
 
-  public Image(byte[] rawImage, ImageAlbum imageAlbum, User user, Metadata metadata, String path) {
+  public Image(byte[] rawImage, Album album, User user, Metadata metadata, String path) {
     this.rawImage = rawImage;
-    this.addImageAlbum(imageAlbum);
+    this.addAlbum(album);
     this.user = user;
     this.metadata = metadata;
     this.path = path;
@@ -87,8 +87,8 @@ public class Image {
     this.path = path;
   }
 
-  public List<ImageAlbum> getImageAlbums() {
-    return imageAlbums;
+  public List<Album> getAlbums() {
+    return albums;
   }
 
   public void addTags(ArrayList<Tag> tags) {
@@ -117,21 +117,21 @@ public class Image {
 
 
   /**
-   * Add this image in the given image album.
+   * Add this image in the given album.
    *
-   * @param imageAlbum the image album to add to
+   * @param album the album to add to
    */
-  public void addImageAlbum(ImageAlbum imageAlbum) {
-    imageAlbums.add(imageAlbum);
+  public void addAlbum(Album album) {
+    albums.add(album);
   }
 
   /**
    * Remove this image from the given image.
    *
-   * @param imageAlbum the image album to remove from
+   * @param album the album to remove from
    */
-  public void removeImageAlbum(ImageAlbum imageAlbum) {
-    imageAlbums.remove(imageAlbum);
+  public void removeAlbum(Album album) {
+    albums.remove(album);
   }
 
   @Override

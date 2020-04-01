@@ -1,12 +1,10 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
-import NTNU.IDATT1002.service.ImageAlbumDocument;
-import NTNU.IDATT1002.service.ImageAlbumService;
-import NTNU.IDATT1002.service.ImageService;
-import NTNU.IDATT1002.service.TagService;
+import NTNU.IDATT1002.service.AlbumDocument;
+import NTNU.IDATT1002.service.AlbumService;
 import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
@@ -14,17 +12,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -33,7 +28,6 @@ import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -64,8 +58,8 @@ public class ViewAlbum implements Initializable {
     public VBox albumTextContainer;
     public HBox albumImages;
 
-    private ImageAlbumService imageAlbumService;
-    private ImageAlbum currentAlbum;
+    private AlbumService albumService;
+    private Album currentAlbum;
 
 
     /**
@@ -77,11 +71,11 @@ public class ViewAlbum implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         EntityManager entityManager = App.ex.getEntityManager();
-        imageAlbumService =  new ImageAlbumService(entityManager);
+        albumService =  new AlbumService(entityManager);
         Long currentAlbumId = App.ex.getChosenAlbumId();
 
-        Optional<ImageAlbum> foundImageAlbum = imageAlbumService.getImageAlbumById(currentAlbumId);
-        foundImageAlbum.ifPresent(album -> {
+        Optional<Album> foundAlbum = albumService.getAlbumById(currentAlbumId);
+        foundAlbum.ifPresent(album -> {
             currentAlbum = album;
             NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
             Image image = ImageUtil.convertToFXImage(titleImage);
@@ -129,7 +123,7 @@ public class ViewAlbum implements Initializable {
      *
      * @param album the album to display
      */
-    private void insertAlbumTextToContainer(ImageAlbum album) {
+    private void insertAlbumTextToContainer(Album album) {
         //Creates a vbox so that nodes is aligned in a column
         albumTextContainer.setSpacing(5);
         albumTextContainer.setPadding(new Insets(0, 0, 20, 0));
@@ -147,7 +141,7 @@ public class ViewAlbum implements Initializable {
      * @param album the album which title to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumTitle(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumTitle(Album album, VBox textContainer) {
         HBox content = new HBox();
 
         Text titleLabel = new Text("Title: ");
@@ -167,7 +161,7 @@ public class ViewAlbum implements Initializable {
      * @param album the album which author to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumAuthor(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumAuthor(Album album, VBox textContainer) {
         HBox content = new HBox();
         Text authorLabel = new Text("Author: ");
         authorLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
@@ -185,7 +179,7 @@ public class ViewAlbum implements Initializable {
      * @param album the album which tags to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumTags(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumTags(Album album, VBox textContainer) {
         HBox content = new HBox();
         Text tagsLabel = new Text("Tags: ");
         tagsLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
@@ -207,7 +201,7 @@ public class ViewAlbum implements Initializable {
      * @param album the album which description to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumDescription(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumDescription(Album album, VBox textContainer) {
         Text descriptionLabel = new Text("Description: ");
         descriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
 
@@ -320,7 +314,7 @@ public class ViewAlbum implements Initializable {
      */
     public void createPdf(ActionEvent actionEvent) {
         Long currentAlbumId = App.ex.getChosenAlbumId();
-        ImageAlbumDocument document = imageAlbumService.getDocument(currentAlbumId);
+        AlbumDocument document = albumService.getDocument(currentAlbumId);
 
         displayDocumentLink(document.getDocument());
     }

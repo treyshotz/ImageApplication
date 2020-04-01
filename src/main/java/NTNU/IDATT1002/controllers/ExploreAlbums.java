@@ -1,9 +1,9 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
-import NTNU.IDATT1002.service.ImageAlbumService;
+import NTNU.IDATT1002.service.AlbumService;
 import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,11 +56,11 @@ public class ExploreAlbums implements Initializable {
     public ImageView albumImage;
     public VBox vBox;
 
-    private ImageAlbumService imageAlbumService;
+    private AlbumService albumService;
 
     public ExploreAlbums() {
         EntityManager entityManager = App.ex.getEntityManager();
-        imageAlbumService = new ImageAlbumService(entityManager);
+        albumService = new AlbumService(entityManager);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ExploreAlbums implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            List<ImageAlbum> albums = imageAlbumService.getAllImageAlbums();
+            List<Album> albums = albumService.getAllAlbums();
             int maxPerPage = Math.min(albums.size(), 50);
 
             for (int i = 0; i < maxPerPage; i++) {
@@ -101,7 +101,7 @@ public class ExploreAlbums implements Initializable {
      * @param album the album from the database
      * @param albumContainer the container for each separate album
      */
-    private void insertAlbumImageToContainer(ImageAlbum album, HBox albumContainer) {
+    private void insertAlbumImageToContainer(Album album, HBox albumContainer) {
         albumImage = new ImageView();
         albumImage.setFitHeight(300.0);
         albumImage.setFitWidth(533.0);
@@ -130,7 +130,7 @@ public class ExploreAlbums implements Initializable {
      * @param album the album to display
      * @param albumContainer the container for each separate album
      */
-    private void insertAlbumTextToContainer(ImageAlbum album, HBox albumContainer) {
+    private void insertAlbumTextToContainer(Album album, HBox albumContainer) {
         //Creates a vbox so that nodes is aligned in a column
         VBox textContainer = new VBox();
         textContainer.setSpacing(5);
@@ -153,7 +153,7 @@ public class ExploreAlbums implements Initializable {
      * @param album the album which title to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumTitle(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumTitle(Album album, VBox textContainer) {
         HBox content = new HBox();
 
         Text titleLabel = new Text("Title: ");
@@ -182,7 +182,7 @@ public class ExploreAlbums implements Initializable {
      * @param album the album which author to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumAuthor(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumAuthor(Album album, VBox textContainer) {
         HBox content = new HBox();
         Text authorLabel = new Text("Author: ");
         authorLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
@@ -200,7 +200,7 @@ public class ExploreAlbums implements Initializable {
      * @param album the album which tags to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumTags(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumTags(Album album, VBox textContainer) {
         HBox content = new HBox();
         Text tagsLabel = new Text("Tags: ");
         tagsLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
@@ -222,7 +222,7 @@ public class ExploreAlbums implements Initializable {
      * @param album the album which description to display
      * @param textContainer container for text elements of an album
      */
-    private void insertAlbumDescription(ImageAlbum album, VBox textContainer) {
+    private void insertAlbumDescription(Album album, VBox textContainer) {
         Text descriptionLabel = new Text("Description: ");
         descriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
 
