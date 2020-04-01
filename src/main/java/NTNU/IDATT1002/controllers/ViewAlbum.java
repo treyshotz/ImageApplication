@@ -2,9 +2,9 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.service.ImageAlbumDocument;
 import NTNU.IDATT1002.service.ImageAlbumService;
 import NTNU.IDATT1002.service.TagService;
-import NTNU.IDATT1002.utils.PdfDocument;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,8 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
@@ -49,7 +47,7 @@ public class ViewAlbum implements Initializable {
     public Text album_descField;
 
     public Pane metadata_pane;
-    public Button create_album_pdf;
+    public Button create_album_document;
 
     public ImageView main_picture;
 
@@ -70,13 +68,11 @@ public class ViewAlbum implements Initializable {
 
     private ImageAlbumService imageAlbumService;
     private Long currentAlbumId;
-    private Logger logger;
-    
+
     public ViewAlbum() {
         EntityManager entityManager = App.ex.getEntityManager();
         this.imageAlbumService =  new ImageAlbumService(entityManager);
         currentAlbumId = App.ex.getChosenAlbumId();
-        logger = LoggerFactory.getLogger("ImageApplicationLogger");
     }
 
     /**
@@ -372,24 +368,15 @@ public class ViewAlbum implements Initializable {
     }
 
     /**
-     * Create and save album pdf to users downloads directory.
+     * Retrieve and display album document.
      *
      * @param actionEvent
      */
-    public void createPdf(ActionEvent actionEvent) {
+    public void createDocument(ActionEvent actionEvent) {
         Long currentAlbumId = App.ex.getChosenAlbumId();
-        ImageAlbum imageAlbum = imageAlbumService.getImageAlbumById(currentAlbumId)
-                .orElseThrow(IllegalArgumentException::new);
+        ImageAlbumDocument document = imageAlbumService.getDocument(currentAlbumId);
 
-        String destinationFile = String.format("%s/downloads/%s.pdf",
-                System.getProperty("user.home"),
-                imageAlbum.getTitle());
-
-        PdfDocument document = new PdfDocument(imageAlbum, destinationFile);
-        document.createPdfDocument();
-        logger.info("[x] Saved PDF document to " + destinationFile);
-
-        displayPdfLink(document.getPdfDocument());
+        displayDocumentLink(document.getDocument());
     }
 
     /**
@@ -397,9 +384,9 @@ public class ViewAlbum implements Initializable {
      *
      * @param pdfDocument the pdf document to be opened
      */
-    private void displayPdfLink(File pdfDocument) {
-        create_album_pdf.setText("Open PDF");
-        create_album_pdf.setOnAction(actionEvent -> openPdfDocument(actionEvent, pdfDocument));
+    private void displayDocumentLink(File pdfDocument) {
+        create_album_document.setText("Open PDF");
+        create_album_document.setOnAction(actionEvent -> openDocument(actionEvent, pdfDocument));
     }
 
     /**
@@ -408,7 +395,7 @@ public class ViewAlbum implements Initializable {
      * @param actionEvent
      * @param file the file to open
      */
-    private void openPdfDocument(ActionEvent actionEvent, File file) {
+    private void openDocument(ActionEvent actionEvent, File file) {
         HostServices hostServices = App.ex.getHostServices();
         hostServices.showDocument(file.getAbsolutePath());
     }
