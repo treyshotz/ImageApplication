@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 
 /**
- * Image Album Filter. Class to filter an image album by title, description and tag names.
+ * Album Filter. Class to filter an album by title, description and tag names.
  *
  * @author Stian Mogen
  * @version 1.0 22.03.20
@@ -18,7 +18,7 @@ public class ImageFilter {
      * Image filter can filter an album by tags
      * Uses method filterByTags
      * @param query the query to filter by
-     * @return predicate chaining the image album filter components.
+     * @return predicate chaining the album filter components.
      */
 
     public static Predicate<Image> filter(String query) {

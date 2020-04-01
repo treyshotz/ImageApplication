@@ -3,7 +3,7 @@ package NTNU.IDATT1002.database;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.service.ImageAlbumService;
+import NTNU.IDATT1002.service.AlbumService;
 import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.UserService;
 
@@ -20,14 +20,14 @@ import java.util.Date;
 public class LoadDatabase {
 
     private static UserService userService;
-    private static ImageAlbumService imageAlbumService;
+    private static AlbumService albumService;
     private static ImageService imageService;
 
     static {
         EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
         userService = new UserService(entityManager);
-        imageAlbumService = new ImageAlbumService(entityManager);
+        albumService = new AlbumService(entityManager);
         imageService = new ImageService(entityManager);
     }
 
@@ -50,7 +50,7 @@ public class LoadDatabase {
         Image image = imageService.createImage(user,
                 new File("t14-test-images/1.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("First",
+        albumService.createAlbum("First",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#winter"),
@@ -68,7 +68,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/7.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Seventh",
+        albumService.createAlbum("Seventh",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#winter"),
@@ -95,7 +95,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/2.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Second",
+        albumService.createAlbum("Second",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
@@ -112,7 +112,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/10.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Tenth",
+        albumService.createAlbum("Tenth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#fjords"),
@@ -139,7 +139,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/3.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Third",
+        albumService.createAlbum("Third",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
@@ -157,7 +157,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/9.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Ninth",
+        albumService.createAlbum("Ninth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#art"),
@@ -186,7 +186,7 @@ public class LoadDatabase {
                 new File("t14-test-images/4.jpg"),
                 tags).get();
 
-        imageAlbumService.createImageAlbum("Fourth",
+        albumService.createAlbum("Fourth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
@@ -204,7 +204,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/5.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Fifth",
+        albumService.createAlbum("Fifth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
@@ -232,7 +232,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/6.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Sixth",
+        albumService.createAlbum("Sixth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#mountains"),
@@ -260,7 +260,7 @@ public class LoadDatabase {
         image = imageService.createImage(user,
                 new File("t14-test-images/8.jpg"),
                 tags).get();
-        imageAlbumService.createImageAlbum("Eighth",
+        albumService.createAlbum("Eighth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
                 Arrays.asList(new Tag("#winter"),

@@ -44,7 +44,7 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    private List<ImageAlbum> imageAlbums = new ArrayList<>();
+    private List<Album> albums = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "user",
@@ -133,23 +133,23 @@ public class User {
         this.birthDate = birthDate;
     }
     /**
-     * Add given image album.
+     * Add given album.
      *
-     * @param imageAlbum the image album to add
+     * @param album the album to add
      */
-    public void addImageAlbum(ImageAlbum imageAlbum) {
-        imageAlbums.add(imageAlbum);
-        imageAlbum.setUser(this);
+    public void addAlbum(Album album) {
+        albums.add(album);
+        album.setUser(this);
     }
 
     /**
-     * Remove given image album.
+     * Remove given album.
      *
-     * @param imageAlbum the image album to remove
+     * @param album the album to remove
      */
-    public void removeImageAlbum(ImageAlbum imageAlbum) {
-        imageAlbums.remove(imageAlbum);
-        imageAlbum.setUser(null);
+    public void removeAlbum(Album album) {
+        albums.remove(album);
+        album.setUser(null);
     }
 
     /**
@@ -167,7 +167,7 @@ public class User {
      *
      * @param image the image to remove
      */
-    public void removeImageAlbum(Image image) {
+    public void removeAlbum(Image image) {
         images.remove(image);
         image.setUser(null);
     }

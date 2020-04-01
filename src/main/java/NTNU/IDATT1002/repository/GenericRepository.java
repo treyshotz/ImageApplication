@@ -62,9 +62,9 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     }
 
     /**
-     * Persists the given image album.
+     * Persists the given album.
      *
-     * @param entity  the image album to persist
+     * @param entity  the album to persist
      */
     private void persist(T entity) {
         entityManager.getTransaction().begin();
@@ -118,9 +118,9 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     }
 
     /**
-     * Removes the given image album.
+     * Removes the given album.
      *
-     * @param entity the image album to remove
+     * @param entity the album to remove
      */
     private void remove(T entity) {
         entityManager.getTransaction().begin();

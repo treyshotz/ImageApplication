@@ -11,7 +11,7 @@
         <class>NTNU.IDATT1002.models.User</class>
         <class>NTNU.IDATT1002.models.Login</class>
         <class>NTNU.IDATT1002.models.Image</class>
-        <class>NTNU.IDATT1002.models.ImageAlbum</class>
+        <class>NTNU.IDATT1002.models.Album</class>
         <class>NTNU.IDATT1002.models.Tag</class>
         <class>NTNU.IDATT1002.models.Metadata</class>
         <class>NTNU.IDATT1002.models.Histogram</class>
