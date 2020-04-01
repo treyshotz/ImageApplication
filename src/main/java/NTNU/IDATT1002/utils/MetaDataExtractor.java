@@ -52,7 +52,7 @@ public class MetaDataExtractor {
             gps += gpspos.getGeoLocation();
             String[] pos = gps.split(", ");
             latitude = pos[0];
-            longitude = pos[0];
+            longitude = pos[1];
 
             geoLocation.setLatitude(latitude);
             geoLocation.setLongitude(longitude);
