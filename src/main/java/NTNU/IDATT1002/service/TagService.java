@@ -2,15 +2,16 @@ package NTNU.IDATT1002.service;
 
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
-
 import NTNU.IDATT1002.repository.ImageRepository;
 import NTNU.IDATT1002.repository.TagRepository;
-import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.persistence.EntityManager;
 
 
 /**
@@ -18,18 +19,35 @@ import javax.persistence.EntityManager;
  * and opposite.
  *
  * @author Eirik Steira
- * @version 1.0 26.03.20
+ * @version 1.1 01.04.20
  */
 public class TagService {
 
-TagRepository tagRepository;
-ImageRepository imageRepository;
+    private TagRepository tagRepository;
+    
+    private ImageRepository imageRepository;
 
-public TagService(EntityManager entityManager){
-    this.tagRepository = new TagRepository(entityManager);
-    this.imageRepository = new ImageRepository(entityManager);
+    private static Logger logger = LoggerFactory.getLogger(TagService.class);
+    
+    /**
+     * Inject entity manager instance to the repositories.
+     */
+    public TagService(EntityManager entityManager) {
+        this.tagRepository = new TagRepository(entityManager);
+        this.imageRepository = new ImageRepository(entityManager);
+    }
 
-}
+    /**
+     * Gets or creates given tags in given list.
+     *
+     * @param tags the list of tags
+     * @return a list of persisted tags
+     */
+    public List<Tag> getOrCreateTags(List<Tag> tags) {
+        return tags.stream()
+                .map(tag -> tagRepository.findOrCreate(tag).orElse(null))
+                .collect(Collectors.toList());
+    }
 
     /**
      * Retrieves tags from text field and converts them to a list of tag objects.
@@ -59,16 +77,16 @@ public TagService(EntityManager entityManager){
     }
 
     /**
-     * Gets or creates given tags in given ArrayList.
+     * Retrieve given tag. Either get an existing or create it.
      *
-     * @@author Lars Østby
-     * @param tags the list of tags
-     * @return an ArrayList of persisted tags
+     * @param tag the tag to retrieve
+     * @throws IllegalArgumentException if tag could not be found or created
+     * @return the persisted tag, else a new persisted tag instance
      */
-    public  List<Tag> getOrCreateTags(List<Tag> tags) {
-        return tags.stream().map(tag -> tagRepository.findOrCreate(tag).orElse(null)).collect(Collectors.toList());
+    public Tag getSingleTag(Tag tag) {
+        return tagRepository.findOrCreate(tag)
+                .orElseThrow(IllegalArgumentException::new);
     }
-
 
     /**
      *  Adds the given tag to the given album.

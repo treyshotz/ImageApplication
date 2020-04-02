@@ -67,4 +67,14 @@ public class Metadata {
     public void setHistogram(Histogram histogram) {
         this.histogram = histogram;
     }
+
+    @Override
+    public String toString() {
+        return "Metadata{" +
+                "metadataId=" + metadataId +
+                ", image=" + image +
+                ", geolocation=" + geolocation +
+                ", histogram=" + histogram +
+                '}';
+    }
 }

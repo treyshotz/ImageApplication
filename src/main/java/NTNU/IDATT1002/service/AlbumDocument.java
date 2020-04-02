@@ -12,6 +12,6 @@ public interface AlbumDocument {
 
     File getDocument();
 
-    void createDocument();
+    void create();
 
 }

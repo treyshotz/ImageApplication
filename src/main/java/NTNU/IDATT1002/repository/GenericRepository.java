@@ -1,5 +1,8 @@
 package NTNU.IDATT1002.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -25,6 +28,8 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
 
     @PersistenceContext
     protected EntityManager entityManager;
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());;
 
     /**
      * Constructor to inject {@link EntityManager} dependency.
@@ -53,6 +58,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     public Optional<T> save(T entity) {
         try {
             persist(entity);
+            logger.info("[x] Saved entity {}", entity);
             return Optional.ofNullable(entity);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,6 +118,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     public void delete(T entity) {
         try {
             remove(entity);
+            logger.info("[x] Deleted entity {}", entity);
         } catch (Exception e) {
             e.printStackTrace();
         }

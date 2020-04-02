@@ -55,7 +55,7 @@ public class PdfDocument implements AlbumDocument {
     /**
      * Create a new pdf document.
      */
-    public void createDocument() {
+    public void create() {
         try {
             generatePdfDocument();
         } catch (IOException | DocumentException e) {

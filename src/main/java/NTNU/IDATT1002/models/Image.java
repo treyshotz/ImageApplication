@@ -21,13 +21,13 @@ import java.util.List;
 public class Image {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Album> albums = new ArrayList<>();
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Tag> tags = new ArrayList<>();
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -145,7 +145,20 @@ public class Image {
     Image that = (Image) o;
     return getId().equals(that.getId());
   }
-} 
+
+  @Override
+  public String toString() {
+    return "Image{" +
+            "id=" + id +
+            ", albums=" + albums +
+            ", tags=" + tags +
+            ", user=" + user +
+            ", metadata=" + metadata +
+            ", path='" + path + '\'' +
+            ", uploadedAt=" + uploadedAt +
+            '}';
+  }
+}
 
 
 

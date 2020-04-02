@@ -179,4 +179,21 @@ public class User {
         User user = (User) o;
         return username.equals(user.username);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", callingCode='" + callingCode + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthDate=" + birthDate +
+                ", isAdmin=" + isAdmin +
+                ", isActive=" + isActive +
+                ", albums=" + albums +
+                ", images=" + images +
+                '}';
+    }
 }

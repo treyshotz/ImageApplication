@@ -41,6 +41,7 @@ public class TagRepository extends GenericRepository<Tag, Long> {
             e.printStackTrace();
         }
 
+        super.logger.info("[x] Could not find tag - Creating a new one: {}", tag);
         return save(tag);
     }
 
