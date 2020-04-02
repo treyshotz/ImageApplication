@@ -3,7 +3,9 @@ package NTNU.IDATT1002.controllers;
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
 import NTNU.IDATT1002.models.Tag;
+import NTNU.IDATT1002.repository.TagRepository;
 import NTNU.IDATT1002.service.ImageService;
+import NTNU.IDATT1002.service.TagService;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -133,28 +135,18 @@ public class UploadedSingle implements Initializable {
    * Method for uploading image to database with tags
    * Image itself is not stored but URL is
    *
+   * @author Lars ØStby
    * @param actionEvent
    * @throws IOException
    */
 
   public void uploadSingle(ActionEvent actionEvent) throws IOException {
     List<File> list = App.ex.getUploadedFiles();
-    File fil = list.get(0);
-    ArrayList<Tag> tags = new ArrayList<>();
-    imageService.createImage(ApplicationState.getCurrentUser(), fil, tags);
-
+    File file = list.get(0);
+    List<Tag> tags = TagService.getTagsFromString(photo_tag.getText());
+    imageService.createImage(ApplicationState.getCurrentUser(), file, tags);
     App.setRoot("main");
   }
 
-  /***
-   * Method for splitting the tag textField into tags in a list
-   * @param photo_tag
-   * @return list of string
-   */
-  public List<String> tagStringSplit(TextField photo_tag) {
-    String tagTekst = photo_tag.getText();
-    return Arrays.asList(tagTekst.split("(?=#)"));
 
-
-  }
 }

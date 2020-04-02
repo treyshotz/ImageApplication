@@ -32,7 +32,7 @@ public class TagRepository extends GenericRepository<Tag, Long> {
      * @return the tag if found, else the newly created one.
      */
     public Optional<Tag> findOrCreate(Tag tag) {
-        try {
+       try {
             Optional<Tag> foundTag = findById(tag.getTagId());
 
             if (foundTag.isPresent())

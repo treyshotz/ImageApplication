@@ -6,6 +6,12 @@ import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.AlbumDocument;
 import NTNU.IDATT1002.service.AlbumService;
 import NTNU.IDATT1002.utils.ImageUtil;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,6 +29,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javax.persistence.EntityManager;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
@@ -31,6 +39,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import org.slf4j.LoggerFactory;
 
 /**
  * Controls the buttons and changeable elements on view_album.fxml,
@@ -45,12 +54,9 @@ public class ViewAlbum implements Initializable {
     public Button tbar_upload;
     public Button tbar_searchBtn;
     public Button tbar_albums;
-
     public Pane metadataPane;
     public Button createAlbumPdf;
-
     public ImageView mainPicture;
-
     public Text pictureTitleField;
     public Text pictureTagsField;
 
@@ -61,6 +67,7 @@ public class ViewAlbum implements Initializable {
     private AlbumService albumService;
     private Album currentAlbum;
 
+    
 
     /**
      * Initialize view with real album data.
