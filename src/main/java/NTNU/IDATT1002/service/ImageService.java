@@ -5,6 +5,8 @@ import NTNU.IDATT1002.repository.*;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
 
+import java.util.Arrays;
+import javafx.scene.control.TextField;
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
@@ -21,22 +23,16 @@ import java.util.stream.Collectors;
 public class ImageService {
 
     private ImageRepository imageRepository;
-    private MetadataRepository metadataRepository;
-    private TagRepository tagRepository;
-    private HistorgramRepository historgramRepository;
-    private GeoLocatioRepository geoLocatioRepository;
     private MetaDataExtractor metaDataExtractor;
+    private TagService tagService;
 
     /**
      * Inject entity manager instance to the repositories.
      */
     public ImageService(EntityManager entityManager) {
         this.imageRepository = new ImageRepository(entityManager);
-        this.metadataRepository = new MetadataRepository(entityManager);
-        this.tagRepository = new TagRepository(entityManager);
-        this.historgramRepository = new HistorgramRepository(entityManager);
-        this.geoLocatioRepository = new GeoLocatioRepository(entityManager);
         this.metaDataExtractor = new MetaDataExtractor();
+        this.tagService = new TagService(entityManager);
     }
 
     /**
@@ -46,7 +42,7 @@ public class ImageService {
      * @param file the file uploaded
      * @return Optional containing the saved image
      */
-    public Optional<Image> createImage(User user, File file, ArrayList<Tag> tags) {
+    public Optional<Image> createImage(User user, File file, List<Tag> tags) {
 
         GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
         Histogram histogram = metaDataExtractor.getHistogram(file);
@@ -61,17 +57,16 @@ public class ImageService {
 
         metadata.setHistogram(histogram);
         histogram.setMetadata(metadata);
-
-
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
         //TODO: Add image tags and add image to album
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());
-        image.addTags(tags);
+        image.addTags((ArrayList<Tag>) tagService.getOrCreateTags(tags));
         return imageRepository.save(image);
     }
+
 
     /**
      * Finds each picture belonging to a specific user
@@ -92,25 +87,6 @@ public class ImageService {
     }
 
     /**
-     *  Adds the given tag to the given album.
-     *
-     * @param image the album to add the tag to
-     * @param tag the tag to add
-     * @return the updated album
-     */
-
-    public Optional<Image> addTagToImage(Image image, Tag tag) {
-        Image foundImage = imageRepository.findById(image.getId())
-                .orElseThrow(IllegalArgumentException::new);
-        Tag foundTag = tagRepository.findOrCreate(tag)
-                .orElseThrow(IllegalArgumentException::new);
-
-        foundImage.addTag(foundTag);
-
-        return imageRepository.save(foundImage);
-    }
-
-    /**
      * Search all images by tags specified in {@link ImageFilter#filter(String)}.
      *
      * @param query the query to filter by
@@ -124,4 +100,7 @@ public class ImageService {
                 .filter(ImageFilter.filter(query))
                 .collect(Collectors.toList());
     }
+
+
+
 }
