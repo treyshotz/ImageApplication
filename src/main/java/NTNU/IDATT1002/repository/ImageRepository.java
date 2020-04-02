@@ -1,7 +1,8 @@
 package NTNU.IDATT1002.repository;
 
 import NTNU.IDATT1002.models.Image;
-import java.util.Optional;
+
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -18,37 +19,34 @@ import java.util.List;
 
 public class ImageRepository extends GenericRepository<Image, Long> {
 
-  private EntityManager entityManager;
+    /**
+     * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
+     */
+    public static final String IMAGE_FIND_BY_USERNAME = "Album.findAllByUsername";
 
-  /**
-   * Constructor to inject {@link EntityManager} dependency.
-   *
-   * @param entityManager the entity manager to utilize
-   */
-  public ImageRepository(EntityManager entityManager) {
-    super(entityManager);
-  }
+    /**
+     * Constructor to inject {@link EntityManager} dependency.
+     *
+     * @param entityManager the entity manager to utilize
+     */
+    public ImageRepository(EntityManager entityManager) {
+      super(entityManager);
+      setClassType(Image.class);
+    }
 
-
-  /**
-   * Retrieves all instances of the type image.
-   *
-   * @return all entities
-   */
-  public Optional<Image> update(Image image) {
-    return Optional.empty();
-  }
-
-
-  /**
-   * Return whether the given image exists.
-   *
-   * @param image image album to check existence for
-   * @return true if the image album exist, else false
-   */
-
-
-  public boolean exists(Image image) {
-    return findById(image.getImageID()).isPresent();
-  }
+    /**
+     * Retrieves all albums of the user with the given username.
+     *
+     * @param username the username to query for
+     * @return the list of the users albums.
+     */
+    public List<Image> findAllByUsername(String username) {
+        return entityManager.createNamedQuery(IMAGE_FIND_BY_USERNAME, Image.class)
+                .setParameter("username", username)
+                .getResultList();
+    }
 }
+
+
+
+

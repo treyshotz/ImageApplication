@@ -9,15 +9,20 @@
 
         <!-- Entity classes -->
         <class>NTNU.IDATT1002.models.User</class>
+        <class>NTNU.IDATT1002.models.Login</class>
         <class>NTNU.IDATT1002.models.Image</class>
-        <class>NTNU.IDATT1002.models.ImageAlbum</class>
+        <class>NTNU.IDATT1002.models.Album</class>
+        <class>NTNU.IDATT1002.models.Tag</class>
+        <class>NTNU.IDATT1002.models.Metadata</class>
+        <class>NTNU.IDATT1002.models.Histogram</class>
+        <class>NTNU.IDATT1002.models.GeoLocation</class>
 
         <properties>
             <!-- Configuring JDBC properties -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://db-mysql-lon1-07155-do-user-7212587-0.a.db.ondigitalocean.com:25060/image_application" />
-            <property name="javax.persistence.jdbc.user" value="doadmin" />
-            <property name="javax.persistence.jdbc.password" value="s4oxtqu20e8r7tx5" />
+            <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://mysql.stud.iie.ntnu.no:3306/g_sysutv_14" />
+            <property name="javax.persistence.jdbc.user" value="g_sysutv_14" />
+            <property name="javax.persistence.jdbc.password" value="tNdTRrwM" />
 
             <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
@@ -26,8 +31,8 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
 
-            <!-- Drop and create tables on startup -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <!-- Update tables on startup -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>

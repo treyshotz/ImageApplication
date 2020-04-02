@@ -4,18 +4,22 @@ stages:
   - build
   - test
 
-cache:
-  paths:
-    - target/
-
 build:
   stage: build
+  only:
+    - dev
+    - master
+    - merge_requests
   script:
     - echo "Building project with maven"
     - mvn verify
 
 test:
   stage: test
+  only:
+    - dev
+    - master
+    - merge_requests
   script:
     - echo "Running project tests with maven"
     - mvn test

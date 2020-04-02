@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #555555;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Search">
+   <children>
+      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+         <children>
+            <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/PlaceholderLogo.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="100.0" prefWidth="343.0" />
+            <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+            <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
+            <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
+            <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
+            <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+            <Pane prefHeight="100.0" prefWidth="174.0" />
+            <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="986.0" prefWidth="1920.0" style="-fx-background-color: #555555;" VBox.vgrow="ALWAYS">
+         <children>
+            <ScrollPane fx:id="scrollpane" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" minHeight="960.0" prefWidth="1920.0" style="-fx-background-color: #555555; -fx-fit-to-width: true;" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="vBox" maxHeight="1.7976931348623157E308" maxWidth="Infinity" minHeight="980.0" prefWidth="1920.0" spacing="10.0" style="-fx-background-color: #555555;">
+                     <children>
+                        <HBox alignment="CENTER" maxWidth="Infinity" prefHeight="201.0" prefWidth="1920.0" spacing="10.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
+                                 <font>
+                                    <Font name="System Bold Italic" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="results for your search" wrappingWidth="350.982421875">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="search_result" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;result&quot;">
+                                 <font>
+                                    <Font name="System Italic" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=", sorted by:" wrappingWidth="184.341796875">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <ChoiceBox fx:id="sorted_by_choicebox" prefHeight="40.0" prefWidth="166.0" value="Most Popular">
+                                 <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                       <String fx:value="Most Popular" />
+                                       <String fx:value="Newest First" />
+                                       <String fx:value="Oldest First" />
+                                    </FXCollections>
+                                 </items>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

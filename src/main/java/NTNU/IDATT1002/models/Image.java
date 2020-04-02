@@ -1,100 +1,137 @@
 package NTNU.IDATT1002.models;
 
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @Table(name = "image")
-public class Image {  
-
+@NamedQueries({
+        @NamedQuery(name="Image.findAllByUsername",
+                query = "SELECT ia from Image ia WHERE ia.user.username = :username")
+})
+public class Image {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue
   private Long id;
 
-  @ManyToMany
-  private List<ImageAlbum> imageAlbums = new ArrayList<>();;
+  @ManyToMany(fetch = FetchType.LAZY)
+  private List<Album> albums = new ArrayList<>();
 
+  @ManyToMany(fetch = FetchType.LAZY)
+  private List<Tag> tags = new ArrayList<>();
 
-  @NotBlank
-  private Long imageID;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private User user;
 
-  @NotBlank
-  private Long albumID;
+  @Lob
+  @NotNull
+  @NotEmpty
+  private byte[] rawImage;
 
-  @NotBlank
-  private Long metaDataID;
-
-  @NotBlank
-  @CreationTimestamp
-  private Date uploadAt;
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Metadata metadata;
 
   @NotBlank
   private String path;
 
+  @CreationTimestamp
+  private Date uploadedAt;
+
   public Image() {
   }
 
-  public Image(Long imageID, Long albumID, Long metaDataId, Date uploadAt, String path) {
-    this.imageID = imageID;
-    this.albumID = albumID;
-    this.metaDataID = metaDataId;
-    this.uploadAt = uploadAt;
+  public Image(byte[] rawImage, Album album, User user, Metadata metadata, String path) {
+    this.rawImage = rawImage;
+    this.addAlbum(album);
+    this.user = user;
+    this.metadata = metadata;
     this.path = path;
+    this.tags = new ArrayList<>();
   }
 
-  public Image(Image image) {
-    this(image.getImageID(), image.getAlbumID(), image.getMetaDataID(), image.getUploadAt(), image.getPath());
+  public Long getId() {
+    return id;
   }
 
-  public void setImageID(Long imageID) {
-    this.imageID = imageID;
+  public void setId(Long id) {
+    this.id = id;
   }
 
-  public void setAlbumID(Long albumID) {
-    this.albumID = albumID;
+  public byte[] getRawImage() {
+    return rawImage;
   }
 
-  public void setMetaDataID(Long metaDataID) {
-    this.metaDataID = metaDataID;
+  public void setRawImage(byte[] rawImage) {
+    this.rawImage = rawImage;
   }
 
-  public void setUploadAt(Date uploadAt) {
-    this.uploadAt = uploadAt;
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public void setMetadata(Metadata metadata) {
+    this.metadata = metadata;
   }
 
   public void setPath(String path) {
     this.path = path;
   }
 
-  public Long getImageID() {
-    return imageID;
+  public List<Album> getAlbums() {
+    return albums;
   }
 
-  public Long getAlbumID() {
-    return albumID;
+  public void addTags(ArrayList<Tag> tags) {
+    tags.addAll(tags);
   }
 
-  public Long getMetaDataID() {
-    return metaDataID;
+  public void addTag(Tag tag){
+      tags.add(tag);
   }
 
-  public Date getUploadAt() {
-    return uploadAt;
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public Metadata getMetadata() {
+    return metadata;
+  }
+
+  public Date getUploadedAt() {
+    return uploadedAt;
   }
 
   public String getPath() {
     return path;
+  }
+
+
+  /**
+   * Add this image in the given album.
+   *
+   * @param album the album to add to
+   */
+  public void addAlbum(Album album) {
+    albums.add(album);
+  }
+
+  /**
+   * Remove this image from the given image.
+   *
+   * @param album the album to remove from
+   */
+  public void removeAlbum(Album album) {
+    albums.remove(album);
   }
 
   @Override
@@ -106,10 +143,9 @@ public class Image {
       return false;
     }
     Image that = (Image) o;
-    return getImageID() == that.getImageID() &&
-        getAlbumID() == that.getAlbumID();
+    return getId().equals(that.getId());
   }
-}
+} 
 
 
 

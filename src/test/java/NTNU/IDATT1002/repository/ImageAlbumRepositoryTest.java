@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.repository;
 
-import NTNU.IDATT1002.models.ImageAlbum;
+import NTNU.IDATT1002.models.Album;
+import NTNU.IDATT1002.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,32 +11,41 @@ import javax.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
- * Tests for {@link ImageAlbumRepository}.
+ * Tests for {@link AlbumRepository}.
  *
  * @author Eirik Steira
  * @version 1.0 17.03.20
  */
-class ImageAlbumRepositoryTest {
+class AlbumRepositoryTest {
 
     private static final String IMAGE_ALBUM_TITLE = "Test";
     private static final Long IMAGE_ALBUM_INITIAL_ID = 1L;
 
-    private ImageAlbumRepository imageAlbumRepository;
+    private AlbumRepository albumRepository;
 
+    private UserRepository userRepository;
+
+    private User currentUser;
 
     /**
-     * Setup test data - An {@link EntityManager} and an {@link ImageAlbumRepository}.
+     * Setup test data - An {@link EntityManager} and an {@link AlbumRepository}.
      */
     @BeforeEach
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ImageApplicationTest");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        imageAlbumRepository = new ImageAlbumRepository(entityManager);
+        albumRepository = new AlbumRepository(entityManager);
+        userRepository = new UserRepository(entityManager);
+
+        currentUser = new User();
+        currentUser.setUsername("testUser");
+        userRepository.save(currentUser);
     }
 
     /**
@@ -43,9 +53,9 @@ class ImageAlbumRepositoryTest {
      */
     @Test
     void testSaveReturnsInstance() {
-        Optional<ImageAlbum> savedImageAlbum = imageAlbumRepository.save(new ImageAlbum());
+        Optional<Album> savedAlbum = albumRepository.save(new Album());
 
-        assertTrue(savedImageAlbum.isPresent());
+        assertTrue(savedAlbum.isPresent());
     }
 
     /**
@@ -53,9 +63,9 @@ class ImageAlbumRepositoryTest {
      */
     @Test
     void testSaveInvalidEntityReturnsEmptyOptional() {
-        Optional<ImageAlbum> savedImageAlbum = imageAlbumRepository.save(null);
+        Optional<Album> savedAlbum = albumRepository.save(null);
 
-        assertTrue(savedImageAlbum.isEmpty());
+        assertTrue(savedAlbum.isEmpty());
     }
 
     /**
@@ -63,12 +73,11 @@ class ImageAlbumRepositoryTest {
      */
     @Test
     void testFindAllReturnsAllSavedEntities() {
-        imageAlbumRepository.save(new ImageAlbum());
-        imageAlbumRepository.save(new ImageAlbum());
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
 
-        List<?> foundImageAlbums = imageAlbumRepository.findAll();
-
-        assertEquals(2, foundImageAlbums.size());
+        List<?> foundAlbums = albumRepository.findAll();
+        assertEquals(2, foundAlbums.size());
     }
 
     /**
@@ -76,59 +85,26 @@ class ImageAlbumRepositoryTest {
      */
     @Test
     void testFindByIdReturnsOptionalWithEntityWithId() {
-        imageAlbumRepository.save(new ImageAlbum());
-        Optional<ImageAlbum> foundImageAlbum = imageAlbumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        albumRepository.save(new Album());
+        Optional<Album> foundAlbum = albumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
 
-        assertTrue(foundImageAlbum.isPresent());
-        assertEquals(IMAGE_ALBUM_INITIAL_ID, foundImageAlbum.get().getId());
+        assertTrue(foundAlbum.isPresent());
+        assertEquals(IMAGE_ALBUM_INITIAL_ID, foundAlbum.get().getId());
     }
 
-    /**
-     * Test that finding all entities by title with a single match returns a list with only that instance.
-     */
-    @Test
-    void testFindAllByTitleWithSingleMatchReturnsListWithSingleInstance() {
-        ImageAlbum imageAlbum = new ImageAlbum();
-        imageAlbum.setTitle(IMAGE_ALBUM_TITLE);
-
-        Optional<ImageAlbum> savedImageAlbum = imageAlbumRepository.save(imageAlbum);
-        List<?> foundImageAlbums = imageAlbumRepository.findAllByTitle(IMAGE_ALBUM_TITLE);
-
-        assertEquals(1, foundImageAlbums.size());
-        assertEquals(savedImageAlbum.get(), foundImageAlbums.get(0));
-    }
-
-    /**
-     * Test that finding all entities by title with multiple matches returns a list with all matching instances.
-     */
-    @Test
-    void testFindAllByTitleWithMultipleMatchesReturnsListWithInstances() {
-        ImageAlbum imageAlbum = new ImageAlbum();
-        imageAlbum.setTitle(IMAGE_ALBUM_TITLE);
-
-        imageAlbumRepository.save(imageAlbum);
-
-        imageAlbum = new ImageAlbum();
-        imageAlbum.setTitle(IMAGE_ALBUM_TITLE + "Test");
-
-        imageAlbumRepository.save(imageAlbum);
-        List<?> foundImageAlbums = imageAlbumRepository.findAllByTitle(IMAGE_ALBUM_TITLE);
-
-        assertEquals(2, foundImageAlbums.size());
-    }
 
     /**
      * Test that deleting an entity by id removes said entity.
      */
     @Test
     void testDeleteByIdRemovesEntity() {
-        imageAlbumRepository.save(new ImageAlbum());
-        Optional<ImageAlbum> foundImageAlbum = imageAlbumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        albumRepository.save(new Album());
+        Optional<Album> foundAlbum = albumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
 
-        foundImageAlbum.ifPresent(imageAlbum -> imageAlbumRepository.deleteById(IMAGE_ALBUM_INITIAL_ID));
-        Optional<ImageAlbum> deletedImageAlbum = imageAlbumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        foundAlbum.ifPresent(album -> albumRepository.deleteById(IMAGE_ALBUM_INITIAL_ID));
+        Optional<Album> deletedAlbum = albumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
 
-        assertTrue(deletedImageAlbum.isEmpty());
+        assertTrue(deletedAlbum.isEmpty());
     }
 
     /**
@@ -136,13 +112,13 @@ class ImageAlbumRepositoryTest {
      */
     @Test
     void testDeleteRemovesEntity() {
-        imageAlbumRepository.save(new ImageAlbum());
-        Optional<ImageAlbum> foundImageAlbum = imageAlbumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        albumRepository.save(new Album());
+        Optional<Album> foundAlbum = albumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
 
-        foundImageAlbum.ifPresent(imageAlbumRepository::delete);
-        Optional<ImageAlbum> deletedImageAlbum = imageAlbumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        foundAlbum.ifPresent(albumRepository::delete);
+        Optional<Album> deletedAlbum = albumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
 
-        assertTrue(deletedImageAlbum.isEmpty());
+        assertTrue(deletedAlbum.isEmpty());
     }
 
     /**
@@ -150,12 +126,31 @@ class ImageAlbumRepositoryTest {
      */
     @Test
     void testCountReturnsAmountOfSavedEntities() {
-        imageAlbumRepository.save(new ImageAlbum());
-        imageAlbumRepository.save(new ImageAlbum());
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
 
-        long imageAlbumCount = imageAlbumRepository.count();
+        long albumCount = albumRepository.count();
 
-        assertEquals(2, imageAlbumCount);
+        assertEquals(2, albumCount);
+    }
+
+    /**
+     * Test that finding albums by username returns all albums
+     * created by the user with the given username.
+     */
+    @Test
+    void testFindByUsernameReturnsAllAlbumsWithGivenUser() {
+        Album albumWithUser = new Album();
+        albumWithUser.setUser(currentUser);
+
+        albumRepository.save(albumWithUser);
+        Optional<Album> expectedAlbum = albumRepository.findById(IMAGE_ALBUM_INITIAL_ID);
+        
+        List<Album> foundAlbums = albumRepository.
+                findAllByUsername(currentUser.getUsername());
+
+        assertEquals(1, foundAlbums.size());
+        assertTrue(foundAlbums.contains(expectedAlbum.get()));
     }
 
 }

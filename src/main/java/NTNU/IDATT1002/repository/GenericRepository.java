@@ -53,7 +53,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     public Optional<T> save(T entity) {
         try {
             persist(entity);
-            return Optional.of(entity);
+            return Optional.ofNullable(entity);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,9 +62,9 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     }
 
     /**
-     * Persists the given image album.
+     * Persists the given album.
      *
-     * @param entity  the image album to persist
+     * @param entity  the album to persist
      */
     private void persist(T entity) {
         entityManager.getTransaction().begin();
@@ -77,7 +77,8 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
      *
      * @return all entities
      */
-    public List<?> findAll() {
+    @SuppressWarnings("unchecked")
+    public List<T> findAll() {
         return entityManager.createQuery("from " + classType.getName())
                 .getResultList();
     }
@@ -117,9 +118,9 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
     }
 
     /**
-     * Removes the given image album.
+     * Removes the given album.
      *
-     * @param entity the image album to remove
+     * @param entity the album to remove
      */
     private void remove(T entity) {
         entityManager.getTransaction().begin();
