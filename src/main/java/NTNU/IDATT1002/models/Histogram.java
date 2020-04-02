@@ -52,4 +52,13 @@ public class Histogram {
     public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
     }
+
+    @Override
+    public String toString() {
+        return "Histogram{" +
+                "histogramId=" + histogramId +
+                ", metadata=" + metadata +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }

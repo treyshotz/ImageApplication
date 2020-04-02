@@ -73,4 +73,14 @@ public class GeoLocation {
     public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
     }
+
+    @Override
+    public String toString() {
+        return "GeoLocation{" +
+                "geoLocationId=" + geoLocationId +
+                ", metadata=" + metadata +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                '}';
+    }
 }

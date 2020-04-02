@@ -2,8 +2,10 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.ApplicationState;
+import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.service.AlbumService;
+import NTNU.IDATT1002.service.TagService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -15,6 +17,7 @@ import javafx.scene.layout.Pane;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Controls the buttons and changeable elements on create_album.fxml,
@@ -111,8 +114,9 @@ public class CreateAlbum {
         String title =  album_title_field.getText();
         String description = album_desc_field.getText();
         String tags = album_tag_field.getText();
+        List<Tag> tagsToAdd = TagService.getTagsFromString(tags);
         User user = ApplicationState.getCurrentUser();
 
-        albumService.createAlbum(title, description, user, tags);
+        albumService.createEmptyAlbum(title, description, user, tagsToAdd);
     }
 }

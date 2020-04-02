@@ -25,7 +25,7 @@ public class Tag {
      * Defines the tag-id, this cannot be blank
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagId;
 
 
@@ -113,4 +113,11 @@ public class Tag {
                 Objects.equals(name, tag.name);
     }
 
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "tagId=" + tagId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

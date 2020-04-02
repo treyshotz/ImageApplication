@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -26,7 +27,7 @@ import java.util.Objects;
 public class Album {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Title may not be blank")
@@ -171,4 +172,21 @@ public class Album {
                 updatedAt.equals(that.updatedAt);
     }
 
+    @Override
+    public String toString() {
+        String formattedImages = "";
+        if (images != null)
+            formattedImages = images.stream().map(Image::getId).collect(Collectors.toList()).toString();
+
+        return "Album{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", user=" + user +
+                ", images=" + formattedImages +
+                ", tags=" + tags +
+                ", description='" + description + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

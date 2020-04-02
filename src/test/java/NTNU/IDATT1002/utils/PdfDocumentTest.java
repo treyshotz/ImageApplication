@@ -64,9 +64,10 @@ class PdfDocumentTest {
     @Test
     void testCreateDocumentCreatesPdfDocument() {
         PdfDocument document = new PdfDocument(album, PATH_TO_PDF);
-        document.createDocument();
+        File pdfFile = document.getDocument();
 
         assertNotNull(document);
+        assertNotNull(pdfFile);
     }
     
 
