@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.CreateAlbum">
+<VBox xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.CreateAlbum">
    <children>
       <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
          <children>
@@ -65,12 +58,7 @@
                         <Pane fx:id="metadata_pane" prefHeight="373.0" prefWidth="739.0" style="-fx-background-color: #ffff;" />
                         <HBox alignment="CENTER" prefHeight="41.0" prefWidth="662.0" spacing="20.0">
                            <children>
-                              <Button fx:id="add_images_button" mnemonicParsing="false" text="ADD IMAGES">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="create_album_button" mnemonicParsing="false" onAction="#createEmptyAlbum" text="CREATE ALBUM">
+                              <Button fx:id="create_album_button" mnemonicParsing="false" onAction="#createAlbum" text="CREATE ALBUM">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -83,21 +71,10 @@
             </VBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="920.0" prefWidth="450.0">
                <content>
-                  <VBox alignment="TOP_CENTER" prefWidth="450.0" spacing="10.0">
-                     <children>
-                        <ImageView fitHeight="218.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Images/placeholder-1920x1080.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <padding>
-                        <Insets top="65.0" />
-                     </padding>
+                  <VBox fx:id="fileContainer" alignment="TOP_CENTER" prefWidth="450.0" spacing="10.0">
                   </VBox>
                </content>
             </ScrollPane>
-            <VBox prefHeight="200.0" prefWidth="250.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>

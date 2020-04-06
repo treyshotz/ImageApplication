@@ -22,7 +22,7 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
     /**
      * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
      */
-    public static final String IMAGE_FIND_BY_USERNAME = "Album.findAllByUsername";
+    public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
 
     /**
      * Constructor to inject {@link EntityManager} dependency.
