@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.ProgressBar?>
 
-<VBox fx:id="root" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.ExploreAlbums">
+<VBox fx:id="pageRootContainer" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.ExploreAlbums">
    <children>
       <HBox fx:id="progressBarContainer" alignment="CENTER" minHeight="15.0" prefHeight="15.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #6d6d6d;">
          <children>
