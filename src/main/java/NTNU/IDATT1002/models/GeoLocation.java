@@ -78,7 +78,6 @@ public class GeoLocation {
     public String toString() {
         return "GeoLocation{" +
                 "geoLocationId=" + geoLocationId +
-                ", metadata=" + metadata +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 '}';

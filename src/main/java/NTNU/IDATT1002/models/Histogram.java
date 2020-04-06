@@ -57,7 +57,6 @@ public class Histogram {
     public String toString() {
         return "Histogram{" +
                 "histogramId=" + histogramId +
-                ", metadata=" + metadata +
                 ", data='" + data + '\'' +
                 '}';
     }

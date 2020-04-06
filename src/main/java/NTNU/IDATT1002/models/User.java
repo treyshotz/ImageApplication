@@ -192,8 +192,6 @@ public class User {
                 ", birthDate=" + birthDate +
                 ", isAdmin=" + isAdmin +
                 ", isActive=" + isActive +
-                ", albums=" + albums +
-                ", images=" + images +
                 '}';
     }
 }
