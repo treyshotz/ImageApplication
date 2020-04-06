@@ -19,6 +19,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tag")
+@NamedQuery(name="Tag.findByName", query = "SELECT tag from Tag tag WHERE tag.name = :name")
 public class Tag {
 
     /**
@@ -102,6 +103,11 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String trim() {
+        this.name = this.name.trim();
+        return this.name;
     }
 
     @Override
