@@ -156,11 +156,18 @@ public class Image {
                 .collect(Collectors.toList())
                 .toString();
 
+    String formattedAlbums = "";
+    if (albums != null)
+      formattedAlbums = albums.stream()
+              .map(Album::getId)
+              .collect(Collectors.toList())
+              .toString();
+
     return "Image{" +
             "id=" + id +
-            ", albums=" + albums +
+            ", albums=" + formattedAlbums +
             ", tags=" + formattedTags +
-            ", user=" + user +
+            ", user=" + user.getUsername() +
             ", metadata=" + metadata +
             ", path='" + path + '\'' +
             ", uploadedAt=" + uploadedAt +

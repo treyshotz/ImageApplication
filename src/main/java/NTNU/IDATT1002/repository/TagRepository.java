@@ -39,6 +39,9 @@ public class TagRepository extends AbstractRepository<Tag, Long> {
      * @return the tag if found, else the newly created one.
      */
     public Tag findOrCreate(Tag tag) {
+        if (tag.getName().isBlank())
+            return null;
+
         Tag foundTag;
         try {
             foundTag = entityManager.createNamedQuery(FIND_TAG_BY_NAME, Tag.class)

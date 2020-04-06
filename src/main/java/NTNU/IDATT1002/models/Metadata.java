@@ -72,7 +72,6 @@ public class Metadata {
     public String toString() {
         return "Metadata{" +
                 "metadataId=" + metadataId +
-                ", image=" + image +
                 ", geolocation=" + geolocation +
                 ", histogram=" + histogram +
                 '}';
