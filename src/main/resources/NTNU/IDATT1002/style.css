@@ -37,8 +37,3 @@
 .exploreGridPane{
     -fx-fit-to-width: true;
 }
-
-.scroll-pane{
-    -fx-background-color: none;
-    -fx-border-width: 0;
-}

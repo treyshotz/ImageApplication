@@ -17,44 +17,24 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Explore">
    <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
+      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
          <children>
-            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
-                     <children>
-                        <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Images/PlaceholderLogo.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <TextField fx:id="tbar_search" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="tbar_searchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
-                  <Button fx:id="tbar_explore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
-                  <Button fx:id="tbar_albums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
-                  <Button fx:id="tbar_map" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="250.0">
-                     <children>
-                        <Button fx:id="tbar_upload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
+            <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/PlaceholderLogo.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="100.0" prefWidth="343.0" />
+            <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
+            <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
+            <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
+            <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
+            <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
+            <Pane prefHeight="100.0" prefWidth="174.0" />
+            <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
          </children>
       </HBox>
-      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="980.0" prefWidth="1920.0" VBox.vgrow="ALWAYS" styleClass="scroll-pane" stylesheets="@style.css">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="980.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
          <content>
                   <BorderPane prefHeight="2000.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <top>
