@@ -164,9 +164,12 @@ public class CreateAlbum implements Initializable {
     List<Tag> tagsToAdd = TagService.getTagsFromString(tags);
     User user = ApplicationState.getCurrentUser();
 
+      //temporary solution for the toString problem with album log creation
       if (description.isEmpty()) {
           description = "No desripton";
-      }
+      } if (tags.isEmpty()){
+        tags = " ";
+    }
 
     List<Node> imageContainers = new ArrayList<>(fileContainer.getChildren());
     List<String> checkedImagesId = new ArrayList<>();
@@ -208,6 +211,10 @@ public class CreateAlbum implements Initializable {
     }
   }
 
+  /**
+   * Makes sure that user gave the album a title
+   * @return
+   */
   private boolean validateInpid() {
     boolean check = true;
     if (album_title_field.getText().isEmpty()) {
