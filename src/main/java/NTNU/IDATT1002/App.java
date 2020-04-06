@@ -1,7 +1,6 @@
 package NTNU.IDATT1002;
 
 import NTNU.IDATT1002.controllers.DataExchange;
-import NTNU.IDATT1002.database.EntityManagerConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +19,6 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         ex = new DataExchange();
         ex.setHostServices(getHostServices());
-        ex.setEntityManager(EntityManagerConfig.getEntityManager());
 
         scene = new Scene(loadFXML("login"));
         stage.setMaximized(true);

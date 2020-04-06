@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Album Repository.
  *
- * Implementation of {@link  GenericRepository} which supports regular Create, Read, Update and Delete operations.
+ * Implementation of {@link  AbstractRepository} which supports regular Create, Read, Update and Delete operations.
  * @author Eirik Steira
  * @version 1.0 19.03.20
- * @see NTNU.IDATT1002.repository.GenericRepository
+ * @see AbstractRepository
  */
-public class AlbumRepository extends GenericRepository<Album, Long> {
+public class AlbumRepository extends AbstractRepository<Album, Long> {
 
     /**
      * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Album}
@@ -27,7 +27,7 @@ public class AlbumRepository extends GenericRepository<Album, Long> {
      */
     public AlbumRepository(EntityManager entityManager) {
         super(entityManager);
-        setClassType(Album.class);
+        setEntityClass(Album.class);
     }
 
     /**

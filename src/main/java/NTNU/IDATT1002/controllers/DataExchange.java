@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
+import NTNU.IDATT1002.database.EntityManagerConfig;
 import javafx.application.HostServices;
 
 import javax.persistence.EntityManager;
@@ -25,7 +26,7 @@ public class DataExchange {
     }
 
     public EntityManager getEntityManager() {
-        return entityManager;
+        return EntityManagerConfig.getEntityManager();
     }
 
     public HostServices getHostServices() {

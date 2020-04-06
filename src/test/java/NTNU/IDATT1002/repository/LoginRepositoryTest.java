@@ -3,19 +3,18 @@ package NTNU.IDATT1002.repository;
 
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.utils.Authentication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -130,19 +129,5 @@ class LoginRepositoryTest {
         Optional<Login> deletedLogin = loginRepository.findById(username1);
 
         assertTrue(deletedLogin.isEmpty());
-    }
-
-/**
-     * Test that count returns correct amount of enities
-     */
-
-    @Test
-    void testCountReturnsAmountOfSavedEntities() {
-        loginRepository.save(login1);
-        loginRepository.save(login2);
-
-        long loginCount = loginRepository.count();
-
-        assertEquals(2, loginCount);
     }
 }

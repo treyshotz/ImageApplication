@@ -122,19 +122,6 @@ class AlbumRepositoryTest {
     }
 
     /**
-     * Test that getting count returns the correct amount of saved entities.
-     */
-    @Test
-    void testCountReturnsAmountOfSavedEntities() {
-        albumRepository.save(new Album());
-        albumRepository.save(new Album());
-
-        long albumCount = albumRepository.count();
-
-        assertEquals(2, albumCount);
-    }
-
-    /**
      * Test that finding albums by username returns all albums
      * created by the user with the given username.
      */

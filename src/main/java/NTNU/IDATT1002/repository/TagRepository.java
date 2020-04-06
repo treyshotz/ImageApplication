@@ -10,12 +10,12 @@ import javax.persistence.NonUniqueResultException;
 /**
  * Tag Repository.
  *
- * Implementation of {@link  GenericRepository} which supports regular Create, Read, Update and Delete operations.
+ * Implementation of {@link  AbstractRepository} which supports regular Create, Read, Update and Delete operations.
  * @author Eirik Steira
  * @version 1.0 21.03.20
- * @see NTNU.IDATT1002.repository.GenericRepository
+ * @see AbstractRepository
  */
-public class TagRepository extends GenericRepository<Tag, Long> {
+public class TagRepository extends AbstractRepository<Tag, Long> {
 
     /**
      * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
@@ -29,7 +29,7 @@ public class TagRepository extends GenericRepository<Tag, Long> {
      */
     public TagRepository(EntityManager entityManager) {
         super(entityManager);
-        setClassType(Tag.class);
+        setEntityClass(Tag.class);
     }
 
     /**
