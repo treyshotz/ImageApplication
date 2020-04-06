@@ -8,32 +8,16 @@
     -fx-background-color: #10101f;
 }
 
-.tbarbg{
-    -fx-background-color: #10101f;
-}
-
 .button{
     -fx-transition-duration: 0.4s;
-    -fx-background-color: none;
+    -fx-background-color: blank;
     -fx-border-width: 2px;
-    -fx-border-color: #46b4fe;
-    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-color: white;
 
 }
 
 .button:hover{
     -fx-background-color: rgba(193, 198, 196, 0.5);
     -fx-color: white;
-}
-
-.tbarmenu{
-
-}
-
-.exploreGrid{
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-}
-
-.exploreGridPane{
-    -fx-fit-to-width: true;
 }

@@ -62,8 +62,8 @@ public class Explore implements Initializable {
             VBox v = new VBox();
             v.setPrefHeight(400);
             v.setPrefWidth(400);
-            v.setAlignment(Pos.TOP_LEFT);
-            //v.setStyle("-fx-background-color: #999999;");
+            v.setAlignment(Pos.CENTER);
+            v.setStyle("-fx-background-color: #999999;");
 
             //Image container
             ImageView iV = new ImageView();
