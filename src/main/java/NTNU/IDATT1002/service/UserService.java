@@ -7,6 +7,7 @@ import NTNU.IDATT1002.repository.LoginRepository;
 import NTNU.IDATT1002.repository.UserRepository;
 import NTNU.IDATT1002.utils.Authentication;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,5 +126,9 @@ public class UserService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<User> getUsers(){
+        return userRepository.findAll();
     }
 }
