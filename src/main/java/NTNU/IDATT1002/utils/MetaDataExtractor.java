@@ -326,7 +326,7 @@ public class MetaDataExtractor {
         metadata.setLens(getLens(file));
         metadata.setAperture(getAperture(file));
         metadata.setShutterSpeed(getShutterSpeed(file));
-        //metadata.setISO(getIso(file));
+        metadata.setISO(getIso(file));
         metadata.setFocalLength(getFocalLength(file));
         metadata.setFileType(getFileType(file));
         metadata.setPhotoDate(getPhotoDate(file));
