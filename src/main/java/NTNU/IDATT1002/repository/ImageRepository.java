@@ -17,7 +17,7 @@ import java.util.List;
  * @see NTNU.IDATT1002.repository.Repository
  */
 
-public class ImageRepository extends GenericRepository<Image, Long> {
+public class ImageRepository extends AbstractRepository<Image, Long> {
 
     /**
      * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
@@ -31,7 +31,7 @@ public class ImageRepository extends GenericRepository<Image, Long> {
      */
     public ImageRepository(EntityManager entityManager) {
       super(entityManager);
-      setClassType(Image.class);
+      setEntityClass(Image.class);
     }
 
     /**

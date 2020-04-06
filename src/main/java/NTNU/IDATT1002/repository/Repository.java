@@ -51,11 +51,4 @@ public interface Repository<T, ID> {
      */
     void deleteById(ID id);
 
-    /**
-     * Return the number of entities.
-     *
-     * @return the number of entities.
-     */
-    long count();
-
 }

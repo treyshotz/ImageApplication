@@ -4,7 +4,7 @@ import NTNU.IDATT1002.models.GeoLocation;
 
 import javax.persistence.EntityManager;
 
-public class GeoLocatioRepository extends GenericRepository<GeoLocation, Long> {
+public class GeoLocatioRepository extends AbstractRepository<GeoLocation, Long> {
 
     /**
      * Constructor to inject {@link EntityManager} dependency.
@@ -13,6 +13,6 @@ public class GeoLocatioRepository extends GenericRepository<GeoLocation, Long> {
      */
     public GeoLocatioRepository(EntityManager entityManager) {
         super(entityManager);
-        setClassType(GeoLocation.class);
+        setEntityClass(GeoLocation.class);
     }
 }

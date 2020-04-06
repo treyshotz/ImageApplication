@@ -104,8 +104,9 @@ public class AlbumService {
 
         AlbumDocument document = new PdfDocument(album, destinationFile);
         document.create();
-        logger.info("[x] Saved PDF document to " + destinationFile);
+        logger.info("[x] Saved PDF document to {}", destinationFile);
 
         return document;
     }
+
 }

@@ -73,7 +73,7 @@ public class TagService {
     public static String getTagsAsString(List<Tag> tags) {
         return tags.stream()
                 .map(Tag::getName)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(" "));
     }
 
     /**

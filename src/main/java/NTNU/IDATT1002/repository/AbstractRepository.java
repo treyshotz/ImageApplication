@@ -10,21 +10,21 @@ import java.util.Optional;
 
 
 /**
- * Generic Entity Repository Abstract Class.
+ * Abstract Entity Repository Abstract Class.
  * Implements regular Create, Read, Update and Delete operations defined in {@link Repository}.
  *
  * This class can be easily extended to support type specific operations through concrete implementations.
  * @param <T> type of entity
  * @param <ID> type of entity id
  * @author Eirik Steira
- * @version 1.0 19.03.20
+ * @version 1.1 03.04.20
  */
-abstract class GenericRepository<T, ID> implements Repository<T, ID> {
+abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
 
     /**
      * The type of class which implementations of this class is to operate on.
      */
-    private Class<T> classType;
+    private Class<T> entityClass;
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -36,7 +36,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
      *
      * @param entityManager the entity manager to utilize
      */
-    public GenericRepository(EntityManager entityManager) {
+    public AbstractRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -45,8 +45,8 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
      *
      * @param classTypeToSet the type of class
      */
-    public void setClassType(Class<T> classTypeToSet) {
-        classType = classTypeToSet;
+    public void setEntityClass(Class<T> classTypeToSet) {
+        entityClass = classTypeToSet;
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
      */
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        return entityManager.createQuery("from " + classType.getName())
+        return entityManager.createQuery("from " + entityClass.getName())
                 .getResultList();
     }
 
@@ -96,7 +96,7 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
      * @return the entity with the given id if found, else Optional.empty()
      */
     public Optional<T> findById(ID id) {
-        T entity = entityManager.find(classType, id);
+        T entity = entityManager.find(entityClass, id);
         return entity != null ? Optional.of(entity) : Optional.empty();
     }
 
@@ -133,15 +133,6 @@ abstract class GenericRepository<T, ID> implements Repository<T, ID> {
         entityManager.getTransaction().begin();
         entityManager.remove(entity);
         entityManager.getTransaction().commit();
-    }
-
-    /**
-     * Return the number of entities.
-     *
-     * @return the number of entities.
-     */
-    public long count() {
-        return findAll().size();
     }
 
 }

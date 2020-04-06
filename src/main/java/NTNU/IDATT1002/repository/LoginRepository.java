@@ -1,18 +1,9 @@
 package NTNU.IDATT1002.repository;
 
 
-import NTNU.IDATT1002.ApplicationState;
-import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Login;
-import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.utils.Authentication;
 
 import javax.persistence.EntityManager;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Login Repository
@@ -24,7 +15,7 @@ import java.util.Optional;
  * @see NTNU.IDATT1002.repository.Repository
  */
 
-public class LoginRepository extends GenericRepository<Login, String>{
+public class LoginRepository extends AbstractRepository<Login, String> {
 
     private EntityManager entityManager;
 
@@ -36,6 +27,6 @@ public class LoginRepository extends GenericRepository<Login, String>{
      */
     public LoginRepository(EntityManager entityManager) {
         super(entityManager);
-        setClassType(Login.class);
+        setEntityClass(Login.class);
     }
 }
