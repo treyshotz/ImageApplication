@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -148,10 +149,17 @@ public class Image {
 
   @Override
   public String toString() {
+    String formattedTags = "";
+    if (tags != null)
+        formattedTags = tags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList())
+                .toString();
+
     return "Image{" +
             "id=" + id +
             ", albums=" + albums +
-            ", tags=" + tags +
+            ", tags=" + formattedTags +
             ", user=" + user +
             ", metadata=" + metadata +
             ", path='" + path + '\'' +

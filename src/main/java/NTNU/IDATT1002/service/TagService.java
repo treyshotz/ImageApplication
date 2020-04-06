@@ -45,7 +45,7 @@ public class TagService {
      */
     public List<Tag> getOrCreateTags(List<Tag> tags) {
         return tags.stream()
-                .map(tag -> tagRepository.findOrCreate(tag).orElse(null))
+                .map(tag -> tagRepository.findOrCreate(tag))
                 .collect(Collectors.toList());
     }
 
@@ -84,8 +84,7 @@ public class TagService {
      * @return the persisted tag, else a new persisted tag instance
      */
     public Tag getSingleTag(Tag tag) {
-        return tagRepository.findOrCreate(tag)
-                .orElseThrow(IllegalArgumentException::new);
+        return tagRepository.findOrCreate(tag);
     }
 
     /**
@@ -99,8 +98,7 @@ public class TagService {
     public Optional<Image> addTagToImage(Image image, Tag tag) {
         Image foundImage = imageRepository.findById(image.getId())
             .orElseThrow(IllegalArgumentException::new);
-        Tag foundTag = tagRepository.findOrCreate(tag)
-            .orElseThrow(IllegalArgumentException::new);
+        Tag foundTag = tagRepository.findOrCreate(tag);
 
         foundImage.addTag(foundTag);
 

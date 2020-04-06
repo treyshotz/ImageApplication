@@ -88,7 +88,7 @@ class AlbumServiceTest {
     @Test
     public void testThatCreateAlbumCreatesAlbum() {
         String description = "test";
-        List<Tag> tags = Arrays.asList(new Tag());
+        List<Tag> tags = Arrays.asList(new Tag("test"));
         List<Image> images = Arrays.asList(image);
 
         Optional<Album> createdAlbum = albumService.createAlbum(ALBUM_TITLE,
@@ -113,7 +113,7 @@ class AlbumServiceTest {
     @Test
     public void testThatCreateEmptyAlbumCreatesEmptyAlbum() {
         String description = "test";
-        List<Tag> tags = Arrays.asList(new Tag());
+        List<Tag> tags = Arrays.asList(new Tag("test"));
 
         Optional<Album> createdAlbum = albumService.createEmptyAlbum(ALBUM_TITLE,
                 description,

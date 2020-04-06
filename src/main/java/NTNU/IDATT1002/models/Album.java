@@ -176,14 +176,24 @@ public class Album {
     public String toString() {
         String formattedImages = "";
         if (images != null)
-            formattedImages = images.stream().map(Image::getId).collect(Collectors.toList()).toString();
+            formattedImages = images.stream()
+                    .map(Image::getId)
+                    .collect(Collectors.toList())
+                    .toString();
+
+        String formattedTags = "";
+        if (tags != null)
+            formattedTags = tags.stream()
+                    .map(Tag::getName)
+                    .collect(Collectors.toList())
+                    .toString();
 
         return "Album{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", user=" + user +
                 ", images=" + formattedImages +
-                ", tags=" + tags +
+                ", tags=" + formattedTags +
                 ", description='" + description + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
