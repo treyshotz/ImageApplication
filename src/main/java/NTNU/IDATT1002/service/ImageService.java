@@ -45,7 +45,6 @@ public class ImageService {
     public Optional<Image> createImage(User user, File file, List<Tag> tags) {
 
         GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
-        Histogram histogram = metaDataExtractor.getHistogram(file);
 
         Image image = new Image();
         Metadata metadata = new Metadata();
@@ -55,8 +54,7 @@ public class ImageService {
         metadata.setGeoLocation(geoLocation);
         geoLocation.setMetadata(metadata);
 
-        metadata.setHistogram(histogram);
-        histogram.setMetadata(metadata);
+        metaDataExtractor.setMetadata(metadata, file);
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
         //TODO: Add image tags and add image to album

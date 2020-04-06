@@ -14,7 +14,6 @@
         <class>NTNU.IDATT1002.models.Album</class>
         <class>NTNU.IDATT1002.models.Tag</class>
         <class>NTNU.IDATT1002.models.Metadata</class>
-        <class>NTNU.IDATT1002.models.Histogram</class>
         <class>NTNU.IDATT1002.models.GeoLocation</class>
 
         <properties>
