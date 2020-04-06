@@ -82,9 +82,10 @@ public class ViewAlbum implements Initializable {
         Long currentAlbumId = App.ex.getChosenAlbumId();
 
         Optional<Album> foundAlbum = albumService.getAlbumById(currentAlbumId);
-        foundAlbum.ifPresent(album -> {
+        foundAlbum. ifPresent(album -> {
             currentAlbum = album;
-            NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
+            NTNU.IDATT1002.models.Image titleImage = album.getImages().
+                get(0);
             Image image = ImageUtil.convertToFXImage(titleImage);
             mainPicture.setImage(image);
             pictureTitleField.setText("LEGG TIL BILDETITTEL HER");
