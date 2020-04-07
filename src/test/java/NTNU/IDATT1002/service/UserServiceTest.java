@@ -12,6 +12,12 @@ import javax.persistence.Persistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for {@link UserService}
+ *
+ * @author madslun
+ * @version 1.0 06.04.20
+ */
 class UserServiceTest {
 
   private UserService userService;

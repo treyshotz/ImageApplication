@@ -1,6 +1,5 @@
 package NTNU.IDATT1002.utils;
 
-import NTNU.IDATT1002.database.EntityManagerConfig;
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import com.drew.imaging.ImageMetadataReader;
@@ -17,13 +16,15 @@ import com.drew.metadata.file.FileTypeDirectory;
 import com.drew.metadata.iptc.IptcDirectory;
 
 import com.drew.metadata.jpeg.JpegDirectory;
-import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 
 
 /**
  * Class MetaDataExtractor. Extracts metadata and geolocation and histogram from it.
+ *
+ * @author madslun
+ * @version 1.0 06.04.20
  */
 public class MetaDataExtractor {
 

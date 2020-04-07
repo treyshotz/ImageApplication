@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
 /**
  * Controls the buttons and changeable elements on signup.fxml,
  * a page where you create a new user for the application
+ *
+ * @author madslun, Simon Jensen
  * @version 1.0 22.03.2020
  */
 public class SignUp {

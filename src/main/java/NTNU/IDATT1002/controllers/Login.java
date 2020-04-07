@@ -18,6 +18,8 @@ import java.io.IOException;
 /**
  * Controls the buttons and changeable elements on login.fxml,
  * the page where you log into the application
+ *
+ * @author madslun
  * @version 1.0 22.03.2020
  */
 public class Login {
