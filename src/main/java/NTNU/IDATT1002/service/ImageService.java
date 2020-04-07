@@ -98,4 +98,30 @@ public class ImageService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Searches images by tags and username, and merges the two list into one with all images
+     * uses removeDuplicates list to return a list with no duplicate images
+     * @param query
+     * @return a list with no duplicate images
+     */
+
+    public List<Image> searchResult(String query){
+        List<Image> allFound = new ArrayList<>();
+        List<Image> byTags = imageRepository.findAllByTags(query);
+        List<Image> byUsername = imageRepository.findAllByUsername(query);
+        allFound.addAll(byTags);
+        allFound.addAll(byUsername);
+        return removeDuplicates(allFound);
+    }
+    
+
+    /**
+     * takes a list and removes all duplicate elements
+     * @param images
+     * @return list without duplicates
+     */
+
+    public List<Image> removeDuplicates(List<Image> images){
+        return images.stream().distinct().collect(Collectors.toList());
+    }
 }

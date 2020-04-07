@@ -1,9 +1,11 @@
 package NTNU.IDATT1002.repository;
 
+import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.Image;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -23,6 +25,7 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
      * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
      */
     public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
+    public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
 
     /**
      * Constructor to inject {@link EntityManager} dependency.
@@ -45,6 +48,13 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
                 .setParameter("username", username)
                 .getResultList();
     }
+
+    public List<Image> findAllByTags(String tag){
+        return entityManager.createNamedQuery(IMAGE_FIND_BY_TAG, Image.class)
+                .setParameter("name",tag)
+                .getResultList();
+    }
+
 }
 
 
