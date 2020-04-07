@@ -1,12 +1,11 @@
 package NTNU.IDATT1002.service;
+
 import NTNU.IDATT1002.filters.ImageFilter;
 import NTNU.IDATT1002.models.*;
-import NTNU.IDATT1002.repository.*;
+import NTNU.IDATT1002.repository.ImageRepository;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
 
-import java.util.Arrays;
-import javafx.scene.control.TextField;
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
@@ -98,7 +97,5 @@ public class ImageService {
                 .filter(ImageFilter.filter(query))
                 .collect(Collectors.toList());
     }
-
-
 
 }
