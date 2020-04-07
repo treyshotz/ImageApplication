@@ -128,6 +128,20 @@
             <version>1.56</version>
         </dependency>
 
+        <!-- Google Maps API -->
+        <dependency>
+            <groupId>com.lynden</groupId>
+            <artifactId>GMapsFX</artifactId>
+            <version>2.12.0</version>
+            <exclusions>
+                <!-- Exclude svf4j found in logback-->
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

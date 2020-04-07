@@ -111,8 +111,7 @@ public class ExploreAlbums implements Initializable {
             try {
                 return albumService.getAllAlbums();
             } catch (Exception e) {
-                logger.error("[x] Failed to fetch albums");
-                e.printStackTrace();
+                logger.error("[x] Failed to fetch albums", e);
             }
             return new ArrayList<>();
         }
@@ -165,8 +164,7 @@ public class ExploreAlbums implements Initializable {
                 try {
                     return album.getImages();
                 } catch (Exception e) {
-                    logger.error("[x] Failed to fetch images for album {}", album);
-                    e.printStackTrace();
+                    logger.error("[x] Failed to fetch images for album {}", album, e);
                 }
                 return new ArrayList<>();
             }
@@ -229,8 +227,7 @@ public class ExploreAlbums implements Initializable {
             try{
                 switchToViewAlbum(mouseEvent);
             } catch (IOException ex) {
-                logger.error("[x] Failed to switch to Album View");
-                ex.printStackTrace();
+                logger.error("[x] Failed to switch to Album View", ex);
             }
         });
 
@@ -291,8 +288,7 @@ public class ExploreAlbums implements Initializable {
             try{
                 switchToViewAlbum(mouseEvent);
             } catch (IOException ex) {
-                logger.error("[x] Failed to switch to Album View");
-                ex.printStackTrace();
+                logger.error("[x] Failed to switch to Album View", ex);
             }
         });
 

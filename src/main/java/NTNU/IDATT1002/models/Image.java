@@ -135,6 +135,18 @@ public class Image {
     albums.remove(album);
   }
 
+  /**
+   * Get Geo Location related to this image.
+   *
+   * @return the location the image was taken
+   */
+  public GeoLocation getGeoLocation() {
+    if (metadata == null)
+      return new GeoLocation("0","0");
+
+    return metadata.getGeoLocation();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
