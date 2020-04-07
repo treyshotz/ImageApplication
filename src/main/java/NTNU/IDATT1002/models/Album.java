@@ -22,7 +22,13 @@ import java.util.stream.Collectors;
 @Table(name = "album")
 @NamedQueries({
         @NamedQuery(name="Album.findAllByUsername",
-                query = "SELECT ia from Album ia WHERE ia.user.username = :username")
+                query = "SELECT ia from Album ia WHERE ia.user.username = :username"),
+        @NamedQuery(name="Album.findByTags",
+                query = "SELECT ia from Album ia "
+                        + "join ia.tags tg "
+                        + "where tg.name = :name"),
+        @NamedQuery(name="Image.findByTitle",
+                query = "SELECT ia from Album ia WHERE ia.title = :title")
 })
 public class Album {
 
