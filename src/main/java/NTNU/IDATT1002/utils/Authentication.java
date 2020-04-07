@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Handles the authentication logic for user login and signup
+ *
+ * @author madslun
+ * @version 1.0 06.04.20
+ * */
 public class Authentication {
 
     public static Random r = new SecureRandom();

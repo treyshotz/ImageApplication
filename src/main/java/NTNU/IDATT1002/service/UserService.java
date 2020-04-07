@@ -14,7 +14,9 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * User Service
+ * Works together with loginrepository and userrepository
+ * Combines authentication and connections to database through repositories
+ *
  * @author madslun
  * @version 1.0 22.03.20
  */
