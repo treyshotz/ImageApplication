@@ -160,7 +160,7 @@ public class CreateAlbum implements Initializable {
     String title = album_title_field.getText();
     String description = album_desc_field.getText();
     String tags = album_tag_field.getText();
-<<<<<<< HEAD
+
 
     if (tags.isEmpty()){ tags = " "; }
 
@@ -171,17 +171,6 @@ public class CreateAlbum implements Initializable {
       if (description.isEmpty()) {
         description = "No desripton added";
       }
-=======
-    List<Tag> tagsToAdd = TagService.getTagsFromString(tags);
-    User user = ApplicationState.getCurrentUser();
-
-      //temporary solution for the toString problem with album log creation
-      if (description.isEmpty()) {
-          description = "No desripton";
-      } if (tags.isEmpty()){
-        tags = " ";
-    }
->>>>>>> needValdigTitleAtAlbum
 
     List<Node> imageContainers = new ArrayList<>(fileContainer.getChildren());
     List<String> checkedImagesId = new ArrayList<>();
@@ -204,11 +193,7 @@ public class CreateAlbum implements Initializable {
         createdAlbum.ifPresent(album -> {
           App.ex.setChosenAlbumId(album.getId());
           try {
-<<<<<<< HEAD
             App.setRoot("view_album");
-=======
-            App.setRoot("main");
->>>>>>> needValdigTitleAtAlbum
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -218,11 +203,7 @@ public class CreateAlbum implements Initializable {
         createdAlbum.ifPresent(album -> {
           App.ex.setChosenAlbumId(album.getId());
           try {
-<<<<<<< HEAD
             App.setRoot("view_album");
-=======
-            App.setRoot("main");
->>>>>>> needValdigTitleAtAlbum
           } catch (IOException e) {
             e.printStackTrace();
           }
