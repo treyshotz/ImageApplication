@@ -1,11 +1,8 @@
+/*GENERAL STYLING*/
 
 .bodybg{
     -fx-background-image: url("../../Images/vector1.jpg");
     -fx-background-size: cover;
-}
-
-.signupbg{
-    -fx-background-color: #10101f;
 }
 
 .tbarbg{
@@ -16,32 +13,13 @@
     -fx-background-color: #222235;
 }
 
-.button{
-    -fx-transition-duration: 0.4s;
-    -fx-background-color: none;
-    -fx-border-width: 2px;
-    -fx-border-color: #46b4fe;
-    -fx-text-fill: white;
-
-}
-
-.button:hover{
-    -fx-background-color: rgba(193, 198, 196, 0.5);
-    -fx-color: white;
-}
-
-.tbarmenu{
-
-}
-
-.exploreGrid{
+.transparentbg{
     -fx-background-color: rgba(255, 255, 255, 0.5);
 }
 
-.exploreGridPane{
-    -fx-fit-to-width: true;
+.accentBg{
+    -fx-background-color: #10101f;
 }
-
 
 /*SCROLLPANE CSS*/
 
@@ -70,12 +48,6 @@
 
 /*SCROLLPANE CSS END*/
 
-
-
-.scrollHbox{
-    -fx-background-color: transparent;
-}
-
 /*RESPONSIZE IMAGES*/
 
 .viewAlbumImage{
@@ -85,6 +57,29 @@
 }
 
 /*RESPONSIVE IMAGES END*/
+
+/*BUTTON STYLING*/
+.button{
+    -fx-transition-duration: 0.4s;
+    -fx-background-color: none;
+    -fx-border-width: 2px;
+    -fx-border-color: #46b4fe;
+    -fx-text-fill: white;
+
+}
+
+.button:hover{
+    -fx-background-color: rgba(193, 198, 196, 0.5);
+    -fx-color: white;
+}
+/*BUTTON STYLING END*/
+
+
+/*GENERAL STYLING END*/
+
+.scrollHbox{
+    -fx-background-color: transparent;
+}
 
 /*UPLOAD PAGE*/
 
@@ -96,3 +91,11 @@
     -fx-background-color: rgba(255, 255, 255, 0.1);
     -fx-background-radius: 3px;
 }
+/*UPLOAD PAGE END*/
+
+/*EXPLORE PAGE*/
+
+.exploreGridPane{
+    -fx-fit-to-width: true;
+}
+/*EXPLORE PAGE END*/
