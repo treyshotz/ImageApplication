@@ -45,6 +45,9 @@ public class ImageService {
 
         GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
 
+        if(file == null)
+            return Optional.empty();
+
         Image image = new Image();
         Metadata metadata = new Metadata();
         metadata.setImage(image);
