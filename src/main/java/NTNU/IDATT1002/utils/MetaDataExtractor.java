@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.utils;
 
+import NTNU.IDATT1002.controllers.ExploreAlbums;
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import com.drew.imaging.ImageMetadataReader;
@@ -18,6 +19,8 @@ import com.drew.metadata.iptc.IptcDirectory;
 import com.drew.metadata.jpeg.JpegDirectory;
 import java.io.File;
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -29,6 +32,8 @@ import java.io.IOException;
 public class MetaDataExtractor {
 
     private GeoLocatioRepository geoLocationRepository;
+    private static Logger logger = LoggerFactory.getLogger(MetaDataExtractor.class);
+
 
     public MetaDataExtractor() {
     }
@@ -56,7 +61,7 @@ public class MetaDataExtractor {
             geoLocation.setLongitude(longitude);
         }
         catch (NullPointerException | ImageProcessingException | IOException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not find geolocation on file" ,e);
         }
         return geoLocation;
     }
@@ -81,7 +86,7 @@ public class MetaDataExtractor {
             if(!(cameraInformation.isBlank()))
                 cameraInformation = cleanUpTags(cameraInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get camera information from file", e);
         }
         return cameraInformation;
     }
@@ -107,7 +112,7 @@ public class MetaDataExtractor {
                 lensInformation = cleanUpTags(lensInformation, directory);
         }
         catch (IOException | ImageProcessingException | NullPointerException e) {
-        e.printStackTrace();
+            logger.error("[x] Could not get lens information from file", e);
         }
         return lensInformation;
     }
@@ -132,7 +137,7 @@ public class MetaDataExtractor {
             if(!(apertureInformation.isBlank()))
                 apertureInformation = cleanUpTags(apertureInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get aperture information from file", e);
         }
         return apertureInformation;
     }
@@ -157,7 +162,7 @@ public class MetaDataExtractor {
             if(!(shutterSpeedInformation.isBlank()))
                 shutterSpeedInformation = cleanUpTags(shutterSpeedInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get shutter speed information from file", e);
         }
         return shutterSpeedInformation;
     }
@@ -182,7 +187,7 @@ public class MetaDataExtractor {
             if(!(isoInformation.isBlank()))
                 isoInformation = cleanUpTags(isoInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get iso information from file", e);
         }
         return isoInformation;
     }
@@ -208,7 +213,7 @@ public class MetaDataExtractor {
             if(!(focalLengthInformation.isBlank()))
                 focalLengthInformation = cleanUpTags(focalLengthInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get focal length information from file", e);
         }
         return focalLengthInformation;
     }
@@ -234,7 +239,7 @@ public class MetaDataExtractor {
             if(!(fileTypeInformation.isBlank()))
                 fileTypeInformation = cleanUpTags(fileTypeInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get file type from file", e);
         }
         return fileTypeInformation;
     }
@@ -266,7 +271,7 @@ public class MetaDataExtractor {
             if(!(dateInformation.isBlank()))
                 dateInformation = cleanUpTags(dateInformation, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get photo date from file", e);
         }
         return dateInformation;
     }
@@ -291,7 +296,7 @@ public class MetaDataExtractor {
             if(!(fileSize.isBlank()))
                 fileSize = cleanUpTags(fileSize, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get file size from file", e);
         }
         return fileSize;
     }
@@ -317,7 +322,7 @@ public class MetaDataExtractor {
             if(!(fileDimension.isBlank()))
                 fileDimension = cleanUpTags(fileDimension, directory);
         } catch (IOException | ImageProcessingException | NullPointerException e) {
-            e.printStackTrace();
+            logger.error("[x] Could not get file dimension from file", e);
         }
         return fileDimension;
     }
