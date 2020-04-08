@@ -24,7 +24,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.hibernate.boot.jaxb.internal.stax.HbmEventReader;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -161,15 +160,16 @@ public class CreateAlbum implements Initializable {
     String title = album_title_field.getText();
     String description = album_desc_field.getText();
     String tags = album_tag_field.getText();
+
+    if (tags.isEmpty()){ tags = " "; }
+
     List<Tag> tagsToAdd = TagService.getTagsFromString(tags);
     User user = ApplicationState.getCurrentUser();
 
-      //temporary solution for the toString problem with album log creation
+      //temporary solution for the toString problem with album log creation, along with the if(tag) above
       if (description.isEmpty()) {
-          description = "No desripton";
-      } if (tags.isEmpty()){
-        tags = " ";
-    }
+        description = "No desripton added";
+      }
 
     List<Node> imageContainers = new ArrayList<>(fileContainer.getChildren());
     List<String> checkedImagesId = new ArrayList<>();
@@ -192,7 +192,7 @@ public class CreateAlbum implements Initializable {
         createdAlbum.ifPresent(album -> {
           App.ex.setChosenAlbumId(album.getId());
           try {
-            App.setRoot("main");
+            App.setRoot("view_album");
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -202,7 +202,7 @@ public class CreateAlbum implements Initializable {
         createdAlbum.ifPresent(album -> {
           App.ex.setChosenAlbumId(album.getId());
           try {
-            App.setRoot("main");
+            App.setRoot("view_album");
           } catch (IOException e) {
             e.printStackTrace();
           }
