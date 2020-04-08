@@ -83,3 +83,16 @@
     -fx-height: auto;
     -fx-width: 100%;
 }
+
+/*RESPONSIVE IMAGES END*/
+
+/*UPLOAD PAGE*/
+
+.dropMenu{
+    -fx-border-width: 2px;
+    -fx-border-color: #46b4fe;
+    -fx-border-style: dashed;
+    -fx-border-radius: 3px;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 3px;
+}
