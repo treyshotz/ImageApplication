@@ -55,13 +55,23 @@ public class TagService {
      * @return the list of tag objects
      */
     public static List<Tag> getTagsFromString(String tagsAsString) {
-        String[] tags = tagsAsString
-                .trim()
-                .split("[, ?.@]+");
+        if (tagsAsString.isBlank()) {
+            String[] tags = tagsAsString.split(" ");
 
-        return Stream.of(tags)
+            return Stream.of(tags)
                 .map(Tag::new)
                 .collect(Collectors.toList());
+
+        }else {
+            String[] tags = tagsAsString
+            .trim()
+            .split("[, ?.@]+");
+
+            return Stream.of(tags)
+                .map(Tag::new)
+                .collect(Collectors.toList());
+
+        }
     }
 
     /**
