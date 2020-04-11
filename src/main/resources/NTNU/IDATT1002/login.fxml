@@ -27,7 +27,7 @@
          <padding>
             <Insets left="30.0" top="30.0" />
          </padding></VBox>
-      <VBox alignment="CENTER" minWidth="600.0" prefHeight="1080.0" prefWidth="800.0" spacing="20.0" styleClass="signupbg" stylesheets="@style.css">
+      <VBox alignment="CENTER" minWidth="600.0" prefHeight="1080.0" prefWidth="800.0" spacing="20.0" styleClass="accentBg" stylesheets="@style.css">
          <children>
             <GridPane hgap="10.0" maxWidth="339.0" prefHeight="224.0" prefWidth="339.0" vgap="10.0">
                <columnConstraints>
