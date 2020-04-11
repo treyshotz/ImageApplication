@@ -98,7 +98,7 @@ public class AlbumService {
         Album album = getAlbumById(albumId)
                 .orElseThrow(IllegalArgumentException::new);
 
-        String destinationFile = String.format("%s/downloads/%s.pdf",
+        String destinationFile = String.format("%s/Downloads/%s.pdf",
                 System.getProperty("user.home"),
                 album.getTitle());
 
