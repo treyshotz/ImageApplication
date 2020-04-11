@@ -99,3 +99,32 @@
     -fx-fit-to-width: true;
 }
 /*EXPLORE PAGE END*/
+
+/*TAB PANE*/
+
+.tab-pane{
+    -fx-tab-min-height: 30;
+}
+
+.tab-header-background{
+    -fx-background-color: #10101f;
+}
+
+.tab-header-area{
+    -fx-tab-min-height: 50px;
+}
+
+.tab{
+    -fx-border-radius: 7px;
+    -fx-background-color: #46b4fe;
+}
+
+/*TAB PANE END*/
+
+
+
+
+
+
+
+
