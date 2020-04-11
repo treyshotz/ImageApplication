@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -32,6 +34,9 @@ public class PdfDocument implements AlbumDocument {
     private String DESTINATION_FILE;
 
     private String defaultTitle = "Album";
+
+    private static Logger logger = LoggerFactory.getLogger(PdfDocument.class);
+
 
     /**
      * Standard fonts.
@@ -59,7 +64,7 @@ public class PdfDocument implements AlbumDocument {
         try {
             generatePdfDocument();
         } catch (IOException | DocumentException e) {
-            e.printStackTrace();
+            logger.error("[x] An error occurred when trying to save pdf", e);
         }
     }
 
