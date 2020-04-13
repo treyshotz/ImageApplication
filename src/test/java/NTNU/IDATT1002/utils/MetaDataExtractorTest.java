@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
  */
 class MetaDataExtractorTest {
 
-  private MetaDataExtractor metaDataExtractor;
   private File geolocationImage;
   private File metadataImage;
 
@@ -29,7 +28,6 @@ class MetaDataExtractorTest {
   void setUp() {
     geolocationImage = new File("src/test/resources/Images/plsWork.jpg");
     metadataImage = new File("src/test/resources/Images/pb.jpg");
-    metaDataExtractor = new MetaDataExtractor();
   }
 
   /**
@@ -39,7 +37,7 @@ class MetaDataExtractorTest {
   void testGetGeoLocation() {
     String expectedLatitude = "51.504105555555554";
     String expectedLongitude = "-0.074575";
-    GeoLocation returnedGeoLocation = metaDataExtractor.getGeoLocation(geolocationImage);
+    GeoLocation returnedGeoLocation = MetaDataExtractor.getGeoLocation(geolocationImage);
     assertEquals(expectedLatitude, returnedGeoLocation.getLatitude());
     assertEquals(expectedLongitude, returnedGeoLocation.getLongitude());
   }
@@ -50,7 +48,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetCamera() {
     String expectedCamera = "Make: NIKON CORPORATION, Model: NIKON D610";
-    String extractedCamera = metaDataExtractor.getCamera(metadataImage);
+    String extractedCamera = MetaDataExtractor.getCamera(metadataImage);
     assertEquals(expectedCamera, extractedCamera);
   }
 
@@ -61,7 +59,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetLens() {
     String expectedLens = "Lens Specification: 24-70mm f/2.8, Lens Model: 24.0-70.0 mm f/2.8";
-    String extractedLens = metaDataExtractor.getLens(metadataImage);
+    String extractedLens = MetaDataExtractor.getLens(metadataImage);
     assertEquals(expectedLens, extractedLens);
   }
 
@@ -71,7 +69,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetAperture() {
     String expectedAperture = "Aperture Value: f/2.8, Max Aperture Value: f/2.8";
-    String extractedAperture = metaDataExtractor.getAperture(metadataImage);
+    String extractedAperture = MetaDataExtractor.getAperture(metadataImage);
     assertEquals(expectedAperture, extractedAperture);
   }
 
@@ -81,7 +79,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetShutterSpeed() {
     String expectedShutterSpeed = "Shutter Speed Value: 1/124 sec";
-    String extractedAperture = metaDataExtractor.getShutterSpeed(metadataImage);
+    String extractedAperture = MetaDataExtractor.getShutterSpeed(metadataImage);
     assertEquals(expectedShutterSpeed, extractedAperture);
   }
 
@@ -91,7 +89,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetIso() {
     String expectedIso = "ISO Speed Ratings: 640";
-    String extractedIso = metaDataExtractor.getIso(metadataImage);
+    String extractedIso = MetaDataExtractor.getIso(metadataImage);
     assertEquals(expectedIso, extractedIso);
   }
 
@@ -101,7 +99,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetFocalLength() {
     String expectedFocalLength = "Focal Length: 70 mm";
-    String extractedFocalLength = metaDataExtractor.getFocalLength(metadataImage);
+    String extractedFocalLength = MetaDataExtractor.getFocalLength(metadataImage);
     assertEquals(expectedFocalLength, extractedFocalLength);
   }
 
@@ -111,7 +109,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetFileType() {
     String expectedFileType = "Detected  Name: JPEG";
-    String extractedFileType = metaDataExtractor.getFileType(metadataImage);
+    String extractedFileType = MetaDataExtractor.getFileType(metadataImage);
     System.out.println(extractedFileType);
     assertEquals(expectedFileType, extractedFileType);
   }
@@ -122,7 +120,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetPhotoDate() {
     String expectedPhotoDate = "Date Created: 2020:02:15, Time Created: 12:07:01";
-    String extractedPhotoDate = metaDataExtractor.getPhotoDate(metadataImage);
+    String extractedPhotoDate = MetaDataExtractor.getPhotoDate(metadataImage);
     assertEquals(expectedPhotoDate, extractedPhotoDate);
   }
 
@@ -132,7 +130,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetFileSize() {
     String expectedFileSize = " Size: 821839 bytes";
-    String extractedFileSize = metaDataExtractor.getFileSize(metadataImage);
+    String extractedFileSize = MetaDataExtractor.getFileSize(metadataImage);
     assertEquals(expectedFileSize, extractedFileSize);
   }
 
@@ -142,7 +140,7 @@ class MetaDataExtractorTest {
   @Test
   void testGetFileDimension() {
     String expectedFileDimension = "Image Height: 930 pixels, Image Width: 1394 pixels";
-    String extractedFileDimension = metaDataExtractor.getFileDimension(metadataImage);
+    String extractedFileDimension = MetaDataExtractor.getFileDimension(metadataImage);
     assertEquals(expectedFileDimension, extractedFileDimension);
   }
 }
