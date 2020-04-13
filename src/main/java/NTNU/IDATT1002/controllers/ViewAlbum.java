@@ -5,6 +5,7 @@ import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.AlbumDocument;
 import NTNU.IDATT1002.service.AlbumService;
+import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class ViewAlbum implements Initializable {
     @FXML
     public VBox albumTextContainer;
     public HBox albumImages;
+    public Button viewOnMapBtn;
 
     private AlbumService albumService;
     private Album currentAlbum;
@@ -87,8 +89,8 @@ public class ViewAlbum implements Initializable {
             NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
             Image image = ImageUtil.convertToFXImage(titleImage);
             mainPicture.setImage(image);
-            pictureTitleField.setText("LEGG TIL BILDETITTEL HER");
-            pictureTagsField.setText("#LEGG #TIL #TAGS #HER");
+            pictureTitleField.setText(album.getTitle());
+            pictureTagsField.setText(TagService.getTagsAsString(album.getTags()));
             insertAlbumTextToContainer(album);
             for (NTNU.IDATT1002.models.Image i: album.getImages()) {
                 ImageView iV = new ImageView();
@@ -226,6 +228,7 @@ public class ViewAlbum implements Initializable {
      * @throws IOException
      */
     public void switchToMain(MouseEvent mouseEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("main");
     }
 
@@ -239,6 +242,7 @@ public class ViewAlbum implements Initializable {
         if (!tbar_search.getText().isEmpty()){
             App.ex.setSearchField(tbar_search.getText());
         }
+        App.ex.setChosenAlbumId(null);
         App.setRoot("search");
     }
 
@@ -248,6 +252,7 @@ public class ViewAlbum implements Initializable {
      * @throws IOException
      */
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("explore");
     }
 
@@ -257,6 +262,7 @@ public class ViewAlbum implements Initializable {
      * @throws IOException
      */
     public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("explore_albums");
     }
 
@@ -266,6 +272,7 @@ public class ViewAlbum implements Initializable {
      * @throws IOException
      */
     public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("map");
     }
 
@@ -275,6 +282,7 @@ public class ViewAlbum implements Initializable {
      * @throws IOException this page does not exist
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("upload");
     }
 
@@ -345,5 +353,9 @@ public class ViewAlbum implements Initializable {
     private void openDocument(ActionEvent actionEvent, File file) {
         HostServices hostServices = App.ex.getHostServices();
         hostServices.showDocument(file.getAbsolutePath());
+    }
+
+    public void viewOnMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map");
     }
 }

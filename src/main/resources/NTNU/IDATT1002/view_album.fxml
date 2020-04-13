@@ -100,11 +100,20 @@
                            </font>
                         </Text>
                         <Pane fx:id="metadataPane" prefHeight="304.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" />
-                        <Button fx:id="createAlbumPdf" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
+                        <HBox prefHeight="39.0" prefWidth="700.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="createAlbumPdf" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="viewOnMapBtn" mnemonicParsing="false" onAction="#viewOnMap" text="VIEW ON MAP">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
