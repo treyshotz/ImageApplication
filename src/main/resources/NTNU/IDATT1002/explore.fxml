@@ -54,7 +54,7 @@
             </HBox>
          </children>
       </HBox>
-      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="980.0" prefWidth="1920.0" VBox.vgrow="ALWAYS" styleClass="scroll-pane" stylesheets="@style.css">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="980.0" prefWidth="1920.0" styleClass="scroll-pane" stylesheets="@style.css" VBox.vgrow="ALWAYS">
          <content>
             <BorderPane prefHeight="2000.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>

@@ -57,17 +57,26 @@ public class Explore implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<NTNU.IDATT1002.models.Image> images = new ImageService(App.ex.getEntityManager()).getAllImages();
-        //Limited elements to 15 since grid pane since is 3x15
+        //Limited elements to 15 since grid pane since is 3x5
         //Can implement automatic row adding when this limit exceeded later
-        for(int i = 0; i < images.size() && i < 15; i++) {
+        for(int i = 0; i < images.size() && i < 100; i++) {
             //Row and column in gripdane
             int column = i%3;
             int row = (i-column)/3;
+
+            //Add rows
+            if(images.size() > 15){
+                gridPane.setMinHeight(1600 + (((i-15)*160)));
+                for (int j = 0; j < ((i-15)/3); j++){
+                    gridPane.addRow(j);
+                }
+            }
 
             //Make vbox container for content
             VBox vBox = new VBox();
             vBox.setPrefHeight(400);
             vBox.setPrefWidth(400);
+            vBox.setMaxHeight(400);
             vBox.setAlignment(Pos.CENTER);
             //vBox.setStyle("-fx-background-color: #999999;");
 
