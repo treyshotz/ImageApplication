@@ -57,7 +57,7 @@ public class Search implements Initializable {
     public ScrollPane scrollpane;
     public ChoiceBox sorted_by_choicebox;
     public VBox vBox;
-
+    public Text amount;
 
 
     /**
@@ -73,12 +73,13 @@ public class Search implements Initializable {
 
         List<NTNU.IDATT1002.models.Image> images = new ImageService(App.ex.getEntityManager()).searchResult(App.ex.getSearchField());
 
+        amount.setText(String.valueOf(images.size()));
+
         for(int i = 0; i < images.size(); i++) {
             HBox hBox = new HBox();
             hBox.setPrefHeight(300);
             hBox.setPrefWidth(1920);
-            hBox.setAlignment(Pos.CENTER);
-            hBox.setStyle("-fx-background-color: #999999;");
+            hBox.setAlignment(Pos.TOP_LEFT);
 
             Pane pane = new Pane();
             pane.setPrefWidth(1400);
@@ -108,10 +109,21 @@ public class Search implements Initializable {
             String tagsString = TagService.getTagsAsString(images.get(i).getTags());
             Text tag_Field = setText(tagsString, 700, 97, "System Bold", 24);
             Text metadata_Field = setText(images.get(i).getMetadata().toString(), 700, 126, "System Bold", 18);
+            VBox metaBox = new VBox();
+            metaBox.getChildren().add(metadata_Field);
+            ScrollPane meta = new ScrollPane();
+            meta.setMaxWidth(630);
+            meta.setPrefWidth(630);
+            meta.setContent(metaBox);
+            meta.setLayoutX(700);
+            meta.setLayoutY(126);
+            meta.setMaxHeight(150);
 
-            pane.getChildren().addAll(imageView, title, tag, desc, title_Field, tag_Field, metadata_Field);
+
+            pane.getChildren().addAll(imageView, title, tag, desc, title_Field, tag_Field, meta);
             hBox.getChildren().add(pane);
             vBox.getChildren().add(hBox);
+            vBox.setMinHeight(1550+(images.size()*310));
         }
     }
 
