@@ -1,11 +1,14 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Image;
+import NTNU.IDATT1002.service.AlbumService;
 import NTNU.IDATT1002.service.ImageService;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import java.util.Optional;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,6 +51,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
     private GoogleMap map;
 
     private ImageService imageService;
+    private AlbumService albumService;
     private ExecutorService executorService = Executors.newCachedThreadPool();
     private static Logger logger = LoggerFactory.getLogger(Map.class);
 
@@ -55,6 +59,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
     public Map() {
         EntityManager entityManager = App.ex.getEntityManager();
         imageService = new ImageService(entityManager);
+        albumService = new AlbumService(entityManager);
     }
 
     /**
@@ -72,16 +77,31 @@ public class Map implements Initializable, MapComponentInitializedListener {
 
 
     /**
-     * Fetch all images in a background task and create and display the map on success.
+     * Check is there is a current album in dataexchange first and uses images from album to display on map.
+     * If none is found it proceeds to get all images available and display on map
      */
     @Override
     public void mapInitialized() {
-        executorService.submit(fetchImages);
+        List<Image> albumImages = new ArrayList<>();
+        Long currentAlbumId;
 
-        fetchImages.setOnSucceeded(workerStateEvent -> {
-            List<Image> images = fetchImages.getValue();
-            ImageMapFactory.createMap(mapView, images);
-        });
+        if(App.ex.getChosenAlbumId() == null) {
+            executorService.submit(fetchImages);
+
+            fetchImages.setOnSucceeded(workerStateEvent -> {
+                List<Image> allImages = fetchImages.getValue();
+                ImageMapFactory.createMap(mapView, allImages);
+            });
+        }
+        else {
+            currentAlbumId = App.ex.getChosenAlbumId();
+            Optional<Album> optionalAlbum = albumService.getAlbumById(currentAlbumId);
+            if (optionalAlbum.isPresent()) {
+                Album album = optionalAlbum.get();
+                albumImages = album.getImages();
+            }
+            ImageMapFactory.createMap(mapView, albumImages);
+        }
     }
 
     /**
@@ -105,6 +125,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
      * @throws IOException
      */
     public void switchToMain(MouseEvent mouseEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("main");
     }
 
@@ -118,6 +139,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
         if (!tbar_search.getText().isEmpty()){
             App.ex.setSearchField(tbar_search.getText());
         }
+        App.ex.setChosenAlbumId(null);
         App.setRoot("search");
     }
 
@@ -127,6 +149,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
      * @throws IOException
      */
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("explore");
     }
 
@@ -136,6 +159,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
      * @throws IOException
      */
     public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("explore_albums");
     }
 
@@ -146,6 +170,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
      * @throws IOException
      */
     public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("map");
     }
 
@@ -156,6 +181,7 @@ public class Map implements Initializable, MapComponentInitializedListener {
      * @throws IOException this page does not exist
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("upload");
     }
 
