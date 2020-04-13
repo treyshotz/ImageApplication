@@ -37,8 +37,12 @@ public class Tag {
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "image_tag",
-            joinColumns = {@JoinColumn(name = "tag_id")},
-            inverseJoinColumns = {@JoinColumn(name = "image_id")}
+            joinColumns = {@JoinColumn(name = "tags_tagId",
+                    referencedColumnName = "tagId"
+            )},
+            inverseJoinColumns = {@JoinColumn(name = "image_id",
+                    referencedColumnName = "id"
+            )}
     )
     Set<Image> image = new HashSet<>();
 
