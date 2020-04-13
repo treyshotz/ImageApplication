@@ -97,7 +97,7 @@ public class Image {
   }
 
   public void addTags(ArrayList<Tag> tags) {
-    tags.addAll(tags);
+    this.tags.addAll(tags);
   }
 
   public void addTag(Tag tag){
