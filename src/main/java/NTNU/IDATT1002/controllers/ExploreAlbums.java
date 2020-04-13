@@ -127,7 +127,7 @@ public class ExploreAlbums implements Initializable {
      */
     public VBox createAlbumVBox(ObservableList<Album> listOfAlbums){
         VBox albumVBox = new VBox();
-        int maxPerPage = Math.min(listOfAlbums.size(), 50);
+        int maxPerPage = Math.min(listOfAlbums.size(), 100);
         
         for (int i = 0; i < maxPerPage; i++) {
             Album album = listOfAlbums.get(i);

@@ -198,7 +198,6 @@ public class UploadImages implements Initializable {
     Text metadataLabel = new Text("Metadata: ");
     metadataLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
 
-    MetaDataExtractor metaDataExtractor = new MetaDataExtractor();
     String metadataSting = MetaDataExtractor.getMetadata(file);
     TextArea metadata = new TextArea(metadataSting);
 

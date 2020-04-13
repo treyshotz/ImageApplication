@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class ImageService {
 
     private ImageRepository imageRepository;
-    private MetaDataExtractor metaDataExtractor;
     private TagService tagService;
 
     /**
@@ -30,7 +29,6 @@ public class ImageService {
      */
     public ImageService(EntityManager entityManager) {
         this.imageRepository = new ImageRepository(entityManager);
-        this.metaDataExtractor = new MetaDataExtractor();
         this.tagService = new TagService(entityManager);
     }
 
@@ -43,7 +41,7 @@ public class ImageService {
      */
     public Optional<Image> createImage(User user, File file, List<Tag> tags) {
 
-        GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
+        GeoLocation geoLocation = MetaDataExtractor.getGeoLocation(file);
 
         if(file == null)
             return Optional.empty();
@@ -56,7 +54,7 @@ public class ImageService {
         metadata.setGeoLocation(geoLocation);
         geoLocation.setMetadata(metadata);
 
-        metaDataExtractor.setMetadata(metadata, file);
+        MetaDataExtractor.setMetadata(metadata, file);
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
         //TODO: Add image tags and add image to album
