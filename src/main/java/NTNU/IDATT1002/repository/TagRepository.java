@@ -34,12 +34,13 @@ public class TagRepository extends AbstractRepository<Tag, Long> {
 
     /**
      * Retrieves a tag if found and creates it if not.
+     * Does not allow null value or blank names.
      *
      * @param tag the tag to retrieve
      * @return the tag if found, else the newly created one.
      */
     public Tag findOrCreate(Tag tag) {
-        if (tag.getName().isBlank())
+        if (tag.getName() == null || tag.getName().isBlank())
             return null;
 
         Tag foundTag;

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,7 +39,7 @@ public class TagService {
     }
 
     /**
-     * Gets or creates given tags in given list.
+     * Gets or creates given tags in given list. Ignores null values.
      *
      * @param tags the list of tags
      * @return a list of persisted tags
@@ -46,6 +47,7 @@ public class TagService {
     public List<Tag> getOrCreateTags(List<Tag> tags) {
         return tags.stream()
                 .map(tag -> tagRepository.findOrCreate(tag))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
