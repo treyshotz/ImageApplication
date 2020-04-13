@@ -26,6 +26,14 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * Shut down GeoApiContext on application stop to gracefully close the connection.
+     */
+    @Override
+    public void stop(){
+       ex.getGeoApiContext().shutdown();
+    }
+
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }

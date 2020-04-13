@@ -38,11 +38,13 @@
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.2.Final</version>
         </dependency>
+
         <dependency> 
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.0.Final</version>
         </dependency>
+
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -67,6 +69,12 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>15-ea+2</version>
         </dependency>
 
         <dependency>
@@ -115,6 +123,7 @@
             <artifactId>junit</artifactId>
             <version>4.13</version>
         </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -135,7 +144,7 @@
             <version>1.56</version>
         </dependency>
 
-        <!-- Google Maps API -->
+        <!-- GMapsFX -->
         <dependency>
             <groupId>com.lynden</groupId>
             <artifactId>GMapsFX</artifactId>
@@ -147,6 +156,20 @@
                     <artifactId>logback-classic</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Google Maps API Client -->
+        <dependency>
+            <groupId>com.google.maps</groupId>
+            <artifactId>google-maps-services</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+
+        <!-- JavaFX Controls -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.0.0</version>
         </dependency>
 
     </dependencies>
@@ -169,6 +192,10 @@
                 <configuration>
                     <mainClass>NTNU.IDATT1002.App</mainClass>
                     <executable>${java.home}\bin\java</executable>
+                    <options>
+                        <options>--add-exports</options>
+                        <options>javafx.base/com.sun.javafx.event=org.controlsfx.controls</options>
+                    </options>
                 </configuration>
             </plugin>
 
@@ -176,6 +203,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <config_properties>config.test.properties</config_properties>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
 
             <plugin>

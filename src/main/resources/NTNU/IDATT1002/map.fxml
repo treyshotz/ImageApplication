@@ -61,12 +61,12 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="search" prefHeight="44.0" prefWidth="664.0" promptText="Search for your location">
+                  <TextField fx:id="addressTextField" onKeyPressed="#queryAutocomplete" onAction="#searchGeocodingAddress" prefHeight="44.0" prefWidth="664.0" promptText="Search for your location">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#MapSearch" prefHeight="44.0" prefWidth="99.0" text="SEARCH">
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchGeocodingAddress" prefHeight="44.0" prefWidth="99.0" text="GO">
                      <font>
                         <Font size="18.0" />
                      </font>

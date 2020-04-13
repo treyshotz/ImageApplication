@@ -4,6 +4,11 @@ stages:
   - build
   - test
 
+# Cache downloaded dependencies and plugins between builds.
+cache:
+  paths:
+    - /root/.m2/repository/
+
 build:
   stage: build
   only:

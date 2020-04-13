@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.database;
 
+import NTNU.IDATT1002.Config;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
@@ -24,7 +25,7 @@ public class LoadDatabase {
     private static ImageService imageService;
 
     static {
-        EntityManager entityManager = EntityManagerConfig.getEntityManager();
+        EntityManager entityManager = Config.getEntityManager();
 
         userService = new UserService(entityManager);
         albumService = new AlbumService(entityManager);

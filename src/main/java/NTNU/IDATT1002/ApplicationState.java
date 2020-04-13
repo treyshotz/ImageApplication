@@ -1,7 +1,6 @@
 package NTNU.IDATT1002;
 
 
-import NTNU.IDATT1002.database.EntityManagerConfig;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.UserRepository;
 
@@ -28,7 +27,7 @@ public final class ApplicationState {
      * Initiate properties and save an anonymous user once.
      */
     static {
-        EntityManager entityManager = EntityManagerConfig.getEntityManager();
+        EntityManager entityManager = Config.getEntityManager();
 
         userRepository = new UserRepository(entityManager);
     }
