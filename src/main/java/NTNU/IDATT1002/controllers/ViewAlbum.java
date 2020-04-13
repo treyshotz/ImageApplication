@@ -10,8 +10,7 @@ import NTNU.IDATT1002.utils.ImageUtil;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
@@ -57,14 +56,14 @@ public class ViewAlbum implements Initializable {
     public Button tbar_albums;
     public Pane metadataPane;
     public Button createAlbumPdf;
-    public ImageView mainPicture;
-    public Text pictureTitleField;
-    public Text pictureTagsField;
+    public ImageView mainImageContainer;
+    public Text mainImageTitle;
+    public Text mainImageTags;
 
     @FXML
     public VBox albumTextContainer;
-    public HBox albumImages;
     public Button viewOnMapBtn;
+    public HBox albumImagesContainer;
 
     private AlbumService albumService;
     private Album currentAlbum;
@@ -86,25 +85,29 @@ public class ViewAlbum implements Initializable {
         Optional<Album> foundAlbum = albumService.getAlbumById(currentAlbumId);
         foundAlbum.ifPresent(album -> {
             currentAlbum = album;
-            NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
-            Image image = ImageUtil.convertToFXImage(titleImage);
-            mainPicture.setImage(image);
-            pictureTitleField.setText(album.getTitle());
-            pictureTagsField.setText(TagService.getTagsAsString(album.getTags()));
-            insertAlbumTextToContainer(album);
-            for (NTNU.IDATT1002.models.Image i: album.getImages()) {
-                ImageView iV = new ImageView();
-                iV.setFitHeight(64);
-                iV.setFitWidth(114);
-                iV.setPreserveRatio(true);
-                iV.setId(i.getId().toString());
-                iV.setImage(ImageUtil.convertToFXImage(i));
-                albumImages.getChildren().add(iV);
-                iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override public void handle(MouseEvent mouseEvent) {
-                        setActiveImage(mouseEvent);
-                    }
-                });
+            List<NTNU.IDATT1002.models.Image> albumImages = album.getImages();
+            //If album has an image
+            if (albumImages.size() > 0) {
+                NTNU.IDATT1002.models.Image mainImage = albumImages.get(0);
+                mainImageContainer.setImage(ImageUtil.convertToFXImage(mainImage));
+                mainImageTitle.setText("ADD IMAGE TITLE");
+                mainImageTags.setText(TagService.getTagsAsString(mainImage.getTags()));
+                insertAlbumTextToContainer(album);
+                for (NTNU.IDATT1002.models.Image image : albumImages) {
+                    ImageView imageView = new ImageView();
+                    imageView.setFitHeight(64);
+                    imageView.setFitWidth(114);
+                    imageView.setPreserveRatio(true);
+                    imageView.setId(image.getId().toString());
+                    imageView.setImage(ImageUtil.convertToFXImage(image));
+                    albumImagesContainer.getChildren().add(imageView);
+                    imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            setActiveImage(mouseEvent);
+                        }
+                    });
+                }
             }
         });
     }
@@ -119,10 +122,12 @@ public class ViewAlbum implements Initializable {
         if (clickedObject instanceof ImageView) {
             ImageView clickedImageView = (ImageView) mouseEvent.getSource();
             Long clickedImageId = Long.parseLong(clickedImageView.getId());
-            Optional<NTNU.IDATT1002.models.Image> newImage = currentAlbum.getImages().stream().filter(img -> img.getId().equals(clickedImageId)).findFirst();
-            newImage.ifPresent(img -> {
-                Image image = ImageUtil.convertToFXImage(img);
-                mainPicture.setImage(image);
+            Optional<NTNU.IDATT1002.models.Image> findImage = currentAlbum.getImages().stream().filter(img -> img.getId().equals(clickedImageId)).findFirst();
+            findImage.ifPresent(newImage -> {
+                Image image = ImageUtil.convertToFXImage(newImage);
+                mainImageTitle.setText("ADD IMAGE TITLE");
+                mainImageTags.setText(TagService.getTagsAsString(newImage.getTags()));
+                mainImageContainer.setImage(image);
             });
         }
     }
@@ -288,38 +293,6 @@ public class ViewAlbum implements Initializable {
 
     public void openPopUpPicture(MouseEvent mouseEvent) {
         //write method that opens a pop-up view of the main picture
-    }
-
-    public void changeMainPicture1(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 1 in the scrollbar-view
-    }
-
-    public void changeMainPicture2(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 2 in the scrollbar-view
-    }
-
-    public void changeMainPicture3(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 3 in the scrollbar-view
-    }
-
-    public void changeMainPicture4(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 4 in the scrollbar-view
-    }
-
-    public void changeMainPicture5(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 5 in the scrollbar-view
-    }
-
-    public void changeMainPicture6(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 6 in the scrollbar-view
-    }
-
-    public void loadPreviousScrollbarView(ActionEvent actionEvent) {
-        //write method that loads the previous 6 images in the album into the scrollbar-view
-    }
-
-    public void loadNextScrollbarView(ActionEvent actionEvent) {
-        //write method that loads the next 6 images in the album into the scrollbar-view
     }
 
     /**

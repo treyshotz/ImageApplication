@@ -42,7 +42,7 @@ public class MetaDataExtractor {
      * Returns a string with the GPS position
      * @return the gelocation of the file
      */
-    public GeoLocation getGeoLocation(File file) {
+    public static GeoLocation getGeoLocation(File file) {
         String gps = "";
         String latitude = "";
         String longitude = "";
@@ -71,7 +71,7 @@ public class MetaDataExtractor {
      * @param file that will be checked for Camera make
      * @return empty string if nothings found
      */
-    public String getCamera(File file) {
+    public static String getCamera(File file) {
         String cameraInformation = "";
         Directory directory;
 
@@ -96,7 +96,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getLens(File file) {
+    public static String getLens(File file) {
         String lensInformation = "";
         Directory directory;
 
@@ -122,7 +122,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getAperture(File file) {
+    public static String getAperture(File file) {
         String apertureInformation = "";
         Directory directory;
 
@@ -147,7 +147,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getShutterSpeed(File file) {
+    public static String getShutterSpeed(File file) {
         String shutterSpeedInformation = "";
         Directory directory;
 
@@ -172,7 +172,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getIso(File file) {
+    public static String getIso(File file) {
         String isoInformation = "";
         Directory directory;
 
@@ -197,7 +197,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getFocalLength(File file) {
+    public static String getFocalLength(File file) {
         String focalLengthInformation = "";
         Directory directory;
 
@@ -223,7 +223,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getFileType(File file) {
+    public static String getFileType(File file) {
         String fileTypeInformation = "";
         Directory directory;
 
@@ -249,7 +249,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getPhotoDate(File file) {
+    public static String getPhotoDate(File file) {
         String dateInformation = "";
         Directory directory;
 
@@ -281,7 +281,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getFileSize(File file) {
+    public static String getFileSize(File file) {
         String fileSize = "";
         Directory directory;
 
@@ -307,7 +307,7 @@ public class MetaDataExtractor {
      * @param file that will be checked
      * @return empty string if nothing is found
      */
-    public String getFileDimension(File file) {
+    public static String getFileDimension(File file) {
         String fileDimension = "";
         Directory directory;
 
@@ -327,7 +327,7 @@ public class MetaDataExtractor {
         return fileDimension;
     }
     
-    public void setMetadata(NTNU.IDATT1002.models.Metadata metadata, File file) {
+    public static void setMetadata(NTNU.IDATT1002.models.Metadata metadata, File file) {
         metadata.setCamera(getCamera(file));
         metadata.setLens(getLens(file));
         metadata.setAperture(getAperture(file));
@@ -340,13 +340,18 @@ public class MetaDataExtractor {
         metadata.setFileDimension(getFileDimension(file));
     }
 
+    public static String getMetadata(File file){
+        return getCamera(file) + getLens(file) + getAperture(file) + getShutterSpeed(file) + getFileDimension(file)
+                + getFocalLength(file) + getPhotoDate(file) + getIso(file) + getFileSize(file) + getFileType(file);
+    }
+
     /**
      * Cleans up the tags on a string
      * @param textToClean string that will be cleaned
      * @param directoryToRemove directory that will be removed from string
      * @return cleaned string
      */
-    private String cleanUpTags(String textToClean, Directory directoryToRemove) {
+    private static String cleanUpTags(String textToClean, Directory directoryToRemove) {
         String removingText = directoryToRemove.getName();
         textToClean = textToClean.replace(removingText, "");
         textToClean = textToClean.replace("[", "");

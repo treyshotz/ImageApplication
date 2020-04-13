@@ -68,6 +68,24 @@ abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
     }
 
     /**
+     * Updates a given entity and returns the updated instance.
+     *
+     * @param entity not null
+     * @return the updates entity
+     */
+    public Optional<T> update(T entity) {
+        try {
+            merge(entity);
+            logger.info("[x] Updated entity {}", entity);
+            return Optional.ofNullable(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+
+    /**
      * Persists the given album.
      *
      * @param entity  the album to persist
@@ -75,6 +93,17 @@ abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
     private void persist(T entity) {
         entityManager.getTransaction().begin();
         entityManager.persist(entity);
+        entityManager.getTransaction().commit();
+    }
+
+    /**
+     * Merge the given album.
+     *
+     * @param entity  the album to merge
+     */
+    private void merge(T entity) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(entity);
         entityManager.getTransaction().commit();
     }
 
