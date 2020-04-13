@@ -80,7 +80,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Make") || tag.toString().contains("Model")) {
-                    cameraInformation += tag.toString() + ",";
+                    cameraInformation += tag.toString() + ", ";
                 }
             }
             if(!(cameraInformation.isBlank()))
@@ -105,7 +105,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Lens")) {
-                    lensInformation += tag.toString() + ",";
+                    lensInformation += tag.toString() + ", ";
                 }
             }
             if(!(lensInformation.isBlank()))
@@ -131,7 +131,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Aperture")) {
-                    apertureInformation += tag.toString() + ",";
+                    apertureInformation += tag.toString() + ", ";
                 }
             }
             if(!(apertureInformation.isBlank()))
@@ -156,7 +156,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Shutter")) {
-                    shutterSpeedInformation += tag.toString() + ",";
+                    shutterSpeedInformation += tag.toString() + ", ";
                 }
             }
             if(!(shutterSpeedInformation.isBlank()))
@@ -181,7 +181,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("ISO")) {
-                    isoInformation += tag.toString() + ",";
+                    isoInformation += tag.toString() + ", ";
                 }
             }
             if(!(isoInformation.isBlank()))
@@ -206,7 +206,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Focal Length")) {
-                    focalLengthInformation += tag.toString() + ",";
+                    focalLengthInformation += tag.toString() + ", ";
                     break;
                 }
             }
@@ -232,7 +232,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(FileTypeDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("File Type Name")) {
-                    fileTypeInformation += tag.toString() + ",";
+                    fileTypeInformation += tag.toString() + ", ";
                     break;
                 }
             }
@@ -258,13 +258,13 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(IptcDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Date Created")) {
-                    dateInformation += tag.toString() + ",";
+                    dateInformation += tag.toString() + ", ";
                     break;
                 }
             }
             for(Tag tag : directory.getTags()) {
                if(tag.toString().contains("Time Created")) {
-                   dateInformation += tag.toString() + ",";
+                   dateInformation += tag.toString() + ", ";
                    break;
                }
             }
@@ -290,7 +290,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(FileSystemDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Size")) {
-                    fileSize += tag.toString() + ",";
+                    fileSize += tag.toString() + ", ";
                 }
             }
             if(!(fileSize.isBlank()))
@@ -316,7 +316,7 @@ public class MetaDataExtractor {
             directory = metadata.getFirstDirectoryOfType(JpegDirectory.class);
             for(Tag tag : directory.getTags()) {
                 if(tag.toString().contains("Height") || tag.toString().contains("Width")) {
-                    fileDimension += tag.toString() + ",";
+                    fileDimension += tag.toString() + ", ";
                 }
             }
             if(!(fileDimension.isBlank()))
@@ -350,9 +350,9 @@ public class MetaDataExtractor {
         String removingText = directoryToRemove.getName();
         textToClean = textToClean.replace(removingText, "");
         textToClean = textToClean.replace("[", "");
-        textToClean = textToClean.replace("]", "");
+        textToClean = textToClean.replace("] ", "");
         textToClean = textToClean.replace(" - ", ": ");
-        textToClean = textToClean.substring(0, textToClean.length()-1);
+        textToClean = textToClean.substring(0, textToClean.length()-2);
         return textToClean;
     }
 }
