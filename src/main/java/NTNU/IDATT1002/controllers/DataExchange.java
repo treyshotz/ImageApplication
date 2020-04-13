@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.controllers;
 
-import NTNU.IDATT1002.database.EntityManagerConfig;
+import NTNU.IDATT1002.Config;
+import com.google.maps.GeoApiContext;
 import javafx.application.HostServices;
 
 import javax.persistence.EntityManager;
@@ -14,8 +15,9 @@ import java.util.List;
  */
 public class DataExchange {
 
-    private EntityManager entityManager;
+    private String apiKey;
     public HostServices hostServices;
+    private GeoApiContext geoApiContext;
     private String searchField;
     private List<File> uploadedFiles;
     private Long chosenAlbumId;
@@ -23,14 +25,26 @@ public class DataExchange {
 
     public DataExchange(){
         searchField = "";
+        apiKey = Config.getGoogleApiKey();
+        geoApiContext = new GeoApiContext.Builder()
+                .apiKey(getApiKey())
+                .build();
     }
 
     public EntityManager getEntityManager() {
-        return EntityManagerConfig.getEntityManager();
+        return Config.getEntityManager();
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 
     public HostServices getHostServices() {
         return hostServices;
+    }
+
+    public GeoApiContext getGeoApiContext() {
+        return geoApiContext;
     }
 
     public List<File> getUploadedFiles() {
@@ -47,10 +61,6 @@ public class DataExchange {
 
     public Long getChosenImg() {
         return chosenImg;
-    }
-
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 
     public void setHostServices(HostServices hostServices) {

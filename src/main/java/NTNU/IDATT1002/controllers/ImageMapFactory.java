@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
+import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Image;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.object.*;
@@ -23,42 +24,14 @@ public class ImageMapFactory {
     private ImageMapFactory() {}
 
     /**
-     * Create a map from given {@link GoogleMapView} with default options and markers for images in given list.
+     * Create a map from given {@link GoogleMapView} with default options.
      *
      * @param googleMapView the map view to add the map to
-     * @param images the list of images to place on the map
      * @return the {@link GoogleMap} created to enable further customization
      */
-    public static GoogleMap createMap(GoogleMapView googleMapView, List<Image> images) {
-        List<LatLong> locations = getLatLongs(images);
-
+    public static GoogleMap createMap(GoogleMapView googleMapView) {
         MapOptions mapOptions = getMapOptions();
-        GoogleMap googleMap = googleMapView.createMap(mapOptions);
-        logger.info("[x] Google map created with {} locations", locations.size());
-
-        List<Marker> markers = getMarkers(locations);
-        googleMap.addMarkers(markers);
-        logger.info("[x] {} markers added", markers.size());
-
-        return googleMap;
-    }
-
-
-    /**
-     * Get latitude and longitude ({@link LatLong}) values for given images.
-     *
-     * @param images the list of images
-     * @return a list of {@link LatLong}
-     */
-    private static List<LatLong> getLatLongs(List<Image> images) {
-        return images.stream()
-                .map(Image::getGeoLocation)
-                .map(geoLocation -> {
-                    double latitude = Double.parseDouble(geoLocation.getLatitude());
-                    double longitude = Double.parseDouble(geoLocation.getLongitude());
-                    return new LatLong(latitude, longitude);
-                })
-                .collect(Collectors.toList());
+        return googleMapView.createMap(mapOptions);
     }
 
     /**
@@ -82,6 +55,37 @@ public class ImageMapFactory {
     }
 
     /**
+     * Create markers from given images.
+     *
+     * @param images the list of images
+     * @return a list of markers created from the images
+     */
+    public static List<Marker> createMarkers(List<Image> images) {
+        List<LatLong> locations = getLatLongs(images);
+        List<Marker> markers = getMarkers(locations);
+        logger.info("[x] {} markers created", markers.size());
+        return markers;
+    }
+
+    /**
+     * Get latitude and longitude ({@link LatLong}) values for given images.
+     *
+     * @param images the list of images
+     * @return a list of {@link LatLong}
+     */
+    private static List<LatLong> getLatLongs(List<Image> images) {
+        return images.stream()
+                .map(Image::getGeoLocation)
+                .filter(GeoLocation::hasLatLong)
+                .map(geoLocation -> {
+                    double latitude = Double.parseDouble(geoLocation.getLatitude());
+                    double longitude = Double.parseDouble(geoLocation.getLongitude());
+                    return new LatLong(latitude, longitude);
+                })
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Create {@link Marker}s for each location in given list of locations.
      *
      * @param locations the list containing the locations
@@ -97,4 +101,5 @@ public class ImageMapFactory {
                 })
                 .collect(Collectors.toList());
     }
+
 }
