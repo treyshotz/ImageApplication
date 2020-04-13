@@ -23,6 +23,14 @@ public interface Repository<T, ID> {
     Optional<T> save(T entity);
 
     /**
+     * Updates a given entity and returns the updated instance.
+     *
+     * @param entity not null
+     * @return the updated entity
+     */
+    Optional<T> update(T entity);
+
+    /**
      * Retrieves all instances of the type.
      *
      * @return all entities

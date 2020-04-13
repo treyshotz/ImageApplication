@@ -72,6 +72,5 @@ public class DataExchange {
     public void setChosenImg(Long chosenImg) {
         this.chosenImg = chosenImg;
     }
-
 }
 

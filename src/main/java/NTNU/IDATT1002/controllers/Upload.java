@@ -103,21 +103,9 @@ public class Upload {
      * If the user has chosen 1 image this method is called
      * @throws IOException
      */
-    private void switchToUploadedSingle() throws IOException {
-        App.setRoot("uploaded_single");
+    private void switchToUploadImages() throws IOException {
+        App.setRoot("upload_images");
     }
-
-    /**
-     * Method that changs scene to Uploaded Multiple page
-     * If the user has chosen multiple images this method is called
-     * @throws IOException
-     */
-    private void switchToUploadedMultiple() throws IOException {
-        App.setRoot("uploaded_multiple");
-    }
-
-
-
 
     /**
      * Method that opens file browser with an image filter
@@ -134,12 +122,7 @@ public class Upload {
         if(!list.isEmpty()){
             //Store files in DataExchange
             App.ex.setUploadedFiles(list);
-            if (list.size() == 1){
-                switchToUploadedSingle();
-            }
-            else {
-                switchToUploadedMultiple();
-            }
+            switchToUploadImages();
         }
     }
 
@@ -193,12 +176,7 @@ public class Upload {
         if(!list.isEmpty()){
             //Stores files to DataExchange
             App.ex.setUploadedFiles(list);
-            if (list.size() == 1){
-                switchToUploadedSingle();
-            }
-            else {
-                switchToUploadedMultiple();
-            }
+            switchToUploadImages();
         }
     }
 }

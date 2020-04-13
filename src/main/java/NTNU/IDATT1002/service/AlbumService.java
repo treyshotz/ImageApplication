@@ -74,6 +74,11 @@ public class AlbumService {
         return albumRepository.save(album);
     }
 
+    public Optional<Album> addImage(Album album, Image image){
+        album.addImage(image);
+        return albumRepository.update(album);
+    }
+
     /**
      * Retrieves all albums created by the given user by username.
      *
