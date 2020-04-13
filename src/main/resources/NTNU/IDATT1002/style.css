@@ -1,7 +1,7 @@
 /*GENERAL STYLING*/
 
 .bodybg{
-    -fx-background-image: url("../../Images/vector1.jpg");
+    -fx-background-image: url("../../Images/AppBG.png");
     -fx-background-size: cover;
 }
 
