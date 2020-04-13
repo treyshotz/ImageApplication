@@ -85,6 +85,7 @@ public class Search implements Initializable {
             pane.setPrefHeight(300);
 
             ImageView imageView = new ImageView();
+            imageView.setId(String.valueOf(images.get(i).getId()));
             imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
             imageView.setFitHeight(300);
             imageView.setFitWidth(500);
@@ -234,9 +235,15 @@ public class Search implements Initializable {
      * @throws IOException
      */
     public void switchToPicture(MouseEvent mouseEvent) throws IOException {
-        if(mouseEvent.getSource() instanceof ImageView){
-            App.ex.setChosenImg(((ImageView) mouseEvent.getSource()).getImage().getUrl());
-            App.setRoot("view_picture");
+        long imageId = 0;
+        Node node = (Node) mouseEvent.getSource();
+        if (node.getId() != null){
+            imageId = Long.parseLong(node.getId());
+        }
+
+        if (imageId != 0) {
+            App.ex.setChosenImg(imageId);
+            App.setRoot("view_image");
         }
     }
 }

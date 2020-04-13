@@ -101,6 +101,10 @@ public class ImageService {
                 .collect(Collectors.toList());
     }
 
+    public Optional<Image> findById(Long id){
+        return imageRepository.findById(id);
+    }
+
     /**
      * Searches images by tags and username, and merges the two list into one with all images
      * uses removeDuplicates list to return a list with no duplicate images
@@ -116,7 +120,7 @@ public class ImageService {
         allFound.addAll(byUsername);
         return removeDuplicates(allFound);
     }
-    
+
 
     /**
      * takes a list and removes all duplicate elements
@@ -127,4 +131,7 @@ public class ImageService {
     public List<Image> removeDuplicates(List<Image> images){
         return images.stream().distinct().collect(Collectors.toList());
     }
+    
+
+
 }

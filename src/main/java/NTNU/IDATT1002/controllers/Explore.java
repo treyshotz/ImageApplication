@@ -1,10 +1,15 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.models.Tag;
+import NTNU.IDATT1002.service.ImageService;
+import NTNU.IDATT1002.service.TagService;
+import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -21,6 +26,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * Controls the buttons and changeable elements on explore.fxml,
@@ -50,30 +56,31 @@ public class Explore implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg","@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg","@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg");
+        List<NTNU.IDATT1002.models.Image> images = new ImageService(App.ex.getEntityManager()).getAllImages();
         //Limited elements to 15 since grid pane since is 3x15
         //Can implement automatic row adding when this limit exceeded later
-        for(int i = 0; i < urls.size() && i < 15; i++) {
+        for(int i = 0; i < images.size() && i < 15; i++) {
             //Row and column in gripdane
             int column = i%3;
             int row = (i-column)/3;
 
             //Make vbox container for content
-            VBox v = new VBox();
-            v.setPrefHeight(400);
-            v.setPrefWidth(400);
-            v.setAlignment(Pos.TOP_LEFT);
-            //v.setStyle("-fx-background-color: #999999;");
+            VBox vBox = new VBox();
+            vBox.setPrefHeight(400);
+            vBox.setPrefWidth(400);
+            vBox.setAlignment(Pos.CENTER);
+            //vBox.setStyle("-fx-background-color: #999999;");
 
             //Image container
-            ImageView iV = new ImageView();
-            iV.setImage(new Image(urls.get(i)));
-            iV.setFitHeight(250);
-            iV.setFitWidth(400);
-            iV.pickOnBoundsProperty().setValue(true);
-            iV.setPreserveRatio(true);
+            ImageView imageView = new ImageView();
+            imageView.setId(String.valueOf(images.get(i).getId()));
+            imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
+            imageView.setFitHeight(250);
+            imageView.setFitWidth(400);
+            imageView.pickOnBoundsProperty().setValue(true);
+            imageView.setPreserveRatio(true);
             //Link to view image page
-            iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
                     try{
                         switchToPicture(e);
@@ -86,14 +93,15 @@ public class Explore implements Initializable {
             //Text describing the picture's title and tag
             Text title = new Text("TITLE:");
             title.setFont(Font.font("System Bold", 24));
-            Text tag = new Text("#TAGS");
+            String tagsAsString = TagService.getTagsAsString(images.get(i).getTags());
+            Text tag = new Text("TAGS:\n " + tagsAsString);
             tag.setFont(Font.font("System Bold", 18));
 
             //Add elements to vbox
-            v.getChildren().addAll(iV, title, tag);
+            vBox.getChildren().addAll(imageView, title, tag);
 
             //Add vbox to gridpane
-            gridPane.add(v, column, row);
+            gridPane.add(vBox, column, row);
         }
     }
 
@@ -161,8 +169,14 @@ public class Explore implements Initializable {
      * @throws IOException
      */
     public void switchToPicture(MouseEvent mouseEvent) throws IOException {
-        if(mouseEvent.getSource() instanceof ImageView){
-            App.ex.setChosenImg(((ImageView) mouseEvent.getSource()).getImage().getUrl());
+        long imageId = 0;
+        Node node = (Node) mouseEvent.getSource();
+        if (node.getId() != null){
+                imageId = Long.parseLong(node.getId());
+        }
+
+        if (imageId != 0) {
+            App.ex.setChosenImg(imageId);
             App.setRoot("view_picture");
         }
     }
