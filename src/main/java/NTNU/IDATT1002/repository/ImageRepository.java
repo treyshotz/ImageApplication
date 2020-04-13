@@ -37,6 +37,7 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
       setEntityClass(Image.class);
     }
 
+
     /**
      * Retrieves all albums of the user with the given username.
      *

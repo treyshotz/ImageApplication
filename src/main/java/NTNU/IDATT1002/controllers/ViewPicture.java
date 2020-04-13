@@ -1,6 +1,8 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.service.ImageService;
+import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,8 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -34,10 +38,18 @@ public class ViewPicture implements Initializable{
     public Pane metadata_pane;
     public Button tbar_searchBtn;
     public Button tbar_albums;
+    private ImageService imageService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        picture.setImage(new Image(App.ex.getChosenImg()));
+        EntityManager entityManager = App.ex.getEntityManager();
+        imageService = new ImageService(entityManager);
+        Long currentImageId = App.ex.getChosenImg();
+        NTNU.IDATT1002.models.Image foundImage = imageService.findById(currentImageId).get();
+        Image image = ImageUtil.convertToFXImage(foundImage);
+
+        picture.setImage(image);
+
     }
 
     /**
