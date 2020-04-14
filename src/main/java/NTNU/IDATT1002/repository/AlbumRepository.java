@@ -16,9 +16,11 @@ import java.util.List;
 public class AlbumRepository extends AbstractRepository<Album, Long> {
 
     /**
-     * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Album}
+     * Mapping to @NamedQuery 'find all albums by username, tags, and title' defined in {@link  Album}
      */
     public static final String ALBUM_FIND_BY_USERNAME = "Album.findAllByUsername";
+    public static final String ALBUM_FIND_BY_TAGS = "Album.findByTags";
+    public static final String ALBUM_FIND_BY_TITLE = "Album.findByTitle";
 
     /**
      * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link Album}
@@ -41,5 +43,18 @@ public class AlbumRepository extends AbstractRepository<Album, Long> {
                 .setParameter("username", username)
                 .getResultList();
     }
+
+    public List<Album> findAllByTags(String tag){
+        return entityManager.createNamedQuery(ALBUM_FIND_BY_TAGS, Album.class)
+                .setParameter("name",tag)
+                .getResultList();
+    }
+
+    public List<Album> findAllByTitle(String title){
+        return entityManager.createNamedQuery(ALBUM_FIND_BY_TITLE, Album.class)
+                .setParameter("title", title)
+                .getResultList();
+    }
+
 
 }

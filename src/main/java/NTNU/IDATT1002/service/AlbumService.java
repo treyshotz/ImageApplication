@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
@@ -112,6 +113,34 @@ public class AlbumService {
         logger.info("[x] Saved PDF document to {}", destinationFile);
 
         return document;
+    }
+
+    /**
+     * Takes in a string and searched through all album by tags, username and title to find results
+     * @param query
+     * @return list of results without duplocates
+     */
+
+    public List<Album> searchResult(String query){
+        List<Album> allFound = new ArrayList<>();
+        List<Album> byTags = albumRepository.findAllByTags(query);
+        List<Album> byUsername = albumRepository.findAllByUsername(query);
+        List<Album> byTitle = albumRepository.findAllByTitle(query);
+        allFound.addAll(byTags);
+        allFound.addAll(byUsername);
+        allFound.addAll(byTitle);
+        return removeDuplicates(allFound);
+    }
+
+
+    /**
+     * takes a list and removes all duplicate elements
+     * @param albums
+     * @return list without duplicates
+     */
+
+    public List<Album> removeDuplicates(List<Album> albums){
+        return albums.stream().distinct().collect(Collectors.toList());
     }
 
 }
