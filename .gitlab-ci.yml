@@ -3,6 +3,7 @@ image: maven:latest
 stages:
   - build
   - test
+  - pages
 
 # Cache downloaded dependencies and plugins between builds.
 cache:
@@ -28,3 +29,12 @@ test:
   script:
     - echo "RUNNING TESTS"
     - mvn clean test
+
+pages:
+  script:
+    - mvn javadoc:javadoc
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

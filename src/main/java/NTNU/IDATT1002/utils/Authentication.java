@@ -20,7 +20,6 @@ public class Authentication {
      * Hashes password with salt from getSalt method
      * @param password desired password as input
      * @return hashed password
-     * @throws NoSuchAlgorithmException
      */
     public static ArrayList<String> setPassword(String password) {
         String hashedPassword = null;
