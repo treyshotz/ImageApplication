@@ -15,6 +15,9 @@ import org.junit.jupiter.api.TestTemplate;
 
 /**
  * Test for {@link ImageRepository}
+ *
+ * @author madslun
+ * @version 1.0 13.04.20
  */
 class ImageRepositoryTest {
 
