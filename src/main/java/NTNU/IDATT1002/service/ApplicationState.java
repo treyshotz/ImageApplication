@@ -1,6 +1,7 @@
-package NTNU.IDATT1002;
+package NTNU.IDATT1002.service;
 
 
+import NTNU.IDATT1002.Config;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.UserRepository;
 

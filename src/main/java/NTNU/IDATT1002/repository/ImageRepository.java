@@ -1,11 +1,8 @@
 package NTNU.IDATT1002.repository;
 
-import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.Image;
 
-
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 

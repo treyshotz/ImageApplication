@@ -1,12 +1,12 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.ApplicationState;
 import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.service.AlbumService;
+import NTNU.IDATT1002.service.ApplicationState;
 import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;

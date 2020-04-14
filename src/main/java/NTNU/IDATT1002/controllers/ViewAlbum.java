@@ -7,11 +7,6 @@ import NTNU.IDATT1002.service.AlbumDocument;
 import NTNU.IDATT1002.service.AlbumService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
-import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,17 +24,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javax.persistence.EntityManager;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import org.slf4j.LoggerFactory;
 
 /**
  * Controls the buttons and changeable elements on view_album.fxml,

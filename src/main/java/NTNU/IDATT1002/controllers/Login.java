@@ -3,14 +3,12 @@ package NTNU.IDATT1002.controllers;
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-
 
 import javax.persistence.EntityManager;
 import java.io.IOException;

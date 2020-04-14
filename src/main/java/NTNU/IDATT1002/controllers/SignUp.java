@@ -1,22 +1,22 @@
 package NTNU.IDATT1002.controllers;
 
-import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.service.UserService;
-import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+
 import javax.persistence.EntityManager;
+import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * Controls the buttons and changeable elements on signup.fxml,

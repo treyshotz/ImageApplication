@@ -1,6 +1,5 @@
 package NTNU.IDATT1002.utils;
 
-import NTNU.IDATT1002.controllers.ExploreAlbums;
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import com.drew.imaging.ImageMetadataReader;
@@ -11,16 +10,15 @@ import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDirectory;
-
 import com.drew.metadata.file.FileSystemDirectory;
 import com.drew.metadata.file.FileTypeDirectory;
 import com.drew.metadata.iptc.IptcDirectory;
-
 import com.drew.metadata.jpeg.JpegDirectory;
-import java.io.File;
-import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 
 /**
