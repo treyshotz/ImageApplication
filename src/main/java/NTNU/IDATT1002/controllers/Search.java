@@ -1,8 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.models.Image;
-import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
@@ -23,19 +21,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 
 /**

@@ -1,6 +1,5 @@
 package NTNU.IDATT1002.service;
 
-import NTNU.IDATT1002.filters.ImageFilter;
 import NTNU.IDATT1002.models.*;
 import NTNU.IDATT1002.repository.ImageRepository;
 import NTNU.IDATT1002.utils.ImageUtil;
@@ -82,21 +81,6 @@ public class ImageService {
      */
     public List<Image> getAllImages() {
         return imageRepository.findAll();
-    }
-
-    /**
-     * Search all images by tags specified in {@link ImageFilter#filter(String)}.
-     *
-     * @param query the query to filter by
-     * @return list of images matching the query
-     */
-
-    //This search method is for futureproofing, when we will search using additional parameters than just tags
-    public List<Image> searchImages(String query) {
-        List<Image> allImages = imageRepository.findAll();
-        return allImages.stream()
-                .filter(ImageFilter.filter(query))
-                .collect(Collectors.toList());
     }
 
     public Optional<Image> findById(Long id){

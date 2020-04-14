@@ -1,17 +1,17 @@
 package NTNU.IDATT1002.service;
 
-import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Album;
+import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Metadata;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
