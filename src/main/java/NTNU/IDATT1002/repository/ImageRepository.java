@@ -22,7 +22,7 @@ import java.util.List;
 public class ImageRepository extends AbstractRepository<Image, Long> {
 
     /**
-     * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
+     * Mapping to @NamedQuery 'find all albums by username and tags' defined in {@link  Image}
      */
     public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
     public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
