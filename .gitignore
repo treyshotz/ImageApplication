@@ -11,6 +11,7 @@ bin/
 t14-test-images
 log/
 config.properties
+public
 
 # User-specific stuff
 .idea/**/workspace.xml
