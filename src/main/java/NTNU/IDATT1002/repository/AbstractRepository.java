@@ -19,7 +19,7 @@ import java.util.Optional;
  * @author Eirik Steira
  * @version 1.1 03.04.20
  */
-abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
+public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
 
     /**
      * The type of class which implementations of this class is to operate on.
