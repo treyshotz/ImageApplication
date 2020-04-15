@@ -58,7 +58,7 @@ public class MetaDataExtractor {
             geoLocation.setLatitude(latitude);
             geoLocation.setLongitude(longitude);
         }
-        catch (NullPointerException | ImageProcessingException | IOException e) {
+        catch (NullPointerException | ImageProcessingException | ArrayIndexOutOfBoundsException | IOException e) {
             logger.error("[x] Could not find geolocation on file" ,e);
         }
         return geoLocation;
