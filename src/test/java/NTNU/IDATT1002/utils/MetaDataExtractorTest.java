@@ -1,12 +1,12 @@
 package NTNU.IDATT1002.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import NTNU.IDATT1002.models.GeoLocation;
-import NTNU.IDATT1002.models.Metadata;
-import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for {@link MetaDataExtractor}
