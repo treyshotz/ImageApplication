@@ -165,18 +165,17 @@ public class Metadata {
     @Override
     public String toString() {
         return "Metadata{" +
-                "metadataId=" + metadataId +
-                "camera='" + camera + '\'' +
-                "lens='" + lens + '\'' +
-                "aperture='" + aperture + '\'' +
-                "shutterSpeed='" + shutterSpeed + '\'' +
-                "ISO='" + ISO + '\'' +
-                "focalLength='" + focalLength + '\'' +
-                "fileType='" + fileType + '\'' +
-                "photoDate='" + photoDate + '\'' +
-                "fileSize='" + fileSize + '\'' +
-                "fileDimension='" + fileDimension + '\'' +
-                '}';
-
+            "\nmetadataId=" + metadataId +
+            "\ncamera='" + camera + '\'' +
+            "\nlens='" + lens + '\'' +
+            "\naperture='" + aperture + '\'' +
+            "\nshutterSpeed='" + shutterSpeed + '\'' +
+            "\nISO='" + ISO + '\'' +
+            "\nfocalLength='" + focalLength + '\'' +
+            "\nfileType='" + fileType + '\'' +
+            "\nphotoDate='" + photoDate + '\'' +
+            "\nfileSize='" + fileSize + '\'' +
+            "\nfileDimension='" + fileDimension + '\'' +
+            '}';
     }
 }
