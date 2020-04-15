@@ -84,7 +84,7 @@ public class Search implements Initializable {
             imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
                     try{
-                        switchToPicture(e);
+                        switchToViewImage(e);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -235,7 +235,7 @@ public class Search implements Initializable {
      * @param mouseEvent what is clicked on
      * @throws IOException
      */
-    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
+    public void switchToViewImage(MouseEvent mouseEvent) throws IOException {
         long imageId = 0;
         Node node = (Node) mouseEvent.getSource();
         if (node.getId() != null){

@@ -13,17 +13,24 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javax.persistence.EntityManager;
+
+import javafx.stage.Stage;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
@@ -107,7 +114,6 @@ public class ViewAlbum implements Initializable {
 
     /**
      * Changes the current main picture
-     * //TODO: Make it change main picture title and tags
      * @param mouseEvent something is clicked
      */
     private void setActiveImage(MouseEvent mouseEvent) {
@@ -284,8 +290,30 @@ public class ViewAlbum implements Initializable {
         App.setRoot("upload");
     }
 
-    public void openPopUpPicture(MouseEvent mouseEvent) {
-        //write method that opens a pop-up view of the main picture
+    /**
+     * Makes a new stage and display the clicked image in max size
+     * @param mouseEvent
+     */
+    public void openPopUpImage(MouseEvent mouseEvent) {
+        Node clickedObject = (Node) mouseEvent.getSource();
+        if (clickedObject instanceof ImageView){
+            Stage stage = new Stage();
+            BorderPane pane = new BorderPane();
+
+            ImageView imageView = new ImageView();
+            imageView.fitWidthProperty().bind(stage.widthProperty());
+            imageView.fitHeightProperty().bind(stage.heightProperty());
+            imageView.setPreserveRatio(true);
+            imageView.setPickOnBounds(true);
+            imageView.setImage(((ImageView) clickedObject).getImage());
+            pane.setCenter(imageView);
+
+
+            Scene scene = new Scene(pane);
+            stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.showAndWait();
+        }
     }
 
     /**

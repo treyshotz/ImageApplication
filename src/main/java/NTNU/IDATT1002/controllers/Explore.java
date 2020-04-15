@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -43,6 +44,9 @@ public class Explore implements Initializable {
     public Button footer_previousBtn;
     public Button footer_nextBtn;
 
+    private List<NTNU.IDATT1002.models.Image> images;
+    private int start;
+    private int end;
 
     /**
      * Method that runs when explore.fxml is set as scene
@@ -52,21 +56,21 @@ public class Explore implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<NTNU.IDATT1002.models.Image> images = new ImageService(App.ex.getEntityManager()).getAllImages();
-        //Limited elements to 15 since grid pane since is 3x5
-        //Can implement automatic row adding when this limit exceeded later
-        for(int i = 0; i < images.size() && i < 100; i++) {
-            //Row and column in gripdane
-            int column = i%3;
-            int row = (i-column)/3;
+        images = new ImageService(App.ex.getEntityManager()).getAllImages();
+        start = 0;
+        end = 15;
 
-            //Add rows
-            if(images.size() > 15){
-                gridPane.setMinHeight(1600 + (((i-15)*160)));
-                for (int j = 0; j < ((i-15)/3); j++){
-                    gridPane.addRow(j);
-                }
-            }
+        generateImages(start, end);
+    }
+
+    public void generateImages(int start, int end){
+        gridPane.getChildren().clear();
+        //Limited elements to 15 since grid pane since is 3x5
+        for(int i = start; i < images.size() && i < end; i++) {
+            int index = i%15;
+            //Row and column in gripdane
+            int column = index%3;
+            int row = (index-column)/3;
 
             //Make vbox container for content
             VBox vBox = new VBox();
@@ -88,7 +92,7 @@ public class Explore implements Initializable {
             imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
                     try{
-                        switchToPicture(e);
+                        switchToViewImage(e);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -96,10 +100,10 @@ public class Explore implements Initializable {
             });
 
             //Text describing the picture's title and tag
-            Text title = new Text("TITLE:");
+            Text title = new Text("LEGG IN TITTEL I DB");
             title.setFont(Font.font("System Bold", 24));
             String tagsAsString = TagService.getTagsAsString(images.get(i).getTags());
-            Text tag = new Text("TAGS:\n " + tagsAsString);
+            Text tag = new Text(tagsAsString);
             tag.setFont(Font.font("System Bold", 18));
 
             //Add elements to vbox
@@ -173,7 +177,7 @@ public class Explore implements Initializable {
      * @param mouseEvent
      * @throws IOException
      */
-    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
+    public void switchToViewImage(MouseEvent mouseEvent) throws IOException {
         long imageId = 0;
         Node node = (Node) mouseEvent.getSource();
         if (node.getId() != null){
@@ -182,7 +186,7 @@ public class Explore implements Initializable {
 
         if (imageId != 0) {
             App.ex.setChosenImg(imageId);
-            App.setRoot("view_picture");
+            App.setRoot("view_image");
         }
     }
 
@@ -192,7 +196,16 @@ public class Explore implements Initializable {
      * @throws IOException
      */
     public void switchToPrevious(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that updates content to previous "page"
+        if (start - 15 >= 0){
+            start -= 15;
+            end -= 15;
+            generateImages(start, end);
+
+            if (start == 0){
+                footer_previousBtn.setDisable(true);
+            }
+            footer_nextBtn.setDisable(false);
+        }
     }
 
     /**
@@ -201,6 +214,15 @@ public class Explore implements Initializable {
      * @throws IOException
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that updates content to next "page"
+        if (start + 15 < images.size()){
+            start += 15;
+            end += 15;
+            generateImages(start, end);
+
+            if (end >= images.size()){
+                footer_nextBtn.setDisable(true);
+            }
+            footer_previousBtn.setDisable(false);
+        }
     }
 }
