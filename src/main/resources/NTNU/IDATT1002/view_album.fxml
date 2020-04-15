@@ -67,7 +67,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ImageView fx:id="mainImageContainer" fitWidth="840.0" onMouseClicked="#openPopUpPicture" pickOnBounds="true" preserveRatio="true" style="-fx-max-width: 840" styleClass="viewAlbumImage">
+                        <ImageView fx:id="mainImageContainer" fitWidth="840.0" fitHeight="450.0" onMouseClicked="#openPopUpImage" pickOnBounds="true" preserveRatio="true"  styleClass="viewAlbumImage">
                            <image>
                               <Image url="@../../Images/placeholder-1920x1080.png" />
                            </image>

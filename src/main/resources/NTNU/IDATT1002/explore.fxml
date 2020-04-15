@@ -85,7 +85,7 @@
                <bottom>
                   <HBox alignment="CENTER" minHeight="200.0" prefHeight="200.0" prefWidth="1920.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
                      <children>
-                        <Button fx:id="footer_previousBtn" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
+                        <Button fx:id="footer_previousBtn" disable="true" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
                         <Button fx:id="footer_nextBtn" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
                      </children>
                      <padding>
