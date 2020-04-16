@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
  *
  * @version 1.0 22.03.2020
  */
-public class UploadImages implements Initializable {
+public class UploadImages extends NavBarController implements Initializable {
 
   public VBox uploadContainer;
   public VBox root;
