@@ -5,41 +5,37 @@ import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.AlbumDocument;
 import NTNU.IDATT1002.service.AlbumService;
+import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javax.persistence.EntityManager;
-import org.slf4j.LoggerFactory;
+import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import org.slf4j.LoggerFactory;
 
 /**
  * Controls the buttons and changeable elements on view_album.fxml,
@@ -47,27 +43,20 @@ import org.slf4j.LoggerFactory;
  * @version 1.0 22.03.2020
  */
 public class ViewAlbum implements Initializable {
-    public TextField tbar_search;
-    public ImageView tbar_logo;
-    public Button tbar_explore;
-    public Button tbar_map;
-    public Button tbar_upload;
-    public Button tbar_searchBtn;
-    public Button tbar_albums;
+
     public Pane metadataPane;
     public Button createAlbumPdf;
-    public ImageView mainPicture;
-    public Text pictureTitleField;
-    public Text pictureTagsField;
+    public ImageView mainImageContainer;
+    public Text mainImageTitle;
+    public Text mainImageTags;
 
     @FXML
     public VBox albumTextContainer;
-    public HBox albumImages;
+    public Button viewOnMapBtn;
+    public HBox albumImagesContainer;
 
     private AlbumService albumService;
     private Album currentAlbum;
-
-    
 
     /**
      * Initialize view with real album data.
@@ -84,32 +73,35 @@ public class ViewAlbum implements Initializable {
         Optional<Album> foundAlbum = albumService.getAlbumById(currentAlbumId);
         foundAlbum.ifPresent(album -> {
             currentAlbum = album;
-            NTNU.IDATT1002.models.Image titleImage = album.getImages().get(0);
-            Image image = ImageUtil.convertToFXImage(titleImage);
-            mainPicture.setImage(image);
-            pictureTitleField.setText("LEGG TIL BILDETITTEL HER");
-            pictureTagsField.setText("#LEGG #TIL #TAGS #HER");
-            insertAlbumTextToContainer(album);
-            for (NTNU.IDATT1002.models.Image i: album.getImages()) {
-                ImageView iV = new ImageView();
-                iV.setFitHeight(64);
-                iV.setFitWidth(114);
-                iV.setPreserveRatio(true);
-                iV.setId(i.getId().toString());
-                iV.setImage(ImageUtil.convertToFXImage(i));
-                albumImages.getChildren().add(iV);
-                iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override public void handle(MouseEvent mouseEvent) {
-                        setActiveImage(mouseEvent);
-                    }
-                });
+            List<NTNU.IDATT1002.models.Image> albumImages = album.getImages();
+            //If album has an image
+            if (albumImages.size() > 0) {
+                NTNU.IDATT1002.models.Image mainImage = albumImages.get(0);
+                mainImageContainer.setImage(ImageUtil.convertToFXImage(mainImage));
+                mainImageTitle.setText("ADD IMAGE TITLE");
+                mainImageTags.setText(TagService.getTagsAsString(mainImage.getTags()));
+                insertAlbumTextToContainer(album);
+                for (NTNU.IDATT1002.models.Image image : albumImages) {
+                    ImageView imageView = new ImageView();
+                    imageView.setFitHeight(64);
+                    imageView.setFitWidth(114);
+                    imageView.setPreserveRatio(true);
+                    imageView.setId(image.getId().toString());
+                    imageView.setImage(ImageUtil.convertToFXImage(image));
+                    albumImagesContainer.getChildren().add(imageView);
+                    imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            setActiveImage(mouseEvent);
+                        }
+                    });
+                }
             }
         });
     }
 
     /**
      * Changes the current main picture
-     * //TODO: Make it change main picture title and tags
      * @param mouseEvent something is clicked
      */
     private void setActiveImage(MouseEvent mouseEvent) {
@@ -117,10 +109,12 @@ public class ViewAlbum implements Initializable {
         if (clickedObject instanceof ImageView) {
             ImageView clickedImageView = (ImageView) mouseEvent.getSource();
             Long clickedImageId = Long.parseLong(clickedImageView.getId());
-            Optional<NTNU.IDATT1002.models.Image> newImage = currentAlbum.getImages().stream().filter(img -> img.getId().equals(clickedImageId)).findFirst();
-            newImage.ifPresent(img -> {
-                Image image = ImageUtil.convertToFXImage(img);
-                mainPicture.setImage(image);
+            Optional<NTNU.IDATT1002.models.Image> findImage = currentAlbum.getImages().stream().filter(img -> img.getId().equals(clickedImageId)).findFirst();
+            findImage.ifPresent(newImage -> {
+                Image image = ImageUtil.convertToFXImage(newImage);
+                mainImageTitle.setText("ADD IMAGE TITLE");
+                mainImageTags.setText(TagService.getTagsAsString(newImage.getTags()));
+                mainImageContainer.setImage(image);
             });
         }
     }
@@ -221,97 +215,28 @@ public class ViewAlbum implements Initializable {
     }
 
     /**
-     * Method that changes scene to Main page
+     * Makes a new stage and display the clicked image in max size
      * @param mouseEvent
-     * @throws IOException
      */
-    public void switchToMain(MouseEvent mouseEvent) throws IOException {
-        App.setRoot("main");
-    }
+    public void openPopUpImage(MouseEvent mouseEvent) {
+        Node clickedObject = (Node) mouseEvent.getSource();
+        if (clickedObject instanceof ImageView){
+            Stage stage = new Stage();
+            BorderPane pane = new BorderPane();
 
-    /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_search.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
+            ImageView imageView = new ImageView();
+            imageView.fitWidthProperty().bind(stage.widthProperty());
+            imageView.fitHeightProperty().bind(stage.heightProperty());
+            imageView.setPreserveRatio(true);
+            imageView.setPickOnBounds(true);
+            imageView.setImage(((ImageView) clickedObject).getImage());
+            pane.setCenter(imageView);
+
+            Scene scene = new Scene(pane);
+            stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.showAndWait();
         }
-        App.setRoot("search");
-    }
-
-    /**
-     * Method that changes scene to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method that changes scene to Albums page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
-
-    /**
-     * Method that changes scene to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method that changes scene to Upload page
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
-     */
-    public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.setRoot("upload");
-    }
-
-    public void openPopUpPicture(MouseEvent mouseEvent) {
-        //write method that opens a pop-up view of the main picture
-    }
-
-    public void changeMainPicture1(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 1 in the scrollbar-view
-    }
-
-    public void changeMainPicture2(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 2 in the scrollbar-view
-    }
-
-    public void changeMainPicture3(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 3 in the scrollbar-view
-    }
-
-    public void changeMainPicture4(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 4 in the scrollbar-view
-    }
-
-    public void changeMainPicture5(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 5 in the scrollbar-view
-    }
-
-    public void changeMainPicture6(MouseEvent mouseEvent) {
-        //write method that switches to main picture to be picture 6 in the scrollbar-view
-    }
-
-    public void loadPreviousScrollbarView(ActionEvent actionEvent) {
-        //write method that loads the previous 6 images in the album into the scrollbar-view
-    }
-
-    public void loadNextScrollbarView(ActionEvent actionEvent) {
-        //write method that loads the next 6 images in the album into the scrollbar-view
     }
 
     /**
@@ -345,5 +270,9 @@ public class ViewAlbum implements Initializable {
     private void openDocument(ActionEvent actionEvent, File file) {
         HostServices hostServices = App.ex.getHostServices();
         hostServices.showDocument(file.getAbsolutePath());
+    }
+
+    public void viewOnMap(ActionEvent actionEvent) throws IOException {
+        App.setRoot("map"); // TODO: 15.04.2020 Set App.ex.chosenAlbumId?
     }
 }

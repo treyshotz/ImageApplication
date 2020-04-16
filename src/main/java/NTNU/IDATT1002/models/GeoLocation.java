@@ -58,10 +58,6 @@ public class GeoLocation {
         return longitude;
     }
 
-    public void setGeoLocationId(Long geoLocationId) {
-        this.geoLocationId = geoLocationId;
-    }
-
     public void setLatitude(String altitude) {
         this.latitude = altitude;
     }
@@ -72,5 +68,23 @@ public class GeoLocation {
 
     public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
+    }
+
+    /**
+     * Verify that this geolocation has latitude and longitude different from 0.
+     *
+     * @return whether latitude and longitude are different from 0.
+     */
+    public boolean hasLatLong() {
+        return Double.parseDouble(latitude) != 0 && Double.parseDouble(longitude) != 0;
+    }
+
+    @Override
+    public String toString() {
+        return "GeoLocation{" +
+                "geoLocationId=" + geoLocationId +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                '}';
     }
 }

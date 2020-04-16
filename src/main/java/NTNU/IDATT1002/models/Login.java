@@ -60,4 +60,11 @@ public class Login {
     public String getPasswordSalt() {
         return passwordSalt;
     }
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "username='" + username + '\'' +
+                '}';
+    }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadImages">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
+         <children>
+            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
+                     <children>
+                        <ImageView fx:id="navBarLogo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/PlaceholderLogo.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <TextField fx:id="navBarSearch" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="navBarSearchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
+                  <Button fx:id="navBarExplore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
+                  <Button fx:id="navBarAlbums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
+                  <Button fx:id="navBarMap" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="250.0">
+                     <children>
+                        <Button fx:id="navBarUpload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scrollpane" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" minHeight="960.0" prefHeight="981.0" prefWidth="1920.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="bodybg" stylesheets="@style.css">
+               <children>
+                  <VBox fx:id="uploadContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="1550.0" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </padding></VBox>
+               </children>
+               <padding>
+                  <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

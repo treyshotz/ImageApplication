@@ -1,13 +1,17 @@
 package NTNU.IDATT1002.utils;
 
-import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Handles the authentication logic for user login and signup
+ *
+ * @author madslun
+ * @version 1.0 06.04.20
+ * */
 public class Authentication {
 
     public static Random r = new SecureRandom();
@@ -16,7 +20,6 @@ public class Authentication {
      * Hashes password with salt from getSalt method
      * @param password desired password as input
      * @return hashed password
-     * @throws NoSuchAlgorithmException
      */
     public static ArrayList<String> setPassword(String password) {
         String hashedPassword = null;

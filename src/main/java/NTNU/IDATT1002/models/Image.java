@@ -10,24 +10,29 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
 @Table(name = "image")
 @NamedQueries({
         @NamedQuery(name="Image.findAllByUsername",
-                query = "SELECT ia from Image ia WHERE ia.user.username = :username")
+                query = "SELECT ia from Image ia WHERE ia.user.username = :username"),
+        @NamedQuery(name="Image.findByTags",
+                query = "SELECT im from Image im "
+                        + "join im.tags tg "
+                        + "where tg.name = :name")
 })
 public class Image {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Album> albums = new ArrayList<>();
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Tag> tags = new ArrayList<>();
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -92,7 +97,7 @@ public class Image {
   }
 
   public void addTags(ArrayList<Tag> tags) {
-    tags.addAll(tags);
+    this.tags.addAll(tags);
   }
 
   public void addTag(Tag tag){
@@ -111,10 +116,9 @@ public class Image {
     return uploadedAt;
   }
 
-  public String getPath() {
-    return path;
+  public User getUser() {
+    return user;
   }
-
 
   /**
    * Add this image in the given album.
@@ -134,6 +138,18 @@ public class Image {
     albums.remove(album);
   }
 
+  /**
+   * Get Geo Location related to this image.
+   *
+   * @return the location the image was taken
+   */
+  public GeoLocation getGeoLocation() {
+    if (metadata == null)
+      return new GeoLocation("0","0");
+
+    return metadata.getGeoLocation();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -145,7 +161,34 @@ public class Image {
     Image that = (Image) o;
     return getId().equals(that.getId());
   }
-} 
+
+  @Override
+  public String toString() {
+    String formattedTags = "";
+    if (tags != null)
+        formattedTags = tags.stream()
+                .map(Tag::getName)
+                .collect(Collectors.toList())
+                .toString();
+
+    String formattedAlbums = "";
+    if (albums != null)
+      formattedAlbums = albums.stream()
+              .map(Album::getId)
+              .collect(Collectors.toList())
+              .toString();
+
+    return "Image{" +
+            "id=" + id +
+            ", albums=" + formattedAlbums +
+            ", tags=" + formattedTags +
+            ", user=" + user.getUsername() +
+            ", metadata=" + metadata +
+            ", path='" + path + '\'' +
+            ", uploadedAt=" + uploadedAt +
+            '}';
+  }
+}
 
 
 

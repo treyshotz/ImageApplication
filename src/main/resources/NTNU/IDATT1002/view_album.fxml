@@ -1,62 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.ViewAlbum">
+<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.ViewAlbum">
    <children>
-      <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
          <children>
-            <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Images/PlaceholderLogo.png" />
-               </image>
-            </ImageView>
-            <Pane prefHeight="100.0" prefWidth="343.0" />
-            <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-            <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
-            <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
-            <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
-            <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
-            <Pane prefHeight="100.0" prefWidth="174.0" />
-            <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
+            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
+                     <children>
+                        <ImageView fx:id="navBarLogo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/PlaceholderLogo.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <TextField fx:id="navBarSearch" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="navBarSearchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
+                  <Button fx:id="navBarExplore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
+                  <Button fx:id="navBarAlbums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
+                  <Button fx:id="navBarMap" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="250.0">
+                     <children>
+                        <Button fx:id="navBarUpload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox prefHeight="200.0" prefWidth="35.0" HBox.hgrow="ALWAYS" />
-            <VBox alignment="CENTER" prefHeight="981.0" prefWidth="1050.0">
+            <VBox alignment="CENTER" prefHeight="981.0" prefWidth="1085.0" styleClass="bodybg" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                <children>
                   <VBox maxWidth="839.0" prefHeight="660.0" prefWidth="839.0" spacing="10.0">
                      <children>
-                        <Text fx:id="pictureTitleField" strokeType="OUTSIDE" strokeWidth="0.0" text="Picturetitle">
+                        <Text fx:id="mainImageTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Picturetitle">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <Text fx:id="pictureTagsField" strokeType="OUTSIDE" strokeWidth="0.0" text="#tags">
+                        <Text fx:id="mainImageTags" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="#tags">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ImageView fx:id="mainPicture" fitHeight="472.0" fitWidth="839.0" onMouseClicked="#openPopUpPicture" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mainImageContainer" fitWidth="840.0" fitHeight="450.0" onMouseClicked="#openPopUpImage" pickOnBounds="true" preserveRatio="true"  styleClass="viewAlbumImage">
                            <image>
                               <Image url="@../../Images/placeholder-1920x1080.png" />
                            </image>
                         </ImageView>
-                        <ScrollPane hbarPolicy="ALWAYS" maxHeight="100.0" prefHeight="110.0" prefWidth="839.0" vbarPolicy="NEVER" vmax="0.0" vvalue="1.0" VBox.vgrow="NEVER">
+                        <ScrollPane hbarPolicy="ALWAYS" maxHeight="100.0" prefHeight="110.0" prefWidth="839.0" styleClass="scroll-pane" stylesheets="@style.css" vbarPolicy="NEVER" vmax="0.0" vvalue="1.0" VBox.vgrow="NEVER">
                            <content>
-                              <HBox fx:id="albumImages" alignment="CENTER" maxHeight="100.0" prefHeight="85.0" prefWidth="858.0" spacing="10.0">
+                              <HBox fx:id="albumImagesContainer" alignment="CENTER" maxHeight="100.0" prefHeight="85.0" prefWidth="858.0" spacing="10.0" styleClass="scrollHbox" stylesheets="@style.css">
                               </HBox>
                            </content>
                         </ScrollPane>
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets left="35.0" />
+               </padding>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="981.0" prefWidth="800.0">
+            <VBox alignment="CENTER" prefHeight="981.0" prefWidth="835.0" styleClass="viewbg" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                <children>
                   <VBox fx:id="albumTextContainer" maxWidth="700.0" prefWidth="700.0">
                      <children>
@@ -65,22 +94,33 @@
                   </VBox>
                   <VBox maxWidth="700.0" spacing="20.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PICTURE METADATA:">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PICTURE METADATA:">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Text>
                         <Pane fx:id="metadataPane" prefHeight="304.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" />
-                        <Button fx:id="createAlbumPdf" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
+                        <HBox prefHeight="39.0" prefWidth="700.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="createAlbumPdf" mnemonicParsing="false" onAction="#createPdf" text="CREATE ALBUM PDF">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="viewOnMapBtn" mnemonicParsing="false" onAction="#viewOnMap" text="VIEW ON MAP">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets right="35.0" />
+               </padding>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="35.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>

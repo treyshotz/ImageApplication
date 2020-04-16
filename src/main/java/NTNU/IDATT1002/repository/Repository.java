@@ -23,6 +23,14 @@ public interface Repository<T, ID> {
     Optional<T> save(T entity);
 
     /**
+     * Updates a given entity and returns the updated instance.
+     *
+     * @param entity not null
+     * @return the updated entity
+     */
+    Optional<T> update(T entity);
+
+    /**
      * Retrieves all instances of the type.
      *
      * @return all entities
@@ -50,12 +58,5 @@ public interface Repository<T, ID> {
      * @param id not null
      */
     void deleteById(ID id);
-
-    /**
-     * Return the number of entities.
-     *
-     * @return the number of entities.
-     */
-    long count();
 
 }

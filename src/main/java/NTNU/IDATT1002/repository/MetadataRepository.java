@@ -8,12 +8,12 @@ import java.util.Optional;
 /**
  * Tag Repository.
  *
- * Implementation of {@link  GenericRepository} which supports regular Create, Read, Update and Delete operations.
+ * Implementation of {@link  AbstractRepository} which supports regular Create, Read, Update and Delete operations.
  * @author Stian Mogen, Eirik Steira
  * @version 1.0 22.03.20
- * @see NTNU.IDATT1002.repository.GenericRepository
+ * @see AbstractRepository
  */
-public class MetadataRepository extends GenericRepository<Metadata, Long> {
+public class MetadataRepository extends AbstractRepository<Metadata, Long> {
 
     /**
      * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link Metadata}
@@ -22,7 +22,7 @@ public class MetadataRepository extends GenericRepository<Metadata, Long> {
      */
     public MetadataRepository(EntityManager entityManager) {
         super(entityManager);
-        setClassType(Metadata.class);
+        setEntityClass(Metadata.class);
     }
 
     /**

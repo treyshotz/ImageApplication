@@ -10,8 +10,16 @@ import java.io.File;
  */
 public interface AlbumDocument {
 
+    /**
+     * Get the created document.
+     *
+     * @return the document as a file
+     */
     File getDocument();
 
-    void createDocument();
+    /**
+     * Create the document.
+     */
+    void create();
 
 }

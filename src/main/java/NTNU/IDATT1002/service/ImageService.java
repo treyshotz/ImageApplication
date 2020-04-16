@@ -1,12 +1,10 @@
 package NTNU.IDATT1002.service;
-import NTNU.IDATT1002.filters.ImageFilter;
+
 import NTNU.IDATT1002.models.*;
-import NTNU.IDATT1002.repository.*;
+import NTNU.IDATT1002.repository.ImageRepository;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
 
-import java.util.Arrays;
-import javafx.scene.control.TextField;
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ import java.util.stream.Collectors;
 public class ImageService {
 
     private ImageRepository imageRepository;
-    private MetaDataExtractor metaDataExtractor;
     private TagService tagService;
 
     /**
@@ -31,7 +28,6 @@ public class ImageService {
      */
     public ImageService(EntityManager entityManager) {
         this.imageRepository = new ImageRepository(entityManager);
-        this.metaDataExtractor = new MetaDataExtractor();
         this.tagService = new TagService(entityManager);
     }
 
@@ -44,8 +40,10 @@ public class ImageService {
      */
     public Optional<Image> createImage(User user, File file, List<Tag> tags) {
 
-        GeoLocation geoLocation = metaDataExtractor.getGeoLocation(file);
-        Histogram histogram = metaDataExtractor.getHistogram(file);
+        GeoLocation geoLocation = MetaDataExtractor.getGeoLocation(file);
+
+        if(file == null)
+            return Optional.empty();
 
         Image image = new Image();
         Metadata metadata = new Metadata();
@@ -55,8 +53,7 @@ public class ImageService {
         metadata.setGeoLocation(geoLocation);
         geoLocation.setMetadata(metadata);
 
-        metadata.setHistogram(histogram);
-        histogram.setMetadata(metadata);
+        MetaDataExtractor.setMetadata(metadata, file);
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
         //TODO: Add image tags and add image to album
@@ -86,21 +83,37 @@ public class ImageService {
         return imageRepository.findAll();
     }
 
-    /**
-     * Search all images by tags specified in {@link ImageFilter#filter(String)}.
-     *
-     * @param query the query to filter by
-     * @return list of images matching the query
-     */
-
-    //This search method is for futureproofing, when we will search using additional parameters than just tags
-    public List<Image> searchImages(String query) {
-        List<Image> allImages = imageRepository.findAll();
-        return allImages.stream()
-                .filter(ImageFilter.filter(query))
-                .collect(Collectors.toList());
+    public Optional<Image> findById(Long id){
+        return imageRepository.findById(id);
     }
 
+    /**
+     * Searches images by tags and username, and merges the two list into one with all images
+     * uses removeDuplicates list to return a list with no duplicate images
+     * @param query
+     * @return a list with no duplicate images
+     */
+
+    public List<Image> searchResult(String query){
+        List<Image> allFound = new ArrayList<>();
+        List<Image> byTags = imageRepository.findAllByTags(query);
+        List<Image> byUsername = imageRepository.findAllByUsername(query);
+        allFound.addAll(byTags);
+        allFound.addAll(byUsername);
+        return removeDuplicates(allFound);
+    }
+
+
+    /**
+     * takes a list and removes all duplicate elements
+     * @param images
+     * @return list without duplicates
+     */
+
+    public List<Image> removeDuplicates(List<Image> images){
+        return images.stream().distinct().collect(Collectors.toList());
+    }
+    
 
 
 }

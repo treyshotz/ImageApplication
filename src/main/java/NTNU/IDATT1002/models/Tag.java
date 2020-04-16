@@ -19,13 +19,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tag")
+@NamedQuery(name="Tag.findByName", query = "SELECT tag from Tag tag WHERE tag.name = :name")
 public class Tag {
 
     /**
      * Defines the tag-id, this cannot be blank
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagId;
 
 
@@ -36,8 +37,12 @@ public class Tag {
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "image_tag",
-            joinColumns = {@JoinColumn(name = "tag_id")},
-            inverseJoinColumns = {@JoinColumn(name = "image_id")}
+            joinColumns = {@JoinColumn(name = "tags_tagId",
+                    referencedColumnName = "tagId"
+            )},
+            inverseJoinColumns = {@JoinColumn(name = "image_id",
+                    referencedColumnName = "id"
+            )}
     )
     Set<Image> image = new HashSet<>();
 
@@ -47,7 +52,7 @@ public class Tag {
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "album_tags",
-            joinColumns = {@JoinColumn(name = "tag_id")},
+            joinColumns = {@JoinColumn(name = "tags_tagId")},
             inverseJoinColumns = {@JoinColumn(name = "album_id")}
     )
     Set<Image> albums = new HashSet<>();
@@ -104,6 +109,11 @@ public class Tag {
         this.name = name;
     }
 
+    public String trim() {
+        this.name = this.name.trim();
+        return this.name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,4 +123,11 @@ public class Tag {
                 Objects.equals(name, tag.name);
     }
 
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "tagId=" + tagId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

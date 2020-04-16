@@ -1,46 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="NTNU.IDATT1002.controllers.Main">
+<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Main">
    <children>
-      <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
          <children>
-            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #0c0c0c;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0">
                <children>
-                  <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/PlaceholderLogo.png" />
-                     </image>
-                  </ImageView>
-                  <Pane prefHeight="100.0" prefWidth="343.0" />
-                  <TextField fx:id="tbar_search" prefHeight="25.0" prefWidth="358.0" promptText="Search: Tags, Albums, Metadata, etc..." />
-                  <Button fx:id="tbar_searchBtn" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" />
-                  <Button fx:id="tbar_explore" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" />
-                  <Button fx:id="tbar_albums" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" />
-                  <Button fx:id="tbar_map" mnemonicParsing="false" onAction="#switchToMap" text="MAP" />
-                  <Pane prefHeight="100.0" prefWidth="174.0" />
-                  <Button fx:id="tbar_upload" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0">
-               <children>
-                  <Button fx:id="uploadBtn" mnemonicParsing="false" onAction="#switchToUpload" text="UPLOAD">
-                     <font>
-                        <Font size="60.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
+                     <children>
+                        <ImageView fx:id="navBarLogo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/PlaceholderLogo.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <TextField fx:id="navBarSearch" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="navBarSearchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
+                  <Button fx:id="navBarExplore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
+                  <Button fx:id="navBarAlbums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
+                  <Button fx:id="navBarMap" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="250.0">
+                     <children>
+                        <Button fx:id="navBarUpload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
          </children>
-      </VBox>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="982.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+         <children>
+            <Button fx:id="uploadBtn" mnemonicParsing="false" onAction="#switchToUpload" stylesheets="@style.css" text="UPLOAD" textFill="WHITE">
+               <font>
+                  <Font size="60.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

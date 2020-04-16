@@ -1,16 +1,16 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.service.ImageService;
+import NTNU.IDATT1002.service.TagService;
+import NTNU.IDATT1002.utils.ImageUtil;
+import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -21,10 +21,8 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 
 /**
@@ -32,20 +30,12 @@ import java.util.stream.Collectors;
  * a page where you can search for images and sort them
  * @version 1.0 22.03.2020
  */
-public class Search implements Initializable {
-
-    public ImageView tbar_logo;
-    public TextField tbar_search;
-    public Button tbar_searchBtn;
-    public Button tbar_explore;
-    public Button tbar_map;
-    public Button tbar_upload;
-    public Button tbar_albums;
+public class Search extends NavBarController implements Initializable {
 
     public Text search_result;
     public ScrollPane scrollpane;
-    public ChoiceBox sorted_by_choicebox;
     public VBox vBox;
+    public Text amount;
 
 
     /**
@@ -55,31 +45,35 @@ public class Search implements Initializable {
      * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
-    if (!App.ex.getSearchField().isEmpty()){
+        if (!App.ex.getSearchField().isEmpty()){
             search_result.setText(App.ex.getSearchField());
         }
-        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/placeholder-1920x1080.png");
-        for(int i = 0; i < urls.size(); i++) {
-            HBox h = new HBox();
-            h.setPrefHeight(300);
-            h.setPrefWidth(1920);
-            h.setAlignment(Pos.CENTER);
-            h.setStyle("-fx-background-color: #999999;");
 
-            Pane p = new Pane();
-            p.setPrefWidth(1400);
-            p.setPrefHeight(300);
+        List<NTNU.IDATT1002.models.Image> images = new ImageService(App.ex.getEntityManager()).searchResult(App.ex.getSearchField());
 
-            ImageView iV = new ImageView();
-            iV.setImage(new Image(urls.get(i)));
-            iV.setFitHeight(300);
-            iV.setFitWidth(500);
-            iV.pickOnBoundsProperty().setValue(true);
-            iV.setPreserveRatio(true);
-            iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        amount.setText(String.valueOf(images.size()));
+
+        for(int i = 0; i < images.size(); i++) {
+            HBox hBox = new HBox();
+            hBox.setPrefHeight(300);
+            hBox.setPrefWidth(1920);
+            hBox.setAlignment(Pos.TOP_LEFT);
+
+            Pane pane = new Pane();
+            pane.setPrefWidth(1400);
+            pane.setPrefHeight(300);
+
+            ImageView imageView = new ImageView();
+            imageView.setId(String.valueOf(images.get(i).getId()));
+            imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
+            imageView.setFitHeight(300);
+            imageView.setFitWidth(500);
+            imageView.pickOnBoundsProperty().setValue(true);
+            imageView.setPreserveRatio(true);
+            imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
                     try{
-                        switchToPicture(e);
+                        switchToViewImage(e);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -89,90 +83,66 @@ public class Search implements Initializable {
             Text title = setText("TITLE:", 550, 66, 153, "System Bold", 48);
             Text tag = setText("TAG:", 550, 97, 70, "System Bold", 24);
             Text desc = setText("DESCRIPTION:", 550, 126, 129, "System Bold", 18);
-            Text title_Field = setText(urls.get(i), 700, 66, "System Bold", 48);
-            Text tag_Field = setText("####", 700, 97, "System Bold", 24);
-            Text desc_Field = setText("####", 700, 126, "System Bold", 18);
+            Text title_Field = setText("SKAL BILDENE HA TITTEL?", 700, 66, "System Bold", 48);
+            String tagsString = TagService.getTagsAsString(images.get(i).getTags());
+            Text tag_Field = setText(tagsString, 700, 97, "System Bold", 24);
+            Text metadata_Field = setText(MetadataStringFormatter.format(images.get(i).getMetadata(), "\n"), 700, 126, "System Bold", 18);
+            VBox metaBox = new VBox();
+            metaBox.getChildren().add(metadata_Field);
+            ScrollPane meta = new ScrollPane();
+            meta.setMaxWidth(630);
+            meta.setPrefWidth(630);
+            meta.setContent(metaBox);
+            meta.setLayoutX(700);
+            meta.setLayoutY(126);
+            meta.setMaxHeight(150);
 
-            p.getChildren().addAll(iV, title, tag, desc, title_Field, tag_Field, desc_Field);
-            h.getChildren().add(p);
-            vBox.getChildren().add(h);
+
+            pane.getChildren().addAll(imageView, title, tag, desc, title_Field, tag_Field, meta);
+            hBox.getChildren().add(pane);
+            vBox.getChildren().add(hBox);
+            vBox.setMinHeight(1550+(images.size()*310));
         }
     }
 
-    public Text setText(String text, int layoutX, int layoutY, double wrappingWidth, String fontName, double fontSize){
-        Text t = new Text(text);
-        t.setLayoutX(layoutX);
-        t.setLayoutY(layoutY);
-        t.setWrappingWidth(wrappingWidth);
-        t.setFont(Font.font(fontName, fontSize));
-        return t;
-    }
+    /**
+     * Method that takes in a string of text and returns a text object
+     * @param textIn
+     * @param layoutX
+     * @param layoutY
+     * @param wrappingWidth
+     * @param fontName
+     * @param fontSize
+     * @return
+     */
 
-    public Text setText(String text, int layoutX, int layoutY, String fontName, double fontSize){
-        Text t = new Text(text);
-        t.setLayoutX(layoutX);
-        t.setLayoutY(layoutY);
-        t.setFont(Font.font(fontName, fontSize));
-        return t;
+    public Text setText(String textIn, int layoutX, int layoutY, double wrappingWidth, String fontName, double fontSize){
+        Text text = new Text(textIn);
+        text.setLayoutX(layoutX);
+        text.setLayoutY(layoutY);
+        text.setWrappingWidth(wrappingWidth);
+        text.setFont(Font.font(fontName, fontSize));
+        return text;
     }
 
     /**
-     * Method that changes scene to Main page
-     * @param mouseEvent
-     * @throws IOException
+     * Alternative setText method without wrappingWidth
+     * @param textIn
+     * @param layoutX
+     * @param layoutY
+     * @param fontName
+     * @param fontSize
+     * @return
      */
-    public void switchToMain(MouseEvent mouseEvent) throws IOException {
-        App.setRoot("main");
+
+    public Text setText(String textIn, int layoutX, int layoutY, String fontName, double fontSize){
+        Text text = new Text(textIn);
+        text.setLayoutX(layoutX);
+        text.setLayoutY(layoutY);
+        text.setFont(Font.font(fontName, fontSize));
+        return text;
     }
 
-    /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_search.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
-        }
-        App.setRoot("search");
-    }
-
-    /**
-     * Method that changes scene to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method that changes scene to Albums page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
-
-    /**
-     * Method that changes scene to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method that changes scene to Upload page
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
-     */
-    public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.setRoot("upload");
-    }
 
     /**
      * Method that updates content to previous "page"
@@ -197,10 +167,16 @@ public class Search implements Initializable {
      * @param mouseEvent what is clicked on
      * @throws IOException
      */
-    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
-        if(mouseEvent.getSource() instanceof ImageView){
-            App.ex.setChosenImg(((ImageView) mouseEvent.getSource()).getImage().getUrl());
-            App.setRoot("view_picture");
+    public void switchToViewImage(MouseEvent mouseEvent) throws IOException {
+        long imageId = 0;
+        Node node = (Node) mouseEvent.getSource();
+        if (node.getId() != null){
+            imageId = Long.parseLong(node.getId());
+        }
+
+        if (imageId != 0) {
+            App.ex.setChosenImg(imageId);
+            App.setRoot("view_image");
         }
     }
 }

@@ -1,19 +1,70 @@
+/*GENERAL STYLING*/
 
 .bodybg{
-    -fx-background-image: url("../../Images/vector1.jpg");
+    -fx-background-image: url("../../Images/AppBG.png");
     -fx-background-size: cover;
 }
 
-.signupbg{
+.tbarbg{
     -fx-background-color: #10101f;
 }
 
+.viewbg{
+    -fx-background-color: #222235;
+}
+
+.transparentbg{
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.accentBg{
+    -fx-background-color: #10101f;
+}
+
+/*SCROLLPANE CSS*/
+
+.scroll-pane {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow{
+    -fx-background-color: #46b4fe;
+    -fx-padding: 3, 0, 0, 0;
+}
+
+.scroll-bar .thumb{
+    -fx-background-color: #46b4fe;
+}
+
+/*SCROLLPANE CSS END*/
+
+/*RESPONSIZE IMAGES*/
+
+.viewAlbumImage{
+    -fx-max-width: 850px;
+    -fx-height: auto;
+    -fx-width: 100%;
+}
+
+/*RESPONSIVE IMAGES END*/
+
+/*BUTTON STYLING*/
 .button{
     -fx-transition-duration: 0.4s;
-    -fx-background-color: blank;
+    -fx-background-color: none;
     -fx-border-width: 2px;
-    -fx-border-color: white;
-    -fx-color: white;
+    -fx-border-color: #46b4fe;
+    -fx-text-fill: white;
 
 }
 
@@ -21,3 +72,59 @@
     -fx-background-color: rgba(193, 198, 196, 0.5);
     -fx-color: white;
 }
+/*BUTTON STYLING END*/
+
+
+/*GENERAL STYLING END*/
+
+.scrollHbox{
+    -fx-background-color: transparent;
+}
+
+/*UPLOAD PAGE*/
+
+.dropMenu{
+    -fx-border-width: 2px;
+    -fx-border-color: #46b4fe;
+    -fx-border-style: dashed;
+    -fx-border-radius: 3px;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 3px;
+}
+/*UPLOAD PAGE END*/
+
+/*EXPLORE PAGE*/
+
+.exploreGridPane{
+    -fx-fit-to-width: true;
+}
+/*EXPLORE PAGE END*/
+
+/*TAB PANE*/
+
+.tab-pane{
+    -fx-tab-min-height: 30;
+}
+
+.tab-header-background{
+    -fx-background-color: #10101f;
+}
+
+.tab-header-area{
+    -fx-tab-min-height: 50px;
+}
+
+.tab{
+    -fx-border-radius: 7px;
+    -fx-background-color: #46b4fe;
+}
+
+/*TAB PANE END*/
+
+
+
+
+
+
+
+

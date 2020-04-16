@@ -2,7 +2,6 @@ package NTNU.IDATT1002.repository;
 
 import NTNU.IDATT1002.models.Image;
 
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -17,12 +16,13 @@ import java.util.List;
  * @see NTNU.IDATT1002.repository.Repository
  */
 
-public class ImageRepository extends GenericRepository<Image, Long> {
+public class ImageRepository extends AbstractRepository<Image, Long> {
 
     /**
-     * Mapping to @NamedQuery 'find all albums by users username' defined in {@link  Image}
+     * Mapping to @NamedQuery 'find all albums by username and tags' defined in {@link  Image}
      */
-    public static final String IMAGE_FIND_BY_USERNAME = "Album.findAllByUsername";
+    public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
+    public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
 
     /**
      * Constructor to inject {@link EntityManager} dependency.
@@ -31,8 +31,9 @@ public class ImageRepository extends GenericRepository<Image, Long> {
      */
     public ImageRepository(EntityManager entityManager) {
       super(entityManager);
-      setClassType(Image.class);
+      setEntityClass(Image.class);
     }
+
 
     /**
      * Retrieves all albums of the user with the given username.
@@ -45,6 +46,13 @@ public class ImageRepository extends GenericRepository<Image, Long> {
                 .setParameter("username", username)
                 .getResultList();
     }
+
+    public List<Image> findAllByTags(String tag){
+        return entityManager.createNamedQuery(IMAGE_FIND_BY_TAG, Image.class)
+                .setParameter("name",tag)
+                .getResultList();
+    }
+
 }
 
 

@@ -1,14 +1,16 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.service.ImageService;
+import NTNU.IDATT1002.service.TagService;
+import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -18,7 +20,6 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,20 +28,16 @@ import java.util.ResourceBundle;
  * a page where you explore images
  * @version 1.0 22.03.2020
  */
-public class Explore implements Initializable {
+public class Explore extends NavBarController implements Initializable {
 
-    public ImageView tbar_logo;
-    public TextField tbar_search;
-    public Button tbar_searchBtn;
-    public Button tbar_explore;
-    public Button tbar_map;
-    public Button tbar_upload;
-    public Button tbar_albums;
     public ScrollPane scrollPane;
     public GridPane gridPane;
     public Button footer_previousBtn;
     public Button footer_nextBtn;
 
+    private List<NTNU.IDATT1002.models.Image> images;
+    private int start;
+    private int end;
 
     /**
      * Method that runs when explore.fxml is set as scene
@@ -50,33 +47,43 @@ public class Explore implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> urls = Arrays.asList("@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg","@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg", "@../../Images/placeholderLogo.png", "@../../Images/party.jpg","@../../Images/placeholder-1920x1080.png", "@../../Images/placeholderLogo.png", "@../../Images/placeholder-1920x1080.png", "@../../Images/party.jpg");
-        //Limited elements to 15 since grid pane since is 3x15
-        //Can implement automatic row adding when this limit exceeded later
-        for(int i = 0; i < urls.size() && i < 15; i++) {
+        images = new ImageService(App.ex.getEntityManager()).getAllImages();
+        start = 0;
+        end = 15;
+
+        generateImages(start, end);
+    }
+
+    public void generateImages(int start, int end){
+        gridPane.getChildren().clear();
+        //Limited elements to 15 since grid pane since is 3x5
+        for(int i = start; i < images.size() && i < end; i++) {
+            int index = i%15;
             //Row and column in gripdane
-            int column = i%3;
-            int row = (i-column)/3;
+            int column = index%3;
+            int row = (index-column)/3;
 
             //Make vbox container for content
-            VBox v = new VBox();
-            v.setPrefHeight(400);
-            v.setPrefWidth(400);
-            v.setAlignment(Pos.CENTER);
-            v.setStyle("-fx-background-color: #999999;");
+            VBox vBox = new VBox();
+            vBox.setPrefHeight(400);
+            vBox.setPrefWidth(400);
+            vBox.setMaxHeight(400);
+            vBox.setAlignment(Pos.CENTER);
+            //vBox.setStyle("-fx-background-color: #999999;");
 
             //Image container
-            ImageView iV = new ImageView();
-            iV.setImage(new Image(urls.get(i)));
-            iV.setFitHeight(250);
-            iV.setFitWidth(400);
-            iV.pickOnBoundsProperty().setValue(true);
-            iV.setPreserveRatio(true);
+            ImageView imageView = new ImageView();
+            imageView.setId(String.valueOf(images.get(i).getId()));
+            imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
+            imageView.setFitHeight(250);
+            imageView.setFitWidth(400);
+            imageView.pickOnBoundsProperty().setValue(true);
+            imageView.setPreserveRatio(true);
             //Link to view image page
-            iV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
                     try{
-                        switchToPicture(e);
+                        switchToViewImage(e);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -84,75 +91,18 @@ public class Explore implements Initializable {
             });
 
             //Text describing the picture's title and tag
-            Text title = new Text("TITLE:");
+            Text title = new Text("LEGG IN TITTEL I DB");
             title.setFont(Font.font("System Bold", 24));
-            Text tag = new Text("#TAGS");
+            String tagsAsString = TagService.getTagsAsString(images.get(i).getTags());
+            Text tag = new Text(tagsAsString);
             tag.setFont(Font.font("System Bold", 18));
 
             //Add elements to vbox
-            v.getChildren().addAll(iV, title, tag);
+            vBox.getChildren().addAll(imageView, title, tag);
 
             //Add vbox to gridpane
-            gridPane.add(v, column, row);
+            gridPane.add(vBox, column, row);
         }
-    }
-
-    /**
-     * Method that changes scene to Main page
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void switchToMain(MouseEvent mouseEvent) throws IOException {
-        App.setRoot("main");
-    }
-
-    /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_search.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
-        }
-        App.setRoot("search");
-    }
-
-    /**
-     * Method that changes scene to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method that changes scene to Albums page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
-
-    /**
-     * Method that changes scene to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Method that changes scene to Upload page
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
-     */
-    public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.setRoot("upload");
     }
 
     /**
@@ -160,10 +110,16 @@ public class Explore implements Initializable {
      * @param mouseEvent
      * @throws IOException
      */
-    public void switchToPicture(MouseEvent mouseEvent) throws IOException {
-        if(mouseEvent.getSource() instanceof ImageView){
-            App.ex.setChosenImg(((ImageView) mouseEvent.getSource()).getImage().getUrl());
-            App.setRoot("view_picture");
+    public void switchToViewImage(MouseEvent mouseEvent) throws IOException {
+        long imageId = 0;
+        Node node = (Node) mouseEvent.getSource();
+        if (node.getId() != null){
+                imageId = Long.parseLong(node.getId());
+        }
+
+        if (imageId != 0) {
+            App.ex.setChosenImg(imageId);
+            App.setRoot("view_image");
         }
     }
 
@@ -173,7 +129,16 @@ public class Explore implements Initializable {
      * @throws IOException
      */
     public void switchToPrevious(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that updates content to previous "page"
+        if (start - 15 >= 0){
+            start -= 15;
+            end -= 15;
+            generateImages(start, end);
+
+            if (start == 0){
+                footer_previousBtn.setDisable(true);
+            }
+            footer_nextBtn.setDisable(false);
+        }
     }
 
     /**
@@ -182,6 +147,15 @@ public class Explore implements Initializable {
      * @throws IOException
      */
     public void switchToNext(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that updates content to next "page"
+        if (start + 15 < images.size()){
+            start += 15;
+            end += 15;
+            generateImages(start, end);
+
+            if (end >= images.size()){
+                footer_nextBtn.setDisable(true);
+            }
+            footer_previousBtn.setDisable(false);
+        }
     }
 }

@@ -14,25 +14,16 @@
         <class>NTNU.IDATT1002.models.Album</class>
         <class>NTNU.IDATT1002.models.Tag</class>
         <class>NTNU.IDATT1002.models.Metadata</class>
-        <class>NTNU.IDATT1002.models.Histogram</class>
         <class>NTNU.IDATT1002.models.GeoLocation</class>
 
         <properties>
-            <!-- Configuring JDBC properties -->
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://mysql.stud.iie.ntnu.no:3306/g_sysutv_14" />
-            <property name="javax.persistence.jdbc.user" value="g_sysutv_14" />
-            <property name="javax.persistence.jdbc.password" value="tNdTRrwM" />
 
             <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
-            <property name="show_sql" value="true"/>
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
 
-            <!-- Update tables on startup -->
-            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>

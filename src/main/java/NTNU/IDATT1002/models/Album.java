@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -21,12 +22,18 @@ import java.util.Objects;
 @Table(name = "album")
 @NamedQueries({
         @NamedQuery(name="Album.findAllByUsername",
-                query = "SELECT ia from Album ia WHERE ia.user.username = :username")
+                query = "SELECT ia from Album ia WHERE ia.user.username = :username"),
+        @NamedQuery(name="Album.findByTags",
+                query = "SELECT ia from Album ia "
+                        + "join ia.tags tg "
+                        + "where tg.name = :name"),
+        @NamedQuery(name="Image.findByTitle",
+                query = "SELECT ia from Album ia WHERE ia.title = :title")
 })
 public class Album {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Title may not be blank")
@@ -171,4 +178,31 @@ public class Album {
                 updatedAt.equals(that.updatedAt);
     }
 
+    @Override
+    public String toString() {
+        String formattedImages = "";
+        if (images != null)
+            formattedImages = images.stream()
+                    .map(Image::getId)
+                    .collect(Collectors.toList())
+                    .toString();
+
+        String formattedTags = "";
+        if (tags != null)
+            formattedTags = tags.stream()
+                    .map(Tag::getName)
+                    .collect(Collectors.toList())
+                    .toString();
+
+        return "Album{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", user=" + user +
+                ", images=" + formattedImages +
+                ", tags=" + formattedTags +
+                ", description='" + description + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

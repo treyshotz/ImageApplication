@@ -3,6 +3,12 @@ image: maven:latest
 stages:
   - build
   - test
+  - pages
+
+# Cache downloaded dependencies and plugins between builds.
+cache:
+  paths:
+    - /root/.m2/repository/
 
 build:
   stage: build
@@ -11,8 +17,8 @@ build:
     - master
     - merge_requests
   script:
-    - echo "Building project with maven"
-    - mvn verify
+    - echo "BUILDING PROJECT"
+    - mvn clean compile
 
 test:
   stage: test
@@ -21,5 +27,14 @@ test:
     - master
     - merge_requests
   script:
-    - echo "Running project tests with maven"
-    - mvn test
+    - echo "RUNNING TESTS"
+    - mvn clean test
+
+pages:
+  script:
+    - mvn javadoc:javadoc
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

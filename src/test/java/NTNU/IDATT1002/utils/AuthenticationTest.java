@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.utils;
 
+import NTNU.IDATT1002.repository.TagRepository;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.Charset;
@@ -7,6 +8,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Test for {@link Authentication}
+ *
+ * @author madslun
+ * @version 1.0 06.04.20
+ */
 
 class AuthenticationTest {
 

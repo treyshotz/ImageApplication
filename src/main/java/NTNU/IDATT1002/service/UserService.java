@@ -1,6 +1,5 @@
 package NTNU.IDATT1002.service;
 
-import NTNU.IDATT1002.ApplicationState;
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.LoginRepository;
@@ -10,10 +9,13 @@ import NTNU.IDATT1002.utils.Authentication;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
- * User Service
+ * Works together with loginrepository and userrepository
+ * Combines authentication and connections to database through repositories
+ *
  * @author madslun
  * @version 1.0 22.03.20
  */
@@ -125,5 +127,9 @@ public class UserService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<User> getUsers(){
+        return userRepository.findAll();
     }
 }

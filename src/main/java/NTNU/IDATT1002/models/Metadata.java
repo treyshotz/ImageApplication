@@ -28,17 +28,55 @@ public class Metadata {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private GeoLocation geolocation;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Histogram histogram;
+    @Column(name = "camera")
+    private String camera;
+
+    @Column(name = "lens")
+    private String lens;
+
+    @Column(name = "aperture")
+    private String aperture;
+
+    @Column(name = "shutterspeed")
+    private String shutterSpeed;
+
+    @Column(name = "iso")
+    private String ISO;
+
+    @Column(name = "focallength")
+    private String focalLength;
+
+    @Column(name = "filetype")
+    private String fileType;
+
+    @Column(name = "photodate")
+    private String photoDate;
+
+    @Column(name = "filesize")
+    private String fileSize;
+
+    @Column(name = "filedimension")
+    private String fileDimension;
 
     public Metadata() {
     }
 
-    public Metadata(Image image, GeoLocation geoLocation, Histogram histogram) {
-        this.image = image;
-        this.geolocation = geolocation;
-        this.histogram = histogram;
+    public Metadata(Metadata metadata) {
+        this.metadataId = metadata.getMetadataId();
+        this.image = metadata.getImage();
+        this.geolocation = metadata.getGeoLocation();
+        this.camera = metadata.getCamera();
+        this.lens = metadata.getLens();
+        this.aperture = metadata.getAperture();
+        this.shutterSpeed = metadata.getShutterSpeed();
+        this.ISO = metadata.getISO();
+        this.focalLength = metadata.getFocalLength();
+        this.fileType = metadata.getFileType();
+        this.photoDate = metadata.getPhotoDate();
+        this.fileSize = metadata.getFileSize();
+        this.fileDimension = metadata.getFileDimension();
     }
+
 
     public Long getMetadataId() {
         return metadataId;
@@ -52,8 +90,20 @@ public class Metadata {
         return geolocation;
     }
 
-    public Histogram getHistogram() {
-        return histogram;
+    public String getCamera() {
+        return camera;
+    }
+
+    public void setCamera(String camera) {
+        this.camera = camera;
+    }
+
+    public String getLens() {
+        return lens;
+    }
+
+    public void setLens(String lens) {
+        this.lens = lens;
     }
 
     public void setImage(Image image) {
@@ -64,7 +114,85 @@ public class Metadata {
         this.geolocation = geolocation;
     }
 
-    public void setHistogram(Histogram histogram) {
-        this.histogram = histogram;
+    public String getAperture() {
+        return aperture;
+    }
+
+    public String getShutterSpeed() {
+        return shutterSpeed;
+    }
+
+    public String getISO() {
+        return ISO;
+    }
+
+    public String getFocalLength() {
+        return focalLength;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public String getPhotoDate() {
+        return photoDate;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public String getFileDimension() {
+        return fileDimension;
+    }
+
+    public void setAperture(String aperture) {
+        this.aperture = aperture;
+    }
+
+    public void setShutterSpeed(String shutterSpeed) {
+        this.shutterSpeed = shutterSpeed;
+    }
+
+    public void setISO(String ISO) {
+        this.ISO = ISO;
+    }
+
+    public void setFocalLength(String focalLength) {
+        this.focalLength = focalLength;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public void setPhotoDate(String photoDate) {
+        this.photoDate = photoDate;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public void setFileDimension(String fileDimension) {
+        this.fileDimension = fileDimension;
+    }
+
+    @Override
+    public String toString() {
+        return "Metadata{" +
+                ", metadataId=" + metadataId +
+                ", camera='" + camera + '\'' +
+                ", lens='" + lens + '\'' +
+                ", aperture='" + aperture + '\'' +
+                ", shutterSpeed='" + shutterSpeed + '\'' +
+                ", ISO='" + ISO + '\'' +
+                ", focalLength='" + focalLength + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", photoDate='" + photoDate + '\'' +
+                ", fileSize='" + fileSize + '\'' +
+                ", fileDimension='" + fileDimension + '\'' +
+                '}';
+
     }
 }
