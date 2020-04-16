@@ -61,6 +61,22 @@ public class Metadata {
     public Metadata() {
     }
 
+    public Metadata(Metadata metadata) {
+        this.metadataId = metadata.getMetadataId();
+        this.image = metadata.getImage();
+        this.geolocation = metadata.getGeoLocation();
+        this.camera = metadata.getCamera();
+        this.lens = metadata.getLens();
+        this.aperture = metadata.getAperture();
+        this.shutterSpeed = metadata.getShutterSpeed();
+        this.ISO = metadata.getISO();
+        this.focalLength = metadata.getFocalLength();
+        this.fileType = metadata.getFileType();
+        this.photoDate = metadata.getPhotoDate();
+        this.fileSize = metadata.getFileSize();
+        this.fileDimension = metadata.getFileDimension();
+    }
+
 
     public Long getMetadataId() {
         return metadataId;

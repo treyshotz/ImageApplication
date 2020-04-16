@@ -116,10 +116,9 @@ public class Image {
     return uploadedAt;
   }
 
-  public String getPath() {
-    return path;
+  public User getUser() {
+    return user;
   }
-
 
   /**
    * Add this image in the given album.

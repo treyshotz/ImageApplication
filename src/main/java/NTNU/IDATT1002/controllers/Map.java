@@ -102,14 +102,15 @@ public class Map extends NavBarController implements Initializable, MapComponent
      */
     @Override
     public void mapInitialized() {
-        googleMap = ImageMapFactory.createMap(mapView);
+        ImageMapFactory imageMapFactory = new ImageMapFactory();
+        googleMap = imageMapFactory.createMap(mapView);
         
         Task<List<Image>> fetchImagesTask = getImageListTask();
         executorService.submit(fetchImagesTask);
 
         fetchImagesTask.setOnSucceeded(workerStateEvent -> {
             List<Image> images = fetchImagesTask.getValue();
-            List<Marker> markers = ImageMapFactory.createMarkers(images);
+            List<Marker> markers = imageMapFactory.createMarkers(images);
             googleMap.addMarkers(markers);
         });
     }

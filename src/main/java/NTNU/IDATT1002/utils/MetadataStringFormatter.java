@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.utils;
 
+import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Metadata;
 import org.apache.commons.text.WordUtils;
 import org.slf4j.Logger;
@@ -38,14 +39,15 @@ public class MetadataStringFormatter {
      * @param delimiter the delimiter separating the fields
      * @return the formatted string
      */
-    public static String format(Metadata metadata, char delimiter) {
+    public static String format(Metadata metadata, String delimiter) {
+        Metadata pureMetadata = new Metadata(metadata);
+        Stream<Field> fields = Arrays.stream(pureMetadata.getClass().getDeclaredFields());
 
-        Stream<Field> fields = Arrays.stream(metadata.getClass().getDeclaredFields());
         StringBuilder metadataString = new StringBuilder();
 
         fields.filter(field -> include.contains(field.getName()))
                 .forEach(field -> {
-                    String formattedField = getFormattedField(metadata, delimiter, field);
+                    String formattedField = getFormattedField(pureMetadata, delimiter, field);
                     metadataString.append(formattedField);
                 });
 
@@ -63,21 +65,17 @@ public class MetadataStringFormatter {
      * @return the formatted field as a string
      */
     private static String getFormattedField(Metadata metadata,
-                                            char delimiter,
+                                            String delimiter,
                                             Field field) {
         field.setAccessible(true);
 
         String[] fieldNameSplitByUppercase = field.getName().split("(?=\\p{Upper}[a-z])");
         String fieldNameTitle = String.join(" ", fieldNameSplitByUppercase);
 
-        StringBuilder fieldString = new StringBuilder();
-        fieldString.append(WordUtils.capitalizeFully(fieldNameTitle))
-                .append(": ");
-
-        fieldString.append(getFieldValue(metadata, field))
-                .append(delimiter);
-
-        return fieldString.toString();
+        return WordUtils.capitalizeFully(fieldNameTitle) +
+                ": " +
+                getFieldValue(metadata, field) +
+                delimiter;
     }
 
     /**
@@ -88,19 +86,44 @@ public class MetadataStringFormatter {
      */
     private static String getFieldValue(Metadata metadata, Field field) {
         StringBuilder fieldValueString = new StringBuilder();
+        
         try {
-            if (field.get(metadata) == null)
-                fieldValueString.append("No ")
-                        .append(field.getName())
-                        .append(" found.");
-            else
-                fieldValueString.append(field.get(metadata));
-
+            appendFieldValue(metadata, field, fieldValueString);
         } catch (IllegalAccessException e) {
             logger.error("[x] Failed to process field {}", field.getName(), e);
         }
 
         return fieldValueString.toString();
+    }
+
+    /**
+     * Append given fields value from given metadata to given string builder.
+     *
+     * @param metadata the metadata object holding the data
+     * @param field the field to get the value from
+     * @param fieldValueString the StringBuilder to append to
+     * @throws IllegalAccessException if field does not exist or access is denied
+     */
+    private static void appendFieldValue(Metadata metadata, Field field, StringBuilder fieldValueString)
+            throws IllegalAccessException {
+        Object fieldValue = field.get(metadata);
+
+        if (fieldValue == null || fieldValue.equals(""))
+            fieldValueString.append("No ")
+                    .append(field.getName())
+                    .append(" found.");
+        else if (field.getName().equals("geolocation"))
+            fieldValueString.append(getGeoLocationValue(metadata, field));
+        else
+            fieldValueString.append(fieldValue);
+    }
+
+    private static String getGeoLocationValue(Metadata metadata, Field field) throws IllegalAccessException {
+        GeoLocation geolocation = (GeoLocation) field.get(metadata);
+        return "latitude: " +
+                geolocation.getLatitude() +
+                ", longitude: " +
+                geolocation.getLatitude();
     }
 
 }
