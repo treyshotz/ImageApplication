@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Image service
@@ -22,6 +24,7 @@ public class ImageService {
 
     private ImageRepository imageRepository;
     private TagService tagService;
+    private static Logger logger = LoggerFactory.getLogger(ImageService.class);
 
     /**
      * Inject entity manager instance to the repositories.
@@ -39,11 +42,12 @@ public class ImageService {
      * @return Optional containing the saved image
      */
     public Optional<Image> createImage(User user, File file, List<Tag> tags) {
-
+        if(file == null) {
+            logger.error("[x] An error occurred when trying to create a image; the file was null and the image could not be created");
+            return Optional.empty();
+        }
         GeoLocation geoLocation = MetaDataExtractor.getGeoLocation(file);
 
-        if(file == null)
-            return Optional.empty();
 
         Image image = new Image();
         Metadata metadata = new Metadata();
