@@ -27,7 +27,7 @@ class MetadataStringFormatterTest {
     @Disabled("Not able to solve CI test run failure on this test")
     @Test
     void testFormatReturnsFormattedString() {
-        String metadataString = MetadataStringFormatter.format(metadata, ' ');
+        String metadataString = MetadataStringFormatter.format(metadata, "");
 
         assertEquals(metadataString.trim(), formattedMetadata.trim());
     }
