@@ -38,7 +38,7 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <TextField fx:id="navBarSearch" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
+                  <TextField fx:id="navBarSearch" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

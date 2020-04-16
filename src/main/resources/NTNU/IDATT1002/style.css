@@ -65,7 +65,15 @@
     -fx-border-width: 2px;
     -fx-border-color: #46b4fe;
     -fx-text-fill: white;
+}
 
+.button:focused{
+    -fx-background-color: rgba(193, 198, 196, 0.5);
+    -fx-color: white;
+}
+
+.text-input, .text-input:focused{
+    -fx-prompt-text-fill: darkgrey;
 }
 
 .button:hover{
