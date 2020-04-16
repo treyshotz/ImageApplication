@@ -42,19 +42,9 @@ import java.util.concurrent.Executors;
  * a page where you explore albums
  * @version 1.1 04.04.2020
  */
-public class ExploreAlbums implements Initializable {
-    public ImageView tbar_logo;
-    public TextField tbar_search;
-    public Button tbar_map;
-    public Button tbar_upload;
-    public Button tbar_albums;
-    public Button tbar_searchBtn;
-    public Button tbar_explore;
+public class ExploreAlbums extends NavBarController implements Initializable {
 
     public ScrollPane scrollpane;
-    //public Button footer_previous_page;
-    //public Button footer_next_page;
-
     public Text albumAmount;
     public ChoiceBox sortedByChoicebox;
     public Button createAlbumButton;
@@ -347,70 +337,6 @@ public class ExploreAlbums implements Initializable {
         content.getChildren().addAll(descriptionLabel, descriptionText);
 
         return content;
-    }
-
-    /**
-     * Change scene to Main page.
-     *
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void switchToMain(MouseEvent mouseEvent) throws IOException {
-        App.setRoot("main");
-    }
-
-    /**
-     * Change scene to Search page. Reads the value of the search
-     * field and if not empty it is passed to DataExchange.
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_search.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
-        }
-        App.setRoot("search");
-    }
-
-    /**
-     * Change scene to Explore page.
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore");
-    }
-
-    /**
-     * Change scene to Albums page.
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.setRoot("explore_albums");
-    }
-
-    /**
-     * Change scene to Map page.
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
-    }
-
-    /**
-     * Change scene to Upload page.
-     *
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
-     */
-    public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.setRoot("upload");
     }
 
     /**

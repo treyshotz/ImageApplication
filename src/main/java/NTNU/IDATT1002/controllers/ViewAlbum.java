@@ -16,7 +16,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,10 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javax.persistence.EntityManager;
-
 import javafx.stage.Stage;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
@@ -47,13 +43,7 @@ import java.util.stream.Collectors;
  * @version 1.0 22.03.2020
  */
 public class ViewAlbum implements Initializable {
-    public TextField tbar_search;
-    public ImageView tbar_logo;
-    public Button tbar_explore;
-    public Button tbar_map;
-    public Button tbar_upload;
-    public Button tbar_searchBtn;
-    public Button tbar_albums;
+
     public Pane metadataPane;
     public Button createAlbumPdf;
     public ImageView mainImageContainer;
@@ -67,8 +57,6 @@ public class ViewAlbum implements Initializable {
 
     private AlbumService albumService;
     private Album currentAlbum;
-
-    
 
     /**
      * Initialize view with real album data.
@@ -227,70 +215,6 @@ public class ViewAlbum implements Initializable {
     }
 
     /**
-     * Method that changes scene to Main page
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void switchToMain(MouseEvent mouseEvent) throws IOException {
-        App.ex.setChosenAlbumId(null);
-        App.setRoot("main");
-    }
-
-    /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!tbar_search.getText().isEmpty()){
-            App.ex.setSearchField(tbar_search.getText());
-        }
-        App.ex.setChosenAlbumId(null);
-        App.setRoot("search");
-    }
-
-    /**
-     * Method that changes scene to Explore page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToExplore(ActionEvent actionEvent) throws IOException {
-        App.ex.setChosenAlbumId(null);
-        App.setRoot("explore");
-    }
-
-    /**
-     * Method that changes scene to Albums page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToAlbums(ActionEvent actionEvent) throws IOException {
-        App.ex.setChosenAlbumId(null);
-        App.setRoot("explore_albums");
-    }
-
-    /**
-     * Method that changes scene to Map page
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToMap(ActionEvent actionEvent) throws IOException {
-        App.ex.setChosenAlbumId(null);
-        App.setRoot("map");
-    }
-
-    /**
-     * Method that changes scene to Upload page
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
-     */
-    public void switchToUpload(ActionEvent actionEvent) throws IOException {
-        App.ex.setChosenAlbumId(null);
-        App.setRoot("upload");
-    }
-
-    /**
      * Makes a new stage and display the clicked image in max size
      * @param mouseEvent
      */
@@ -307,7 +231,6 @@ public class ViewAlbum implements Initializable {
             imageView.setPickOnBounds(true);
             imageView.setImage(((ImageView) clickedObject).getImage());
             pane.setCenter(imageView);
-
 
             Scene scene = new Scene(pane);
             stage.setMaximized(true);
@@ -350,6 +273,6 @@ public class ViewAlbum implements Initializable {
     }
 
     public void viewOnMap(ActionEvent actionEvent) throws IOException {
-        App.setRoot("map");
+        App.setRoot("map"); // TODO: 15.04.2020 Set App.ex.chosenAlbumId?
     }
 }
