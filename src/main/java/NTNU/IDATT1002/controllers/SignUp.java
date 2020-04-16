@@ -33,6 +33,7 @@ public class SignUp {
     public TextField signup_username;
     public TextField signup_email;
     public PasswordField signup_password;
+    public PasswordField confirm_password;
     public TextField signup_phoneCode;
     public TextField signup_phoneNr;
     public DatePicker signup_birthDate;
@@ -57,6 +58,7 @@ public class SignUp {
         String lastName = signup_lastName.getText();
         String email = signup_email.getText();
         String password = signup_password.getText();
+        String confirmedPassword = confirm_password.getText();
         String phoneCode = signup_phoneCode.getText();
         String phoneNr = signup_phoneNr.getText();
 
@@ -72,7 +74,7 @@ public class SignUp {
 
 
 
-        if (validateInfo(username, firstName, lastName, email, password, phoneCode, phoneNr, birthLocalDate)) {
+        if (validateInfo(username, firstName, lastName, email, password, confirmedPassword, phoneCode, phoneNr, birthLocalDate)) {
           {
               Instant instant = Instant.from(birthLocalDate.atStartOfDay(ZoneId.systemDefault()));
               Date birthDate = Date.from(instant);
@@ -103,7 +105,7 @@ public class SignUp {
      * @param birthdate
      *
      */
-        private boolean validateInfo (String username, String firstName, String lastName, String email, String password, String phoneCode, String phoneNR, LocalDate birthdate){
+        private boolean validateInfo (String username, String firstName, String lastName, String email, String password, String confirmedPassword, String phoneCode, String phoneNR, LocalDate birthdate){
             check = true;
 
             userService.getUsers().stream().forEach(x -> {
@@ -157,6 +159,12 @@ public class SignUp {
             }if (birthdate == null){
                 signup_birthDate.setStyle("-fx-prompt-text-fill: red");
                 signup_birthDate.setPromptText("Please enter your birthdate");
+                check = false;
+            }if (!(password.equals(confirmedPassword))) {
+                signup_password.clear();
+                confirm_password.clear();
+                signup_password.setStyle("-fx-prompt-text-fill: red");
+                signup_password.setPromptText("Your passwords did not match");
                 check = false;
             }
             return check;
