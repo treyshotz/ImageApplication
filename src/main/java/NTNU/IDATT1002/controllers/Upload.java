@@ -7,6 +7,9 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import java.util.ArrayList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
@@ -49,6 +52,14 @@ public class Upload extends NavBarController {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png","*.jpg", "*.jpeg"));
         // Show save file dialog
         List<File> list = fileChooser.showOpenMultipleDialog(uploadBtn.getScene().getWindow());
+
+        for(File file : list) {
+            if(file.length() > 4100000) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, file.getName() + " is too large. File limit is 4.1MB");
+                alert.show();
+                list = new ArrayList<>();
+            }
+        }
 
         if(!list.isEmpty()){
             //Store files in DataExchange

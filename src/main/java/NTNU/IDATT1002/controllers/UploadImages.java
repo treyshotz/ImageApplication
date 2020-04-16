@@ -251,6 +251,11 @@ public class UploadImages extends NavBarController implements Initializable {
 
       //Each of the uploaded images in DataExchange index match on each container displaying it on the page
       File file = App.ex.getUploadedFiles().get(i);
+      if(file.length() > 4100000) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, file.getName() + "is too large. File limit is 4.1MB");
+        alert.show();
+        break;
+      }
       String tagsString = ((TextField) tagsField).getText();
       List<Tag> tags = TagService.getTagsFromString(tagsString);
 
