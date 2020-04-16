@@ -84,8 +84,10 @@ public class ExploreAlbums extends NavBarController implements Initializable {
         fetchAlbums.setOnSucceeded(workerStateEvent -> {
             listOfAlbums = FXCollections.observableArrayList(fetchAlbums.getValue());
             VBox albumVBox = createAlbumVBox(listOfAlbums);
+            albumVBox.setSpacing(20);
             Platform.runLater(this::finalizeProgress);
-            
+
+            rootAlbumsContainer.setMinHeight(albumVBox.getMinHeight());
             rootAlbumsContainer.getChildren().remove(albumsPlaceholder);
             rootAlbumsContainer.getChildren().add(albumVBox);
         });
