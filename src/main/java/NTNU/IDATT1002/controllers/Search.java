@@ -4,6 +4,7 @@ import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
+import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -85,7 +86,7 @@ public class Search extends NavBarController implements Initializable {
             Text title_Field = setText("SKAL BILDENE HA TITTEL?", 700, 66, "System Bold", 48);
             String tagsString = TagService.getTagsAsString(images.get(i).getTags());
             Text tag_Field = setText(tagsString, 700, 97, "System Bold", 24);
-            Text metadata_Field = setText(images.get(i).getMetadata().toString(), 700, 126, "System Bold", 18);
+            Text metadata_Field = setText(MetadataStringFormatter.format(images.get(i).getMetadata(), '\n'), 700, 126, "System Bold", 18);
             VBox metaBox = new VBox();
             metaBox.getChildren().add(metadata_Field);
             ScrollPane meta = new ScrollPane();
