@@ -23,7 +23,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
                      <children>
-                        <ImageView fx:id="tbar_logo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="navBarLogo" fitHeight="69.0" fitWidth="153.0" onMouseClicked="#switchToMain" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/PlaceholderLogo.png" />
                            </image>
@@ -36,18 +36,18 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <TextField fx:id="tbar_search" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
+                  <TextField fx:id="navBarSearch" focusTraversable="false" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="tbar_searchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
-                  <Button fx:id="tbar_explore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
-                  <Button fx:id="tbar_albums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
-                  <Button fx:id="tbar_map" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
+                  <Button fx:id="navBarSearchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
+                  <Button fx:id="navBarExplore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
+                  <Button fx:id="navBarAlbums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
+                  <Button fx:id="navBarMap" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="250.0">
                      <children>
-                        <Button fx:id="tbar_upload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
+                        <Button fx:id="navBarUpload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
                      </children>
                   </HBox>
                </children>
