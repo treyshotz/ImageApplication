@@ -146,10 +146,10 @@ public class ViewAlbum implements Initializable {
         HBox content = new HBox();
 
         Text titleLabel = new Text("Title: ");
-        titleLabel.setFont(Font.font("System", FontWeight.BOLD, 48));
+        titleLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 48));
 
         Text title = new Text(album.getTitle());
-        title.setFont(Font.font("System",48));
+        title.setFont(Font.font(App.ex.getDefaultFont(),48));
 
         content.getChildren().addAll(titleLabel, title);
 
@@ -165,10 +165,10 @@ public class ViewAlbum implements Initializable {
     private void insertAlbumAuthor(Album album, VBox textContainer) {
         HBox content = new HBox();
         Text authorLabel = new Text("Author: ");
-        authorLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
+        authorLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 
         Text author = new Text(album.getUser().getUsername());
-        author.setFont(Font.font("System",24));
+        author.setFont(Font.font(App.ex.getDefaultFont(),24));
 
         content.getChildren().addAll(authorLabel, author);
         textContainer.getChildren().add(content);
@@ -183,13 +183,13 @@ public class ViewAlbum implements Initializable {
     private void insertAlbumTags(Album album, VBox textContainer) {
         HBox content = new HBox();
         Text tagsLabel = new Text("Tags: ");
-        tagsLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+        tagsLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 16));
 
         String tagsAsString = album.getTags().stream()
                 .map(Tag::getName)
                 .collect(Collectors.joining(" "));
         Text tags = new Text(tagsAsString);
-        tags.setFont(Font.font("System",16));
+        tags.setFont(Font.font(App.ex.getDefaultFont(),16));
 
         content.getChildren().addAll(tagsLabel, tags);
         textContainer.getChildren().add(content);
@@ -204,11 +204,11 @@ public class ViewAlbum implements Initializable {
      */
     private void insertAlbumDescription(Album album, VBox textContainer) {
         Text descriptionLabel = new Text("Description: ");
-        descriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+        descriptionLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 16));
 
         Text description = new Text(album.getDescription());
         description.setWrappingWidth(500);
-        description.setFont(Font.font("System",16));
+        description.setFont(Font.font(App.ex.getDefaultFont(),16));
 
 
         textContainer.getChildren().addAll(descriptionLabel, description);
