@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  * a page where get a more detailed view of an album
  * @version 1.0 22.03.2020
  */
-public class ViewAlbum implements Initializable {
+public class ViewAlbum extends NavBarController implements Initializable {
 
     public Pane metadataPane;
     public Button createAlbumPdf;

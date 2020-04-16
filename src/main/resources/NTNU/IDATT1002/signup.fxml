@@ -46,18 +46,18 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="signup_firstName" prefHeight="35.0" prefWidth="248.0" promptText="First name" GridPane.rowIndex="1" focusTraversable="false"/>
-                  <TextField fx:id="signup_lastName" prefHeight="35.0" promptText="Last name" GridPane.rowIndex="2" focusTraversable="false"/>
-                  <TextField fx:id="signup_username" prefHeight="35.0" promptText="Username" GridPane.rowIndex="3" focusTraversable="false"/>
-                  <TextField fx:id="signup_email" prefHeight="35.0" promptText="Email" GridPane.rowIndex="4" focusTraversable="false"/>
-                  <PasswordField fx:id="signup_password" prefHeight="35.0" prefWidth="247.0" promptText="Password" GridPane.rowIndex="5" focusTraversable="false"/>
+                  <TextField fx:id="signup_firstName" prefHeight="35.0" prefWidth="248.0" promptText="First name" GridPane.rowIndex="1" />
+                  <TextField fx:id="signup_lastName" prefHeight="35.0" promptText="Last name" GridPane.rowIndex="2" />
+                  <TextField fx:id="signup_username" prefHeight="35.0" promptText="Username" GridPane.rowIndex="3" />
+                  <TextField fx:id="signup_email" prefHeight="35.0" promptText="Email" GridPane.rowIndex="4" />
+                  <PasswordField fx:id="signup_password" prefHeight="35.0" prefWidth="247.0" promptText="Password" GridPane.rowIndex="5" />
                   <HBox GridPane.rowIndex="6">
                      <children>
-                        <TextField fx:id="signup_phoneCode" prefHeight="35.0" prefWidth="150.0" promptText="Calling code" focusTraversable="false"/>
-                        <TextField fx:id="signup_phoneNr" prefHeight="35.0" prefWidth="242.0" promptText="Phone number" focusTraversable="false"/>
+                        <TextField fx:id="signup_phoneCode" prefHeight="35.0" prefWidth="150.0" promptText="Calling code" />
+                        <TextField fx:id="signup_phoneNr" prefHeight="35.0" prefWidth="242.0" promptText="Phone number" />
                      </children>
                   </HBox>
-                  <DatePicker fx:id="signup_birthDate" prefHeight="35.0" prefWidth="304.0" promptText="Birth date" GridPane.rowIndex="7" focusTraversable="false"/>
+                  <DatePicker fx:id="signup_birthDate" prefHeight="35.0" prefWidth="304.0" promptText="Birth date" GridPane.rowIndex="7" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP">
                      <font>
                         <Font name="System Bold" size="14.0" />
@@ -65,8 +65,8 @@
                   </Text>
                   <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="8">
                      <children>
-                        <Button fx:id="cancelBtn" layoutX="10.0" layoutY="10.0" onAction="#cancel" prefHeight="35.0" prefWidth="85.0" text="Cancel" textFill="WHITE" />
                         <Button fx:id="signup_btn" onAction="#signup" prefHeight="35.0" prefWidth="85.0" text="Sign up" textFill="WHITE" />
+                        <Button fx:id="cancelBtn" layoutX="10.0" layoutY="10.0" onAction="#cancel" prefHeight="35.0" prefWidth="85.0" text="Cancel" textFill="WHITE" />
                      </children>
                   </HBox>
                </children>
