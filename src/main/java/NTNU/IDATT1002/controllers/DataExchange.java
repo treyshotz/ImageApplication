@@ -22,9 +22,11 @@ public class DataExchange {
     private List<File> uploadedFiles;
     private Long chosenAlbumId;
     private Long chosenImg;
+    private final String defaultFont;
 
     public DataExchange(){
         searchField = "";
+        defaultFont = "System";
         apiKey = Config.getGoogleApiKey();
         geoApiContext = new GeoApiContext.Builder()
                 .apiKey(getApiKey())
@@ -81,6 +83,10 @@ public class DataExchange {
 
     public void setChosenImg(Long chosenImg) {
         this.chosenImg = chosenImg;
+    }
+
+    public String getDefaultFont() {
+        return defaultFont;
     }
 }
 

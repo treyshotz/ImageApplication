@@ -148,11 +148,11 @@ public class UploadImages extends NavBarController implements Initializable {
     HBox titleContainer = new HBox();
 
     Text titleLabel = new Text("Title: ");
-    titleLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
+    titleLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 
     TextField title = new TextField();
     title.setId("title");
-    title.setFont(Font.font("System",24));
+    title.setFont(Font.font(App.ex.getDefaultFont(),24));
 
     titleContainer.getChildren().addAll(titleLabel, title);
 
@@ -169,11 +169,11 @@ public class UploadImages extends NavBarController implements Initializable {
     HBox tagContainer = new HBox();
 
     Text tagLabel = new Text("Tags: ");
-    tagLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
+    tagLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 
     TextField tags = new TextField();
     tags.setId("tags");
-    tags.setFont(Font.font("System",24));
+    tags.setFont(Font.font(App.ex.getDefaultFont(),24));
 
     tagContainer.getChildren().addAll(tagLabel, tags);
 
@@ -189,14 +189,14 @@ public class UploadImages extends NavBarController implements Initializable {
    */
   private void insertImageMetadata(File file, VBox textContainer) {
     Text metadataLabel = new Text("Metadata: ");
-    metadataLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+    metadataLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 16));
 
     String metadataSting = MetaDataExtractor.getMetadata(file);
     TextArea metadata = new TextArea(metadataSting);
 
     metadata.setEditable(false);
     metadata.setPrefWidth(500);
-    metadata.setFont(Font.font("System",16));
+    metadata.setFont(Font.font(App.ex.getDefaultFont(),16));
 
 
     textContainer.getChildren().addAll(metadataLabel, metadata);

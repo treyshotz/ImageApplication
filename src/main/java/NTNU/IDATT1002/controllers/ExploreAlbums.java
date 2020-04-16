@@ -1,29 +1,23 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.controllers.components.AlbumHBox;
 import NTNU.IDATT1002.models.Album;
-import NTNU.IDATT1002.models.Tag;
-import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.service.AlbumService;
-import NTNU.IDATT1002.service.TagService;
-import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +30,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Stream;
 
 /**
  * Controls the buttons and changeable elements on explore_albums.fxml,
@@ -110,6 +105,14 @@ public class ExploreAlbums extends NavBarController implements Initializable {
     };
 
     /**
+     * Set the progressbar to finished and remove it from the root container.
+     */
+    private void finalizeProgress() {
+        progressBar.setProgress(1);
+        pageRootContainer.getChildren().remove(progressBarContainer);
+    }
+
+    /**
      * Create the root container for displaying albums and add the retrieved albums.
      * It is currently a limit at 50 albums per page.
      * Load each corresponding images in a separate background task and add them when ready.
@@ -123,19 +126,19 @@ public class ExploreAlbums extends NavBarController implements Initializable {
         
         for (int i = 0; i < maxPerPage; i++) {
             Album album = listOfAlbums.get(i);
-            HBox albumHBox = createAlbumHBox(album);
+            AlbumHBox albumHBox = new AlbumHBox(album);
 
-            Task<List<NTNU.IDATT1002.models.Image>> fetchImagesTask = fetchImages(album);
+            Task<List<NTNU.IDATT1002.models.Image>> fetchImagesTask = fetchImagesFrom(album);
             executorService.submit(fetchImagesTask);
 
             fetchImagesTask.setOnSucceeded(workerStateEvent -> {
-                ObservableList<NTNU.IDATT1002.models.Image> listOfImages = FXCollections.observableArrayList(fetchImagesTask.getValue());
-                ImageView imageView = createAlbumImageView(listOfImages.get(0));
-                Node imagePlaceholder = albumHBox.lookup("#imagePlaceholder");
-                albumHBox.getChildren().remove(imagePlaceholder);
-                albumHBox.getChildren().add(0, imageView);
-            });
+                NTNU.IDATT1002.models.Image previewImage = FXCollections.observableArrayList(
+                        fetchImagesTask.getValue())
+                        .get(0);
 
+                albumHBox.replaceAlbumImageViewWith(previewImage);
+                setSwitchToAlbumOnAlbumComponents(albumHBox);
+            });
 
             albumVBox.getChildren().add(albumHBox);
         }
@@ -149,7 +152,7 @@ public class ExploreAlbums extends NavBarController implements Initializable {
      * @param album the album whose images to fetch
      * @return task to return a list of fetched images
      */
-    private Task<List<NTNU.IDATT1002.models.Image>> fetchImages(Album album) {
+    private Task<List<NTNU.IDATT1002.models.Image>> fetchImagesFrom(Album album) {
         return new Task<>() {
             @Override
             protected List<NTNU.IDATT1002.models.Image> call() {
@@ -164,181 +167,22 @@ public class ExploreAlbums extends NavBarController implements Initializable {
     }
 
     /**
-     * Set the progressbar to finished and remove it from the root container.
-     */
-    private void finalizeProgress() {
-        progressBar.setProgress(1);
-        pageRootContainer.getChildren().remove(progressBarContainer);
-    }
-
-    /**
-     * Crete the HBox for a single album with a placeholder for an image to be added later.
+     * Add {@link MouseEvent} event handler to appropriate components in given {@link AlbumHBox}.
      *
-     * @param album the album to display
-     * @return HBox with album fields and image placeholder
+     * @param albumHBox the composite component.
      */
-    private HBox createAlbumHBox(Album album) {
-        HBox albumContainer = new HBox();
-
-        albumContainer.setId(album.getId().toString());
-        albumContainer.setPrefWidth(1520);
-        albumContainer.setPrefHeight(300);
-
-        VBox albumTextVBox = createAlbumTextVBox(album);
-        ImageView imageViewPlaceholder = createStyledImageView();
-        imageViewPlaceholder.setId("imagePlaceholder");
-
-        albumContainer.getChildren().addAll(imageViewPlaceholder, albumTextVBox);
-
-        return albumContainer;
-    }
-
-    /**
-     * Create a styled ImageView with no content.
-     *
-     * @return the ImageView created
-     */
-    private ImageView createStyledImageView() {
-        ImageView imageView = new ImageView();
-        imageView.setFitHeight(300.0);
-        imageView.setFitWidth(533.0);
-        imageView.setPickOnBounds(true);
-        imageView.setPreserveRatio(true);
-
-        return imageView;
-    }
-
-    /**
-     * Create the ImageView which holds the given image
-     *
-     * @param image the image to display
-     */
-    private ImageView createAlbumImageView(NTNU.IDATT1002.models.Image image) {
-        ImageView imageView = createStyledImageView();
-        imageView.setOnMouseClicked(mouseEvent -> {
-            try{
+    private void setSwitchToAlbumOnAlbumComponents(AlbumHBox albumHBox) {
+        EventHandler<MouseEvent> mouseEventEventHandler = mouseEvent -> {
+            try {
                 switchToViewAlbum(mouseEvent);
             } catch (IOException ex) {
                 logger.error("[x] Failed to switch to Album View", ex);
             }
-        });
+        };
 
-        Image imageToSet = ImageUtil.convertToFXImage(image);
-        imageView.setImage(imageToSet);
-
-        return imageView;
-    }
-
-    /**
-     * Create VBox holding the fields of given album.
-     *
-     * @param album the album to display
-     */
-    private VBox createAlbumTextVBox(Album album) {
-        VBox textContainer = createAlignedVBox();
-
-        HBox title = createAlbumTitleHBox(album.getTitle());
-        HBox author = createAuthorHBox(album.getUser());
-        HBox tags = createTagsHBox(album.getTags());
-        HBox description = createDescriptionHBox(album.getDescription());
-
-        textContainer.getChildren().addAll(title, author, tags, description);
-        return textContainer;
-    }
-
-    /**
-     * Create a VBox which aligns nodes in a column
-     *
-     * @return the styled VBox
-     */
-    private VBox createAlignedVBox() {
-        VBox textContainer = new VBox();
-        textContainer.setSpacing(5);
-        textContainer.setPadding(new Insets(10, 0, 0, 25));
-        textContainer.setPrefHeight(300);
-        textContainer.setPrefWidth(987);
-
-        return textContainer;
-    }
-
-    /**
-     * Create HBox holding given title and corresponding label.
-     * It is clickable, and switches to View Album page of that album
-     *
-     * @param title the title of the album
-     */
-    private HBox createAlbumTitleHBox(String title) {
-        HBox content = new HBox();
-
-        Text label = new Text("Title: ");
-        label.setFont(Font.font("System", FontWeight.BOLD, 48));
-        Text titleText = new Text(title);
-        titleText.setFont(Font.font("System",48));
-
-        content.getChildren().addAll(label, titleText);
-        content.setOnMouseClicked(mouseEvent -> {
-            try{
-                switchToViewAlbum(mouseEvent);
-            } catch (IOException ex) {
-                logger.error("[x] Failed to switch to Album View", ex);
-            }
-        });
-
-        return content;
-    }
-
-    /**
-     * Create HBox holding given user and corresponding label.
-     *
-     * @param user the user/author of the album
-     */
-    private HBox createAuthorHBox(User user) {
-        HBox content = new HBox();
-        Text authorLabel = new Text("Author: ");
-        authorLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
-
-        Text author = new Text(user.getUsername());
-        author.setFont(Font.font("System",24));
-        content.getChildren().addAll(authorLabel, author);
-
-        return content;
-    }
-
-    /**
-     * Create HBox holding given tags and corresponding label.
-     *
-     * @param tags the list of tags
-     */
-    private HBox createTagsHBox(List<Tag> tags) {
-        HBox content = new HBox();
-        Text tagsLabel = new Text("Tags: ");
-        tagsLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
-
-        String tagsAsString = TagService.getTagsAsString(tags);
-        Text tagsText = new Text(tagsAsString);
-        tagsText.setFont(Font.font("System",16));
-        content.getChildren().addAll(tagsLabel, tagsText);
-
-        return content;
-    }
-
-    /**
-     * Create HBox holding given description and corresponding label.
-     *
-     * @param description the description to display
-     */
-    private HBox createDescriptionHBox(String description) {
-        HBox content = new HBox();
-
-        Text descriptionLabel = new Text("Description: ");
-        descriptionLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
-
-        Text descriptionText = new Text(description);
-        descriptionText.setWrappingWidth(500);
-        descriptionText.setFont(Font.font("System",16));
-        content.getChildren().addAll(descriptionLabel, descriptionText);
-
-        return content;
+        Stream.of(albumHBox.getAlbumTitleHBox(),
+                  albumHBox.getAlbumImageView())
+                .forEach(node -> albumHBox.addOnMouseClickedEventHandlerToComponent(node, mouseEventEventHandler));
     }
 
     /**
