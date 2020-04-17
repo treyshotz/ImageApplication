@@ -69,7 +69,8 @@ public class ViewImage extends NavBarController implements Initializable{
 
 
             Scene scene = new Scene(pane);
-            stage.setMaximized(true);
+            stage.setWidth(1000);
+            stage.setHeight(600);
             stage.setScene(scene);
             stage.showAndWait();
         }
