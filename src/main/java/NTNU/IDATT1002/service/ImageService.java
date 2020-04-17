@@ -52,7 +52,7 @@ public class ImageService {
         Image image = new Image();
         Metadata metadata = new Metadata();
         metadata.setImage(image);
-        metadata.setAllMetadata(MetaDataExtractor.getAllMetadata(file));
+        metadata.setMiscMetadata(MetaDataExtractor.getMiscMetadata(file));
         image.setMetadata(metadata);
 
         metadata.setGeoLocation(geoLocation);

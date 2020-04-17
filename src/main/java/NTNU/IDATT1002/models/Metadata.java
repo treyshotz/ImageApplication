@@ -1,7 +1,6 @@
 package NTNU.IDATT1002.models;
 
 
-import java.util.ArrayList;
 import javax.persistence.*;
 
 /**
@@ -60,8 +59,8 @@ public class Metadata {
     private String fileDimension;
 
     @Lob
-    @Column(name = "allMetadata")
-    private String allMetadata;
+    @Column(name = "miscMetadata")
+    private String miscMetadata;
 
     public Metadata() {
     }
@@ -99,8 +98,8 @@ public class Metadata {
         return camera;
     }
 
-    public String getAllMetadata(){
-        return allMetadata;
+    public String getMiscMetadata(){
+        return miscMetadata;
     }
 
     public void setCamera(String camera) {
@@ -187,8 +186,8 @@ public class Metadata {
         this.fileDimension = fileDimension;
     }
 
-    public void setAllMetadata(String allMetadata){
-        this.allMetadata = allMetadata;
+    public void setMiscMetadata(String miscMetadata){
+        this.miscMetadata = miscMetadata;
     }
 
     @Override
@@ -196,17 +195,17 @@ public class Metadata {
      
 
         return "Metadata{" +
-            "\nmetadataId=" + metadataId +
-            "\ncamera='" + camera + '\'' +
-            "\nlens='" + lens + '\'' +
-            "\naperture='" + aperture + '\'' +
-            "\nshutterSpeed='" + shutterSpeed + '\'' +
-            "\nISO='" + ISO + '\'' +
-            "\nfocalLength='" + focalLength + '\'' +
-            "\nfileType='" + fileType + '\'' +
-            "\nphotoDate='" + photoDate + '\'' +
-            "\nfileSize='" + fileSize + '\'' +
-            "\nfileDimension='" + fileDimension + '\'' +
+            ", metadataId=" + metadataId +
+            ", camera='" + camera + '\'' +
+            ", lens='" + lens + '\'' +
+            ", aperture='" + aperture + '\'' +
+            ", shutterSpeed='" + shutterSpeed + '\'' +
+            ", ISO='" + ISO + '\'' +
+            ", focalLength='" + focalLength + '\'' +
+            ", fileType='" + fileType + '\'' +
+            ", photoDate='" + photoDate + '\'' +
+            ", fileSize='" + fileSize + '\'' +
+            ", fileDimension='" + fileDimension + '\'' +
             '}';
 
     }
