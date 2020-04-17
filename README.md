@@ -2,6 +2,7 @@
 ## Team 14
 *Here is our project. Add some more information* 
 
+JavaDoc can be found at http://eirsteir.pages.stud.idi.ntnu.no/team-14-software-engineering/
 
 ## How our project works 
 *Make som technical description here*
@@ -9,6 +10,8 @@
 
 ## Get started 
 *Add description how to get started* 
+
+A config.properties file is required to run this project. Please refer to a project maintainer.
 
 #### IntelliJ:
 *Follow these steps to run the project:*
