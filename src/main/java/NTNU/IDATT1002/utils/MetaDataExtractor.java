@@ -366,7 +366,6 @@ public class MetaDataExtractor {
      */
     public static String getAllMetadata(File file){
         String allMetadata = " ";
-        System.out.println("yeet");
         try {
             Metadata metadata = ImageMetadataReader.readMetadata(file);
             for (Directory directory : metadata.getDirectories()) {
