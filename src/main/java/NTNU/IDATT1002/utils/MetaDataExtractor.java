@@ -371,7 +371,7 @@ public class MetaDataExtractor {
             Metadata metadata = ImageMetadataReader.readMetadata(file);
             for (Directory directory : metadata.getDirectories()) {
                     for (Tag tag : directory.getTags()) {
-                            allMetadata += tag + " ";
+                            allMetadata += tag + " #";
                 }
             }
         } catch (IOException | ImageProcessingException | NullPointerException e) {

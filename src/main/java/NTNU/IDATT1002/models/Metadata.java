@@ -61,7 +61,7 @@ public class Metadata {
 
 
     @Column(name = "allMetadata")
-    private String allMetadataList;
+    private String allMetadata;
 
     public Metadata() {
     }
@@ -99,8 +99,8 @@ public class Metadata {
         return camera;
     }
 
-    public String getAllMetadataList(){
-        return allMetadataList;
+    public String getAllMetadata(){
+        return allMetadata;
     }
 
     public void setCamera(String camera) {
@@ -187,8 +187,8 @@ public class Metadata {
         this.fileDimension = fileDimension;
     }
 
-    public void setAllMetadataList(String allMetadataList){
-        this.allMetadataList = allMetadataList;
+    public void setAllMetadata(String allMetadata){
+        this.allMetadata = allMetadata;
     }
 
     @Override
