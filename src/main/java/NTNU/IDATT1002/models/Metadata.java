@@ -193,10 +193,7 @@ public class Metadata {
 
     @Override
     public String toString() {
-      /*  String allData = " ";
-        for (int i = 0; i < allMetadataList.size(); i++){
-            allData += allMetadataList.get(i);
-        }*/
+     
 
         return "Metadata{" +
             "\nmetadataId=" + metadataId +
@@ -210,8 +207,7 @@ public class Metadata {
             "\nphotoDate='" + photoDate + '\'' +
             "\nfileSize='" + fileSize + '\'' +
             "\nfileDimension='" + fileDimension + '\'' +
-            '}'; /* +
-            " \n\n All the extra stuff that I dont know what to do with yet" + allData;*/
+            '}';
 
     }
 }
