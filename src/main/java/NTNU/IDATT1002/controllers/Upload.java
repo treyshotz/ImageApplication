@@ -8,7 +8,6 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import java.util.ArrayList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;

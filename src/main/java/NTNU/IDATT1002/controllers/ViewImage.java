@@ -43,7 +43,7 @@ public class ViewImage extends NavBarController implements Initializable{
         foundImage.ifPresent(image -> {
             Image convertedImage = ImageUtil.convertToFXImage(image);
             imageContainer.setImage(convertedImage);
-            imageTitleField.setText("KAN VI PLIS LEGGE INN TITTEL I DB");
+            imageTitleField.setText(image.getTitle());
             imageTagsField.setText(TagService.getTagsAsString(image.getTags()));
             imageMetadataField.setText(image.getMetadata().toString());
         });
