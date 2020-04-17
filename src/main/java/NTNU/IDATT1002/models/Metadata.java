@@ -59,7 +59,7 @@ public class Metadata {
     @Column(name = "filedimension")
     private String fileDimension;
 
-
+    @Lob
     @Column(name = "allMetadata")
     private String allMetadata;
 
