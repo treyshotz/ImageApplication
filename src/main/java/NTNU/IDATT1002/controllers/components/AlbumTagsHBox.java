@@ -25,6 +25,7 @@ public class AlbumTagsHBox extends HBox {
         String tagsAsString = TagService.getTagsAsString(tags);
         Text tagsText = new Text(tagsAsString);
         tagsText.setFont(Font.font(App.ex.getDefaultFont(), 16));
+
         this.getChildren().addAll(tagsLabel, tagsText);
     }
 }

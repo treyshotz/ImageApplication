@@ -60,7 +60,6 @@ public class ImageService {
         MetaDataExtractor.setMetadata(metadata, file);
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
-        //TODO: Add image tags and add image to album
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());
@@ -68,10 +67,10 @@ public class ImageService {
         return imageRepository.save(image);
     }
 
-
     /**
-     * Finds each picture belonging to a specific user
-     * @param user
+     * Finds each picture belonging to a specific user.
+     *
+     * @param user the user who uploaded the images
      * @return a list with all pictures from a user
      */
     public List<Image> getImageFromUser(User user) {

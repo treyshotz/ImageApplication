@@ -8,18 +8,17 @@ import java.util.List;
 
 /**
  * Image Repository.
- * <p>
+ *
  * Implements {@link  Repository} which supports regular Create, Read, Update and Delete operations.
  *
  * @author Lars Østby
  * @version 1.0 19.03.20
  * @see NTNU.IDATT1002.repository.Repository
  */
-
 public class ImageRepository extends AbstractRepository<Image, Long> {
 
     /**
-     * Mapping to @NamedQuery 'find all albums by username and tags' defined in {@link  Image}
+     * Mapping to {@link javax.persistence.NamedQuery} defined in {@link Image}
      */
     public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
     public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
@@ -47,6 +46,12 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
                 .getResultList();
     }
 
+    /**
+     * Find all images with given tag.
+     *
+     * @param tag the tag to query by
+     * @return a list of images with given tag
+     */
     public List<Image> findAllByTags(String tag){
         return entityManager.createNamedQuery(IMAGE_FIND_BY_TAG, Image.class)
                 .setParameter("name",tag)

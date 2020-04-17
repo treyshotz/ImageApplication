@@ -36,14 +36,20 @@ public class AlbumHBox extends HBox {
     /**
      * Replace the current image preview placeholder with given {@link ImageView}.
      *
-     * @param image
+     * @param image the image to replace with
      */
     public void replaceAlbumImageViewWith(Image image) {
         javafx.scene.image.Image imageToSet = ImageUtil.convertToFXImage(image);
-
         previewImageView.setImage(imageToSet);
     }
 
+    /**
+     * Add an event handler for mouse click on given node.
+     *
+     * @param component the component node to add to
+     * @param eventHandler the event handler to set
+     * @return the updated node component
+     */
     public Node addOnMouseClickedEventHandlerToComponent(
             Node component, EventHandler<? super MouseEvent> eventHandler) {
         component.setOnMouseClicked(eventHandler);

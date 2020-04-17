@@ -13,7 +13,6 @@ public class AlbumTitleHBox extends HBox {
 
     /**
      * Create HBox holding given title and create a corresponding label.
-     * It is clickable, and switches to View Album page of that album todo
      */
     public AlbumTitleHBox(String title) {
         Text label = new Text("Title: ");
