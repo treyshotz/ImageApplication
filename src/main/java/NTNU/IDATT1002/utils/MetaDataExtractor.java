@@ -358,4 +358,25 @@ public class MetaDataExtractor {
         textToClean = textToClean.substring(0, textToClean.length()-2);
         return textToClean;
     }
+
+    /**
+     * Method for getting all metadata from an image
+     * @param file that will be checked
+     * @return metadata or an empty string if nothing was found
+     */
+    public static String getAllMetadata(File file){
+        String allMetadata = " ";
+        System.out.println("yeet");
+        try {
+            Metadata metadata = ImageMetadataReader.readMetadata(file);
+            for (Directory directory : metadata.getDirectories()) {
+                    for (Tag tag : directory.getTags()) {
+                            allMetadata += tag + " ";
+                }
+            }
+        } catch (IOException | ImageProcessingException | NullPointerException e) {
+            logger.error("[x] Could not get information from file");
+        }
+        return allMetadata;
+    }
 }

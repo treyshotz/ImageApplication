@@ -52,6 +52,7 @@ public class ImageService {
         Image image = new Image();
         Metadata metadata = new Metadata();
         metadata.setImage(image);
+        metadata.setAllMetadataList(MetaDataExtractor.getAllMetadata(file));
         image.setMetadata(metadata);
 
         metadata.setGeoLocation(geoLocation);
@@ -65,6 +66,9 @@ public class ImageService {
         image.setUser(user);
         image.setPath(file.getPath());
         image.addTags((ArrayList<Tag>) tagService.getOrCreateTags(tags));
+        System.out.println("yeet\n");
+        System.out.println(MetaDataExtractor.getAllMetadata(file));
+        System.out.println("\nferdig da bro");
         return imageRepository.save(image);
     }
 

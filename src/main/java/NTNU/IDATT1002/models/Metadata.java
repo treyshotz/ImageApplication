@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.models;
 
 
+import java.util.ArrayList;
 import javax.persistence.*;
 
 /**
@@ -58,6 +59,10 @@ public class Metadata {
     @Column(name = "filedimension")
     private String fileDimension;
 
+
+    @Column(name = "allMetadata")
+    private String allMetadataList;
+
     public Metadata() {
     }
 
@@ -92,6 +97,10 @@ public class Metadata {
 
     public String getCamera() {
         return camera;
+    }
+
+    public String getAllMetadataList(){
+        return allMetadataList;
     }
 
     public void setCamera(String camera) {
@@ -178,21 +187,31 @@ public class Metadata {
         this.fileDimension = fileDimension;
     }
 
+    public void setAllMetadataList(String allMetadataList){
+        this.allMetadataList = allMetadataList;
+    }
+
     @Override
     public String toString() {
+      /*  String allData = " ";
+        for (int i = 0; i < allMetadataList.size(); i++){
+            allData += allMetadataList.get(i);
+        }*/
+
         return "Metadata{" +
-                ", metadataId=" + metadataId +
-                ", camera='" + camera + '\'' +
-                ", lens='" + lens + '\'' +
-                ", aperture='" + aperture + '\'' +
-                ", shutterSpeed='" + shutterSpeed + '\'' +
-                ", ISO='" + ISO + '\'' +
-                ", focalLength='" + focalLength + '\'' +
-                ", fileType='" + fileType + '\'' +
-                ", photoDate='" + photoDate + '\'' +
-                ", fileSize='" + fileSize + '\'' +
-                ", fileDimension='" + fileDimension + '\'' +
-                '}';
+            "\nmetadataId=" + metadataId +
+            "\ncamera='" + camera + '\'' +
+            "\nlens='" + lens + '\'' +
+            "\naperture='" + aperture + '\'' +
+            "\nshutterSpeed='" + shutterSpeed + '\'' +
+            "\nISO='" + ISO + '\'' +
+            "\nfocalLength='" + focalLength + '\'' +
+            "\nfileType='" + fileType + '\'' +
+            "\nphotoDate='" + photoDate + '\'' +
+            "\nfileSize='" + fileSize + '\'' +
+            "\nfileDimension='" + fileDimension + '\'' +
+            '}'; /* +
+            " \n\n All the extra stuff that I dont know what to do with yet" + allData;*/
 
     }
 }
