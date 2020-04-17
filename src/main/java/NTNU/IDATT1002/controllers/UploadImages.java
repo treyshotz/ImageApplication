@@ -77,7 +77,6 @@ public class UploadImages extends NavBarController implements Initializable {
       insertImageTextToContainer(files.get(i), imageContainer);
       uploadContainer.getChildren().add(imageContainer);
     }
-    uploadContainer.getChildren().get(0)
     if (uploadContainer.getChildren().size() > 0){
       Button accept = new Button("Accept");
       accept.setOnAction(actionEvent -> {
