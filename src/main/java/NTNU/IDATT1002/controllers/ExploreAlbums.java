@@ -3,6 +3,7 @@ package NTNU.IDATT1002.controllers;
 import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.controllers.components.AlbumHBox;
 import NTNU.IDATT1002.models.Album;
+import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.service.AlbumService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,8 +14,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -78,13 +82,10 @@ public class ExploreAlbums extends NavBarController implements Initializable {
 
         fetchAlbums.setOnSucceeded(workerStateEvent -> {
             listOfAlbums = FXCollections.observableArrayList(fetchAlbums.getValue());
-            VBox albumVBox = createAlbumVBox(listOfAlbums);
-            albumVBox.setSpacing(20);
-            Platform.runLater(this::finalizeProgress);
+            VBox albums = computeRootAlbumsContainerChildren(listOfAlbums);
 
-            rootAlbumsContainer.setMinHeight(albumVBox.getMinHeight());
-            rootAlbumsContainer.getChildren().remove(albumsPlaceholder);
-            rootAlbumsContainer.getChildren().add(albumVBox);
+            replaceRootPlaceholderWith(albums);
+            Platform.runLater(this::finalizeProgress);
         });
 
     }
@@ -105,63 +106,87 @@ public class ExploreAlbums extends NavBarController implements Initializable {
     };
 
     /**
+     * Replace loading placeholder with the real albums.
+     *
+     * @param albums the {@link VBox} containing the albums
+     */
+    private void replaceRootPlaceholderWith(VBox albums) {
+        rootAlbumsContainer.setSpacing(20);
+        rootAlbumsContainer.setMinHeight(albums.getMinHeight());
+        rootAlbumsContainer.getChildren().remove(albumsPlaceholder);
+        rootAlbumsContainer.getChildren().addAll(albums);
+    }
+
+    /**
      * Set the progressbar to finished and remove it from the root container.
      */
     private void finalizeProgress() {
-        progressBar.setProgress(1);
         pageRootContainer.getChildren().remove(progressBarContainer);
     }
 
     /**
-     * Create the root container for displaying albums and add the retrieved albums.
+     * Create a {@link VBox} of album {@link HBox} children to add to a root container.
      * It is currently a limit at 50 albums per page.
-     * Load each corresponding images in a separate background task and add them when ready.
+     * Load each corresponding preview images in a separate background task and add them when ready.
      *
      * @param listOfAlbums the albums to add
-     * @return the VBox containing styled album HBoxes and ImageViews
+     * @return the VBox containing album containers
      */
-    public VBox createAlbumVBox(ObservableList<Album> listOfAlbums){
-        VBox albumVBox = new VBox();
+    public VBox computeRootAlbumsContainerChildren(ObservableList<Album> listOfAlbums){
         int maxPerPage = Math.min(listOfAlbums.size(), 50);
-        
+        List<HBox> albumHBoxes = new ArrayList<>();
+
         for (int i = 0; i < maxPerPage; i++) {
             Album album = listOfAlbums.get(i);
             AlbumHBox albumHBox = new AlbumHBox(album);
 
-            Task<List<NTNU.IDATT1002.models.Image>> fetchImagesTask = fetchImagesFrom(album);
-            executorService.submit(fetchImagesTask);
+            Task<Optional<Image>> fetchPreviewImageTask = fetchPreviewImageFrom(album);
+            executorService.submit(fetchPreviewImageTask);
 
-            fetchImagesTask.setOnSucceeded(workerStateEvent -> {
-                NTNU.IDATT1002.models.Image previewImage = FXCollections.observableArrayList(
-                        fetchImagesTask.getValue())
-                        .get(0);
+            fetchPreviewImageTask.setOnSucceeded(event -> {
+                Optional<Image> previewImage = fetchPreviewImageTask.getValue();
 
-                albumHBox.replaceAlbumImageViewWith(previewImage);
-                setSwitchToAlbumOnAlbumComponents(albumHBox);
+                previewImage.ifPresent(image -> {
+                    albumHBox.replaceAlbumImageViewWith(image);
+                    setSwitchToAlbumOnAlbumComponents(albumHBox);
+                });
             });
 
-            albumVBox.getChildren().add(albumHBox);
+            albumHBoxes.add(albumHBox);
         }
 
-        return albumVBox;
+        VBox container = new VBox();
+        container.getChildren().addAll(albumHBoxes);
+        return container;
     }
 
     /**
-     * Fetch the images from given album in a background task.
+     * Fetch a single image preview from given album in a background task.
      *
      * @param album the album whose images to fetch
      * @return task to return a list of fetched images
      */
-    private Task<List<NTNU.IDATT1002.models.Image>> fetchImagesFrom(Album album) {
+    private Task<Optional<Image>> fetchPreviewImageFrom(Album album) {
         return new Task<>() {
             @Override
-            protected List<NTNU.IDATT1002.models.Image> call() {
+            protected Optional<Image> call() {
                 try {
-                    return album.getImages();
+                    return albumService.findPreviewImage(album);
                 } catch (Exception e) {
-                    logger.error("[x] Failed to fetch images for album {}", album, e);
+                    logger.error("[x] Failed to fetch preview image for album {}", album, e);
                 }
-                return new ArrayList<>();
+
+                return Optional.empty();
+            }
+
+            @Override
+            protected void cancelled() {
+                logger.error("Finding preview image for album task cancelled. Album: {}", album);
+            }
+
+            @Override
+            protected void failed() {
+                logger.error("Finding preview image task for album failed. Album: {}", album);
             }
         };
     }

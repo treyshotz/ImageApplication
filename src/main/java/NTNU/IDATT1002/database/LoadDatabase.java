@@ -25,7 +25,7 @@ public class LoadDatabase {
     private static ImageService imageService;
 
     static {
-        EntityManager entityManager = Config.getEntityManager();
+        EntityManager entityManager = Config.createEntityManager();
 
         userService = new UserService(entityManager);
         albumService = new AlbumService(entityManager);

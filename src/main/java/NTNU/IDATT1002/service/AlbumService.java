@@ -75,9 +75,26 @@ public class AlbumService {
         return albumRepository.save(album);
     }
 
+    /**
+     * Add given image to given album.
+     *
+     * @param album the album to add the image to
+     * @param image the image to add
+     * @return the updated album
+     */
     public Optional<Album> addImage(Album album, Image image){
         album.addImage(image);
         return albumRepository.update(album);
+    }
+
+    /**
+     * Find a single image as an album preview.
+     *
+     * @param album the album to get a preview from
+     * @return An optional image if found
+     */
+    public Optional<Image> findPreviewImage(Album album) {
+        return albumRepository.findPreviewImage(album.getId());
     }
 
     /**
@@ -116,11 +133,11 @@ public class AlbumService {
     }
 
     /**
-     * Takes in a string and searched through all album by tags, username and title to find results
-     * @param query
+     * Takes in a string and searched through all album by tags, username and title to find results.
+     *
+     * @param query the query string
      * @return list of results without duplocates
      */
-
     public List<Album> searchResult(String query){
         List<Album> allFound = new ArrayList<>();
         List<Album> byTags = albumRepository.findAllByTags(query);
@@ -132,13 +149,12 @@ public class AlbumService {
         return removeDuplicates(allFound);
     }
 
-
     /**
-     * takes a list and removes all duplicate elements
-     * @param albums
+     * Removes all duplicate elements in given list.
+     *
+     * @param albums the list of albums to remove duplicates
      * @return list without duplicates
      */
-
     public List<Album> removeDuplicates(List<Album> albums){
         return albums.stream().distinct().collect(Collectors.toList());
     }

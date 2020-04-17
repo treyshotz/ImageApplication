@@ -28,10 +28,13 @@ import java.util.stream.Collectors;
                         + "join ia.tags tg "
                         + "where tg.name = :name"),
         @NamedQuery(name="Image.findByTitle",
-                query = "SELECT ia from Album ia WHERE ia.title = :title")
+                query = "SELECT ia from Album ia WHERE ia.title = :title"),
+        @NamedQuery(name="Album.findPreviewImage",
+                query = "select image from Album album " +
+                        "join album.images image " +
+                        "where album.id = :albumId")
 })
 public class Album {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

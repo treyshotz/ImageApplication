@@ -126,7 +126,7 @@ public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
      */
     public Optional<T> findById(ID id) {
         T entity = entityManager.find(entityClass, id);
-        return entity != null ? Optional.of(entity) : Optional.empty();
+        return Optional.ofNullable(entity);
     }
 
     /**

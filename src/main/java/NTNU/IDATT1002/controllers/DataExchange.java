@@ -34,7 +34,7 @@ public class DataExchange {
     }
 
     public EntityManager getEntityManager() {
-        return Config.getEntityManager();
+        return Config.createEntityManager();
     }
 
     public String getApiKey() {
