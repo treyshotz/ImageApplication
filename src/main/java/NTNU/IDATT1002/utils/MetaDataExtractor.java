@@ -324,7 +324,7 @@ public class MetaDataExtractor {
         }
         return fileDimension;
     }
-    
+
     public static void setMetadata(NTNU.IDATT1002.models.Metadata metadata, File file) {
         metadata.setCamera(getCamera(file));
         metadata.setLens(getLens(file));
@@ -357,5 +357,29 @@ public class MetaDataExtractor {
         textToClean = textToClean.replace(" - ", ": ");
         textToClean = textToClean.substring(0, textToClean.length()-2);
         return textToClean;
+    }
+
+    /**
+     * Method for getting all the misceleneous metadata from an image
+     * @param file that will be checked
+     * @return metadata or an empty string if nothing was found
+     */
+    public static String getMiscMetadata(File file){
+
+        StringBuilder miscMetadata = new StringBuilder(" ");
+
+        try {
+            Metadata metadata = ImageMetadataReader.readMetadata(file);
+            for (Directory directory : metadata.getDirectories()) {
+                    for (Tag tag : directory.getTags()) {
+                        if(!(getMetadata(file).contains( cleanUpTags(tag.toString(), directory)))){
+                            miscMetadata.append(tag).append(" #");
+                        }
+                }
+            }
+        } catch (IOException | ImageProcessingException | NullPointerException e) {
+            logger.error("[x] Could not get information from file", e);
+        }
+        return miscMetadata.toString();
     }
 }
