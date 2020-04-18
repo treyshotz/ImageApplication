@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -75,5 +76,10 @@ public class NavBarController {
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
         App.setRoot("upload");
+    }
+
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        UserService.logOut();
+        App.setRoot("login");
     }
 }

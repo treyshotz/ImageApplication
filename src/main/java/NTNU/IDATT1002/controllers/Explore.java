@@ -13,8 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -31,9 +30,14 @@ import java.util.ResourceBundle;
 public class Explore extends NavBarController implements Initializable {
 
     public ScrollPane scrollPane;
-    public GridPane gridPane;
     public Button footer_previousBtn;
     public Button footer_nextBtn;
+    public HBox rowOfResults1;
+    public HBox rowOfResults2;
+    public HBox rowOfResults3;
+    public HBox rowOfResults4;
+    public HBox rowOfResults5;
+    public VBox containerOfElements;
 
     private List<NTNU.IDATT1002.models.Image> images;
     private int start;
@@ -55,28 +59,33 @@ public class Explore extends NavBarController implements Initializable {
     }
 
     public void generateImages(int start, int end){
-        gridPane.getChildren().clear();
         //Limited elements to 15 since grid pane since is 3x5
         for(int i = start; i < images.size() && i < end; i++) {
             int index = i%15;
             //Row and column in gripdane
             int column = index%3;
-            int row = (index-column)/3;
+            int r = (index-column)/3;
 
             //Make vbox container for content
-            VBox vBox = new VBox();
-            vBox.setPrefHeight(400);
-            vBox.setPrefWidth(400);
-            vBox.setMaxHeight(400);
-            vBox.setAlignment(Pos.CENTER);
-            //vBox.setStyle("-fx-background-color: #999999;");
+            containerOfElements = new VBox();
+            containerOfElements.setMinSize(100,100);
+            containerOfElements.setPrefSize(520,310);
+            containerOfElements.setAlignment(Pos.TOP_CENTER);
+
+
+
+            //Make stackpane to resize images
+            StackPane stackPane = new StackPane();
+            stackPane.setMinSize(100,100);
+            stackPane.prefWidthProperty().bind(containerOfElements.widthProperty());
+            stackPane.prefHeightProperty().bind(containerOfElements.heightProperty());
 
             //Image container
             ImageView imageView = new ImageView();
             imageView.setId(String.valueOf(images.get(i).getId()));
             imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
-            imageView.setFitHeight(250);
-            imageView.setFitWidth(400);
+            imageView.fitHeightProperty().bind(stackPane.heightProperty());
+            imageView.fitWidthProperty().bind(stackPane.widthProperty());
             imageView.pickOnBoundsProperty().setValue(true);
             imageView.setPreserveRatio(true);
             //Link to view image page
@@ -98,10 +107,21 @@ public class Explore extends NavBarController implements Initializable {
             tag.setFont(Font.font("System Bold", 18));
 
             //Add elements to vbox
-            vBox.getChildren().addAll(imageView, title, tag);
+            stackPane.getChildren().add(imageView);
+            containerOfElements.getChildren().addAll(stackPane, title, tag);
 
-            //Add vbox to gridpane
-            gridPane.add(vBox, column, row);
+            //add vBox to correct hBox
+            if (r==1){
+                rowOfResults1.getChildren().addAll(containerOfElements);
+            } else if (r==2){
+                rowOfResults2.getChildren().addAll(containerOfElements);
+            } else if (r==3){
+                rowOfResults3.getChildren().addAll(containerOfElements);
+            } else if (r==4){
+                rowOfResults4.getChildren().addAll(containerOfElements);
+            } else {
+                rowOfResults5.getChildren().addAll(containerOfElements);
+            }
         }
     }
 
