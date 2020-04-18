@@ -164,7 +164,7 @@ public class ImageMapFactory {
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                 .content("<h3>Id: " + image.getId() + "</h3>" +
-                                 "<p><img src=" + path + " width=\"200\" height=\"200\"> </p>" +
+                                 "<p><img src=" + path + " width=\"200\" height=\"auto\"> </p>" +
                                  "<p><b>User:</b> " + username + "</p>" +
                                  "<p><b>Tags:</b> " + tags + "</p>" +
                                  "<p><b>Uploaded at:</b> " + uploadedAt + "</p>" +
