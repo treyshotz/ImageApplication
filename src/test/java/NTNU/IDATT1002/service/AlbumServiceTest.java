@@ -1,12 +1,10 @@
 package NTNU.IDATT1002.service;
 
-import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Album;
+import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
-import NTNU.IDATT1002.repository.AlbumRepository;
-import NTNU.IDATT1002.repository.ImageRepository;
-import NTNU.IDATT1002.repository.UserRepository;
+import NTNU.IDATT1002.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -106,7 +105,6 @@ class AlbumServiceTest {
         assertEquals(INITIAL_ID, album.getImages().get(0).getId());
     }
 
-
     /**
      * Test that creating an empty album creates and returns an album with no images.
      */
@@ -127,6 +125,51 @@ class AlbumServiceTest {
         assertEquals(user.getUsername(), album.getUser().getUsername());
         assertEquals(INITIAL_ID, album.getTags().get(0).getTagId());
         assertTrue(album.getImages().isEmpty());
+    }
+
+
+    /**
+     * Test that finding all with {@link PageRequest} returns the number of albums
+     * specified by the page size on the first page.
+     */
+    @Test
+    void testFindAllPaginated() {
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
+
+        Page<Album> albumsPage = albumRepository.findAll(PageRequest.of(0, 2));
+
+        assertEquals(2, albumsPage.getContent().size());
+    }
+
+    /**
+     * Test that finding all with {@link PageRequest} with an uneven amount of albums
+     * returns the remaining album on the next page.
+     */
+    @Test
+    void testFindAllPaginatedWithLeftOverOnLastPage() {
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
+
+        Page<Album> albumsPage = albumService.findAll(PageRequest.of(0, 2));
+
+        assertEquals(2, albumsPage.getContent().size());
+        assertEquals(3, albumsPage.getTotal());
+
+        albumsPage = albumService.findAll(albumsPage.nextPageRequest());
+
+        assertEquals(1, albumsPage.getContent().size());
+        assertEquals(1, albumsPage.getPageRequest().getPageNumber());
+    }
+
+    /**
+     * Test finding all with {@link PageRequest} when there are less
+     * albums saved than requested page size.
+     */
+    @Test
+    void testFindAllPaginatedWithLessAlbumsThanPageSize() {
+        Page<Album> albumsPage = albumService.findAll(PageRequest.of(0, 2));
+        assertEquals(1, albumsPage.getContent().size());
     }
 
 }

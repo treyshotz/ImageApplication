@@ -16,9 +16,8 @@ import java.util.Optional;
 public class MetadataRepository extends AbstractRepository<Metadata, Long> {
 
     /**
-     * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link Metadata}
-     *
-     * @param entityManager the entity manager to utilize
+     * @inheritDoc
+     * Set the class type to {@link Metadata}
      */
     public MetadataRepository(EntityManager entityManager) {
         super(entityManager);
