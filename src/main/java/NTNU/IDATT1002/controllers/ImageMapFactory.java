@@ -7,6 +7,7 @@ import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import javax.xml.bind.DatatypeConverter;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,8 +158,13 @@ public class ImageMapFactory {
         Date uploadedAt = image.getUploadedAt();
         String metadata = MetadataStringFormatter.format(image.getMetadata(), "<br/>");
 
+        //Convert image bytes to base64 for displaying image as HTML
+        byte[] imageBytes = image.getRawImage();
+        String path = "data:image/png;base64," + DatatypeConverter.printBase64Binary(imageBytes);
+
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                 .content("<h3>Id: " + image.getId() + "</h3>" +
+                                    "<p><img src=" + path + " width=\"150\" height=\"150\"> </p>" +
                                  "<p><b>User:</b> " + username + "</p>" +
                                  "<p><b>Tags:</b> " + tags + "</p>" +
                                  "<p><b>Uploaded at:</b> " + uploadedAt + "</p>" +
