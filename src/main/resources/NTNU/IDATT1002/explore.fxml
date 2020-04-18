@@ -6,13 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -58,37 +52,49 @@
       </HBox>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="980.0" prefWidth="1920.0" styleClass="scroll-pane" stylesheets="@style.css" VBox.vgrow="ALWAYS">
          <content>
-            <BorderPane prefHeight="2000.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <left>
-                  <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-               </right>
-               <center>
-                  <GridPane fx:id="gridPane" alignment="CENTER" hgap="10.0" styleClass="transparentbg" stylesheets="@style.css" vgap="10.0" BorderPane.alignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
+            <VBox alignment="TOP_CENTER" prefHeight="2400.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPLORE IMAGES">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="80.0" />
+                     </VBox.margin>
+                  </Text>
+                  <VBox alignment="TOP_CENTER" prefHeight="2000.0" prefWidth="100.0" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox fx:id="rowOfResults1" alignment="CENTER" maxHeight="350.0" maxWidth="1590.0" minHeight="150.0" minWidth="400.0" spacing="10.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="rowOfResults2" alignment="CENTER" maxHeight="350.0" maxWidth="1590.0" minHeight="150.0" minWidth="400.0" spacing="10.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="rowOfResults3" alignment="CENTER" maxHeight="350.0" maxWidth="1590.0" minHeight="150.0" minWidth="400.0" spacing="10.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="rowOfResults4" alignment="CENTER" maxHeight="350.0" maxWidth="1590.0" minHeight="150.0" minWidth="400.0" spacing="10.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="rowOfResults5" alignment="CENTER" maxHeight="350.0" maxWidth="1590.0" minHeight="150.0" minWidth="400.0" spacing="10.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="80.0" />
+                        <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
                      </padding>
-                  </GridPane>
-               </center>
-               <bottom>
-                  <HBox alignment="CENTER" minHeight="200.0" prefHeight="200.0" prefWidth="1920.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
+                  </VBox>
+                  <HBox alignment="CENTER" minHeight="200.0" prefHeight="200.0" prefWidth="1920.0" spacing="20.0">
                      <children>
                         <Button fx:id="footer_previousBtn" disable="true" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
                         <Button fx:id="footer_nextBtn" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
@@ -97,19 +103,11 @@
                         <Insets bottom="70.0" top="10.0" />
                      </padding>
                   </HBox>
-               </bottom>
-               <top>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPLORE IMAGES">
-                           <font>
-                              <Font name="System Bold" size="48.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-               </top>
-            </BorderPane>
+               </children>
+               <padding>
+                  <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+               </padding>
+            </VBox>
          </content>
       </ScrollPane>
    </children>
