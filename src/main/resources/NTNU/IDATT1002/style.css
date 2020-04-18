@@ -80,6 +80,13 @@
     -fx-background-color: rgba(193, 198, 196, 0.5);
     -fx-color: white;
 }
+
+.returnButton{
+    -fx-background-image: url("../../Images/ReturnIcon.png");
+    -fx-background-size: 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
 /*BUTTON STYLING END*/
 
 
