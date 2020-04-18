@@ -19,6 +19,12 @@ public class NavBarController {
     public Button navBarMap;
     public Button navBarUpload;
     public Button navBarAlbums;
+    public Button navBarLogOut;
+    public Button returnButton;
+
+    public void goToPrevious(ActionEvent actionEvent) {
+    //TODO: Write method
+    }
 
     /**
      * Method that changes scene to Main page
