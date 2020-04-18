@@ -49,7 +49,7 @@ public class Image {
   @NotBlank
   private String path;
 
-  @Column(name = "title", length = 25)
+  @Column(name = "title", length = 50)
   private String title;
 
   @CreationTimestamp
