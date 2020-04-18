@@ -24,9 +24,8 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
     public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
 
     /**
-     * Constructor to inject {@link EntityManager} dependency.
-     *
-     * @param entityManager the entity manager to utilize
+     * @inheritDoc
+     * Set the class type to {@link Image}
      */
     public ImageRepository(EntityManager entityManager) {
       super(entityManager);

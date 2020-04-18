@@ -5,6 +5,8 @@ import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.AlbumRepository;
+import NTNU.IDATT1002.repository.Page;
+import NTNU.IDATT1002.repository.PageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +29,7 @@ public class AlbumService {
 
     private TagService tagService;
 
-    private static Logger logger = LoggerFactory.getLogger(AlbumService.class);;
+    private static Logger logger = LoggerFactory.getLogger(AlbumService.class);
 
     /**
      * Inject entity manager instance to the repositories.
@@ -48,6 +50,16 @@ public class AlbumService {
      */
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
+    }
+
+    /**
+     * Retrieve paginated results specified by given {@link PageRequest}.
+     *
+     * @param pageRequest the {@link PageRequest} defining page number and size
+     * @return the page containing results found based on the {@link PageRequest}
+     */
+    public Page<Album> findAll(PageRequest pageRequest) {
+        return albumRepository.findAll(pageRequest);
     }
 
     /**

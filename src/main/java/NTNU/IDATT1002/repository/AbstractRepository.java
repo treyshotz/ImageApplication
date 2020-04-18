@@ -11,9 +11,10 @@ import java.util.Optional;
 
 /**
  * Abstract Entity Repository Abstract Class.
- * Implements regular Create, Read, Update and Delete operations defined in {@link Repository}.
  *
+ * Implements regular Create, Read, Update and Delete operations defined in {@link Repository}.
  * This class can be easily extended to support type specific operations through concrete implementations.
+ *
  * @param <T> type of entity
  * @param <ID> type of entity id
  * @author Eirik Steira
@@ -24,7 +25,7 @@ public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
     /**
      * The type of class which implementations of this class is to operate on.
      */
-    private Class<T> entityClass;
+    protected Class<T> entityClass;
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -45,7 +46,7 @@ public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
      *
      * @param classTypeToSet the type of class
      */
-    public void setEntityClass(Class<T> classTypeToSet) {
+    protected void setEntityClass(Class<T> classTypeToSet) {
         entityClass = classTypeToSet;
     }
 

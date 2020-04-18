@@ -16,7 +16,7 @@ import java.util.Optional;
  * @version 1.0 19.03.20
  * @see AbstractRepository
  */
-public class AlbumRepository extends AbstractRepository<Album, Long> {
+public class AlbumRepository extends PagingAndSortingRepository<Album, Long> {
 
     /**
      * Mapping to @NamedQuery 'find all albums by username, tags, and title' defined in {@link  Album}
@@ -27,9 +27,8 @@ public class AlbumRepository extends AbstractRepository<Album, Long> {
     public static final String ALBUM_FIND_PREVIEW_IMAGE = "Album.findPreviewImage";
 
     /**
-     * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link Album}
-     *
-     * @param entityManager the entity manager to utilize
+     * @inheritDoc
+     * Set the class type to {@link Album}
      */
     public AlbumRepository(EntityManager entityManager) {
         super(entityManager);

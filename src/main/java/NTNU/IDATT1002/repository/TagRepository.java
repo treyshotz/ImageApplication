@@ -23,9 +23,8 @@ public class TagRepository extends AbstractRepository<Tag, Long> {
     public static final String FIND_TAG_BY_NAME = "Tag.findByName";
 
     /**
-     * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link Tag}
-     *
-     * @param entityManager the entity manager to utilize
+     * @inheritDoc
+     * Set the class type to {@link Tag}
      */
     public TagRepository(EntityManager entityManager) {
         super(entityManager);
