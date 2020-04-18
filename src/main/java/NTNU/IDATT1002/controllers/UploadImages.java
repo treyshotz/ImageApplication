@@ -238,7 +238,6 @@ public class UploadImages extends NavBarController implements Initializable {
               .filter(n -> n.getId() != null && (n.getId().equals("title") || n.getId().equals("tags") || n.getId().equals("checkbox")))
               .collect(Collectors.toList());
 
-      //Todo: make title apply to images
       Node titleField = childNodes.get(0);
       Node tagsField = childNodes.get(1);
       Node comboBox = childNodes.get(2);
@@ -260,7 +259,7 @@ public class UploadImages extends NavBarController implements Initializable {
       List<Tag> tags = TagService.getTagsFromString(tagsString);
 
       //Try creating image with the tags entered
-      Optional<NTNU.IDATT1002.models.Image> createdImage = imageService.createImage(ApplicationState.getCurrentUser(), file, tags);
+      Optional<NTNU.IDATT1002.models.Image> createdImage = imageService.createImage(ApplicationState.getCurrentUser(), file, tags, ((TextField)titleField).getText());
       createdImage.ifPresent(image -> {
         //For each chosen album checked the image is added
         for (String id : albumsId) {

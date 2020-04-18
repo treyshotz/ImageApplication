@@ -49,6 +49,9 @@ public class Image {
   @NotBlank
   private String path;
 
+  @Column(name = "title", length = 50)
+  private String title;
+
   @CreationTimestamp
   private Date uploadedAt;
 
@@ -92,6 +95,10 @@ public class Image {
     this.path = path;
   }
 
+  public void setTitle(String title){
+    this.title = title;
+  }
+
   public List<Album> getAlbums() {
     return albums;
   }
@@ -114,6 +121,10 @@ public class Image {
 
   public Date getUploadedAt() {
     return uploadedAt;
+  }
+
+  public String getTitle(){
+    return title;
   }
 
   public User getUser() {

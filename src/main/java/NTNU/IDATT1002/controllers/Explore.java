@@ -100,7 +100,7 @@ public class Explore extends NavBarController implements Initializable {
             });
 
             //Text describing the picture's title and tag
-            Text title = new Text("TEST TITTEL EKSTRA LANG");
+            Text title = new Text(images.get(i).getTitle());
             title.setFont(Font.font("System Bold", 24));
             String tagsAsString = TagService.getTagsAsString(images.get(i).getTags());
             Text tag = new Text(tagsAsString);

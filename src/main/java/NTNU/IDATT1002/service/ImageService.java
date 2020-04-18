@@ -41,7 +41,7 @@ public class ImageService {
      * @param file the file uploaded
      * @return Optional containing the saved image
      */
-    public Optional<Image> createImage(User user, File file, List<Tag> tags) {
+    public Optional<Image> createImage(User user, File file, List<Tag> tags, String title) {
         if(file == null) {
             logger.error("[x] An error occurred when trying to create a image; the file was null and the image could not be created");
             return Optional.empty();
@@ -61,6 +61,7 @@ public class ImageService {
         MetaDataExtractor.setMetadata(metadata, file);
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
+        image.setTitle(title);
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());
