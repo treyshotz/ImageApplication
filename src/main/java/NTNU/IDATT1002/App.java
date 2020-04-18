@@ -21,6 +21,7 @@ public class App extends Application {
         ex.setHostServices(getHostServices());
 
         scene = new Scene(loadFXML("login"));
+        scene.getStylesheets().add("resources/NTNU.IDATT1002/style.css");
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();

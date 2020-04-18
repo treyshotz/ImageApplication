@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -82,12 +84,28 @@ public class Explore extends NavBarController implements Initializable {
 
             //Image container
             ImageView imageView = new ImageView();
+            imageView.getStyleClass().add("exploreImages");
+            imageView.setFocusTraversable(true);
             imageView.setId(String.valueOf(images.get(i).getId()));
             imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
             imageView.fitHeightProperty().bind(stackPane.heightProperty());
             imageView.fitWidthProperty().bind(stackPane.widthProperty());
             imageView.pickOnBoundsProperty().setValue(true);
             imageView.setPreserveRatio(true);
+            //Link to view image page using tab functionality
+            imageView.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    if (keyEvent.getCode().equals(KeyCode.ENTER)){
+                        try {
+                            switchToViewImageEnter(keyEvent);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
             //Link to view image page
             imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override public void handle(MouseEvent e) {
@@ -139,6 +157,24 @@ public class Explore extends NavBarController implements Initializable {
 
         if (imageId != 0) {
             App.ex.setChosenImg(imageId);
+            App.setRoot("view_image");
+        }
+    }
+
+    /**
+     * Method that changes scene to View Picture page for the image that is in focus when Enter key is pressed
+     * @param keyEvent
+     * @throws IOException
+     */
+    public void switchToViewImageEnter(KeyEvent keyEvent) throws IOException {
+        long imageId2 = 0;
+        Node node = (Node) keyEvent.getSource();
+        if (node.getId() != null){
+            imageId2 = Long.parseLong(node.getId());
+        }
+
+        if (imageId2 != 0) {
+            App.ex.setChosenImg(imageId2);
             App.setRoot("view_image");
         }
     }
