@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * a page where get a more detailed view of a image
  * @version 1.0 22.03.2020
  */
-public class ViewImage implements Initializable{
+public class ViewImage extends NavBarController implements Initializable{
 
     public ImageView imageContainer;
     public Text imageTagsField;

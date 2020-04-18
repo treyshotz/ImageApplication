@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.service;
 
+import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.LoginRepository;
@@ -76,6 +77,14 @@ public class UserService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void logOut() {
+        ApplicationState.setCurrentUser(null);
+        App.ex.setChosenAlbumId(null);
+        App.ex.setChosenImg(null);
+        App.ex.setUploadedFiles(null);
+        App.ex.setHostServices(null);
     }
 
     /**

@@ -11,4 +11,5 @@ public class Main extends NavBarController {
 
     public Button uploadBtn;
 
+    public Button navBarLogOut;
 }
