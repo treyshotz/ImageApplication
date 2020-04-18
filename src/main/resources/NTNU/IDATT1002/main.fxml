@@ -30,38 +30,18 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="430.0">
-                     <children>
-                        <TextField fx:id="navBarSearch" minWidth="200.0" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </TextField>
-                        <Button fx:id="navBarSearchBtn" minHeight="45.0" minWidth="45.0" mnemonicParsing="false" onAction="#switchToSearch" styleClass="searchButton" stylesheets="@style.css" textFill="white">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <Button fx:id="navBarExplore" minHeight="45.0" minWidth="100.0" mnemonicParsing="false" onAction="#switchToExplore" prefHeight="45.0" prefWidth="100.0" styleClass="exploreButton" stylesheets="@style.css" text="EXPLORE" textFill="white">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Button>
-                  <Button fx:id="navBarAlbums" minHeight="45.0" minWidth="97.0" mnemonicParsing="false" onAction="#switchToAlbums" prefHeight="45.0" prefWidth="97.0" text="ALBUMS" textFill="white">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Button>
-                  <Button fx:id="navBarMap" minHeight="45.0" minWidth="66.0" mnemonicParsing="false" onAction="#switchToMap" prefHeight="45.0" prefWidth="66.0" text="MAP" textFill="white">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Button>
+                  <TextField fx:id="navBarSearch" minWidth="200.0" prefHeight="35.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc...">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="navBarSearchBtn" minWidth="70" mnemonicParsing="false" onAction="#switchToSearch" text="SEARCH" textFill="white" />
+                  <Button fx:id="navBarExplore" minWidth="70" mnemonicParsing="false" onAction="#switchToExplore" text="EXPLORE" textFill="white" />
+                  <Button fx:id="navBarAlbums" minWidth="70" mnemonicParsing="false" onAction="#switchToAlbums" text="ALBUMS" textFill="white" />
+                  <Button fx:id="navBarMap" minWidth="50" mnemonicParsing="false" onAction="#switchToMap" text="MAP" textFill="white" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="250.0">
                      <children>
-                        <Button fx:id="navBarUpload" minHeight="45.0" minWidth="97.0" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="45.0" prefWidth="97.0" text="UPLOAD" textFill="white">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Button>
+                        <Button fx:id="navBarUpload" minWidth="70" mnemonicParsing="false" onAction="#switchToUpload" prefHeight="25.0" prefWidth="114.0" text="UPLOAD" textFill="white" />
                      </children>
                   </HBox>
                </children>
