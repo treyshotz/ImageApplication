@@ -69,6 +69,7 @@
 
 .button:focused{
     -fx-background-color: rgba(193, 198, 196, 0.5);
+    -fx-color: white;
 }
 
 .text-input, .text-input:focused{
@@ -77,6 +78,7 @@
 
 .button:hover{
     -fx-background-color: rgba(193, 198, 196, 0.5);
+    -fx-color: white;
 }
 /*BUTTON STYLING END*/
 
@@ -126,23 +128,6 @@
 }
 
 /*TAB PANE END*/
-
-/*NAVBAR*/
-
-.searchButton{
-    -fx-background-image: url("../../Images/Search_icon.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: 60%;
-    -fx-background-position: center;
-}
-
-.searchField{
-    -fx-border-radius: 5 0 0 5;
-    -fx-background-radius: 5 0 0 5;
-}
-
-
-/*NAVBAR END*/
 
 
 
