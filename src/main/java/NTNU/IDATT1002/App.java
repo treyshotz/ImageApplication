@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,10 +23,6 @@ public class App extends Application {
         scene = new Scene(loadFXML("login"));
         stage.setMaximized(true);
         stage.setScene(scene);
-        stage.setTitle("Image Application");
-        stage.getIcons().add(new Image(App.class.getResourceAsStream("/Images/AppIcon.png")));
-        stage.setMinWidth(1024);
-        stage.setMinHeight(600);
         stage.show();
     }
 
