@@ -167,14 +167,14 @@ public class Explore extends NavBarController implements Initializable {
      * @throws IOException
      */
     public void switchToViewImageEnter(KeyEvent keyEvent) throws IOException {
-        long imageId2 = 0;
+        long imageInFocusId = 0;
         Node node = (Node) keyEvent.getSource();
         if (node.getId() != null){
-            imageId2 = Long.parseLong(node.getId());
+            imageInFocusId = Long.parseLong(node.getId());
         }
 
-        if (imageId2 != 0) {
-            App.ex.setChosenImg(imageId2);
+        if (imageInFocusId != 0) {
+            App.ex.setChosenImg(imageInFocusId);
             App.setRoot("view_image");
         }
     }
