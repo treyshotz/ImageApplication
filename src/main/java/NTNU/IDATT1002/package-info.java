@@ -1,4 +1,4 @@
-/**
+/**pac
  * <p>This API provides a javafx application for uploading images, extracting metadata,
  * manipulating albums and interacting with both on a map.
  * The map provides not only viewing where the images where taken,
