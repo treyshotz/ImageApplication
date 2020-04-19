@@ -23,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -147,9 +148,11 @@ public class ViewAlbum extends NavBarController implements Initializable {
 
         Text titleLabel = new Text("Title: ");
         titleLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 48));
+        titleLabel.setFill(Color.WHITE);
 
         Text title = new Text(album.getTitle());
         title.setFont(Font.font(App.ex.getDefaultFont(),48));
+        title.setFill(Color.WHITE);
 
         content.getChildren().addAll(titleLabel, title);
 
@@ -166,9 +169,11 @@ public class ViewAlbum extends NavBarController implements Initializable {
         HBox content = new HBox();
         Text authorLabel = new Text("Author: ");
         authorLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
+        authorLabel.setFill(Color.WHITE);
 
         Text author = new Text(album.getUser().getUsername());
         author.setFont(Font.font(App.ex.getDefaultFont(),24));
+        author.setFill(Color.WHITE);
 
         content.getChildren().addAll(authorLabel, author);
         textContainer.getChildren().add(content);
@@ -184,12 +189,14 @@ public class ViewAlbum extends NavBarController implements Initializable {
         HBox content = new HBox();
         Text tagsLabel = new Text("Tags: ");
         tagsLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 16));
+        tagsLabel.setFill(Color.WHITE);
 
         String tagsAsString = album.getTags().stream()
                 .map(Tag::getName)
                 .collect(Collectors.joining(" "));
         Text tags = new Text(tagsAsString);
         tags.setFont(Font.font(App.ex.getDefaultFont(),16));
+        tags.setFill(Color.WHITE);
 
         content.getChildren().addAll(tagsLabel, tags);
         textContainer.getChildren().add(content);
@@ -205,10 +212,12 @@ public class ViewAlbum extends NavBarController implements Initializable {
     private void insertAlbumDescription(Album album, VBox textContainer) {
         Text descriptionLabel = new Text("Description: ");
         descriptionLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 16));
+        descriptionLabel.setFill(Color.WHITE);
 
         Text description = new Text(album.getDescription());
         description.setWrappingWidth(500);
         description.setFont(Font.font(App.ex.getDefaultFont(),16));
+        description.setFill(Color.WHITE);
 
 
         textContainer.getChildren().addAll(descriptionLabel, description);
