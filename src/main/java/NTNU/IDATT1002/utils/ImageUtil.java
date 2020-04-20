@@ -63,7 +63,7 @@ public class ImageUtil {
     /**
      * Resizes and image to be suitable as markers on map.
      * @param image that will be resized
-     * @return string with resized image
+     * @return string with resized image in HTML img format
      */
     public static String createSmallerMarkers(Image image) {
         int markerHeight = 30;

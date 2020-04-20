@@ -38,7 +38,7 @@ public class Authentication {
     /**
      * Gets hash and salt from database with the salt
      * Hashes input password with same algorithm and salt as when created
-     * Compares the expected has and the new hash
+     * Compares the expected hash and the new hash
      * @param salt to get the stored hash on give user
      * @param password that will be hashed and compared to original hash
      * @return boolean of whether the hashes are similiar or not
@@ -102,7 +102,7 @@ public class Authentication {
 
 
     /**
-     * Creates hash with an random salt
+     * Creates hash with SHA-512 and with an random salt
      * @param password that wil be hashed
      * @return hashed password with salt
      */
