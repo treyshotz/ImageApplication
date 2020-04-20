@@ -4,17 +4,23 @@ import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
+import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
+import java.awt.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -45,7 +51,9 @@ public class ViewImage extends NavBarController implements Initializable{
             imageContainer.setImage(convertedImage);
             imageTitleField.setText(image.getTitle());
             imageTagsField.setText(TagService.getTagsAsString(image.getTags()));
-            imageMetadataField.setText(image.getMetadata().toString());
+            imageMetadataField.setText(MetadataStringFormatter.format(image.getMetadata(), "\n"));
+            imageMetadataField.setId(String.valueOf(image.getId()));
+            imageMetadataField.setOnMouseClicked(this::openPopUpMetadata);
         });
     }
 
@@ -74,5 +82,38 @@ public class ViewImage extends NavBarController implements Initializable{
             stage.setScene(scene);
             stage.showAndWait();
         }
+    }
+
+    /**
+     * Makes a new stage and displays all metadata of the clicked image
+     * @param mouseEvent
+     */
+    public void openPopUpMetadata(MouseEvent mouseEvent){
+        Node clickedObject = (Node) mouseEvent.getSource();
+        ImageService imageService = new ImageService(App.ex.getEntityManager());
+        Optional<NTNU.IDATT1002.models.Image> findImage = imageService.findById(Long.parseLong(clickedObject.getId()));
+        findImage.ifPresent(foundImage -> {
+            Stage stage = new Stage();
+            stage.setWidth(400);
+            stage.setHeight(600);
+
+            Text metadataLabel = new Text("All metadata: ");
+            Text metadata = new Text(foundImage.getMetadata().getMiscMetadata());
+            ScrollPane scrollPane = new ScrollPane();
+
+            VBox textContainer = new VBox();
+            metadata.wrappingWidthProperty().bind(stage.widthProperty().add(-25));
+            textContainer.getChildren().addAll(metadataLabel, metadata);
+            textContainer.setAlignment(Pos.TOP_LEFT);
+
+            scrollPane.setFitToWidth(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setContent(textContainer);
+            scrollPane.setMinHeight(textContainer.getMinHeight());
+
+            Scene scene = new Scene(scrollPane);
+            stage.setScene(scene);
+            stage.showAndWait();
+        });
     }
 }

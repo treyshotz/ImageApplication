@@ -5,17 +5,21 @@ import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.AlbumDocument;
 import NTNU.IDATT1002.service.AlbumService;
+import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
+import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -45,7 +49,6 @@ import java.util.stream.Collectors;
  */
 public class ViewAlbum extends NavBarController implements Initializable {
 
-    public Pane metadataPane;
     public Button createAlbumPdf;
     public ImageView mainImageContainer;
     public Text mainImageTitle;
@@ -55,6 +58,8 @@ public class ViewAlbum extends NavBarController implements Initializable {
     public VBox albumTextContainer;
     public Button viewOnMapBtn;
     public HBox albumImagesContainer;
+    public VBox metadataVBox;
+    public Text metadataText;
 
     private AlbumService albumService;
     private Album currentAlbum;
@@ -81,6 +86,9 @@ public class ViewAlbum extends NavBarController implements Initializable {
                 mainImageContainer.setImage(ImageUtil.convertToFXImage(mainImage));
                 mainImageTitle.setText("ADD IMAGE TITLE");
                 mainImageTags.setText(TagService.getTagsAsString(mainImage.getTags()));
+                metadataVBox.setId(String.valueOf(mainImage.getId()));
+                metadataVBox.setOnMouseClicked(this::openPopUpMetadata);
+                metadataText.setText(MetadataStringFormatter.format(mainImage.getMetadata(), "\n"));
                 insertAlbumTextToContainer(album);
                 for (NTNU.IDATT1002.models.Image image : albumImages) {
                     ImageView imageView = new ImageView();
@@ -116,6 +124,8 @@ public class ViewAlbum extends NavBarController implements Initializable {
                 mainImageTitle.setText("ADD IMAGE TITLE");
                 mainImageTags.setText(TagService.getTagsAsString(newImage.getTags()));
                 mainImageContainer.setImage(image);
+                metadataVBox.setId(String.valueOf(newImage.getId()));
+                metadataText.setText(MetadataStringFormatter.format(newImage.getMetadata(), "\n"));
             });
         }
     }
@@ -246,6 +256,39 @@ public class ViewAlbum extends NavBarController implements Initializable {
             stage.setScene(scene);
             stage.showAndWait();
         }
+    }
+
+    /**
+     * Makes a new stage and displays all metadata of the clicked image
+     * @param mouseEvent
+     */
+    public void openPopUpMetadata(MouseEvent mouseEvent){
+        Node clickedObject = (Node) mouseEvent.getSource();
+        ImageService imageService = new ImageService(App.ex.getEntityManager());
+        Optional<NTNU.IDATT1002.models.Image> findImage = imageService.findById(Long.parseLong(clickedObject.getId()));
+        findImage.ifPresent(foundImage -> {
+            Stage stage = new Stage();
+            stage.setWidth(400);
+            stage.setHeight(600);
+
+            Text metadataLabel = new Text("All metadata: ");
+            Text metadata = new Text(foundImage.getMetadata().getMiscMetadata());
+            ScrollPane scrollPane = new ScrollPane();
+
+            VBox textContainer = new VBox();
+            metadata.wrappingWidthProperty().bind(stage.widthProperty().add(-25));
+            textContainer.getChildren().addAll(metadataLabel, metadata);
+            textContainer.setAlignment(Pos.TOP_LEFT);
+
+            scrollPane.setFitToWidth(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setContent(textContainer);
+            scrollPane.setMinHeight(textContainer.getMinHeight());
+
+            Scene scene = new Scene(scrollPane);
+            stage.setScene(scene);
+            stage.showAndWait();
+        });
     }
 
     /**
