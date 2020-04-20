@@ -24,7 +24,7 @@ public class ImageRepository extends PagingAndSortingRepository<Image, Long> {
     public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * Set the class type to {@link Image}
      */
     public ImageRepository(EntityManager entityManager) {

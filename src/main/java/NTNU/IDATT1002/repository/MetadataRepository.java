@@ -16,7 +16,7 @@ import java.util.Optional;
 public class MetadataRepository extends AbstractRepository<Metadata, Long> {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * Set the class type to {@link Metadata}
      */
     public MetadataRepository(EntityManager entityManager) {
