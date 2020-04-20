@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.Config;
 import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.AlbumService;
@@ -213,10 +214,7 @@ public class UploadImages extends NavBarController implements Initializable {
    */
   private void insertCheckedChoiceBox(VBox textContainer){
     ObservableList<String> options = FXCollections.observableArrayList();
-    albumService.getAllAlbums().stream()
-            //Filters the current users albums
-            .filter(album -> album.getUser() == ApplicationState.getCurrentUser())
-            //Adds a checkbox with albums title and id
+    albumService.getAlbumsByUser(ApplicationState.getCurrentUser().getUsername())
             .forEach(album -> options.add(album.getTitle() + " #" + album.getId()));
     CheckComboBox<String> checkComboBox = new CheckComboBox<>(options);
     checkComboBox.setId("checkbox");
