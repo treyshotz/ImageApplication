@@ -20,6 +20,7 @@ public class NavBarController {
     public Button navBarUpload;
     public Button navBarAlbums;
     public Button navBarLogOut;
+    public Button returnButton;
 
     /**
      * Method that changes scene to Main page
@@ -29,6 +30,10 @@ public class NavBarController {
     public void switchToMain(MouseEvent mouseEvent) throws IOException {
         App.ex.setChosenAlbumId(null);
         App.setRoot("main");
+    }
+
+    public void goToPrevious(ActionEvent actionEvent) {
+
     }
 
     /**

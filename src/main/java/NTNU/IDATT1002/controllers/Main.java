@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 /**
@@ -11,5 +12,4 @@ public class Main extends NavBarController {
 
     public Button uploadBtn;
 
-    public Button navBarLogOut;
 }
