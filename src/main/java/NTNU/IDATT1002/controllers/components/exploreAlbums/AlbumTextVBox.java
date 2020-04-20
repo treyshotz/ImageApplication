@@ -1,4 +1,4 @@
-package NTNU.IDATT1002.controllers.components;
+package NTNU.IDATT1002.controllers.components.exploreAlbums;
 
 import NTNU.IDATT1002.models.Album;
 import javafx.geometry.Insets;

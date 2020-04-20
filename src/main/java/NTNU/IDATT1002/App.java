@@ -32,6 +32,7 @@ public class App extends Application {
     @Override
     public void stop(){
        ex.getGeoApiContext().shutdown();
+       Config.closeEntityManagerFactory();
     }
 
     public static void setRoot(String fxml) throws IOException {
