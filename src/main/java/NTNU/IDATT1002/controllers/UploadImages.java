@@ -306,7 +306,8 @@ public class UploadImages extends NavBarController implements Initializable {
    */
   private boolean validateTitle(){
     boolean check = true;
-    if (title.getText().isEmpty()){
+    if (title.getText().isEmpty() || title.getText().isBlank()){
+      title.clear();
       title.setStyle("-fx-prompt-text-fill: red");
       title.setPromptText("Please enter a image title");
       check = false;
