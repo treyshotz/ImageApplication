@@ -53,6 +53,16 @@ public class AlbumService {
     }
 
     /**
+     * Takes in a string and searched through all albums username.
+     *
+     * @param user the query string
+     * @return list of results
+     */
+    public List<Album> getAlbumsByUser(String user){
+        return albumRepository.findAllByUsername(user);
+    }
+
+    /**
      * Retrieve paginated results specified by given {@link PageRequest}.
      *
      * @param pageRequest the {@link PageRequest} defining page number and size
