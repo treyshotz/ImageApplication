@@ -1,7 +1,7 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.controllers.components.AlbumHBox;
+import NTNU.IDATT1002.controllers.components.exploreAlbums.AlbumHBox;
 import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.service.AlbumService;

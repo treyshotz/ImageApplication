@@ -33,6 +33,13 @@ public class Config {
     }
 
     /**
+     * Close the {@link EntityManager} instance.
+     */
+    public static void closeEntityManagerFactory() {
+        entityManagerFactory.close();
+    }
+
+    /**
      * Retrieve a new {@link EntityManager} instance.
      * An {@link EntityManagerFactory} is not created until it is requested.
      *

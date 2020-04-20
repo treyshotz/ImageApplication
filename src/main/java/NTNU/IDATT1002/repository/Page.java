@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.repository;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @param <T> The type of data, preferably an entity.
  */
-public class Page<T> {
+public class Page<T> implements Iterable<T> {
 
     private final long total;
 
@@ -92,5 +93,13 @@ public class Page<T> {
      */
     public List<T> getContent() {
         return content;
+    }
+
+    /**
+     * Return an iterator for the page's content.
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return content.iterator();
     }
 }

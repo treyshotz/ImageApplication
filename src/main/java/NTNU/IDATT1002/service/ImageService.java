@@ -2,8 +2,12 @@ package NTNU.IDATT1002.service;
 
 import NTNU.IDATT1002.models.*;
 import NTNU.IDATT1002.repository.ImageRepository;
+import NTNU.IDATT1002.repository.Page;
+import NTNU.IDATT1002.repository.PageRequest;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
@@ -11,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Image service
@@ -67,6 +69,16 @@ public class ImageService {
         image.setPath(file.getPath());
         image.addTags((ArrayList<Tag>) tagService.getOrCreateTags(tags));
         return imageRepository.save(image);
+    }
+
+    /**
+     * Retrieve paginated results specified by given {@link PageRequest}.
+     *
+     * @param pageRequest the {@link PageRequest} defining page number and size
+     * @return the page containing results found based on the {@link PageRequest}
+     */
+    public Page<Image> findAll(PageRequest pageRequest) {
+        return imageRepository.findAll(pageRequest);
     }
 
     /**

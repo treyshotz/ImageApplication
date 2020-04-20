@@ -194,6 +194,7 @@ public class Album {
         if (tags != null)
             formattedTags = tags.stream()
                     .map(Tag::getName)
+                    .distinct()
                     .collect(Collectors.toList())
                     .toString();
 

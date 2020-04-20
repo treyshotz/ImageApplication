@@ -19,6 +19,7 @@ public class NavBarController {
     public Button navBarMap;
     public Button navBarUpload;
     public Button navBarAlbums;
+    public Button navBarLogOut;
 
     /**
      * Method that changes scene to Main page
