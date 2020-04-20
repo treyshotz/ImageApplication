@@ -61,7 +61,7 @@
          <children>
             <HBox alignment="CENTER" maxWidth="215.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="createAlbumButton" minWidth="215.0" mnemonicParsing="false" onAction="#switchToCreateAlbum" text="CREATE ALBUM">
+                  <Button fx:id="createAlbumButton" minWidth="240.0" mnemonicParsing="false" onAction="#switchToCreateAlbum" text="CREATE ALBUM">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
