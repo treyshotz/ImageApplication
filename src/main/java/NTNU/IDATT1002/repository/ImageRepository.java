@@ -15,7 +15,7 @@ import java.util.List;
  * @version 1.0 19.03.20
  * @see NTNU.IDATT1002.repository.Repository
  */
-public class ImageRepository extends AbstractRepository<Image, Long> {
+public class ImageRepository extends PagingAndSortingRepository<Image, Long> {
 
     /**
      * Mapping to {@link javax.persistence.NamedQuery} defined in {@link Image}

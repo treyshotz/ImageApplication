@@ -1,49 +1,93 @@
 package NTNU.IDATT1002.repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
+import java.util.Optional;
 
 /**
- * To be implemented.
+ * Represents a part of a sorted {@link PageRequest}.
+ *
+ * Composes an {@link Order} wrapped in an {@link Optional}
+ * which can be used when building an ordered {@link javax.persistence.criteria.CriteriaQuery}.
+ * If no sorting is specified or required, {@link Sort#empty()} should be used.
+ * This returns a {@link Optional#empty()} when building queries.
+ *
+ * The default order is ascending.
  */
 public class Sort {
 
-    public enum Type {
-        NAME("name"),
-        DATE("uploadedAt");
+    private String byField;
 
-        private String field;
+    private boolean ascending;
 
-        Type(String field) {
-            this.field = field;
-        }
+    /**
+     * @see Sort#by(String byField)
+     */
 
-        public static Type from(String field) {
-            for (Type type : Type.values())
-                if (type.field.equals(field))
-                    return type;
+    private Sort(String byField) {
 
-            return null;
-        }
+        this.byField = byField;
+        this.ascending = true;
     }
 
-    public Sort(Type from) {
+    /**
+     * Return a {@link Sort} by given field.
+     */
+    public static Sort by(String field) {
+        return new Sort(field);
     }
 
-    public static Sort of(Type type) {
-        return null;
+    /**
+     * Return a {@link Sort} in descending order.
+     */
+    public Sort descending() {
+        this.ascending = false;
+        return this;
     }
 
-    // possibly only pass requested field
-    public static Sort of(String field) {
-        return new Sort(Type.from(field));
+    /**
+     * Return a {@link Sort} in ascending order.
+     */
+    public Sort ascending() {
+        this.ascending = true;
+        return this;
     }
 
+    /**
+     * Return a {@link Sort} which does not sort by any field.
+     */
+    public static Sort empty() {
+        return new Sort(null);
+    }
 
+    /**
+     * Compose and return this {@link Sort} as an {@link Order} wrapped in an {@link Optional}
+     * which can be used when building queries with {@link javax.persistence.criteria.CriteriaQuery}.
+     *
+     * Return {@link Optional#empty()} if this {@link Sort} is empty,
+     *
+     * @param criteriaBuilder the {@link CriteriaBuilder} to build the {@link Order} from
+     * @param from the {@link Root} specifying which table the query acts on.
+     */
+    public <T> Optional<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> from) {
+        if (this.isEmpty())
+            return Optional.empty();
 
-    public Order getSort() {
-        // return generated sort
+        Expression<String> expression = from.get(byField);
 
-        return null;
+        if (ascending)
+            return Optional.of(criteriaBuilder.asc(expression));
+
+        return Optional.of(criteriaBuilder.desc(expression));
+    }
+
+    /**
+     * Return whether this {@link Sort} is empty.
+     */
+    private boolean isEmpty() {
+        return byField == null;
     }
 
 }

@@ -1,14 +1,11 @@
 package NTNU.IDATT1002.repository;
 
-import javax.persistence.criteria.Order;
-import java.util.Objects;
-
-
 /**
  * Represents requests for requesting a {@link Page} from a paginated query.
  *
- * A page request contains information about the requested page number
- * and the page size, ie number of elements per page.
+ * A page request contains information about the requested page number,
+ * the page size, ie number of elements per page
+ * and a {@link Sort} representing an ordering.
  */
 public class PageRequest {
 
@@ -24,6 +21,7 @@ public class PageRequest {
     protected PageRequest(int pageNumber, int pageSize) {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
+        this.sort = Sort.empty();
     }
 
     /**
@@ -36,6 +34,8 @@ public class PageRequest {
 
     /**
      * Create a {@link PageRequest} defined by given page number and page size.
+     *
+     * Includes a {@link Sort#empty()}.
      *
      * @param pageNumber the page this request represents, defined by its number
      * @param pageSize the number of elements per page
@@ -53,21 +53,21 @@ public class PageRequest {
      * @param sort the sorting of the elements requested by this request.
      */
     public static PageRequest of(int pageNumber, int pageSize, Sort sort) {
-        return new PageRequest(pageNumber, pageSize);
+        return new PageRequest(pageNumber, pageSize, sort);
     }
 
     /**
      * Return the succeeding {@link PageRequest}.
      */
     public PageRequest next() {
-        return PageRequest.of(pageNumber + 1, pageSize);
+        return PageRequest.of(pageNumber + 1, pageSize, sort);
     }
 
     /**
      * Return the preceding {@link PageRequest}.
      */
     public PageRequest previous() {
-        return PageRequest.of(pageNumber - 1, pageSize);
+        return PageRequest.of(pageNumber - 1, pageSize, sort);
     }
 
     /**
@@ -85,19 +85,10 @@ public class PageRequest {
     }
 
     /**
-     * Return the sort represented as an {@link Order}. To be implemented.
+     * Return the {@link Sort} .
      */
-    public Order getSort() {
-        return null;
+    public Sort getSort() {
+        return sort;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PageRequest that = (PageRequest) o;
-        return pageSize == that.pageSize &&
-                pageNumber == that.pageNumber &&
-                Objects.equals(sort, that.sort);
-    }
 }
