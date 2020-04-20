@@ -26,6 +26,7 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToMain(MouseEvent mouseEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("main");
     }
 
@@ -39,6 +40,7 @@ public class NavBarController {
         if (!navBarSearch.getText().isEmpty()){
             App.ex.setSearchField(navBarSearch.getText());
         }
+        App.ex.setChosenAlbumId(null);
         App.setRoot("search");
     }
 
@@ -48,6 +50,7 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("explore");
     }
 
@@ -57,6 +60,7 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("explore_albums");
     }
 
@@ -66,6 +70,7 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToMap(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("map");
     }
 
@@ -75,11 +80,13 @@ public class NavBarController {
      * @throws IOException this page does not exist
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
+        App.ex.setChosenAlbumId(null);
         App.setRoot("upload");
     }
 
     public void logOut(ActionEvent actionEvent) throws IOException {
         UserService.logOut();
+        App.ex.setChosenAlbumId(null);
         App.setRoot("login");
     }
 }
