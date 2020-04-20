@@ -50,6 +50,7 @@ public class UploadImages extends NavBarController implements Initializable {
   public VBox root;
   private AlbumService albumService;
   private ImageService imageService;
+  private TextField title;
 
   public UploadImages(){
     EntityManager entityManager = App.ex.getEntityManager();
@@ -77,18 +78,21 @@ public class UploadImages extends NavBarController implements Initializable {
       insertImageTextToContainer(files.get(i), imageContainer);
       uploadContainer.getChildren().add(imageContainer);
     }
-    if (uploadContainer.getChildren().size() > 0){
-      Button accept = new Button("Accept");
-      accept.setOnAction(actionEvent -> {
-        try {
-          upload();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
-      uploadContainer.setAlignment(Pos.TOP_CENTER);
-      uploadContainer.getChildren().add(accept);
-    }
+      if (uploadContainer.getChildren().size() > 0) {
+        Button accept = new Button("Accept");
+        accept.setOnAction(actionEvent -> {
+          try {
+            if (validateTitle()) {
+            upload();
+          }
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+        uploadContainer.setAlignment(Pos.TOP_CENTER);
+        uploadContainer.getChildren().add(accept);
+      }
+
   }
 
 
@@ -150,7 +154,7 @@ public class UploadImages extends NavBarController implements Initializable {
     Text titleLabel = new Text("Title: ");
     titleLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 
-    TextField title = new TextField();
+    title = new TextField();
     title.setId("title");
     title.setFont(Font.font(App.ex.getDefaultFont(),24));
 
@@ -293,5 +297,26 @@ public class UploadImages extends NavBarController implements Initializable {
       if (node instanceof Parent)
         addAllDescendents((Parent)node, nodes);
     }
+  }
+
+  /**
+   * Checks if the user gave the image a title as well as if the title has too many characters
+   *
+   * @return boolean validation check
+   */
+  private boolean validateTitle(){
+    boolean check = true;
+    if (title.getText().isEmpty() || title.getText().isBlank()){
+      title.clear();
+      title.setStyle("-fx-prompt-text-fill: red");
+      title.setPromptText("Please enter a image title");
+      check = false;
+    }if (title.getText().length() > 50){
+      title.clear();
+      title.setStyle("-fx-prompt-text-fill: red");
+      title.setPromptText("The title is too long");
+     check = false;
+    }
+    return check;
   }
 }
