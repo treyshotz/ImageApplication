@@ -3,10 +3,17 @@ package NTNU.IDATT1002.controllers;
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.service.TagService;
+import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
@@ -30,7 +37,7 @@ public class ImageMapFactory {
     private GoogleMap map;
     private Logger logger = LoggerFactory.getLogger(ImageMapFactory.class);
     private Map<LatLong, Image> latLongImageMapping = new HashMap<>();
-    
+
     public ImageMapFactory() {
     }
 
@@ -126,9 +133,13 @@ public class ImageMapFactory {
      * @return marker created
      */
     private Marker getMarker(LatLong location) {
+        Image image = latLongImageMapping.get(location);
+        String smallerMarker = ImageUtil.createSmallerMarkers(image);
+
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(location)
-                .animation(Animation.DROP);
+                .animation(Animation.DROP)
+                .icon(smallerMarker);
 
         logger.info("[x] Marker created for location: {}", location);
         Marker marker = new Marker(markerOptions);
