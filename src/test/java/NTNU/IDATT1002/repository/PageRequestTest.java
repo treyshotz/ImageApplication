@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests for {@link PageRequest}.
@@ -23,26 +22,13 @@ public class PageRequestTest {
     }
 
     /**
-     * Test that a new page request is correctly created.
+     * Test that a new page request is correctly created with page size and pagenumber as excpected.
      */
     @Test
     void testOf() {
         PageRequest pageRequestOf = PageRequest.of(0, 0);
-        assertEquals(pageRequest, pageRequestOf);
-    }
-
-    /**
-     * Test that a new page request is correctly created with sort.
-     */
-    @Disabled("Sort is not implemented yet")
-    @Test
-    void testOfWithSort() {
-        Sort sort = Sort.of(Sort.Type.DATE);
-        PageRequest pageRequestWithSort = PageRequest.of(0, 0, sort);
-
-        assertEquals(0, pageRequestWithSort.getPageNumber());
-        assertEquals(0, pageRequestWithSort.getPageSize());
-        assertNotNull(pageRequestWithSort.getSort());
+        assertEquals(pageRequest.getPageSize(), pageRequestOf.getPageSize());
+        assertEquals(pageRequest.getPageNumber(), pageRequestOf.getPageNumber());
     }
 
     /**
@@ -81,5 +67,18 @@ public class PageRequestTest {
     @Test
     public void testGetPageSize() {
         assertEquals(0, pageRequest.getPageNumber());
+    }
+
+    /**
+     * Test that a new page request is correctly created with sort.
+     */
+    @Test
+    void testOfWithSort() {
+        Sort sort = Sort.empty();
+        PageRequest pageRequestWithSort = PageRequest.of(0, 0, sort);
+
+        assertEquals(0, pageRequestWithSort.getPageNumber());
+        assertEquals(0, pageRequestWithSort.getPageSize());
+        assertEquals(pageRequestWithSort.getSort(), sort);
     }
 }

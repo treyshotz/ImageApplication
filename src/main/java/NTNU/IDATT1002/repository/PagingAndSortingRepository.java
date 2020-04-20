@@ -28,12 +28,13 @@ public abstract class PagingAndSortingRepository<T, ID> extends AbstractReposito
      * Find all entities specified by given {@link PageRequest}.
      * Queries for the total amount of results to support proper pagination.
      *
-     * @param pageRequest the {@link PageRequest} specifying which page and how many entities to query for
+     * @param pageRequest the {@link PageRequest} specifying which page and how many entities to query for,
+     *                    with an optional {@link Sort}
      * @return {@link Page} consisting of the results of this operation
      */
     public Page<T> findAll(PageRequest pageRequest) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> selectQuery = getCriteriaQuery(criteriaBuilder);
+        CriteriaQuery<T> selectQuery = getCriteriaQuery(criteriaBuilder, pageRequest.getSort());
 
         List<T> paginatedResults = getPaginatedResults(pageRequest, selectQuery);
         long total = getTotal(criteriaBuilder);
@@ -44,12 +45,20 @@ public abstract class PagingAndSortingRepository<T, ID> extends AbstractReposito
     /**
      * Return a {@link CriteriaQuery} SELECT FROM query.
      *
+     * If given {@link Sort}s order is not empty, include the
+     * ordering in the {@link CriteriaQuery}, resulting in an ORDER BY clause.
+     *
      * @param criteriaBuilder the {@link CriteriaBuilder} to build the query from
      */
-    private CriteriaQuery<T> getCriteriaQuery(CriteriaBuilder criteriaBuilder) {
+    private CriteriaQuery<T> getCriteriaQuery(CriteriaBuilder criteriaBuilder, Sort sort) {
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(super.entityClass);
         Root<T> from = criteriaQuery.from(super.entityClass);
-        return criteriaQuery.select(from);
+        CriteriaQuery<T> selectQuery = criteriaQuery.select(from);
+
+        sort.getOrder(criteriaBuilder, from)
+                .ifPresent(selectQuery::orderBy);
+
+        return selectQuery;
     }
 
     /**
