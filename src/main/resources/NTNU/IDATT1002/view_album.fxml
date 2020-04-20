@@ -101,7 +101,15 @@
                         </Text>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="700.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox fx:id="metadataVbox" prefHeight="400.0" prefWidth="700.0" />
+                              <VBox fx:id="metadataVBox" prefHeight="400.0" prefWidth="700.0">
+                                 <children>
+                                    <Text fx:id="metadataText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
                            </content>
                         </ScrollPane>
                         <HBox prefHeight="39.0" prefWidth="700.0" spacing="20.0">
