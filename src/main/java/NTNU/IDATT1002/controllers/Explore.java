@@ -59,6 +59,10 @@ public class Explore extends NavBarController implements Initializable {
     private Pagination pagination;
     private ImageService imageService;
 
+    public Explore(){
+        App.ex.newPage("explore");
+    }
+
     /**
      * Generate content, including the first page of all images.
      */

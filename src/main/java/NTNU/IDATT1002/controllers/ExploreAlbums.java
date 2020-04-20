@@ -66,6 +66,7 @@ public class ExploreAlbums extends NavBarController implements Initializable {
     private static Logger logger = LoggerFactory.getLogger(ExploreAlbums.class);
 
     public ExploreAlbums() {
+        App.ex.newPage("explore_albums");
         EntityManager entityManager = App.ex.getEntityManager();
         albumService = new AlbumService(entityManager);
     }

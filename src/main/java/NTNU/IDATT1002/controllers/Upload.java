@@ -31,6 +31,10 @@ public class Upload extends NavBarController {
     public Button uploadBtn;
     public Pane drag_drop;
 
+    public Upload(){
+        App.ex.newPage("upload");
+    }
+
     /**
      * Method that changs scene to Uploaded Single page
      * If the user has chosen 1 image this method is called

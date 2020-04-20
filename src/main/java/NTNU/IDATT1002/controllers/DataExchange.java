@@ -6,6 +6,7 @@ import javafx.application.HostServices;
 
 import javax.persistence.EntityManager;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +24,10 @@ public class DataExchange {
     private Long chosenAlbumId;
     private Long chosenImg;
     private final String defaultFont;
+    private ArrayList<String> FXMLHistory;
 
     public DataExchange(){
+        FXMLHistory = new ArrayList<>();
         searchField = "";
         defaultFont = "System";
         apiKey = Config.getGoogleApiKey();
@@ -87,6 +90,43 @@ public class DataExchange {
 
     public String getDefaultFont() {
         return defaultFont;
+    }
+
+
+    /**
+     * Method for adding new page to previousFXML list.
+     * Will not add if the last element of the list is
+     * the same as the page loaded.
+     *
+     * @param FXML new fxml page loaded
+     */
+    public void newPage(String FXML){
+        if (FXMLHistory.size() == 0) {
+            FXMLHistory.add(FXML);
+        }
+        else if (!FXMLHistory.get(FXMLHistory.size()-1).equals(FXML)){
+            FXMLHistory.add(FXML);
+        }
+    }
+
+    /**
+     * Method for going back. Checks if there is a previous page
+     * and makes it the current one
+     * @return previous page if it exists or null if not
+     */
+    public String previousPage(){
+        if (FXMLHistory.size() > 1){
+            FXMLHistory.remove(FXMLHistory.size()-1); //Removes the current page
+            return FXMLHistory.get(FXMLHistory.size()-1); //Returns the new current page
+        }
+        return null;
+    }
+
+    /**
+     * Empties the page log if logged out
+     */
+    public void emptyPageLog(){
+        FXMLHistory = new ArrayList<>();
     }
 }
 

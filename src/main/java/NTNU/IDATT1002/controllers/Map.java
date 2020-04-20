@@ -76,6 +76,7 @@ public class Map extends NavBarController implements Initializable, MapComponent
 
 
     public Map() {
+        App.ex.newPage("map");
         EntityManager entityManager = App.ex.getEntityManager();
         imageService = new ImageService(entityManager);
         albumService = new AlbumService(entityManager);

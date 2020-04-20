@@ -38,6 +38,10 @@ public class ViewImage extends NavBarController implements Initializable{
     public Text imageTitleField;
     public Text imageMetadataField;
 
+    public ViewImage(){
+        App.ex.newPage("view_image");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         EntityManager entityManager = App.ex.getEntityManager();

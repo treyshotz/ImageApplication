@@ -54,6 +54,7 @@ public class UploadImages extends NavBarController implements Initializable {
   private TextField title;
 
   public UploadImages(){
+    App.ex.newPage("upload_images");
     EntityManager entityManager = App.ex.getEntityManager();
     albumService = new AlbumService(entityManager);
     imageService = new ImageService(entityManager);
@@ -65,6 +66,7 @@ public class UploadImages extends NavBarController implements Initializable {
    * @param location
    * @param resources
    */
+  @Override
   public void initialize(URL location, ResourceBundle resources) {
     uploadContainer.getChildren().clear();
     List<File> files = App.ex.getUploadedFiles();
