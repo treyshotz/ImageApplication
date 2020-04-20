@@ -64,6 +64,10 @@ public class ViewAlbum extends NavBarController implements Initializable {
     private AlbumService albumService;
     private Album currentAlbum;
 
+    public ViewAlbum(){
+        App.ex.newPage("view_album");
+    }
+
     /**
      * Initialize view with real album data.
      *

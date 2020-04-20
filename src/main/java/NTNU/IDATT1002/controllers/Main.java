@@ -1,5 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
+import NTNU.IDATT1002.App;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
@@ -12,4 +13,8 @@ public class Main extends NavBarController {
 
     public Button uploadBtn;
 
+
+    public Main(){
+        App.ex.newPage("main");
+    }
 }

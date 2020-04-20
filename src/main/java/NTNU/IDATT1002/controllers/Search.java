@@ -37,6 +37,9 @@ public class Search extends NavBarController implements Initializable {
     public VBox vBox;
     public Text amount;
 
+    public Search(){
+        App.ex.newPage("search");
+    }
 
     /**
      * Method that writes the word that is searched for.
@@ -44,6 +47,7 @@ public class Search extends NavBarController implements Initializable {
      * @param location
      * @param resources
      */
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!App.ex.getSearchField().isEmpty()){
             search_result.setText(App.ex.getSearchField());

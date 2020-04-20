@@ -51,6 +51,7 @@ public class CreateAlbum extends NavBarController implements Initializable {
   private ImageService imageService;
 
   public CreateAlbum() {
+    App.ex.newPage("create_album");
     EntityManager entityManager = App.ex.getEntityManager();
     albumService = new AlbumService(entityManager);
     imageService = new ImageService(entityManager);

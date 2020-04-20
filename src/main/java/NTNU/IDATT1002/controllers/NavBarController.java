@@ -32,8 +32,11 @@ public class NavBarController {
         App.setRoot("main");
     }
 
-    public void goToPrevious(ActionEvent actionEvent) {
-
+    public void goToPrevious(ActionEvent actionEvent) throws IOException {
+        String previousPage = App.ex.previousPage();
+        if (previousPage != null){
+            App.setRoot(previousPage);
+        }
     }
 
     /**
