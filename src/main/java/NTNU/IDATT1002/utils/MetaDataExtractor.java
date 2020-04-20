@@ -360,7 +360,9 @@ public class MetaDataExtractor {
     }
 
     /**
-     * Method for getting all the misceleneous metadata from an image
+     * Method for getting all the misceleneous metadata from an image. The data only gets added if its not already extracted OR if its not of the type TRC
+     * as that is only a long string of numbers with no viable information for the user, and clogs up the  database
+     * 
      * @param file that will be checked
      * @return metadata or an empty string if nothing was found
      */
@@ -372,13 +374,16 @@ public class MetaDataExtractor {
             Metadata metadata = ImageMetadataReader.readMetadata(file);
             for (Directory directory : metadata.getDirectories()) {
                     for (Tag tag : directory.getTags()) {
-                        if(!(getMetadata(file).contains( cleanUpTags(tag.toString(), directory)))){
+                        if(!(getMetadata(file).contains( cleanUpTags(tag.toString(), directory))) && !(tag.toString().contains("TRC"))){
                             miscMetadata.append(tag).append(" #");
                         }
                 }
             }
         } catch (IOException | ImageProcessingException | NullPointerException e) {
             logger.error("[x] Could not get information from file", e);
+    }
+        if (miscMetadata.toString().length() > 60000){
+            return miscMetadata.substring(0, 60000);
         }
         return miscMetadata.toString();
     }
