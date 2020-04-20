@@ -64,13 +64,22 @@ public class Login {
         }
     }
 
-
+    /**
+     * Method that registers a keyevent and tries to login if keyevent is enter
+     * @param keyEvent
+     * @throws IOException
+     */
     public void enterLogin(KeyEvent keyEvent) throws IOException {
         if(keyEvent.getCode().equals(KeyCode.ENTER)){
             login();
         }
     }
 
+    /**
+     * Method trying to login is login button is pressed
+     * @param event
+     * @throws IOException
+     */
     public void buttonLogin(ActionEvent event) throws IOException {
         login();
     }

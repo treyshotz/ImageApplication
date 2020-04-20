@@ -38,6 +38,9 @@ public class ImageService {
 
     /**
      * Creates a new image from the input File
+     * Sets metadata to image by using {@link MetaDataExtractor}
+     * Sets a blob of image by using {@link ImageUtil}
+     * Finally sets user, path, title and tags to image
      *
      * @param user the user of the image
      * @param file the file uploaded
@@ -100,6 +103,11 @@ public class ImageService {
         return imageRepository.findAll();
     }
 
+    /**
+     * Retrieves a image with given id
+     * @param id that will searched for
+     * @return Optional with image if found, empty else wise
+     */
     public Optional<Image> findById(Long id){
         return imageRepository.findById(id);
     }
@@ -130,7 +138,4 @@ public class ImageService {
     public List<Image> removeDuplicates(List<Image> images){
         return images.stream().distinct().collect(Collectors.toList());
     }
-    
-
-
 }

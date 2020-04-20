@@ -37,8 +37,8 @@ public class MetaDataExtractor {
     }
 
     /**
-     * Returns a string with the GPS position
-     * @return the gelocation of the file
+     * Reads files' metadata and tries to extract metadata
+     * @return the gelocation of the file, if none is found, geolocation is set to 0
      */
     public static GeoLocation getGeoLocation(File file) {
         String gps = "";
@@ -90,7 +90,7 @@ public class MetaDataExtractor {
     }
 
     /**
-     * Method for getting lens iformation
+     * Method for getting lens information of the camera used
      * @param file that will be checked
      * @return empty string if nothing is found
      */
@@ -325,6 +325,11 @@ public class MetaDataExtractor {
         return fileDimension;
     }
 
+    /**
+     * Sets all predefiner metadata on a metadata object
+     * @param metadata object that metadata will be set to
+     * @param file for extracting metadata
+     */
     public static void setMetadata(NTNU.IDATT1002.models.Metadata metadata, File file) {
         metadata.setCamera(getCamera(file));
         metadata.setLens(getLens(file));

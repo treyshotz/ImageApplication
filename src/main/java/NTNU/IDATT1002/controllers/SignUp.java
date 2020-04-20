@@ -48,7 +48,7 @@ public class SignUp {
     }
 
     /**
-     * Method that changes scene to Login
+     * Method that changes scene if signup scheme is filled correctly to Login
      * @param actionEvent
      * @throws IOException
      */
@@ -93,7 +93,7 @@ public class SignUp {
 
 
     /**
-     * Checks both that the user put info in the necessary textfields and that the username and/or email isnt in use.
+     * Checks both that the user put info in the necessary textfields and that the username and/or email isn't in use.
      *
      * @param username
      * @param firstName
