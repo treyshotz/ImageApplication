@@ -49,14 +49,37 @@
 /*SCROLLPANE CSS END*/
 
 /*RESPONSIZE IMAGES*/
+/*IMAGES*/
 
 .viewAlbumImage{
     -fx-max-width: 850px;
     -fx-height: auto;
     -fx-width: 100%;
+    -fx-cursor: hand;
 }
 
 /*RESPONSIVE IMAGES END*/
+.exploreImages{
+    -fx-cursor: hand;
+    -fx-fit-to-height: 250px;
+    -fx-fit-to-width: 400px;
+}
+
+.exploreImages:hover{
+    -fx-opacity: 0.5;
+}
+
+.exploreImages:focused{
+    -fx-opacity: 0.5;
+}
+
+.headerLogo{
+    -fx-cursor: hand;
+}
+
+
+
+/*IMAGES END*/
 
 /*BUTTON STYLING*/
 .button{
@@ -65,6 +88,7 @@
     -fx-border-width: 2px;
     -fx-border-color: #46b4fe;
     -fx-text-fill: white;
+    -fx-cursor: hand;
 }
 
 .button:focused{
@@ -128,11 +152,4 @@
 }
 
 /*TAB PANE END*/
-
-
-
-
-
-
-
 
