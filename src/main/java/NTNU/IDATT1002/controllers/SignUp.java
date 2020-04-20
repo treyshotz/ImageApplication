@@ -126,32 +126,32 @@ public class SignUp {
                 }
             });
 
-            if (username.isEmpty()){
+            if (username.isEmpty() || username.isBlank()){
                 signup_username.setStyle("-fx-prompt-text-fill: red");
                 signup_username.setPromptText("Please enter a username");
                 check = false;
-            }if (firstName.isEmpty()){
+            }if (firstName.isEmpty() || firstName.isBlank()){
                 signup_firstName.setStyle("-fx-prompt-text-fill: red");
                 signup_firstName.setPromptText("Please enter your firstname");
                 check = false;
-            }if (lastName.isEmpty()){
+            }if (lastName.isEmpty() || lastName.isBlank()){
                 signup_lastName.setStyle("-fx-prompt-text-fill: red");
                 signup_lastName.setPromptText("Please enter your surname");
                 check = false;
-            }if (email.isEmpty()){
+            }if (email.isEmpty() || email.isBlank()){
                 signup_email.setStyle("-fx-prompt-text-fill: red");
                 signup_email.setPromptText("Please enter your email");
                 check = false;
-            }if (password.isEmpty()){
+            }if (password.isEmpty() || password.isBlank()){
                 signup_password.setStyle("-fx-prompt-text-fill: red");
                 signup_password.setPromptText("Please enter a password");
                 check = false;
-            }if (phoneCode.isEmpty() || !(Pattern.matches("[0-9]+", phoneCode))){
+            }if (phoneCode.isEmpty() || phoneCode.isBlank() || !(Pattern.matches("[0-9]+", phoneCode))){
                 signup_phoneCode.clear();
                 signup_phoneCode.setStyle("-fx-prompt-text-fill: red");
                 signup_phoneCode.setPromptText("Please enter phnoe code");
                 check = false;
-            }if (phoneNR.isEmpty() || !(Pattern.matches("[0-9]+", phoneNR))){
+            }if (phoneNR.isEmpty() || phoneNR.isBlank() || !(Pattern.matches("[0-9]+", phoneNR))){
                 signup_phoneNr.clear();
                 signup_phoneNr.setStyle("-fx-prompt-text-fill: red");
                 signup_phoneNr.setPromptText("Please enter your phone number");
