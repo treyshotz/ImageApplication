@@ -7,7 +7,7 @@ These instructions will help you get a copy of our project for development and t
 
 ### Prerequisits
 * Git
-* Java SDK 11
+* Java SDK 11 or newer
 * Intellij IDEA or other code editors
 
 ### Downloading the project
