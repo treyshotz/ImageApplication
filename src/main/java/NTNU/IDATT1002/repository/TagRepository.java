@@ -23,7 +23,7 @@ public class TagRepository extends AbstractRepository<Tag, Long> {
     public static final String FIND_TAG_BY_NAME = "Tag.findByName";
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * Set the class type to {@link Tag}
      */
     public TagRepository(EntityManager entityManager) {

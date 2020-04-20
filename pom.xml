@@ -4,7 +4,7 @@
 
     <groupId>NTNU.IDATT1002</groupId>
     <artifactId>ImageApplication</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <name>Image Application</name>
     <description>You are fantastic!</description>
@@ -223,6 +223,7 @@
                     <source>11</source>
                     <reportOutputDirectory>public</reportOutputDirectory>
                     <destDir>/</destDir>
+                    <overview>src/main/resources/javadoc/overview.html</overview>
                 </configuration>
             </plugin>
 

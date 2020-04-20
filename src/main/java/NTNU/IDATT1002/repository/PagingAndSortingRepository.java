@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class PagingAndSortingRepository<T, ID> extends AbstractRepository<T, ID> {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected PagingAndSortingRepository(EntityManager entityManager) {
         super(entityManager);

@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 public class UserRepository extends AbstractRepository<User, String> {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * Set the class type to {@link User}
      */
     public UserRepository(EntityManager entityManager) {

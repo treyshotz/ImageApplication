@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 public class LoginRepository extends AbstractRepository<Login, String> {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * Set the class type to {@link Login}
      */
     public LoginRepository(EntityManager entityManager) {

@@ -27,7 +27,7 @@ public class AlbumRepository extends PagingAndSortingRepository<Album, Long> {
     public static final String ALBUM_FIND_PREVIEW_IMAGE = "Album.findPreviewImage";
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * Set the class type to {@link Album}
      */
     public AlbumRepository(EntityManager entityManager) {
