@@ -50,12 +50,10 @@ public class AlbumHBox extends HBox {
      *
      * @param component the component node to add to
      * @param eventHandler the event handler to set
-     * @return the updated node component
      */
-    public Node addOnMouseClickedEventHandlerToComponent(
+    public void addOnMouseClickedEventHandlerToComponent(
             Node component, EventHandler<? super MouseEvent> eventHandler) {
         component.setOnMouseClicked(eventHandler);
-        return component;
     }
 
     public Node getAlbumImageView() {

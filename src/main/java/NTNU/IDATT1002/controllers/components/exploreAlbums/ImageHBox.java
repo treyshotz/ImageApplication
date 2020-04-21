@@ -42,10 +42,9 @@ public class ImageHBox extends HBox {
         placeholder.setImage(imageToSet);
     }
 
-    public Node addOnMouseClickedEventHandlerToComponent(
+    public void addOnMouseClickedEventHandlerToComponent(
             Node component, EventHandler<? super MouseEvent> eventHandler) {
         component.setOnMouseClicked(eventHandler);
-        return component;
     }
 
     public Node getImageView() {

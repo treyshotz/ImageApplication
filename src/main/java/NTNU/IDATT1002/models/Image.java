@@ -1,7 +1,6 @@
 package NTNU.IDATT1002.models;
 
 
-import javafx.scene.layout.VBox;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -118,11 +117,11 @@ public class Image {
       tags.add(tag);
   }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
+  public List<Tag> getTags() {
+      return tags;
+  }
 
-    public Metadata getMetadata() {
+  public Metadata getMetadata() {
     return metadata;
   }
 
@@ -145,15 +144,6 @@ public class Image {
    */
   public void addAlbum(Album album) {
     albums.add(album);
-  }
-
-  /**
-   * Remove this image from the given image.
-   *
-   * @param album the album to remove from
-   */
-  public void removeAlbum(Album album) {
-    albums.remove(album);
   }
 
   /**

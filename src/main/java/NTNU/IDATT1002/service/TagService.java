@@ -1,16 +1,12 @@
 package NTNU.IDATT1002.service;
 
-import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.repository.ImageRepository;
 import NTNU.IDATT1002.repository.TagRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,8 +23,6 @@ public class TagService {
     
     private ImageRepository imageRepository;
 
-    private static Logger logger = LoggerFactory.getLogger(TagService.class);
-    
     /**
      * Inject entity manager instance to the repositories.
      */
@@ -98,21 +92,4 @@ public class TagService {
         return tagRepository.findOrCreate(tag);
     }
 
-    /**
-     *  Adds the given tag to the given album.
-     *
-     * @param image the album to add the tag to
-     * @param tag the tag to add
-     * @return the updated album
-     */
-
-    public Optional<Image> addTagToImage(Image image, Tag tag) {
-        Image foundImage = imageRepository.findById(image.getId())
-            .orElseThrow(IllegalArgumentException::new);
-        Tag foundTag = tagRepository.findOrCreate(tag);
-
-        foundImage.addTag(foundTag);
-
-        return imageRepository.save(foundImage);
-    }
 }

@@ -166,26 +166,6 @@ public class ExploreAlbums extends PaginatedContent<Album> {
     }
 
     /**
-     * Update content to previous "page".
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToPrevious(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that updates content
-    }
-
-    /**
-     * Update content to next "page".
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToNext(ActionEvent actionEvent) throws IOException {
-        //TODO: Make method that updates content
-    }
-
-    /**
      * Open specific albums. It takes a clicked element within an album container
      * and finds the fx:id of the main parent, (who's id is the same as the album in the database), and
      * passes the value to Data Exchange so that Image View will know which album was clicked.

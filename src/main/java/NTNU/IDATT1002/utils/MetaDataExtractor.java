@@ -1,7 +1,6 @@
 package NTNU.IDATT1002.utils;
 
 import NTNU.IDATT1002.models.GeoLocation;
-import NTNU.IDATT1002.repository.GeoLocatioRepository;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -29,7 +28,6 @@ import java.io.IOException;
  */
 public class MetaDataExtractor {
 
-    private GeoLocatioRepository geoLocationRepository;
     private static Logger logger = LoggerFactory.getLogger(MetaDataExtractor.class);
 
 
