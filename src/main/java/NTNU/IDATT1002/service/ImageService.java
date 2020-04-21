@@ -14,7 +14,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Image service
@@ -120,22 +119,7 @@ public class ImageService {
      */
 
     public List<Image> searchResult(String query){
-        List<Image> allFound = new ArrayList<>();
-        List<Image> byTags = imageRepository.findAllByTags(query);
-        List<Image> byUsername = imageRepository.findAllByUsername(query);
-        allFound.addAll(byTags);
-        allFound.addAll(byUsername);
-        return removeDuplicates(allFound);
+        return imageRepository.findAllByQueryString(query);
     }
 
-
-    /**
-     * takes a list and removes all duplicate elements
-     * @param images
-     * @return list without duplicates
-     */
-
-    public List<Image> removeDuplicates(List<Image> images){
-        return images.stream().distinct().collect(Collectors.toList());
-    }
 }

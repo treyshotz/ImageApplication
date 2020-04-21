@@ -7,14 +7,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 /**
- * HBox for holding an albums' title.
+ * HBox for holding an image-or album title.
  */
-public class AlbumTitleHBox extends HBox {
+public class TitleHBox extends HBox {
 
     /**
      * Create HBox holding given title and create a corresponding label.
      */
-    public AlbumTitleHBox(String title) {
+    public TitleHBox(String title) {
         Text label = new Text("Title: ");
         label.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 48));
         Text titleText = new Text(title);

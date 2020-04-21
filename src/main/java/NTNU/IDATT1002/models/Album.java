@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
                 query = "SELECT ia from Album ia "
                         + "join ia.tags tg "
                         + "where tg.name = :name"),
-        @NamedQuery(name="Image.findByTitle",
+        @NamedQuery(name="Album.findByTitle",
                 query = "SELECT ia from Album ia WHERE ia.title = :title"),
         @NamedQuery(name="Album.findPreviewImage",
                 query = "select image from Album album " +

@@ -10,12 +10,12 @@ import javafx.scene.text.Text;
 /**
  * HBox for holding an albums' user.
  */
-public class AlbumUserHBox extends HBox {
+public class UserHBox extends HBox {
 
     /**
      * Create HBox holding given user and create a corresponding label.
      */
-    public AlbumUserHBox(User user) {
+    public UserHBox(User user) {
         Text authorLabel = new Text("Author: ");
         authorLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 

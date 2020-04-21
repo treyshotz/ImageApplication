@@ -2,7 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,8 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #555555;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Search">
+<VBox fx:id="pageRootContainer" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #555555;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Search">
    <children>
+      <HBox fx:id="progressBarContainer" alignment="CENTER" minHeight="15.0" prefHeight="15.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #6d6d6d;">
+         <children>
+            <ProgressBar fx:id="progressBar" minWidth="1920.0" prefHeight="15.0" prefWidth="1920.0" />
+         </children>
+      </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
          <children>
             <HBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="1920.0" spacing="20.0">
@@ -83,41 +91,122 @@
             </HBox>
          </children>
       </HBox>
-      <ScrollPane fx:id="scrollpane" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" minHeight="960.0" prefWidth="1920.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
-         <content>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="bodybg" stylesheets="@style.css">
-               <children>
-                  <HBox alignment="CENTER" prefWidth="1920.0" spacing="10.0" stylesheets="@style.css">
+      <HBox alignment="CENTER" prefHeight="986.0" prefWidth="1920.0" style="-fx-background-color: #555555;" VBox.vgrow="ALWAYS">
+         <children>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="960.0" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox alignment="TOP_CENTER" minHeight="1500.0" styleClass="bodybg" stylesheets="@style.css">
                      <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="amount" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
-                           <font>
-                              <Font name="System Bold Italic" size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="results for your search" wrappingWidth="350.982421875">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="search_result" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;result&quot;">
-                           <font>
-                              <Font name="System Italic" size="36.0" />
-                           </font>
-                        </Text>
+                        <HBox alignment="CENTER" spacing="10.0" stylesheets="@style.css">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Found">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="amountTotal" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
+                                 <font>
+                                    <Font name="System Bold Italic" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="results for your search" wrappingWidth="350.982421875">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="searchWord" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;result&quot;">
+                                 <font>
+                                    <Font name="System Italic" size="36.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="40.0" top="40.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0" stylesheets="@style.css">
+                           <children>
+                              <Text fx:id="amountAlbums" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="RIGHT" wrappingWidth="50.71484375">
+                                 <font>
+                                    <Font name="System Bold Italic" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="albums and" wrappingWidth="125.982421875">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="amountImages" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="RIGHT" wrappingWidth="44.71484375">
+                                 <font>
+                                    <Font name="System Bold Italic" size="24.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="789.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="images" wrappingWidth="78.982421875">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                        <TabPane fx:id="tabContainer" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                           <tabs>
+                              <Tab fx:id="albumsTab" text="Albums">
+                                 <content>
+                                    <VBox fx:id="rootAlbumsContainer" maxHeight="1.7976931348623157E308" maxWidth="Infinity" minHeight="1500.0" spacing="10.0" styleClass="transparentbg" stylesheets="@style.css">
+                                       <children>
+                                          <Text fx:id="albumsPlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading albums..." textAlignment="CENTER">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="imagesTab" text="Images">
+                                 <content>
+                                    <VBox fx:id="rootImagesContainer" minHeight="1500.0" spacing="10.0" styleClass="transparentbg" stylesheets="@style.css">
+                                       <children>
+                                          <Text fx:id="imagesPlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading images..." textAlignment="CENTER">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                        <HBox alignment="CENTER" minHeight="100.0" prefHeight="200.0" prefWidth="1920.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="previousBtn" disable="true" mnemonicParsing="false" onAction="#switchToPrevious" text="PREVIOUS" />
+                              <Button fx:id="nextBtn" layoutX="944.0" layoutY="48.0" mnemonicParsing="false" onAction="#switchToNext" text="NEXT" />
+                           </children>
+                           <padding>
+                              <Insets bottom="70.0" top="10.0" />
+                           </padding>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <VBox fx:id="vBox" maxHeight="1.7976931348623157E308" minHeight="1550.0" spacing="10.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS" />
-               </children>
-               <padding>
-                  <Insets bottom="80.0" left="80.0" right="80.0" top="50.0" />
-               </padding>
-            </VBox>
-         </content>
-      </ScrollPane>
+                     <padding>
+                        <Insets bottom="80.0" left="80.0" right="80.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
    </children>
 </VBox>

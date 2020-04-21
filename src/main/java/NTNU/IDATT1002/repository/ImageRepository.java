@@ -22,6 +22,7 @@ public class ImageRepository extends PagingAndSortingRepository<Image, Long> {
      */
     public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
     public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
+    public static final String IMAGE_FIND_BY_QUERY_STRING = "Image.findByQueryString";
 
     /**
      * {@inheritDoc}
@@ -46,14 +47,14 @@ public class ImageRepository extends PagingAndSortingRepository<Image, Long> {
     }
 
     /**
-     * Find all images with given tag.
+     * Find all images based on a string. Combined result of title, tag and author search
      *
-     * @param tag the tag to query by
-     * @return a list of images with given tag
+     * @param query
+     * @return
      */
-    public List<Image> findAllByTags(String tag){
-        return entityManager.createNamedQuery(IMAGE_FIND_BY_TAG, Image.class)
-                .setParameter("name",tag)
+    public List<Image> findAllByQueryString(String query){
+        return entityManager.createNamedQuery(IMAGE_FIND_BY_QUERY_STRING, Image.class)
+                .setParameter("query", query)
                 .getResultList();
     }
 

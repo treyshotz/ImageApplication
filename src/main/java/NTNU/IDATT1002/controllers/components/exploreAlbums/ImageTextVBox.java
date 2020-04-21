@@ -1,29 +1,28 @@
 package NTNU.IDATT1002.controllers.components.exploreAlbums;
 
-import NTNU.IDATT1002.models.Album;
+import NTNU.IDATT1002.models.Image;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * VBox for holding an albums' text components.
+ * VBox for holding an image's text components.
  */
-public class AlbumTextVBox extends VBox {
+public class ImageTextVBox extends VBox {
 
     private HBox title;
 
     /**
-     * Create VBox holding the text fields of given album.
+     * Create VBox holding the text fields of given imag.
      */
-    public AlbumTextVBox(Album album) {
+    public ImageTextVBox(Image image) {
         this.align();
 
-        title = new TitleHBox(album.getTitle());
-        HBox author = new UserHBox(album.getUser());
-        HBox tags = new TagsHBox(album.getTags());
-        HBox description = new DescriptionHBox(album.getDescription());
+        title = new TitleHBox(image.getTitle());
+        HBox tags = new TagsHBox(image.getTags());
+        HBox metadata = new MetadataHBox(image.getMetadata());
 
-        this.getChildren().addAll(title, author, tags, description);
+        this.getChildren().addAll(title, tags, metadata);
     }
 
     /**

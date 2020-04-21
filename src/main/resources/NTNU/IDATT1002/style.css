@@ -143,11 +143,14 @@
 /*TAB PANE*/
 
 .tab-pane{
-    -fx-tab-min-height: 30;
+    -fx-font-size: 20px;
+    -fx-text-base-color: #10101f;
 }
 
+
+
 .tab-header-background{
-    -fx-background-color: #10101f;
+    -fx-background-color: transparent;
 }
 
 .tab-header-area{
