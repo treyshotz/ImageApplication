@@ -4,141 +4,86 @@ import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.controllers.components.exploreAlbums.AlbumHBox;
 import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Image;
+import NTNU.IDATT1002.repository.Page;
 import NTNU.IDATT1002.service.AlbumService;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import NTNU.IDATT1002.service.PageableService;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 
 /**
  * Controls the buttons and changeable elements on explore_albums.fxml,
- * a page where you explore albums
+ * a page where you explore albums.
+ *
  * @version 1.1 04.04.2020
  */
-public class ExploreAlbums extends NavBarController implements Initializable {
+public class ExploreAlbums extends PaginatedContent<Album> {
 
-    public ScrollPane scrollpane;
-    public Text albumAmount;
-    public ChoiceBox sortedByChoicebox;
     public Button createAlbumButton;
 
-    @FXML
-    public VBox pageRootContainer;
-    @FXML
-    private HBox progressBarContainer;
-    @FXML
-    private ProgressBar progressBar;
-    @FXML
-    public VBox rootAlbumsContainer;
-    @FXML
-    private Text albumsPlaceholder;
-
     private AlbumService albumService;
-    private ObservableList<Album> listOfAlbums;
+
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private static Logger logger = LoggerFactory.getLogger(ExploreAlbums.class);
 
     public ExploreAlbums() {
+        super("createdAt", "title");
+        
+        albumService = new AlbumService(App.ex.getEntityManager());
         App.ex.newPage("explore_albums");
-        EntityManager entityManager = App.ex.getEntityManager();
-        albumService = new AlbumService(entityManager);
     }
 
     /**
-     * Initialize page and load albums separately with a single image displayed. 
-     *
-     * @param url
-     * @param resourceBundle
+     * Provides the albumService to be used by PaginatedContent
+     * @return
      */
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        executorService.submit(fetchAlbums);
-
-        fetchAlbums.setOnSucceeded(workerStateEvent -> {
-            listOfAlbums = FXCollections.observableArrayList(fetchAlbums.getValue());
-            VBox albums = computeRootAlbumsContainerChildren(listOfAlbums);
-
-            replaceRootPlaceholderWith(albums);
-            Platform.runLater(this::finalizeProgress);
-        });
-
+    protected PageableService<Album> getService() {
+        return albumService;
     }
 
     /**
-     * Background task for fetching albums 
+     * Uses computeRooAlbumsContainer to return a list og Hboxes with Page as parameter
+     * the getContent() gives us the specific content for the page we need
+     * @param page
+     * @return a list of Hboxes with the Album content for the specific page
      */
-    private Task<List<Album>> fetchAlbums = new Task<>() {
-        @Override
-        protected List<Album> call() {
-            try {
-                return albumService.getAllAlbums();
-            } catch (Exception e) {
-                logger.error("[x] Failed to fetch albums", e);
-            }
-            return new ArrayList<>();
-        }
-    };
 
-    /**
-     * Replace loading placeholder with the real albums.
-     *
-     * @param albums the {@link VBox} containing the albums
-     */
-    private void replaceRootPlaceholderWith(VBox albums) {
-        rootAlbumsContainer.setSpacing(20);
-        rootAlbumsContainer.setMinHeight(albums.getMinHeight());
-        rootAlbumsContainer.getChildren().remove(albumsPlaceholder);
-        rootAlbumsContainer.getChildren().addAll(albums);
+    @Override
+    public List<HBox> getContentsFrom(Page<Album> page) {
+
+        return computeRootAlbumsContainerChildren(page.getContent());
     }
 
     /**
-     * Set the progressbar to finished and remove it from the root container.
-     */
-    private void finalizeProgress() {
-        pageRootContainer.getChildren().remove(progressBarContainer);
-    }
-
-    /**
-     * Create a {@link VBox} of album {@link HBox} children to add to a root container.
-     * It is currently a limit at 50 albums per page.
+     * Create a {@link HBox} of album {@link HBox} children to add to a root container.
+     * The limit is defined by the users choice from the list of amounts in PaginatedContent
      * Load each corresponding preview images in a separate background task and add them when ready.
      *
-     * @param listOfAlbums the albums to add
-     * @return the VBox containing album containers
+     * @param albums the albums to add
+     * @return the list of HBoxes containing album contents
      */
-    public VBox computeRootAlbumsContainerChildren(ObservableList<Album> listOfAlbums){
-        int maxPerPage = Math.min(listOfAlbums.size(), 50);
+    public List<HBox> computeRootAlbumsContainerChildren(List<Album> albums){
         List<HBox> albumHBoxes = new ArrayList<>();
 
-        for (int i = 0; i < maxPerPage; i++) {
-            Album album = listOfAlbums.get(i);
+        for (Album album : albums) {
             AlbumHBox albumHBox = new AlbumHBox(album);
 
             Task<Optional<Image>> fetchPreviewImageTask = fetchPreviewImageFrom(album);
@@ -156,9 +101,7 @@ public class ExploreAlbums extends NavBarController implements Initializable {
             albumHBoxes.add(albumHBox);
         }
 
-        VBox container = new VBox();
-        container.getChildren().addAll(albumHBoxes);
-        return container;
+        return albumHBoxes;
     }
 
     /**
