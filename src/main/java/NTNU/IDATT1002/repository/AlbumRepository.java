@@ -12,9 +12,9 @@ import java.util.Optional;
  * Album Repository.
  *
  * Implementation of {@link  AbstractRepository} which supports regular Create, Read, Update and Delete operations.
- * @author Eirik Steira
+ * Supports paginated and sorted content through {@link PagingAndSortingRepository}.
+ *
  * @version 1.0 19.03.20
- * @see AbstractRepository
  */
 public class AlbumRepository extends PagingAndSortingRepository<Album, Long> {
 
@@ -76,13 +76,16 @@ public class AlbumRepository extends PagingAndSortingRepository<Album, Long> {
      * @return Optional of image if found
      */
     public Optional<Image> findPreviewImage(Long albumId) {
-        Image image = Config.createEntityManager()
+        EntityManager newEntityManager = Config.createEntityManager();
+
+        Image image = newEntityManager
                     .createNamedQuery(ALBUM_FIND_PREVIEW_IMAGE, Image.class)
                     .setParameter("albumId", albumId)
                     .setMaxResults(1)
                     .setFirstResult(0)
                     .getResultList().get(0);
 
+        newEntityManager.close();
         return Optional.ofNullable(image);
     }
 }

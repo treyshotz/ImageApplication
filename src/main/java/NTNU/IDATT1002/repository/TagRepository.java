@@ -11,7 +11,7 @@ import javax.persistence.NonUniqueResultException;
  * Tag Repository.
  *
  * Implementation of {@link  AbstractRepository} which supports regular Create, Read, Update and Delete operations.
- * @author Eirik Steira
+ *
  * @version 1.0 21.03.20
  * @see AbstractRepository
  */

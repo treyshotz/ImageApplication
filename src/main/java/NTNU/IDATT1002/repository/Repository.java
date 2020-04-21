@@ -9,7 +9,6 @@ import java.util.Optional;
  *
  * @param <T> type of entity
  * @param <ID> type of entity id
- * @author Eirik Steira
  * @version 1.1 19.03.20
  */
 public interface Repository<T, ID> {

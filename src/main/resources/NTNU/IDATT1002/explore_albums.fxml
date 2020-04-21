@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -101,6 +104,42 @@
                </children>
                <padding>
                   <Insets bottom="40.0" top="40.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are ">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="amount" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
+                     <font>
+                        <Font name="System Bold Italic" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=" albums, sorted by: ">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <ChoiceBox fx:id="choiceBox" prefHeight="52.0" prefWidth="228.0" value="Newest first">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Newest first" />
+                           <String fx:value="Oldest first" />
+                           <String fx:value="Alphabetically (A-Z)" />
+                           <String fx:value="Alphabetically (Z-A)" />
+                           <String fx:value="Your albums" />
+                        </FXCollections>
+                     </items>
+                  </ChoiceBox>
+               </children>
+               <padding>
+                  <Insets bottom="40.0" />
                </padding>
             </HBox>
             <ScrollPane fx:id="scrollpane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="966.0" prefWidth="1920.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">

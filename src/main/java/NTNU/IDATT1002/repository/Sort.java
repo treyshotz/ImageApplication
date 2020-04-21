@@ -25,7 +25,6 @@ public class Sort {
     /**
      * @see Sort#by(String byField)
      */
-
     private Sort(String byField) {
 
         this.byField = byField;

@@ -17,7 +17,6 @@ import java.util.Date;
 /**
  * Class PdfDocument. Generates a pdf document displaying a given album.
  *
- * @author Eirik Steira
  * @version 1.0 22.03.20
  */
 public class PdfDocument implements AlbumDocument {

@@ -17,7 +17,6 @@ import java.util.Optional;
  *
  * @param <T> type of entity
  * @param <ID> type of entity id
- * @author Eirik Steira
  * @version 1.1 03.04.20
  */
 public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {

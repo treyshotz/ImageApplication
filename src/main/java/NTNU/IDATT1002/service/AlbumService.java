@@ -20,10 +20,9 @@ import java.util.stream.Collectors;
 /**
  * Album Service. Supports common domain specific operations such as creating and retrieving albums.
  *
- * @author Eirik Steira
  * @version 1.1 01.04.20
  */
-public class AlbumService {
+public class AlbumService implements PageableService<Album> {
 
     private AlbumRepository albumRepository;
 
@@ -38,6 +37,18 @@ public class AlbumService {
         this.albumRepository = new AlbumRepository(entityManager);
         this.tagService = new TagService(entityManager);
     }
+
+    /**
+     * Retrieve paginated results specified by given {@link PageRequest}.
+     *
+     * @param pageRequest the {@link PageRequest} defining page number and size
+     * @return the page containing results found based on the {@link PageRequest}
+     */
+    @Override
+    public Page<Album> findAll(PageRequest pageRequest) {
+        return albumRepository.findAll(pageRequest);
+    }
+
 
     public Optional<Album> getAlbumById(Long albumId) {
         return albumRepository.findById(albumId);
@@ -60,16 +71,6 @@ public class AlbumService {
      */
     public List<Album> getAlbumsByUser(String user){
         return albumRepository.findAllByUsername(user);
-    }
-
-    /**
-     * Retrieve paginated results specified by given {@link PageRequest}.
-     *
-     * @param pageRequest the {@link PageRequest} defining page number and size
-     * @return the page containing results found based on the {@link PageRequest}
-     */
-    public Page<Album> findAll(PageRequest pageRequest) {
-        return albumRepository.findAll(pageRequest);
     }
 
     /**

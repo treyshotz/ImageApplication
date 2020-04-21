@@ -19,7 +19,6 @@ import java.util.stream.Stream;
  * Tag Service. Supports common domain specific operations such as converting a list of tags to a string
  * and opposite.
  *
- * @author Eirik Steira
  * @version 1.1 01.04.20
  */
 public class TagService {

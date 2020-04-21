@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 /**
  * Class ImageMapFactory. Factory for map creation with markers for given images and default options.
  * Default center location is Copenhagen in order to center the full scale map onto a page.
- *
- * @author Eirik Steira
  */
 public class ImageMapFactory {
 

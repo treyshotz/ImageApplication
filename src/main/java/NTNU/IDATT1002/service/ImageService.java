@@ -21,7 +21,7 @@ import java.util.Optional;
  * @version 1.0 22.03.2020
  */
 
-public class ImageService {
+public class ImageService implements PageableService<Image> {
 
     private ImageRepository imageRepository;
     private TagService tagService;
@@ -33,6 +33,17 @@ public class ImageService {
     public ImageService(EntityManager entityManager) {
         this.imageRepository = new ImageRepository(entityManager);
         this.tagService = new TagService(entityManager);
+    }
+
+    /**
+     * Retrieve paginated results specified by given {@link PageRequest}.
+     *
+     * @param pageRequest the {@link PageRequest} defining page number and size
+     * @return the page containing results found based on the {@link PageRequest}
+     */
+    @Override
+    public Page<Image> findAll(PageRequest pageRequest) {
+        return imageRepository.findAll(pageRequest);
     }
 
     /**
@@ -71,16 +82,6 @@ public class ImageService {
         image.setPath(file.getPath());
         image.addTags((ArrayList<Tag>) tagService.getOrCreateTags(tags));
         return imageRepository.save(image);
-    }
-
-    /**
-     * Retrieve paginated results specified by given {@link PageRequest}.
-     *
-     * @param pageRequest the {@link PageRequest} defining page number and size
-     * @return the page containing results found based on the {@link PageRequest}
-     */
-    public Page<Image> findAll(PageRequest pageRequest) {
-        return imageRepository.findAll(pageRequest);
     }
 
     /**
