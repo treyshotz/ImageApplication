@@ -132,34 +132,6 @@ public class Album {
     }
 
     /**
-     * Remove given image from the album.
-     *
-     * @param image the image to add
-     */
-    public void removeImage(Image image) {
-        image.removeAlbum(this);
-        images.remove(image);
-    }
-
-    /**
-     * Add given tag to this album
-     *
-     * @param tag the tag to add
-     */
-    public void addTag(Tag tag) {
-        tags.add(tag);
-    }
-
-    /**
-     * Remove given tag to this album
-     *
-     * @param tag the tag to add
-     */
-    public void removeTag(Tag tag) {
-        tags.remove(tag);
-    }
-
-    /**
      * Check if this and given entity are equal.
      * The two are defined as equal if all individual fields are equal.
      *

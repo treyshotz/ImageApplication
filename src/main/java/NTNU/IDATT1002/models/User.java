@@ -132,45 +132,6 @@ public class User {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
-    /**
-     * Add given album.
-     *
-     * @param album the album to add
-     */
-    public void addAlbum(Album album) {
-        albums.add(album);
-        album.setUser(this);
-    }
-
-    /**
-     * Remove given album.
-     *
-     * @param album the album to remove
-     */
-    public void removeAlbum(Album album) {
-        albums.remove(album);
-        album.setUser(null);
-    }
-
-    /**
-     * Add given image.
-     *
-     * @param image the image to add
-     */
-    public void addImage(Image image) {
-        images.add(image);
-        image.setUser(this);
-    }
-
-    /**
-     * Remove given image.
-     *
-     * @param image the image to remove
-     */
-    public void removeAlbum(Image image) {
-        images.remove(image);
-        image.setUser(null);
-    }
 
     @Override
     public boolean equals(Object o) {

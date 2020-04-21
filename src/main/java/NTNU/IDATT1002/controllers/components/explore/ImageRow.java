@@ -11,7 +11,8 @@ import javafx.scene.layout.HBox;
  * a number of elements at the same time.
  */
 public class ImageRow extends HBox {
-    private final int capacity;
+
+    private final int CAPACITY;
     private int count;
 
     /**
@@ -20,7 +21,7 @@ public class ImageRow extends HBox {
      * @param capacity the amount of columns this row can hold
      */
     public ImageRow(int capacity) {
-        this.capacity = capacity;
+        this.CAPACITY = capacity;
         this.count = 0;
 
         applyStyling();
@@ -51,6 +52,6 @@ public class ImageRow extends HBox {
      * Return whether this {@link ImageRow} has reached its capacity.
      */
     public boolean isFull() {
-        return count >= capacity;
+        return count >= CAPACITY;
     }
 }
