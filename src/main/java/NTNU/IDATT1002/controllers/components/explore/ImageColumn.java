@@ -6,6 +6,7 @@ import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -33,6 +34,8 @@ public class ImageColumn extends VBox {
         StackPane stackPane = createStackPane(imageView);
         imageView.fitHeightProperty().bind(stackPane.heightProperty());
         imageView.fitWidthProperty().bind(stackPane.widthProperty());
+        imageView.getStyleClass().add("exploreImages");
+        imageView.setFocusTraversable(true);
 
         Text title = createTitle();
         Text tag = createText();
@@ -60,7 +63,7 @@ public class ImageColumn extends VBox {
         String tagsAsString = TagService.getTagsAsString(image.getTags());
         Text tagsText = new Text(tagsAsString);
         tagsText.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 18));
-        tagsText.setWrappingWidth(100);
+        tagsText.setWrappingWidth(330);
 
         return tagsText;
     }
@@ -101,8 +104,8 @@ public class ImageColumn extends VBox {
      * Style this {@link ImageColumn}.
      */
     private void applyStyling() {
-        this.setMinSize(360,310);
-        this.setPrefSize(520,310);
+        this.setMinSize(330,310);
+        this.setPrefSize(700,700);
         this.setAlignment(Pos.TOP_CENTER);
         this.setId(String.valueOf(image.getId()));
     }

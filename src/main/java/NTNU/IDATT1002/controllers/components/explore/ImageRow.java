@@ -31,10 +31,7 @@ public class ImageRow extends HBox {
      */
     private void applyStyling() {
         this.setAlignment(Pos.CENTER);
-        this.setMaxHeight(350.0);
-        this.setMaxWidth(1590.0);
-        this.setMinHeight(310.0);
-        this.setMinWidth(400.0);
+        this.setMinSize(1024,350);
         this.setSpacing(10.0);
         this.getStylesheets().add("/NTNU/IDATT1002/style.css");
         this.paddingProperty().setValue(new Insets(10.0, 10.0, 10.0, 10.0));

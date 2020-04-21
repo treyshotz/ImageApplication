@@ -61,8 +61,6 @@
 /*RESPONSIVE IMAGES END*/
 .exploreImages{
     -fx-cursor: hand;
-    -fx-fit-to-height: 250px;
-    -fx-fit-to-width: 400px;
 }
 
 .exploreImages:hover{

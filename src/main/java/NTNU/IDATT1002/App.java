@@ -26,8 +26,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("Image Application");
         stage.getIcons().add(new Image(App.class.getResourceAsStream("/Images/AppIcon.png")));
-        stage.setMinWidth(1024);
-        stage.setMinHeight(600);
+        stage.setMinWidth(1200);
+        stage.setMinHeight(800);
         stage.show();
     }
 
