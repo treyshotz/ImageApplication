@@ -11,15 +11,13 @@ import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -47,8 +45,11 @@ import java.util.stream.Collectors;
  */
 public class UploadImages extends NavBarController implements Initializable {
 
+  @FXML
   public VBox uploadContainer;
   public VBox root;
+  public ScrollPane scrollpane;
+
   private AlbumService albumService;
   private ImageService imageService;
   private TextField title;
