@@ -14,7 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +41,11 @@ public class ExploreAlbums extends PaginatedContent<Album> {
 
     private static Logger logger = LoggerFactory.getLogger(ExploreAlbums.class);
 
+
+    /**
+     * Tell {@link PaginatedContent} which fields to sort {@link Album}s by.
+     * Tell {@link DataExchange} that explore albums page is visited.
+     */
     public ExploreAlbums() {
         super("createdAt", "title");
         
@@ -50,10 +54,8 @@ public class ExploreAlbums extends PaginatedContent<Album> {
     }
 
     /**
-     * Provides the albumService to be used by PaginatedContent
-     * @return
+     * Return an {@link AlbumService} to use in {@link PaginatedContent}.
      */
-
     @Override
     protected PageableService<Album> getService() {
         return albumService;
@@ -65,7 +67,6 @@ public class ExploreAlbums extends PaginatedContent<Album> {
      * @param page
      * @return a list of Hboxes with the Album content for the specific page
      */
-
     @Override
     public List<HBox> getContentsFrom(Page<Album> page) {
 

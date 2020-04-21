@@ -123,7 +123,8 @@ public class DataExchange {
     }
 
     /**
-     * Empties the page log if logged out
+     * Method that empties the array of visited pages.
+     * This method is called when logout button is pressed.
      */
     public void emptyPageLog(){
         FXMLHistory = new ArrayList<>();

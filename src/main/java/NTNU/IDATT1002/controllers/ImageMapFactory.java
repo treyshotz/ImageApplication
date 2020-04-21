@@ -8,12 +8,6 @@ import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
@@ -29,6 +23,8 @@ import java.util.stream.Collectors;
 /**
  * Class ImageMapFactory. Factory for map creation with markers for given images and default options.
  * Default center location is Copenhagen in order to center the full scale map onto a page.
+ *
+ * @version 1.0 20.04.2020
  */
 public class ImageMapFactory {
 

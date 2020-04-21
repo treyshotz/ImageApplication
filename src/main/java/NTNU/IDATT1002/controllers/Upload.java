@@ -1,9 +1,3 @@
-/**
- * Controls the buttons and changable elements on upload page
- * @version 1.0 17.03.2020
- * @author Simon Jensen
- */
-
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
@@ -24,6 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Controls the buttons and changeable elements on upload.fxml,
  * a page where you select images to upload
+ *
  * @version 1.0 22.03.2020
  */
 public class Upload extends NavBarController {
@@ -36,8 +31,7 @@ public class Upload extends NavBarController {
     }
 
     /**
-     * Method that changs scene to Uploaded Single page
-     * If the user has chosen 1 image this method is called
+     * Changes page to upload images page
      * @throws IOException
      */
     private void switchToUploadImages() throws IOException {
@@ -45,8 +39,9 @@ public class Upload extends NavBarController {
     }
 
     /**
-     * Method that opens file browser with an image filter
-     * The user will choose what files to upload
+     * Method that opens file browser with an image filter.
+     * The user will choose what files to upload. If the size of one or more files
+     * exceeds 4.1 MB, an error is displayed.
      * @throws IOException
      */
     public void chooseFile() throws IOException {
@@ -93,7 +88,6 @@ public class Upload extends NavBarController {
      * @param event something is dragged over the container
      */
     public void acceptDrop(DragEvent event) {
-        //TODO: Choose valid file types
         List<String> validExtensions = Arrays.asList("jpg", "png", "jpeg");
         //Checks if the event contains files
         if(event.getDragboard().hasFiles()){

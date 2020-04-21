@@ -28,6 +28,7 @@ public class Explore extends PaginatedContent<Image> {
 
     /**
      * Tell {@link PaginatedContent} which fields to sort {@link Image}s by.
+     * Tell {@link DataExchange} that explore page is visited
      */
     public Explore() {
         super("uploadedAt", "title");

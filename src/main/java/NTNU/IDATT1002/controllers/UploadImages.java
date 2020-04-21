@@ -1,7 +1,6 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
-import NTNU.IDATT1002.Config;
 import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.service.AlbumService;
@@ -38,7 +37,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Controls the buttons and changeable elements on upload_single.fxml,
+ * Controls the buttons and changeable elements on upload_images.fxml,
  * a page where you add descriptions to your selected image
  *
  * @version 1.0 22.03.2020
@@ -55,7 +54,6 @@ public class UploadImages extends NavBarController implements Initializable {
   private TextField title;
 
   public UploadImages(){
-    App.ex.newPage("upload_images");
     EntityManager entityManager = App.ex.getEntityManager();
     albumService = new AlbumService(entityManager);
     imageService = new ImageService(entityManager);

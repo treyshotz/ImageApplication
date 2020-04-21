@@ -25,7 +25,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -45,16 +44,16 @@ import java.util.stream.Collectors;
 /**
  * Controls the buttons and changeable elements on view_album.fxml,
  * a page where get a more detailed view of an album
+ *
  * @version 1.0 22.03.2020
  */
 public class ViewAlbum extends NavBarController implements Initializable {
 
+    @FXML
     public Button createAlbumPdf;
     public ImageView mainImageContainer;
     public Text mainImageTitle;
     public Text mainImageTags;
-
-    @FXML
     public VBox albumTextContainer;
     public Button viewOnMapBtn;
     public HBox albumImagesContainer;
@@ -64,12 +63,9 @@ public class ViewAlbum extends NavBarController implements Initializable {
     private AlbumService albumService;
     private Album currentAlbum;
 
-    public ViewAlbum(){
-        App.ex.newPage("view_album");
-    }
-
     /**
-     * Initialize view with real album data.
+     * Generates content on the page based on the current album id in
+     * {@link DataExchange}.
      *
      * @param url
      * @param resourceBundle
@@ -263,7 +259,7 @@ public class ViewAlbum extends NavBarController implements Initializable {
     }
 
     /**
-     * Makes a new stage and displays all metadata of the clicked image
+     * Makes a new stage and displays ALL metadata of the clicked image
      * @param mouseEvent
      */
     public void openPopUpMetadata(MouseEvent mouseEvent){
@@ -328,6 +324,11 @@ public class ViewAlbum extends NavBarController implements Initializable {
         hostServices.showDocument(file.getAbsolutePath());
     }
 
+    /**
+     * View image on the map
+     * @param actionEvent
+     * @throws IOException
+     */
     public void viewOnMap(ActionEvent actionEvent) throws IOException {
         App.setRoot("map"); // TODO: 15.04.2020 Set App.ex.chosenAlbumId?
     }
