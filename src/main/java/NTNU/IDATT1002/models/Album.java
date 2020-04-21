@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 /**
  * Class Album representing an album. Contains {@link Image}s and the creator ({@link User})
  *
- * @author Eirik Steira
  * @version 1.1 19.03.20
  * */
 @Entity

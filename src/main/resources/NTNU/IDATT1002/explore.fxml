@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,8 +15,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.Explore">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
@@ -88,32 +90,84 @@
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="980.0" prefWidth="1920.0" styleClass="scroll-pane" stylesheets="@style.css" VBox.vgrow="ALWAYS">
          <content>
             <VBox alignment="TOP_CENTER" prefHeight="2000.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css">
+               <padding>
+                  <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+               </padding>
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPLORE IMAGES">
                      <font>
                         <Font name="System Bold" size="48.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="80.0" />
+                        <Insets bottom="20.0" />
                      </VBox.margin>
                   </Text>
+                  <HBox alignment="TOP_CENTER">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are ">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Text>
+
+                        <!-- PAGINATION TOTAL DISPLAY -->
+                        <Text fx:id="total" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="System Bold Italic" size="36.0" />
+                           </font>
+                        </Text>
+                        <!-- END PAGINATION TOTAL DISPLAY -->
+
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=" images, sorted by: ">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="80.0" />
+                           </HBox.margin>
+                        </Text>
+
+                        <!-- PAGINATION SORT CHOICE BOX -->
+                        <ChoiceBox fx:id="sortChoiceBox" prefHeight="52.0" prefWidth="228.0" value="Newest first">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Newest first" />
+                                 <String fx:value="Oldest first" />
+                                 <String fx:value="Alphabetically (A-Z)" />
+                                 <String fx:value="Alphabetically (Z-A)" />
+                              </FXCollections>
+                           </items>
+                        </ChoiceBox>
+                        <!-- END PAGINATION SORT CHOICE BOX -->
+
+                     </children>
+                  </HBox>
+
+                  <!-- PAGINATION MAIN CONTENT CONTAINER -->
                   <VBox fx:id="pageContainer" alignment="TOP_CENTER" prefWidth="100.0" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
-                     <VBox fx:id="resultsPerPage" alignment="TOP_RIGHT">
+
+                     <!-- PAGINATION SHOW RESULTS CHOICE CONTAINER -->
+                     <VBox fx:id="showResultsPerPageContainer" alignment="TOP_RIGHT">
+
+                        <!-- PAGINATION PROGRESS INDICATOR CONTAINER -->
                         <VBox alignment="CENTER">
-                           <ProgressIndicator fx:id="pageProgressIndicator" style="-fx-progress-color: #58379A"/>
+                           <ProgressIndicator fx:id="pageProgressIndicator" style="-fx-progress-color: #58379A" />
                            <padding>
                               <Insets top="50.0" />
                            </padding>
                         </VBox>
+                        <!-- END PAGINATION PROGRESS INDICATOR CONTAINER -->
+
+                        <padding>
+                           <Insets right="20.0" top="20.0" />
+                        </padding>
                      </VBox>
-                     <padding>
-                        <Insets right="20.0" top="20.0" />
-                     </padding>
+                     <!-- END PAGINATION SHOW RESULTS CHOICE CONTAINER -->
+
                   </VBox>
+                  <!-- END MAIN CONTENT CONTAINER -->
+
                </children>
-               <padding>
-                  <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
-               </padding>
             </VBox>
          </content>
       </ScrollPane>

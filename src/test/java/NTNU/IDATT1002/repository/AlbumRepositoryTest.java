@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Tests for {@link AlbumRepository}.
  *
- * @author Eirik Steira
  * @version 1.0 17.03.20
  */
 class AlbumRepositoryTest {
