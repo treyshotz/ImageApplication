@@ -78,11 +78,11 @@ public abstract class PaginatedContent<T> extends NavBarController implements In
 
     private Pagination pagination;
 
-    private Integer pageSize = 15;
+    protected Integer pageSize = 15;
 
     private Page<T> currentPage;
 
-    private Sort currentSort = Sort.empty();
+    private Sort currentSort;
 
     private PageRequest currentPageRequest = PageRequest.of(0, pageSize, currentSort);
 

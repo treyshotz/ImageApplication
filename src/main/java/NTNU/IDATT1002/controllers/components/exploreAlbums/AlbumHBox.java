@@ -4,6 +4,7 @@ import NTNU.IDATT1002.models.Album;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.utils.ImageUtil;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +27,7 @@ public class AlbumHBox extends HBox {
         this.setId(album.getId().toString());
         this.setPrefWidth(1520);
         this.setPrefHeight(300);
+        this.setPadding(new Insets(5.0, 0.0, 5.0, 0.0));
 
         albumTextVBox = new AlbumTextVBox(album);
         previewImageView = new StyledImageView();
