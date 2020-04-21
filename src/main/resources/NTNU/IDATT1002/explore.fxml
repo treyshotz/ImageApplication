@@ -91,7 +91,7 @@
          <content>
             <VBox alignment="TOP_CENTER" prefHeight="2000.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css">
                <padding>
-                  <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+                  <Insets bottom="80.0" left="60.0" right="60.0" top="80.0" />
                </padding>
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EXPLORE IMAGES">
@@ -144,24 +144,20 @@
                   </HBox>
 
                   <!-- PAGINATION MAIN CONTENT CONTAINER -->
-                  <VBox fx:id="pageContainer" alignment="TOP_CENTER" prefWidth="100.0" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="pageContainer" alignment="TOP_CENTER" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
 
                      <!-- PAGINATION SHOW RESULTS CHOICE CONTAINER -->
-                     <VBox fx:id="showResultsPerPageContainer" alignment="TOP_RIGHT">
-
-                        <!-- PAGINATION PROGRESS INDICATOR CONTAINER -->
-                        <VBox alignment="CENTER">
-                           <ProgressIndicator fx:id="pageProgressIndicator" style="-fx-progress-color: #58379A" />
-                           <padding>
-                              <Insets top="50.0" />
-                           </padding>
-                        </VBox>
+                     <VBox fx:id="showResultsPerPageContainer" alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                        <ProgressIndicator fx:id="pageProgressIndicator" style="-fx-progress-color: #58379A" />
                         <!-- END PAGINATION PROGRESS INDICATOR CONTAINER -->
 
                         <padding>
-                           <Insets right="20.0" top="20.0" />
+                           <Insets bottom="20.0" top="20.0" />
                         </padding>
                      </VBox>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" />
+                     </padding>
                      <!-- END PAGINATION SHOW RESULTS CHOICE CONTAINER -->
 
                   </VBox>

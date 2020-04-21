@@ -20,6 +20,7 @@ import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -165,7 +166,9 @@ public abstract class PaginatedContent<T> extends NavBarController implements In
 
         amounts.setOnAction(e -> pageSizeSelectionChanged(amounts));
         HBox perPageSelection = new HBox();
-        perPageSelection.setAlignment(Pos.TOP_RIGHT);
+        perPageSelection.setAlignment(Pos.TOP_LEFT);
+        HBox.setHgrow(perPageSelection, Priority.ALWAYS);
+        perPageSelection.setMinWidth(1024);
 
         perPageSelection.getChildren().addAll(descriptionLabel, amounts);
         showResultsPerPageContainer.getChildren().add(perPageSelection);
@@ -269,6 +272,7 @@ public abstract class PaginatedContent<T> extends NavBarController implements In
 
             List<? extends Node> pageContent = getContentsFrom(currentPage);
             pageContentContainer.getChildren().addAll(pageContent);
+            pageContentContainer.setAlignment(Pos.TOP_CENTER);
         };
     }
 
