@@ -1,6 +1,7 @@
 package NTNU.IDATT1002.models;
 
 
+import javafx.scene.layout.VBox;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -21,7 +22,13 @@ import java.util.stream.Collectors;
         @NamedQuery(name="Image.findByTags",
                 query = "SELECT im from Image im "
                         + "join im.tags tg "
-                        + "where tg.name = :name")
+                        + "where tg.name = :name"),
+        @NamedQuery(name="Image.findByQueryString",
+                query = "SELECT img " +
+                        "FROM Image img " +
+                        "WHERE img.user.username = :query " +
+                        "OR img.title = :query " +
+                        "OR img IN (SELECT i FROM Image i INNER JOIN i.tags tag WHERE tag.name = :query) ")
 })
 public class Image {
 

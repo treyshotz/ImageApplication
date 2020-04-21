@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 
 /**
  * HBox for holding an albums text components ({@link AlbumTextVBox})
- * and an preview {@link AlbumImageView}.
+ * and an preview {@link StyledImageView}.
  */
 public class AlbumHBox extends HBox {
 
@@ -28,13 +28,13 @@ public class AlbumHBox extends HBox {
         this.setPrefHeight(300);
 
         albumTextVBox = new AlbumTextVBox(album);
-        previewImageView = new AlbumImageView();
+        previewImageView = new StyledImageView();
 
         this.getChildren().addAll(previewImageView, albumTextVBox);
     }
 
     /**
-     * Replace the current image preview placeholder with given {@link ImageView}.
+     * Replace the current image preview placeholder with given {@link Image}.
      *
      * @param image the image to replace with
      */

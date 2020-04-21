@@ -5,14 +5,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * ImageView for holding an albums preview image.
+ * ImageView for holding an image.
  */
-public class AlbumImageView extends ImageView {
+public class StyledImageView extends ImageView {
 
     /**
      * Create an empty {@link ImageView} with default styling.
      */
-    public AlbumImageView() {
+    public StyledImageView() {
         this.applyStyling();
     }
 
@@ -21,7 +21,7 @@ public class AlbumImageView extends ImageView {
      *
      * @param image the image to display
      */
-    public AlbumImageView(NTNU.IDATT1002.models.Image image) {
+    public StyledImageView(NTNU.IDATT1002.models.Image image) {
         this.applyStyling();
         Image imageToSet = ImageUtil.convertToFXImage(image);
         this.setImage(imageToSet);
