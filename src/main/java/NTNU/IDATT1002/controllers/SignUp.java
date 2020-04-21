@@ -93,17 +93,18 @@ public class SignUp {
 
 
     /**
-     * Checks both that the user put info in the necessary textfields and that the username and/or email isn't in use.
+     * Checks both that the user put info in the necessary text fields and that the username and/or email isn't in use.
      *
-     * @param username
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param password
-     * @param phoneCode
-     * @param phoneNR
-     * @param birthdate
+     * @param username username
+     * @param firstName first name
+     * @param lastName last name
+     * @param email email address
+     * @param password password
+     * @param phoneCode phone code
+     * @param phoneNR phone number
+     * @param birthdate birth date
      *
+     * @return whether the parameters is valid
      */
         private boolean validateInfo (String username, String firstName, String lastName, String email, String password, String confirmedPassword, String phoneCode, String phoneNR, LocalDate birthdate){
             check = true;

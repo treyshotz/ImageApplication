@@ -10,6 +10,11 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+/**
+ * Class for controlling actions in the navigation bar
+ *
+ * @version 1.0 20.04.2020
+ */
 public class NavBarController {
 
     public ImageView navBarLogo;
@@ -32,6 +37,12 @@ public class NavBarController {
         App.setRoot("main");
     }
 
+    /**
+     * If {@link DataExchange} has a previous page it changes
+     * to it.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void goToPrevious(ActionEvent actionEvent) throws IOException {
         String previousPage = App.ex.previousPage();
         if (previousPage != null){
@@ -41,7 +52,7 @@ public class NavBarController {
 
     /**
      * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to dataexchange
+     * field and if not empty it is passed to {@link DataExchange}
      * @param actionEvent
      * @throws IOException
      */
@@ -85,15 +96,22 @@ public class NavBarController {
 
     /**
      * Method that changes scene to Upload page
-     * @param actionEvent the mouse has done something
-     * @throws IOException this page does not exist
+     * @param actionEvent
+     * @throws IOException
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
         App.ex.setChosenAlbumId(null);
         App.setRoot("upload");
     }
 
+    /**
+     * Method for logging out user. Also empties the list of
+     * visited pages and chosen album in {@link DataExchange}.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void logOut(ActionEvent actionEvent) throws IOException {
+        App.ex.emptyPageLog();
         UserService.logOut();
         App.ex.setChosenAlbumId(null);
         App.setRoot("login");

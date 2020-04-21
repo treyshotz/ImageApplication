@@ -72,22 +72,6 @@ import java.util.ResourceBundle;
  */
 public abstract class PaginatedContent<T> extends NavBarController implements Initializable {
 
-    private final Integer[] AMOUNT_SELECTION = {15, 30, 50, 100};
-
-    private PageableService<T> service;
-
-    private Pagination pagination;
-
-    protected Integer pageSize = 15;
-
-    private Page<T> currentPage;
-
-    private Sort currentSort;
-
-    private PageRequest currentPageRequest = PageRequest.of(0, pageSize, currentSort);
-
-    private Map<String, Sort> choiceSortMapping;
-
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -101,7 +85,24 @@ public abstract class PaginatedContent<T> extends NavBarController implements In
     @FXML
     private Text total;
 
+    private final Integer[] AMOUNT_SELECTION = {15, 30, 50, 100};
+    
+    private PageableService<T> service;
+    
+    private Pagination pagination;
+    
+    protected Integer pageSize = 15;
+    
+    private Page<T> currentPage;
+    
+    private Sort currentSort;
+    
+    private PageRequest currentPageRequest = PageRequest.of(0, pageSize, currentSort);
+    
+    private Map<String, Sort> choiceSortMapping;
+
     protected abstract PageableService<T> getService();
+    
     protected abstract List<? extends Node> getContentsFrom(Page<T> page);
 
     /**

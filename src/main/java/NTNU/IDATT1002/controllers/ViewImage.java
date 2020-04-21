@@ -5,9 +5,9 @@ import NTNU.IDATT1002.service.ImageService;
 import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetadataStringFormatter;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -20,7 +20,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
-import java.awt.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,19 +28,23 @@ import java.util.ResourceBundle;
 /**
  * Controls the buttons and changeable elements on view_.fxml,
  * a page where get a more detailed view of a image
+ *
  * @version 1.0 22.03.2020
  */
 public class ViewImage extends NavBarController implements Initializable{
 
+    @FXML
     public ImageView imageContainer;
     public Text imageTagsField;
     public Text imageTitleField;
     public Text imageMetadataField;
 
-    public ViewImage(){
-        App.ex.newPage("view_image");
-    }
-
+    /**
+     * Generates content on the page based on current clicked image id
+     * in {@link DataExchange}
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         EntityManager entityManager = App.ex.getEntityManager();
@@ -89,7 +92,7 @@ public class ViewImage extends NavBarController implements Initializable{
     }
 
     /**
-     * Makes a new stage and displays all metadata of the clicked image
+     * Makes a new stage and displays ALL metadata of the clicked image
      * @param mouseEvent
      */
     public void openPopUpMetadata(MouseEvent mouseEvent){

@@ -50,6 +50,9 @@ public class CreateAlbum extends NavBarController implements Initializable {
   private AlbumService albumService;
   private ImageService imageService;
 
+  /**
+   * Tells {@link DataExchange} that create album page was visited.
+   */
   public CreateAlbum() {
     App.ex.newPage("create_album");
     EntityManager entityManager = App.ex.getEntityManager();
@@ -57,6 +60,13 @@ public class CreateAlbum extends NavBarController implements Initializable {
     imageService = new ImageService(entityManager);
   }
 
+  /**
+   * Generates container for all images of current user with a checkbox.
+   * These can be added to the album.
+   * Add text fields for user to fill
+   * @param url
+   * @param resourceBundle
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     List<Image> allImages = imageService.getImageFromUser(ApplicationState.getCurrentUser());
