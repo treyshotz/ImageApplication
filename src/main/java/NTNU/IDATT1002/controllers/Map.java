@@ -62,6 +62,7 @@ public class Map extends NavBarController implements Initializable, MapComponent
     private GoogleMap googleMap;
     private GeoApiContext geoApiContext;
     private StringProperty address = new SimpleStringProperty();
+    private EntityManager entityManager;
     private ImageService imageService;
     private AlbumService albumService;
     private ExecutorService executorService = Executors.newCachedThreadPool();
@@ -72,9 +73,17 @@ public class Map extends NavBarController implements Initializable, MapComponent
      */
     public Map() {
         App.ex.newPage("map");
-        EntityManager entityManager = App.ex.getEntityManager();
+        entityManager = App.ex.getEntityManager();
         imageService = new ImageService(entityManager);
         albumService = new AlbumService(entityManager);
+    }
+
+    /**
+     * Close outgoing requests when exiting the page.
+     */
+    @Override
+    public void doBeforePageExit() {
+        entityManager.close();
     }
 
     /**
