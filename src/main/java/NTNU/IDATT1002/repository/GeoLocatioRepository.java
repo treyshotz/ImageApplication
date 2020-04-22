@@ -16,9 +16,8 @@ import javax.persistence.EntityManager;
 public class GeoLocatioRepository extends AbstractRepository<GeoLocation, Long> {
 
     /**
-     * Constructor to inject {@link EntityManager} dependency.
-     *
-     * @param entityManager the entity manager to utilize
+     * {@inheritDoc}
+     * Set the class type to {@link GeoLocation}
      */
     public GeoLocatioRepository(EntityManager entityManager) {
         super(entityManager);

@@ -49,14 +49,35 @@
 /*SCROLLPANE CSS END*/
 
 /*RESPONSIZE IMAGES*/
+/*IMAGES*/
 
 .viewAlbumImage{
     -fx-max-width: 850px;
     -fx-height: auto;
     -fx-width: 100%;
+    -fx-cursor: hand;
 }
 
 /*RESPONSIVE IMAGES END*/
+.exploreImages{
+    -fx-cursor: hand;
+}
+
+.exploreImages:hover{
+    -fx-opacity: 0.5;
+}
+
+.exploreImages:focused{
+    -fx-opacity: 0.5;
+}
+
+.headerLogo{
+    -fx-cursor: hand;
+}
+
+
+
+/*IMAGES END*/
 
 /*BUTTON STYLING*/
 .button{
@@ -65,12 +86,29 @@
     -fx-border-width: 2px;
     -fx-border-color: #46b4fe;
     -fx-text-fill: white;
+    -fx-cursor: hand;
+}
 
+.button:focused{
+    -fx-background-color: rgba(193, 198, 196, 0.5);
+    -fx-color: white;
+}
+
+.text-input, .text-input:focused{
+    -fx-prompt-text-fill: darkgrey;
 }
 
 .button:hover{
     -fx-background-color: rgba(193, 198, 196, 0.5);
     -fx-color: white;
+}
+
+
+.returnButton{
+    -fx-background-image: url("../../Images/ReturnIcon.png");
+    -fx-background-size: 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 /*BUTTON STYLING END*/
 
@@ -103,11 +141,14 @@
 /*TAB PANE*/
 
 .tab-pane{
-    -fx-tab-min-height: 30;
+    -fx-font-size: 20px;
+    -fx-text-base-color: #10101f;
 }
 
+
+
 .tab-header-background{
-    -fx-background-color: #10101f;
+    -fx-background-color: transparent;
 }
 
 .tab-header-area{
@@ -121,9 +162,76 @@
 
 /*TAB PANE END*/
 
+/*PAGINATION BEGIN*/
+
+/* Remove spacing */
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 0;
+}
+
+/* pagination button style */
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-background-insets: 0, 1;
+    -fx-background-color: lightgray, #FAFAFA;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+    -fx-transition-duration: 0.4s;
+    -fx-border-width: 1px;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+/* Colors on hover */
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-background-insets: 0;
+    -fx-background-color: lightgray;
+}
+
+/* Selected toggle color */
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: #58379A;
+    -fx-text-fill: white;
+}
+
+/* Remove spacing and control font size */
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 0;
+    -fx-font-size: 15;
+}
+
+.pagination > .pagination-control {
+    -fx-font-size: 15;
+}
 
 
+/*PAGINATION END*/
 
+
+/*NAVBAR*/
+
+.searchButton{
+    -fx-background-image: url("../../Images/SearchIcon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 60%;
+    -fx-background-position: center;
+}
+
+.searchField{
+    -fx-border-radius: 5 0 0 5;
+    -fx-background-radius: 5 0 0 5;
+}
+
+
+/*NAVBAR END*/
 
 
 

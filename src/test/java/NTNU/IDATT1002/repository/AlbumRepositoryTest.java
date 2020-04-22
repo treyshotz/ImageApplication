@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Tests for {@link AlbumRepository}.
  *
- * @author Eirik Steira
  * @version 1.0 17.03.20
  */
 class AlbumRepositoryTest {
@@ -69,6 +68,54 @@ class AlbumRepositoryTest {
     }
 
     /**
+     * Test that finding all with {@link PageRequest} returns the number of albums
+     * specified by the page size on the first page.
+     */
+    @Test
+    void testFindAllPaginated() {
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
+
+        Page<Album> albumsPage = albumRepository.findAll(PageRequest.of(0, 2));
+
+        assertEquals(2, albumsPage.getContent().size());
+    }
+
+    /**
+     * Test that finding all with {@link PageRequest} with an uneven amount of albums
+     * returns the remaining album on the next page.
+     */
+    @Test
+    void testFindAllPaginatedWithLeftOverOnLastPage() {
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
+        albumRepository.save(new Album());
+
+        Page<Album> albumsPage = albumRepository.findAll(PageRequest.of(0, 2));
+
+        assertEquals(2, albumsPage.getContent().size());
+        assertEquals(3, albumsPage.getTotal());
+
+        albumsPage = albumRepository.findAll(albumsPage.nextPageRequest());
+
+        assertEquals(1, albumsPage.getContent().size());
+        assertEquals(1, albumsPage.getPageRequest().getPageNumber());
+    }
+
+    /**
+     * Test finding all with {@link PageRequest} when there are less
+     * albums saved than requested page size.
+     */
+    @Test
+    void testFindAllPaginatedWithLessAlbumsThanPageSize() {
+        albumRepository.save(new Album());
+
+        Page<Album> albumsPage = albumRepository.findAll(PageRequest.of(0, 2));
+
+        assertEquals(1, albumsPage.getContent().size());
+    }
+
+    /**
      * Test that finding all entities returns all saved entities.
      */
     @Test
@@ -91,7 +138,6 @@ class AlbumRepositoryTest {
         assertTrue(foundAlbum.isPresent());
         assertEquals(IMAGE_ALBUM_INITIAL_ID, foundAlbum.get().getId());
     }
-
 
     /**
      * Test that deleting an entity by id removes said entity.

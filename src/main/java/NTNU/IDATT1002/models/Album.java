@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 /**
  * Class Album representing an album. Contains {@link Image}s and the creator ({@link User})
  *
- * @author Eirik Steira
  * @version 1.1 19.03.20
  * */
 @Entity
@@ -27,11 +26,14 @@ import java.util.stream.Collectors;
                 query = "SELECT ia from Album ia "
                         + "join ia.tags tg "
                         + "where tg.name = :name"),
-        @NamedQuery(name="Image.findByTitle",
-                query = "SELECT ia from Album ia WHERE ia.title = :title")
+        @NamedQuery(name="Album.findByTitle",
+                query = "SELECT ia from Album ia WHERE ia.title = :title"),
+        @NamedQuery(name="Album.findPreviewImage",
+                query = "select image from Album album " +
+                        "join album.images image " +
+                        "where album.id = :albumId")
 })
 public class Album {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -130,34 +132,6 @@ public class Album {
     }
 
     /**
-     * Remove given image from the album.
-     *
-     * @param image the image to add
-     */
-    public void removeImage(Image image) {
-        image.removeAlbum(this);
-        images.remove(image);
-    }
-
-    /**
-     * Add given tag to this album
-     *
-     * @param tag the tag to add
-     */
-    public void addTag(Tag tag) {
-        tags.add(tag);
-    }
-
-    /**
-     * Remove given tag to this album
-     *
-     * @param tag the tag to add
-     */
-    public void removeTag(Tag tag) {
-        tags.remove(tag);
-    }
-
-    /**
      * Check if this and given entity are equal.
      * The two are defined as equal if all individual fields are equal.
      *
@@ -191,6 +165,7 @@ public class Album {
         if (tags != null)
             formattedTags = tags.stream()
                     .map(Tag::getName)
+                    .distinct()
                     .collect(Collectors.toList())
                     .toString();
 

@@ -2,15 +2,18 @@ package NTNU.IDATT1002.service;
 
 import NTNU.IDATT1002.models.*;
 import NTNU.IDATT1002.repository.ImageRepository;
+import NTNU.IDATT1002.repository.Page;
+import NTNU.IDATT1002.repository.PageRequest;
 import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Image service
@@ -18,10 +21,11 @@ import java.util.stream.Collectors;
  * @version 1.0 22.03.2020
  */
 
-public class ImageService {
+public class ImageService implements PageableService<Image> {
 
     private ImageRepository imageRepository;
     private TagService tagService;
+    private static Logger logger = LoggerFactory.getLogger(ImageService.class);
 
     /**
      * Inject entity manager instance to the repositories.
@@ -32,22 +36,38 @@ public class ImageService {
     }
 
     /**
+     * Retrieve paginated results specified by given {@link PageRequest}.
+     *
+     * @param pageRequest the {@link PageRequest} defining page number and size
+     * @return the page containing results found based on the {@link PageRequest}
+     */
+    @Override
+    public Page<Image> findAll(PageRequest pageRequest) {
+        return imageRepository.findAll(pageRequest);
+    }
+
+    /**
      * Creates a new image from the input File
+     * Sets metadata to image by using {@link MetaDataExtractor}
+     * Sets a blob of image by using {@link ImageUtil}
+     * Finally sets user, path, title and tags to image
      *
      * @param user the user of the image
      * @param file the file uploaded
      * @return Optional containing the saved image
      */
-    public Optional<Image> createImage(User user, File file, List<Tag> tags) {
-
+    public Optional<Image> createImage(User user, File file, List<Tag> tags, String title) {
+        if(file == null) {
+            logger.error("[x] An error occurred when trying to create a image; the file was null and the image could not be created");
+            return Optional.empty();
+        }
         GeoLocation geoLocation = MetaDataExtractor.getGeoLocation(file);
 
-        if(file == null)
-            return Optional.empty();
 
         Image image = new Image();
         Metadata metadata = new Metadata();
         metadata.setImage(image);
+        metadata.setMiscMetadata(MetaDataExtractor.getMiscMetadata(file));
         image.setMetadata(metadata);
 
         metadata.setGeoLocation(geoLocation);
@@ -56,7 +76,7 @@ public class ImageService {
         MetaDataExtractor.setMetadata(metadata, file);
         byte[] bFile = ImageUtil.convertToBytes(file.getPath());
 
-        //TODO: Add image tags and add image to album
+        image.setTitle(title);
         image.setRawImage(bFile);
         image.setUser(user);
         image.setPath(file.getPath());
@@ -64,10 +84,10 @@ public class ImageService {
         return imageRepository.save(image);
     }
 
-
     /**
-     * Finds each picture belonging to a specific user
-     * @param user
+     * Finds each picture belonging to a specific user.
+     *
+     * @param user the user who uploaded the images
      * @return a list with all pictures from a user
      */
     public List<Image> getImageFromUser(User user) {
@@ -83,6 +103,11 @@ public class ImageService {
         return imageRepository.findAll();
     }
 
+    /**
+     * Retrieves a image with given id
+     * @param id that will searched for
+     * @return Optional with image if found, empty else wise
+     */
     public Optional<Image> findById(Long id){
         return imageRepository.findById(id);
     }
@@ -95,25 +120,7 @@ public class ImageService {
      */
 
     public List<Image> searchResult(String query){
-        List<Image> allFound = new ArrayList<>();
-        List<Image> byTags = imageRepository.findAllByTags(query);
-        List<Image> byUsername = imageRepository.findAllByUsername(query);
-        allFound.addAll(byTags);
-        allFound.addAll(byUsername);
-        return removeDuplicates(allFound);
+        return imageRepository.findAllByQueryString(query);
     }
-
-
-    /**
-     * takes a list and removes all duplicate elements
-     * @param images
-     * @return list without duplicates
-     */
-
-    public List<Image> removeDuplicates(List<Image> images){
-        return images.stream().distinct().collect(Collectors.toList());
-    }
-    
-
 
 }

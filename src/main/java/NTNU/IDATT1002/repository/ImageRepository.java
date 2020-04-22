@@ -8,26 +8,25 @@ import java.util.List;
 
 /**
  * Image Repository.
- * <p>
+ *
  * Implements {@link  Repository} which supports regular Create, Read, Update and Delete operations.
  *
  * @author Lars Østby
  * @version 1.0 19.03.20
  * @see NTNU.IDATT1002.repository.Repository
  */
-
-public class ImageRepository extends AbstractRepository<Image, Long> {
+public class ImageRepository extends PagingAndSortingRepository<Image, Long> {
 
     /**
-     * Mapping to @NamedQuery 'find all albums by username and tags' defined in {@link  Image}
+     * Mapping to {@link javax.persistence.NamedQuery} defined in {@link Image}
      */
     public static final String IMAGE_FIND_BY_USERNAME = "Image.findAllByUsername";
     public static final String IMAGE_FIND_BY_TAG = "Image.findByTags";
+    public static final String IMAGE_FIND_BY_QUERY_STRING = "Image.findByQueryString";
 
     /**
-     * Constructor to inject {@link EntityManager} dependency.
-     *
-     * @param entityManager the entity manager to utilize
+     * {@inheritDoc}
+     * Set the class type to {@link Image}
      */
     public ImageRepository(EntityManager entityManager) {
       super(entityManager);
@@ -47,9 +46,15 @@ public class ImageRepository extends AbstractRepository<Image, Long> {
                 .getResultList();
     }
 
-    public List<Image> findAllByTags(String tag){
-        return entityManager.createNamedQuery(IMAGE_FIND_BY_TAG, Image.class)
-                .setParameter("name",tag)
+    /**
+     * Find all images based on a string. Combined result of title, tag and author search
+     *
+     * @param query
+     * @return
+     */
+    public List<Image> findAllByQueryString(String query){
+        return entityManager.createNamedQuery(IMAGE_FIND_BY_QUERY_STRING, Image.class)
+                .setParameter("query", query)
                 .getResultList();
     }
 

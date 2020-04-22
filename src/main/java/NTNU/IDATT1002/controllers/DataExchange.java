@@ -6,6 +6,7 @@ import javafx.application.HostServices;
 
 import javax.persistence.EntityManager;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,9 +23,13 @@ public class DataExchange {
     private List<File> uploadedFiles;
     private Long chosenAlbumId;
     private Long chosenImg;
+    private final String defaultFont;
+    private ArrayList<String> FXMLHistory;
 
     public DataExchange(){
+        FXMLHistory = new ArrayList<>();
         searchField = "";
+        defaultFont = "System";
         apiKey = Config.getGoogleApiKey();
         geoApiContext = new GeoApiContext.Builder()
                 .apiKey(getApiKey())
@@ -32,7 +37,7 @@ public class DataExchange {
     }
 
     public EntityManager getEntityManager() {
-        return Config.getEntityManager();
+        return Config.createEntityManager();
     }
 
     public String getApiKey() {
@@ -81,6 +86,48 @@ public class DataExchange {
 
     public void setChosenImg(Long chosenImg) {
         this.chosenImg = chosenImg;
+    }
+
+    public String getDefaultFont() {
+        return defaultFont;
+    }
+
+
+    /**
+     * Method for adding new page to previousFXML list.
+     * Will not add if the last element of the list is
+     * the same as the page loaded.
+     *
+     * @param FXML new fxml page loaded
+     */
+    public void newPage(String FXML){
+        if (FXMLHistory.size() == 0) {
+            FXMLHistory.add(FXML);
+        }
+        else if (!FXMLHistory.get(FXMLHistory.size()-1).equals(FXML)){
+            FXMLHistory.add(FXML);
+        }
+    }
+
+    /**
+     * Method for going back. Checks if there is a previous page
+     * and makes it the current one
+     * @return previous page if it exists or null if not
+     */
+    public String previousPage(){
+        if (FXMLHistory.size() > 1){
+            FXMLHistory.remove(FXMLHistory.size()-1); //Removes the current page
+            return FXMLHistory.get(FXMLHistory.size()-1); //Returns the new current page
+        }
+        return null;
+    }
+
+    /**
+     * Method that empties the array of visited pages.
+     * This method is called when logout button is pressed.
+     */
+    public void emptyPageLog(){
+        FXMLHistory = new ArrayList<>();
     }
 }
 

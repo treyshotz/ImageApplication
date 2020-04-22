@@ -58,6 +58,10 @@ public class Metadata {
     @Column(name = "filedimension")
     private String fileDimension;
 
+    @Lob
+    @Column(name = "miscMetadata")
+    private String miscMetadata;
+
     public Metadata() {
     }
 
@@ -92,6 +96,10 @@ public class Metadata {
 
     public String getCamera() {
         return camera;
+    }
+
+    public String getMiscMetadata(){
+        return miscMetadata;
     }
 
     public void setCamera(String camera) {
@@ -178,21 +186,27 @@ public class Metadata {
         this.fileDimension = fileDimension;
     }
 
+    public void setMiscMetadata(String miscMetadata){
+        this.miscMetadata = miscMetadata;
+    }
+
     @Override
     public String toString() {
+     
+
         return "Metadata{" +
-                ", metadataId=" + metadataId +
-                ", camera='" + camera + '\'' +
-                ", lens='" + lens + '\'' +
-                ", aperture='" + aperture + '\'' +
-                ", shutterSpeed='" + shutterSpeed + '\'' +
-                ", ISO='" + ISO + '\'' +
-                ", focalLength='" + focalLength + '\'' +
-                ", fileType='" + fileType + '\'' +
-                ", photoDate='" + photoDate + '\'' +
-                ", fileSize='" + fileSize + '\'' +
-                ", fileDimension='" + fileDimension + '\'' +
-                '}';
+            ", metadataId=" + metadataId +
+            ", camera='" + camera + '\'' +
+            ", lens='" + lens + '\'' +
+            ", aperture='" + aperture + '\'' +
+            ", shutterSpeed='" + shutterSpeed + '\'' +
+            ", ISO='" + ISO + '\'' +
+            ", focalLength='" + focalLength + '\'' +
+            ", fileType='" + fileType + '\'' +
+            ", photoDate='" + photoDate + '\'' +
+            ", fileSize='" + fileSize + '\'' +
+            ", fileDimension='" + fileDimension + '\'' +
+            '}';
 
     }
 }

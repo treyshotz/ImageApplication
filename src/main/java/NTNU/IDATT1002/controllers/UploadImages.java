@@ -10,15 +10,13 @@ import NTNU.IDATT1002.service.TagService;
 import NTNU.IDATT1002.utils.MetaDataExtractor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -39,17 +37,21 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Controls the buttons and changeable elements on upload_single.fxml,
+ * Controls the buttons and changeable elements on upload_images.fxml,
  * a page where you add descriptions to your selected image
  *
  * @version 1.0 22.03.2020
  */
 public class UploadImages extends NavBarController implements Initializable {
 
+  @FXML
   public VBox uploadContainer;
   public VBox root;
+  public ScrollPane scrollpane;
+
   private AlbumService albumService;
   private ImageService imageService;
+  private TextField title;
 
   public UploadImages(){
     EntityManager entityManager = App.ex.getEntityManager();
@@ -63,6 +65,7 @@ public class UploadImages extends NavBarController implements Initializable {
    * @param location
    * @param resources
    */
+  @Override
   public void initialize(URL location, ResourceBundle resources) {
     uploadContainer.getChildren().clear();
     List<File> files = App.ex.getUploadedFiles();
@@ -77,18 +80,21 @@ public class UploadImages extends NavBarController implements Initializable {
       insertImageTextToContainer(files.get(i), imageContainer);
       uploadContainer.getChildren().add(imageContainer);
     }
-    if (uploadContainer.getChildren().size() > 0){
-      Button accept = new Button("Accept");
-      accept.setOnAction(actionEvent -> {
-        try {
-          upload();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
-      uploadContainer.setAlignment(Pos.TOP_CENTER);
-      uploadContainer.getChildren().add(accept);
-    }
+      if (uploadContainer.getChildren().size() > 0) {
+        Button accept = new Button("Accept");
+        accept.setOnAction(actionEvent -> {
+          try {
+            if (validateTitle()) {
+            upload();
+          }
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+        uploadContainer.setAlignment(Pos.TOP_CENTER);
+        uploadContainer.getChildren().add(accept);
+      }
+
   }
 
 
@@ -148,11 +154,11 @@ public class UploadImages extends NavBarController implements Initializable {
     HBox titleContainer = new HBox();
 
     Text titleLabel = new Text("Title: ");
-    titleLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
+    titleLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 
-    TextField title = new TextField();
+    title = new TextField();
     title.setId("title");
-    title.setFont(Font.font("System",24));
+    title.setFont(Font.font(App.ex.getDefaultFont(),24));
 
     titleContainer.getChildren().addAll(titleLabel, title);
 
@@ -169,11 +175,11 @@ public class UploadImages extends NavBarController implements Initializable {
     HBox tagContainer = new HBox();
 
     Text tagLabel = new Text("Tags: ");
-    tagLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
+    tagLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 24));
 
     TextField tags = new TextField();
     tags.setId("tags");
-    tags.setFont(Font.font("System",24));
+    tags.setFont(Font.font(App.ex.getDefaultFont(),24));
 
     tagContainer.getChildren().addAll(tagLabel, tags);
 
@@ -189,14 +195,14 @@ public class UploadImages extends NavBarController implements Initializable {
    */
   private void insertImageMetadata(File file, VBox textContainer) {
     Text metadataLabel = new Text("Metadata: ");
-    metadataLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+    metadataLabel.setFont(Font.font(App.ex.getDefaultFont(), FontWeight.BOLD, 16));
 
     String metadataSting = MetaDataExtractor.getMetadata(file);
     TextArea metadata = new TextArea(metadataSting);
 
     metadata.setEditable(false);
     metadata.setPrefWidth(500);
-    metadata.setFont(Font.font("System",16));
+    metadata.setFont(Font.font(App.ex.getDefaultFont(),16));
 
 
     textContainer.getChildren().addAll(metadataLabel, metadata);
@@ -209,10 +215,7 @@ public class UploadImages extends NavBarController implements Initializable {
    */
   private void insertCheckedChoiceBox(VBox textContainer){
     ObservableList<String> options = FXCollections.observableArrayList();
-    albumService.getAllAlbums().stream()
-            //Filters the current users albums
-            .filter(album -> album.getUser() == ApplicationState.getCurrentUser())
-            //Adds a checkbox with albums title and id
+    albumService.getAlbumsByUser(ApplicationState.getCurrentUser().getUsername())
             .forEach(album -> options.add(album.getTitle() + " #" + album.getId()));
     CheckComboBox<String> checkComboBox = new CheckComboBox<>(options);
     checkComboBox.setId("checkbox");
@@ -238,7 +241,6 @@ public class UploadImages extends NavBarController implements Initializable {
               .filter(n -> n.getId() != null && (n.getId().equals("title") || n.getId().equals("tags") || n.getId().equals("checkbox")))
               .collect(Collectors.toList());
 
-      //Todo: make title apply to images
       Node titleField = childNodes.get(0);
       Node tagsField = childNodes.get(1);
       Node comboBox = childNodes.get(2);
@@ -251,11 +253,16 @@ public class UploadImages extends NavBarController implements Initializable {
 
       //Each of the uploaded images in DataExchange index match on each container displaying it on the page
       File file = App.ex.getUploadedFiles().get(i);
+      if(file.length() > 4100000) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, file.getName() + "is too large. File limit is 4.1MB");
+        alert.show();
+        break;
+      }
       String tagsString = ((TextField) tagsField).getText();
       List<Tag> tags = TagService.getTagsFromString(tagsString);
 
       //Try creating image with the tags entered
-      Optional<NTNU.IDATT1002.models.Image> createdImage = imageService.createImage(ApplicationState.getCurrentUser(), file, tags);
+      Optional<NTNU.IDATT1002.models.Image> createdImage = imageService.createImage(ApplicationState.getCurrentUser(), file, tags, ((TextField)titleField).getText());
       createdImage.ifPresent(image -> {
         //For each chosen album checked the image is added
         for (String id : albumsId) {
@@ -289,5 +296,26 @@ public class UploadImages extends NavBarController implements Initializable {
       if (node instanceof Parent)
         addAllDescendents((Parent)node, nodes);
     }
+  }
+
+  /**
+   * Checks if the user gave the image a title as well as if the title has too many characters
+   *
+   * @return boolean validation check
+   */
+  private boolean validateTitle(){
+    boolean check = true;
+    if (title.getText().isEmpty() || title.getText().isBlank()){
+      title.clear();
+      title.setStyle("-fx-prompt-text-fill: red");
+      title.setPromptText("Please enter a image title");
+      check = false;
+    }if (title.getText().length() > 50){
+      title.clear();
+      title.setStyle("-fx-prompt-text-fill: red");
+      title.setPromptText("The title is too long");
+     check = false;
+    }
+    return check;
   }
 }

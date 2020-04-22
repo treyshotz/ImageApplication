@@ -28,7 +28,7 @@ public final class ApplicationState {
      * Initiate properties and save an anonymous user once.
      */
     static {
-        EntityManager entityManager = Config.getEntityManager();
+        EntityManager entityManager = Config.createEntityManager();
 
         userRepository = new UserRepository(entityManager);
     }

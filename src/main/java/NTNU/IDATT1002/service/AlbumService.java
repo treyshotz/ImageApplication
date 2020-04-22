@@ -5,6 +5,8 @@ import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.models.Tag;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.AlbumRepository;
+import NTNU.IDATT1002.repository.Page;
+import NTNU.IDATT1002.repository.PageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +20,15 @@ import java.util.stream.Collectors;
 /**
  * Album Service. Supports common domain specific operations such as creating and retrieving albums.
  *
- * @author Eirik Steira
  * @version 1.1 01.04.20
  */
-public class AlbumService {
+public class AlbumService implements PageableService<Album> {
 
     private AlbumRepository albumRepository;
 
     private TagService tagService;
 
-    private static Logger logger = LoggerFactory.getLogger(AlbumService.class);;
+    private static Logger logger = LoggerFactory.getLogger(AlbumService.class);
 
     /**
      * Inject entity manager instance to the repositories.
@@ -36,6 +37,18 @@ public class AlbumService {
         this.albumRepository = new AlbumRepository(entityManager);
         this.tagService = new TagService(entityManager);
     }
+
+    /**
+     * Retrieve paginated results specified by given {@link PageRequest}.
+     *
+     * @param pageRequest the {@link PageRequest} defining page number and size
+     * @return the page containing results found based on the {@link PageRequest}
+     */
+    @Override
+    public Page<Album> findAll(PageRequest pageRequest) {
+        return albumRepository.findAll(pageRequest);
+    }
+
 
     public Optional<Album> getAlbumById(Long albumId) {
         return albumRepository.findById(albumId);
@@ -48,6 +61,16 @@ public class AlbumService {
      */
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
+    }
+
+    /**
+     * Takes in a string and searched through all albums username.
+     *
+     * @param user the query string
+     * @return list of results
+     */
+    public List<Album> getAlbumsByUser(String user){
+        return albumRepository.findAllByUsername(user);
     }
 
     /**
@@ -75,9 +98,26 @@ public class AlbumService {
         return albumRepository.save(album);
     }
 
+    /**
+     * Add given image to given album.
+     *
+     * @param album the album to add the image to
+     * @param image the image to add
+     * @return the updated album
+     */
     public Optional<Album> addImage(Album album, Image image){
         album.addImage(image);
         return albumRepository.update(album);
+    }
+
+    /**
+     * Find a single image as an album preview.
+     *
+     * @param album the album to get a preview from
+     * @return An optional image if found
+     */
+    public Optional<Image> findPreviewImage(Album album) {
+        return albumRepository.findPreviewImage(album.getId());
     }
 
     /**
@@ -116,11 +156,11 @@ public class AlbumService {
     }
 
     /**
-     * Takes in a string and searched through all album by tags, username and title to find results
-     * @param query
+     * Takes in a string and searched through all album by tags, username and title to find results.
+     *
+     * @param query the query string
      * @return list of results without duplocates
      */
-
     public List<Album> searchResult(String query){
         List<Album> allFound = new ArrayList<>();
         List<Album> byTags = albumRepository.findAllByTags(query);
@@ -132,13 +172,12 @@ public class AlbumService {
         return removeDuplicates(allFound);
     }
 
-
     /**
-     * takes a list and removes all duplicate elements
-     * @param albums
+     * Removes all duplicate elements in given list.
+     *
+     * @param albums the list of albums to remove duplicates
      * @return list without duplicates
      */
-
     public List<Album> removeDuplicates(List<Album> albums){
         return albums.stream().distinct().collect(Collectors.toList());
     }

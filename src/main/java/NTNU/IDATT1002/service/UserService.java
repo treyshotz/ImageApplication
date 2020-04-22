@@ -1,16 +1,20 @@
 package NTNU.IDATT1002.service;
 
+import NTNU.IDATT1002.App;
 import NTNU.IDATT1002.models.Login;
 import NTNU.IDATT1002.models.User;
 import NTNU.IDATT1002.repository.LoginRepository;
 import NTNU.IDATT1002.repository.UserRepository;
 import NTNU.IDATT1002.utils.Authentication;
 
+import NTNU.IDATT1002.utils.MetaDataExtractor;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Works together with loginrepository and userrepository
@@ -24,6 +28,7 @@ public class UserService {
 
     private LoginRepository loginRepository;
     private UserRepository userRepository;
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     /**
      * Inject entity manager instance to the repositories
@@ -73,9 +78,17 @@ public class UserService {
             }
         }
         catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            logger.error("[x] Something went wrong trying to log in", e);
         }
         return false;
+    }
+
+    public static void logOut() {
+        ApplicationState.setCurrentUser(null);
+        App.ex.setChosenAlbumId(null);
+        App.ex.setChosenImg(null);
+        App.ex.setUploadedFiles(null);
+        App.ex.setHostServices(null);
     }
 
     /**
@@ -84,7 +97,7 @@ public class UserService {
      * @param username that will be searched for
      * @param oldPassword that will be compared to database
      * @param newPassword that will be set
-     * @return
+     * @return boolean is the action was a success
      */
     boolean changePassword(String username, String oldPassword, String newPassword) {
         ArrayList<String> info = new ArrayList<>();
@@ -106,11 +119,17 @@ public class UserService {
             }
         }
         catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            logger.error("[x] Something went wrong when trying to change password", e);
          }
         return false;
     }
 
+    /**
+     * Sets password on a user when initially creating a user
+     * @param login object that password will be set to
+     * @param password that will be hashed and salted
+     * @return boolean whether to action was a success or not
+     */
     private boolean setPassword(Login login, String password) {
         ArrayList<String> info = new ArrayList<>();
         try {
@@ -124,7 +143,7 @@ public class UserService {
              }
         }
         catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            logger.error("[x] Something went wrong trying to set pasword on a user for the first time");
         }
         return false;
     }

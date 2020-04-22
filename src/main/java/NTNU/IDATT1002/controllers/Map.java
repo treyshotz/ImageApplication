@@ -44,41 +44,46 @@ import java.util.stream.Stream;
 /**
  * Controls the buttons and changeable elements on map.fxml,
  * a page where you can find images by location
+ *
  * @version 1.0 22.03.2020
  */
 public class Map extends NavBarController implements Initializable, MapComponentInitializedListener {
 
+    @FXML
     public TextField search;
-
+    @FXML
     public Button searchBtn;
-
     @FXML
     private GoogleMapView mapView;
-
     @FXML
     private TextField addressTextField;
 
     private List<String> autoCompletions = new ArrayList<>();
-
     private GoogleMap googleMap;
-
     private GeoApiContext geoApiContext;
-
     private StringProperty address = new SimpleStringProperty();
-
+    private EntityManager entityManager;
     private ImageService imageService;
-
     private AlbumService albumService;
-
     private ExecutorService executorService = Executors.newCachedThreadPool();
-
     private static Logger logger = LoggerFactory.getLogger(Map.class);
 
-
+    /**
+     * Tell {@link DataExchange} that map page is visited.
+     */
     public Map() {
-        EntityManager entityManager = App.ex.getEntityManager();
+        App.ex.newPage("map");
+        entityManager = App.ex.getEntityManager();
         imageService = new ImageService(entityManager);
         albumService = new AlbumService(entityManager);
+    }
+
+    /**
+     * Close outgoing requests when exiting the page.
+     */
+    @Override
+    public void doBeforePageExit() {
+        entityManager.close();
     }
 
     /**

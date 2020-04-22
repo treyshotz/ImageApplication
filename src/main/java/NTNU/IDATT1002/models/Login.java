@@ -7,11 +7,9 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "login")
 public class Login {
 
-
     @Id
     @JoinColumn(name = "username")
     private String username;
-
 
     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private User user;

@@ -3,10 +3,12 @@ package NTNU.IDATT1002.controllers;
 import NTNU.IDATT1002.models.GeoLocation;
 import NTNU.IDATT1002.models.Image;
 import NTNU.IDATT1002.service.TagService;
+import NTNU.IDATT1002.utils.ImageUtil;
 import NTNU.IDATT1002.utils.MetadataStringFormatter;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import javax.xml.bind.DatatypeConverter;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,14 +24,14 @@ import java.util.stream.Collectors;
  * Class ImageMapFactory. Factory for map creation with markers for given images and default options.
  * Default center location is Copenhagen in order to center the full scale map onto a page.
  *
- * @author Eirik Steira
+ * @version 1.0 20.04.2020
  */
 public class ImageMapFactory {
 
     private GoogleMap map;
     private Logger logger = LoggerFactory.getLogger(ImageMapFactory.class);
     private Map<LatLong, Image> latLongImageMapping = new HashMap<>();
-    
+
     public ImageMapFactory() {
     }
 
@@ -125,9 +127,13 @@ public class ImageMapFactory {
      * @return marker created
      */
     private Marker getMarker(LatLong location) {
+        Image image = latLongImageMapping.get(location);
+        String smallerMarker = ImageUtil.createSmallerMarkers(image);
+
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(location)
-                .animation(Animation.DROP);
+                .animation(Animation.DROP)
+                .icon(smallerMarker);
 
         logger.info("[x] Marker created for location: {}", location);
         Marker marker = new Marker(markerOptions);
@@ -157,8 +163,13 @@ public class ImageMapFactory {
         Date uploadedAt = image.getUploadedAt();
         String metadata = MetadataStringFormatter.format(image.getMetadata(), "<br/>");
 
+        //Convert image bytes to base64 for displaying image as HTML
+        byte[] imageBytes = image.getRawImage();
+        String path = "data:image/png;base64," + DatatypeConverter.printBase64Binary(imageBytes);
+
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                 .content("<h3>Id: " + image.getId() + "</h3>" +
+                                 "<p><img src=" + path + " width=\"200\" height=\"auto\"> </p>" +
                                  "<p><b>User:</b> " + username + "</p>" +
                                  "<p><b>Tags:</b> " + tags + "</p>" +
                                  "<p><b>Uploaded at:</b> " + uploadedAt + "</p>" +

@@ -74,7 +74,7 @@ class ImageServiceTest {
    */
   @Test
   void testCreateImageReturnsOptionalWithImage() {
-    Optional<Image> createdImage = imageService.createImage(user, testImage1, tags);
+    Optional<Image> createdImage = imageService.createImage(user, testImage1, tags, "Test 1");
     assertTrue(createdImage.isPresent());
     assertEquals(IMAGE_INITIAL_ID, createdImage.get().getId());
   }
@@ -85,7 +85,7 @@ class ImageServiceTest {
   @Test
   void testCreateImageReturnsEmptyOptionalWithInvalidEntity() {
     Optional<Image> createdImage;
-    createdImage = imageService.createImage(user, null, tags);
+    createdImage = imageService.createImage(user, null, tags, "Test 2");
     assertTrue(createdImage.isEmpty());
   }
 
@@ -94,8 +94,8 @@ class ImageServiceTest {
    */
   @Test
   void testGetImageFromUserReturnsCorrectImages() {
-    imageService.createImage(user, testImage1, tags);
-    imageService.createImage(user,testImage1, tags);
+    imageService.createImage(user, testImage1, tags, "Test 3");
+    imageService.createImage(user,testImage1, tags, "Test 4");
     List<Image> foundImages = imageService.getImageFromUser(user);
     assertEquals(2, foundImages.size());
     assertEquals(IMAGE_INITIAL_ID , foundImages.get(0).getId());
@@ -106,8 +106,8 @@ class ImageServiceTest {
    */
   @Test
   void testGetImageFromUserOnlyReturnsOneInstance() {
-    imageService.createImage(user, testImage1, tags);
-    imageService.createImage(user2, testImage2, tags);
+    imageService.createImage(user, testImage1, tags, "test 5");
+    imageService.createImage(user2, testImage2, tags, "Test 6");
     List<Image> foundImages = imageService.getImageFromUser(user);
     assertEquals(1, foundImages.size());
     assertEquals(IMAGE_INITIAL_ID, foundImages.get(0).getId());
@@ -118,8 +118,8 @@ class ImageServiceTest {
    */
   @Test
   void testGetAllImagesReturnsAllImages() {
-    imageService.createImage(user, testImage1, tags);
-    imageService.createImage(user2, testImage2, tags);
+    imageService.createImage(user, testImage1, tags, "Test 7");
+    imageService.createImage(user2, testImage2, tags, "Test 8");
     List<Image> foundImages = imageService.getAllImages();
     assertEquals(2, foundImages.size());
   }

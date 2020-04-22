@@ -46,7 +46,9 @@ public class Login {
 
 
     /**
-     * Method that changes scene to Main page
+     * Method that tries to log in to the page with the entered
+     * credentials. If successful, scene changes to Main page. If not
+     * it displays an error.
      * @throws IOException
      */
     public void login() throws IOException {
@@ -64,13 +66,22 @@ public class Login {
         }
     }
 
-
+    /**
+     * Method that registers a keyevent and tries to login if keyevent is entered
+     * @param keyEvent
+     * @throws IOException
+     */
     public void enterLogin(KeyEvent keyEvent) throws IOException {
         if(keyEvent.getCode().equals(KeyCode.ENTER)){
             login();
         }
     }
 
+    /**
+     * Method trying to login if login button is pressed
+     * @param event
+     * @throws IOException
+     */
     public void buttonLogin(ActionEvent event) throws IOException {
         login();
     }

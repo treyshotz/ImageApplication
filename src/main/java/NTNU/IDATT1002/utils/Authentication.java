@@ -22,10 +22,6 @@ public class Authentication {
      * @return hashed password
      */
     public static ArrayList<String> setPassword(String password) {
-        String hashedPassword = null;
-        ArrayList<String> info = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-
         if (password == null) {
             throw new IllegalArgumentException("Input cannot be null");
         }
@@ -38,7 +34,7 @@ public class Authentication {
     /**
      * Gets hash and salt from database with the salt
      * Hashes input password with same algorithm and salt as when created
-     * Compares the expected has and the new hash
+     * Compares the expected hash and the new hash
      * @param salt to get the stored hash on give user
      * @param password that will be hashed and compared to original hash
      * @return boolean of whether the hashes are similiar or not
@@ -66,10 +62,7 @@ public class Authentication {
         byte[] dbSalt = buildBytes(salt);
 
         String hashedInputPassword = createHashWithPredeterminedSalt(dbSalt, password);
-        if(expectedHash.equals(hashedInputPassword)) {
-            return true;
-        }
-        return false;
+        return expectedHash.equals(hashedInputPassword);
     }
 
     /**
@@ -88,8 +81,9 @@ public class Authentication {
             byte[] bytes = md.digest(password.getBytes());
 
             //Converts the StringBuilder to hexadecimal
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append((Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1)));
+            for (byte aByte : bytes) {
+                sb.append((Integer.toString((aByte & 0xff) + 0x100, 16)
+                        .substring(1)));
             }
 
             //Gets the whole hash in hexformat into a string
@@ -102,7 +96,7 @@ public class Authentication {
 
 
     /**
-     * Creates hash with an random salt
+     * Creates hash with SHA-512 and with an random salt
      * @param password that wil be hashed
      * @return hashed password with salt
      */
@@ -119,8 +113,9 @@ public class Authentication {
             byte[] bytes = md.digest(password.getBytes());
 
             //Converts the StringBuilder to hexadecimal
-            for(int i = 0; i < bytes.length; i++) {
-                sb.append((Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1)));
+            for (byte aByte : bytes) {
+                sb.append((Integer.toString((aByte & 0xff) + 0x100, 16)
+                        .substring(1)));
             }
             hashedPassword = sb.toString();
         }

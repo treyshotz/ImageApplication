@@ -1,161 +1,129 @@
 package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
+import NTNU.IDATT1002.controllers.components.explore.ImageColumn;
+import NTNU.IDATT1002.controllers.components.explore.ImageRow;
+import NTNU.IDATT1002.models.Image;
+import NTNU.IDATT1002.repository.Page;
 import NTNU.IDATT1002.service.ImageService;
-import NTNU.IDATT1002.service.TagService;
-import NTNU.IDATT1002.utils.ImageUtil;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import NTNU.IDATT1002.service.PageableService;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+
 
 /**
  * Controls the buttons and changeable elements on explore.fxml,
- * a page where you explore images
+ * a page where you explore images.
+ *
  * @version 1.0 22.03.2020
  */
-public class Explore extends NavBarController implements Initializable {
+public class Explore extends PaginatedContent<Image> {
 
-    public ScrollPane scrollPane;
-    public GridPane gridPane;
-    public Button footer_previousBtn;
-    public Button footer_nextBtn;
-
-    private List<NTNU.IDATT1002.models.Image> images;
-    private int start;
-    private int end;
+    private final int MAX_PER_ROW = 3;
 
     /**
-     * Method that runs when explore.fxml is set as scene
-     * Generates content based on a list of images
-     * @param url
-     * @param resourceBundle
+     * Tell {@link PaginatedContent} which fields to sort {@link Image}s by.
+     * Tell {@link DataExchange} that explore page is visited
+     */
+    public Explore() {
+        super("uploadedAt", "title");
+        App.ex.newPage("explore");
+    }
+
+    /**
+     * Return an {@link ImageService} to use in {@link PaginatedContent}.
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        images = new ImageService(App.ex.getEntityManager()).getAllImages();
-        start = 0;
-        end = 15;
-
-        generateImages(start, end);
+    protected PageableService<Image> getService() {
+        return new ImageService(App.ex.getEntityManager());
     }
 
-    public void generateImages(int start, int end){
-        gridPane.getChildren().clear();
-        //Limited elements to 15 since grid pane since is 3x5
-        for(int i = start; i < images.size() && i < end; i++) {
-            int index = i%15;
-            //Row and column in gripdane
-            int column = index%3;
-            int row = (index-column)/3;
+    /**
+     * Aggregate given {@link Page}'s content to {@link ImageRow}s
+     * and {@link ImageColumn}s respectively.
+     *
+     * @param page the {@link Page} who's content to parse
+     * @return the list of content parsed into a list of {@link ImageRow}s
+     */
+    @Override
+    public List<ImageRow> getContentsFrom(Page<Image> page) {
+        List<ImageRow> rows = new ArrayList<>();
+        ImageRow currentRow = new ImageRow(MAX_PER_ROW);
 
-            //Make vbox container for content
-            VBox vBox = new VBox();
-            vBox.setPrefHeight(400);
-            vBox.setPrefWidth(400);
-            vBox.setMaxHeight(400);
-            vBox.setAlignment(Pos.CENTER);
-            //vBox.setStyle("-fx-background-color: #999999;");
+        for(Image image : page)
+            currentRow = parseColumn(rows, currentRow, image);
 
-            //Image container
-            ImageView imageView = new ImageView();
-            imageView.setId(String.valueOf(images.get(i).getId()));
-            imageView.setImage(ImageUtil.convertToFXImage(images.get(i)));
-            imageView.setFitHeight(250);
-            imageView.setFitWidth(400);
-            imageView.pickOnBoundsProperty().setValue(true);
-            imageView.setPreserveRatio(true);
-            //Link to view image page
-            imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override public void handle(MouseEvent e) {
-                    try{
-                        switchToViewImage(e);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+        return rows;
+    }
+
+    /**
+     * Parse given {@link Image} into a {@link ImageColumn}
+     * and add to given {@link ImageRow}.
+     *
+     * Starts on a new {@link ImageRow} if the current is full.
+     *
+     * @param rows the list of aggregated {@link ImageRow}s
+     * @param currentRow the current row to add the new {@link ImageColumn} to
+     * @param image the current {@link Image} to parse
+     * @return the current {@link ImageRow}, the given one if it is not full.
+     */
+    private ImageRow parseColumn(List<ImageRow> rows, ImageRow currentRow, Image image) {
+        ImageColumn imageColumn = new ImageColumn(image);
+        addSwitchToViewImageEventHandlers(imageColumn);
+
+        currentRow.addColumn(imageColumn);
+
+        if (currentRow.isFull()) {
+            rows.add(currentRow);
+            currentRow = new ImageRow(MAX_PER_ROW);
+        }
+
+        return currentRow;
+    }
+
+    /**
+     * Add switch to view image {@link javafx.event.EventHandler}s to given {@link ImageColumn}.
+     */
+    private void addSwitchToViewImageEventHandlers(ImageColumn imageColumn) {
+        imageColumn.setOnMouseClicked(e -> {
+            try{
+                switchToViewImage(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        imageColumn.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)){
+                try {
+                    switchToViewImage(keyEvent);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-
-            //Text describing the picture's title and tag
-            Text title = new Text("LEGG IN TITTEL I DB");
-            title.setFont(Font.font("System Bold", 24));
-            String tagsAsString = TagService.getTagsAsString(images.get(i).getTags());
-            Text tag = new Text(tagsAsString);
-            tag.setFont(Font.font("System Bold", 18));
-
-            //Add elements to vbox
-            vBox.getChildren().addAll(imageView, title, tag);
-
-            //Add vbox to gridpane
-            gridPane.add(vBox, column, row);
-        }
-    }
-
-    /**
-     * Method that changes scene to View Picture page for the image that was clicked
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void switchToViewImage(MouseEvent mouseEvent) throws IOException {
-        long imageId = 0;
-        Node node = (Node) mouseEvent.getSource();
-        if (node.getId() != null){
-                imageId = Long.parseLong(node.getId());
-        }
-
-        if (imageId != 0) {
-            App.ex.setChosenImg(imageId);
-            App.setRoot("view_image");
-        }
-    }
-
-    /**
-     * Method that updates content to previous "page"
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToPrevious(ActionEvent actionEvent) throws IOException {
-        if (start - 15 >= 0){
-            start -= 15;
-            end -= 15;
-            generateImages(start, end);
-
-            if (start == 0){
-                footer_previousBtn.setDisable(true);
             }
-            footer_nextBtn.setDisable(false);
-        }
+        });
     }
 
     /**
-     * Method that updates content to next "page"
-     * @param actionEvent
-     * @throws IOException
+     * Change scene to View Picture page for the image that was interacted with.
      */
-    public void switchToNext(ActionEvent actionEvent) throws IOException {
-        if (start + 15 < images.size()){
-            start += 15;
-            end += 15;
-            generateImages(start, end);
+    public void switchToViewImage(InputEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        String nodeId = node.getId();
 
-            if (end >= images.size()){
-                footer_nextBtn.setDisable(true);
-            }
-            footer_previousBtn.setDisable(false);
-        }
+        if (nodeId == null)
+            return;
+
+        long imageId = Long.parseLong(nodeId);
+
+        if (imageId == 0)
+            return;
+
+        App.ex.setChosenImg(imageId);
+        App.setRoot("view_image");
     }
 }

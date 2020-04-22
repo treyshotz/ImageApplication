@@ -25,7 +25,7 @@ public class LoadDatabase {
     private static ImageService imageService;
 
     static {
-        EntityManager entityManager = Config.getEntityManager();
+        EntityManager entityManager = Config.createEntityManager();
 
         userService = new UserService(entityManager);
         albumService = new AlbumService(entityManager);
@@ -50,7 +50,7 @@ public class LoadDatabase {
         ));
         Image image = imageService.createImage(user,
                 new File("t14-test-images/1.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("First",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -68,7 +68,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/7.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Seventh",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -95,7 +95,7 @@ public class LoadDatabase {
                 .get();
         image = imageService.createImage(user,
                 new File("t14-test-images/2.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Second",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -112,7 +112,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/10.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Tenth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -139,7 +139,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/3.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Third",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -157,7 +157,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/9.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Ninth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -185,7 +185,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/4.jpg"),
-                tags).get();
+                tags, " ").get();
 
         albumService.createAlbum("Fourth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
@@ -204,7 +204,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/5.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Fifth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -232,7 +232,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/6.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Sixth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,
@@ -260,7 +260,7 @@ public class LoadDatabase {
         ));
         image = imageService.createImage(user,
                 new File("t14-test-images/8.jpg"),
-                tags).get();
+                tags, " ").get();
         albumService.createAlbum("Eighth",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
                 user,

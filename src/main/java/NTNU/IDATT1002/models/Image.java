@@ -21,7 +21,13 @@ import java.util.stream.Collectors;
         @NamedQuery(name="Image.findByTags",
                 query = "SELECT im from Image im "
                         + "join im.tags tg "
-                        + "where tg.name = :name")
+                        + "where tg.name = :name"),
+        @NamedQuery(name="Image.findByQueryString",
+                query = "SELECT img " +
+                        "FROM Image img " +
+                        "WHERE img.user.username = :query " +
+                        "OR img.title = :query " +
+                        "OR img IN (SELECT i FROM Image i INNER JOIN i.tags tag WHERE tag.name = :query) ")
 })
 public class Image {
 
@@ -48,6 +54,9 @@ public class Image {
 
   @NotBlank
   private String path;
+
+  @Column(name = "title", length = 50)
+  private String title;
 
   @CreationTimestamp
   private Date uploadedAt;
@@ -92,6 +101,10 @@ public class Image {
     this.path = path;
   }
 
+  public void setTitle(String title){
+    this.title = title;
+  }
+
   public List<Album> getAlbums() {
     return albums;
   }
@@ -104,16 +117,20 @@ public class Image {
       tags.add(tag);
   }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
+  public List<Tag> getTags() {
+      return tags;
+  }
 
-    public Metadata getMetadata() {
+  public Metadata getMetadata() {
     return metadata;
   }
 
   public Date getUploadedAt() {
     return uploadedAt;
+  }
+
+  public String getTitle(){
+    return title;
   }
 
   public User getUser() {
@@ -127,15 +144,6 @@ public class Image {
    */
   public void addAlbum(Album album) {
     albums.add(album);
-  }
-
-  /**
-   * Remove this image from the given image.
-   *
-   * @param album the album to remove from
-   */
-  public void removeAlbum(Album album) {
-    albums.remove(album);
   }
 
   /**

@@ -1,19 +1,22 @@
 package NTNU.IDATT1002.repository;
 
+import NTNU.IDATT1002.Config;
 import NTNU.IDATT1002.models.Album;
+import NTNU.IDATT1002.models.Image;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Album Repository.
  *
  * Implementation of {@link  AbstractRepository} which supports regular Create, Read, Update and Delete operations.
- * @author Eirik Steira
+ * Supports paginated and sorted content through {@link PagingAndSortingRepository}.
+ *
  * @version 1.0 19.03.20
- * @see AbstractRepository
  */
-public class AlbumRepository extends AbstractRepository<Album, Long> {
+public class AlbumRepository extends PagingAndSortingRepository<Album, Long> {
 
     /**
      * Mapping to @NamedQuery 'find all albums by username, tags, and title' defined in {@link  Album}
@@ -21,11 +24,11 @@ public class AlbumRepository extends AbstractRepository<Album, Long> {
     public static final String ALBUM_FIND_BY_USERNAME = "Album.findAllByUsername";
     public static final String ALBUM_FIND_BY_TAGS = "Album.findByTags";
     public static final String ALBUM_FIND_BY_TITLE = "Album.findByTitle";
+    public static final String ALBUM_FIND_PREVIEW_IMAGE = "Album.findPreviewImage";
 
     /**
-     * Constructor to inject {@link EntityManager} dependency and sets the class type to {@link Album}
-     *
-     * @param entityManager the entity manager to utilize
+     * {@inheritDoc}
+     * Set the class type to {@link Album}
      */
     public AlbumRepository(EntityManager entityManager) {
         super(entityManager);
@@ -50,11 +53,39 @@ public class AlbumRepository extends AbstractRepository<Album, Long> {
                 .getResultList();
     }
 
+    /**
+     * Find all albums by given title.
+     *
+     * @param title the title to query for
+     * @return a list of albums found
+     */
     public List<Album> findAllByTitle(String title){
         return entityManager.createNamedQuery(ALBUM_FIND_BY_TITLE, Album.class)
                 .setParameter("title", title)
                 .getResultList();
     }
 
+    /**
+     * Find a single preview image from album with given id.
+     *
+     * Creates a new entity manager for each call
+     * to allow concurrent fetching within the maximum
+     * connection pool size.
+     *
+     * @param albumId the id of the album
+     * @return Optional of image if found
+     */
+    public Optional<Image> findPreviewImage(Long albumId) {
+        EntityManager newEntityManager = Config.createEntityManager();
 
+        Image image = newEntityManager
+                    .createNamedQuery(ALBUM_FIND_PREVIEW_IMAGE, Image.class)
+                    .setParameter("albumId", albumId)
+                    .setMaxResults(1)
+                    .setFirstResult(0)
+                    .getResultList().get(0);
+
+        newEntityManager.close();
+        return Optional.ofNullable(image);
+    }
 }
