@@ -33,6 +33,8 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToMain(MouseEvent mouseEvent) throws IOException {
+        doBeforePageExit();
+
         App.ex.setChosenAlbumId(null);
         App.setRoot("main");
     }
@@ -44,10 +46,12 @@ public class NavBarController {
      * @throws IOException
      */
     public void goToPrevious(ActionEvent actionEvent) throws IOException {
+        doBeforePageExit();
+
         String previousPage = App.ex.previousPage();
-        if (previousPage != null){
+        if (previousPage != null)
             App.setRoot(previousPage);
-        }
+
     }
 
     /**
@@ -57,9 +61,12 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToSearch(ActionEvent actionEvent) throws IOException {
-        if (!navBarSearch.getText().isEmpty()){
+        doBeforePageExit();
+
+        if (!navBarSearch.getText().isEmpty())
             App.ex.setSearchField(navBarSearch.getText());
-        }
+
+
         App.ex.setChosenAlbumId(null);
         App.setRoot("search");
     }
@@ -70,6 +77,8 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToExplore(ActionEvent actionEvent) throws IOException {
+        doBeforePageExit();
+
         App.ex.setChosenAlbumId(null);
         App.setRoot("explore");
     }
@@ -80,6 +89,8 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToAlbums(ActionEvent actionEvent) throws IOException {
+        doBeforePageExit();
+
         App.ex.setChosenAlbumId(null);
         App.setRoot("explore_albums");
     }
@@ -90,6 +101,8 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToMap(ActionEvent actionEvent) throws IOException {
+        doBeforePageExit();
+
         App.ex.setChosenAlbumId(null);
         App.setRoot("map");
     }
@@ -100,6 +113,8 @@ public class NavBarController {
      * @throws IOException
      */
     public void switchToUpload(ActionEvent actionEvent) throws IOException {
+        doBeforePageExit();
+
         App.ex.setChosenAlbumId(null);
         App.setRoot("upload");
     }
@@ -111,9 +126,19 @@ public class NavBarController {
      * @throws IOException
      */
     public void logOut(ActionEvent actionEvent) throws IOException {
+        doBeforePageExit();
+
         App.ex.emptyPageLog();
         UserService.logOut();
         App.ex.setChosenAlbumId(null);
         App.setRoot("login");
     }
+
+    /**
+     * Actions to perform when exiting the page.
+     * Can be implemented by subclasses to define custom actions on page exit.
+     */
+    public void doBeforePageExit(){
+
+    };
 }
