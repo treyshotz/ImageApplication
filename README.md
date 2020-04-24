@@ -65,26 +65,22 @@ For futher questions we would recommend reading our wiki and javadoc
 
 ## Authors
 
-**Eirik Steira - Techincal Leader**
+![](src/main/resources/Images/Profil_eirik.png) 
 
-![](src/main/resources/Images/image1.jpg) 
+####Eirik Steira - ***Technical Leader***
 
-**Simon Jensen - Meeting Reporter**
+![](src/main/resources/Images/Profil_nicolay.png)
 
-![](src/main/resources/Images/image2.jpg)
+####Nicolay Schiøll-Johansen - ***Team Leader***
 
-**Nicolay Schiøll-Johansen - Team Leader**
+![](src/main/resources/Images/Profil_stian.png)
+####Stian Mogen - ***Welfare Minister and Deputy Leader***
 
-![](src/main/resources/Images/image3.jpg)
+![](src/main/resources/Images/Profil_simon.png)
+####Simon Jensen - ***Meeting referencer***
 
-**Mads Lundegaard - Useless**
+![](src/main/resources/Images/Profil_mads.png)
+####Mads Lundegaard - ***Developer***
 
-![](src/main/resources/Images/image4.jpg)
-
-**Stian Mogen - Welfare Minister and Deputy Leader**
-
-![](src/main/resources/Images/image5.jpg)
-
-**Lars Brodin - Useless**
-
-![](src/main/resources/Images/image6.jpg)
+![](src/main/resources/Images/Profil_lars.png)
+####Lars Brodin Østby - ***Developer***
