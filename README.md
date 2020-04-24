@@ -1,9 +1,13 @@
-# ImageApplication
-## Team 14
-ImageApplication developed as a group project in subject IDATT1002
+# ImageApplication  
+![image](src/main/resources/Images/PlaceholderLogo_black.png)
+
+## Table of content
+ [[_TOC_]] 
 
 ## Get started 
 These instructions will help you get a copy of our project for development and testing purposes.
+
+
 
 ### Prerequisits
 * Git
@@ -22,6 +26,7 @@ git clone git@gitlab.stud.idi.ntnu.no:eirsteir/team-14-software-engineering.git
 ```
 git clone https://gitlab.stud.idi.ntnu.no/eirsteir/team-14-software-engineering.git
 ```
+
 
 ### Database configuration
 A config.properties file is required to run this project. Please refer to a project maintainer if you want to use our database.
@@ -54,3 +59,6 @@ For futher questions we would recommend reading our wiki and javadoc
 
 ## Link to trello taskboard
 *https://trello.com/invite/b/tYlmd1fp/91a74daa94354d49819ac28980c682e5/team-14*
+
+## Authors
+![](src/main/resources/Images/image1.jpg)![](src/main/resources/Images/image2.jpg)![](src/main/resources/Images/image3.jpg)![](src/main/resources/Images/image4.jpg)![](src/main/resources/Images/image5.jpg)![](src/main/resources/Images/image6.jpg)
