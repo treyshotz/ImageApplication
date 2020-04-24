@@ -61,4 +61,15 @@ For futher questions we would recommend reading our wiki and javadoc
 *https://trello.com/invite/b/tYlmd1fp/91a74daa94354d49819ac28980c682e5/team-14*
 
 ## Authors
-![](src/main/resources/Images/image1.jpg)![](src/main/resources/Images/image2.jpg)![](src/main/resources/Images/image3.jpg)![](src/main/resources/Images/image4.jpg)![](src/main/resources/Images/image5.jpg)![](src/main/resources/Images/image6.jpg)
+**Eirik Steira - Techincal Leader**
+![](src/main/resources/Images/image1.jpg) 
+**Simon Jensen - Meeting Reporter**
+![](src/main/resources/Images/image2.jpg)
+**Nicolay Schiøll-Johansen - Team Leader**
+![](src/main/resources/Images/image3.jpg)
+**Mads Lundegaard - Useless**
+![](src/main/resources/Images/image4.jpg)
+**Stian Mogen - Welfare Minister and Deputy Leader**
+![](src/main/resources/Images/image5.jpg)
+**Lars Brodin - Useless**
+![](src/main/resources/Images/image6.jpg)
