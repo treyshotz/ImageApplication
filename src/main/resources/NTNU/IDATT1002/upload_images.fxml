@@ -8,8 +8,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.text.Font?>
+
 <VBox fx:id="root" alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NTNU.IDATT1002.controllers.UploadImages">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="tbarbg" stylesheets="@style.css">
@@ -38,7 +38,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="430.0">
                      <children>
-                        <TextField fx:id="navBarSearch" onKeyPressed="#enterSearch" minWidth="200.0" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
+                        <TextField fx:id="navBarSearch" minWidth="200.0" onKeyPressed="#enterSearch" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -82,11 +82,11 @@
             </HBox>
          </children>
       </HBox>
-      <ScrollPane fx:id="scrollpane" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" minHeight="960.0" prefHeight="981.0" prefWidth="1920.0" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="scrollpane" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" minHeight="960.0" prefHeight="981.0" prefWidth="1920.0" styleClass="bodybg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
          <content>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" styleClass="bodybg" stylesheets="@style.css">
+            <VBox alignment="CENTER" spacing="50.0" stylesheets="@style.css">
                <children>
-                  <VBox fx:id="uploadContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="1550.0" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="uploadContainer" alignment="TOP_CENTER" minHeight="820.0" spacing="20.0" styleClass="transparentbg" stylesheets="@style.css" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </padding></VBox>
