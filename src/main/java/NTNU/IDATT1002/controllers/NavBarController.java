@@ -56,6 +56,11 @@ public class NavBarController {
 
     }
 
+    /***
+     * Method that changes scene to Search page. It reads the value of the search
+     * field and if not empty it is passed to {@link DataExchange}
+     * @throws IOException
+     */
     public void search() throws IOException {
         doBeforePageExit();
 
@@ -68,8 +73,7 @@ public class NavBarController {
     }
 
     /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to {@link DataExchange}
+     * Method that calls the search method when the search button is pressed
      * @param actionEvent
      * @throws IOException
      */
@@ -77,6 +81,12 @@ public class NavBarController {
         search();
     }
 
+    /***
+     * Method that calls the search method when the Enter key is pressed while the
+     * search field is in focus
+     * @param keyEvent
+     * @throws IOException
+     */
     public void enterSearch(KeyEvent keyEvent) throws IOException {
         if(keyEvent.getCode().equals(KeyCode.ENTER)){
             search();
