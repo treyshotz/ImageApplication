@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.io.IOException;
 /**
  * Class for controlling actions in the navigation bar
  *
- * @version 1.0 20.04.2020
+ * @version 1.0.1 24.04.2020
  */
 public class NavBarController {
 
@@ -54,13 +56,7 @@ public class NavBarController {
 
     }
 
-    /**
-     * Method that changes scene to Search page. It reads the value of the search
-     * field and if not empty it is passed to {@link DataExchange}
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void switchToSearch(ActionEvent actionEvent) throws IOException {
+    public void search() throws IOException {
         doBeforePageExit();
 
         if (!navBarSearch.getText().isEmpty())
@@ -69,6 +65,22 @@ public class NavBarController {
 
         App.ex.setChosenAlbumId(null);
         App.setRoot("search");
+    }
+
+    /**
+     * Method that changes scene to Search page. It reads the value of the search
+     * field and if not empty it is passed to {@link DataExchange}
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void switchToSearch(ActionEvent actionEvent) throws IOException {
+        search();
+    }
+
+    public void enterSearch(KeyEvent keyEvent) throws IOException {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            search();
+        }
     }
 
     /**

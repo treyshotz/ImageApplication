@@ -12,6 +12,8 @@ public class StyledImageView extends ImageView {
      */
     public StyledImageView() {
         this.applyStyling();
+        this.getStyleClass().add("exploreImages");
+        this.setFocusTraversable(true);
     }
 
     /**

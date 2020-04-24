@@ -104,6 +104,13 @@
 }
 
 
+.acceptButton{
+    -fx-font-size: 18;
+    -fx-text-fill: #10101f;
+    -fx-font-weight: bold;
+    -fx-border-color: #10101f;
+}
+
 .returnButton{
     -fx-background-image: url("../../Images/ReturnIcon.png");
     -fx-background-size: 60%;

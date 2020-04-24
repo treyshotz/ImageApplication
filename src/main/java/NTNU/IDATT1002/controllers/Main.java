@@ -2,6 +2,7 @@ package NTNU.IDATT1002.controllers;
 
 import NTNU.IDATT1002.App;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Controls the buttons and changeable elements on main.fxml,
@@ -19,4 +20,5 @@ public class Main extends NavBarController {
     public Main(){
         App.ex.newPage("main");
     }
+
 }
