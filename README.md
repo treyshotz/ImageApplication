@@ -1,6 +1,9 @@
 # ImageApplication  
 ![image](src/main/resources/Images/PlaceholderLogo_black.png)
 
+ImageApplication is an Application for uploading and keeping track on your photos. With ImageApplication you can upload files, extract metadata, create albums and view images on map. 
+If you have been on holiday and want to view where you took the photos, simply create an album and press view on map. 
+
 ## Table of content
  [[_TOC_]] 
 
