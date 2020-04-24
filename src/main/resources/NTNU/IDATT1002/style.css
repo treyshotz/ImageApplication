@@ -104,6 +104,13 @@
 }
 
 
+.acceptButton{
+    -fx-font-size: 18;
+    -fx-text-fill: #10101f;
+    -fx-font-weight: bold;
+    -fx-border-color: #10101f;
+}
+
 .returnButton{
     -fx-background-image: url("../../Images/ReturnIcon.png");
     -fx-background-size: 60%;
@@ -145,6 +152,17 @@
     -fx-text-base-color: #10101f;
 }
 
+.tab:selected{
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5 5 0 0;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(17, 238, 238, 0.5);
+}
+.tab{
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+}
 
 
 .tab-header-background{

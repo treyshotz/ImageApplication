@@ -1,9 +1,16 @@
-# ImageApplication
-## Team 14
-ImageApplication developed as a group project in subject IDATT1002
+# ImageApplication  
+![image](src/main/resources/Images/PlaceholderLogo_black.png)
+
+ImageApplication is an Application for uploading and keeping track on your photos. With ImageApplication you can upload files, extract metadata, create albums and view images on map. 
+If you have been on holiday and want to view where you took the photos, simply create an album and press view on map. 
+
+## Table of content
+ [[_TOC_]] 
 
 ## Get started 
 These instructions will help you get a copy of our project for development and testing purposes.
+
+
 
 ### Prerequisits
 * Git
@@ -22,6 +29,7 @@ git clone git@gitlab.stud.idi.ntnu.no:eirsteir/team-14-software-engineering.git
 ```
 git clone https://gitlab.stud.idi.ntnu.no/eirsteir/team-14-software-engineering.git
 ```
+
 
 ### Database configuration
 A config.properties file is required to run this project. Please refer to a project maintainer if you want to use our database.
@@ -54,3 +62,29 @@ For futher questions we would recommend reading our wiki and javadoc
 
 ## Link to trello taskboard
 *https://trello.com/invite/b/tYlmd1fp/91a74daa94354d49819ac28980c682e5/team-14*
+
+## Authors
+
+![](src/main/resources/Images/Profil_eirik.png) 
+
+**Eirik Steira -** ***Technical Leader***
+
+![](src/main/resources/Images/Profil_nicolay.png)
+
+**Nicolay Schiøll-Johansen -** ***Team Leader***
+
+![](src/main/resources/Images/Profil_stian.png)
+
+**Stian Mogen -** ***Welfare Minister and Deputy Leader***
+
+![](src/main/resources/Images/Profil_simon.png)
+
+**Simon Jensen -** ***Meeting referencer***
+
+![](src/main/resources/Images/Profil_mads.png)
+
+**Mads Lundegaard -** ***Developer***
+
+![](src/main/resources/Images/Profil_lars.png)
+
+**Lars Brodin Østby -** ***Developer***

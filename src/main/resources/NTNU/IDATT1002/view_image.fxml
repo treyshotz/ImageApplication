@@ -34,7 +34,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="430.0">
                      <children>
-                        <TextField fx:id="navBarSearch" minWidth="200.0" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
+                        <TextField fx:id="navBarSearch" onKeyPressed="#enterSearch" minWidth="200.0" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
