@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0.1" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -47,7 +47,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="430.0">
                      <children>
-                        <TextField fx:id="navBarSearch" minWidth="200.0" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
+                        <TextField fx:id="navBarSearch" onKeyPressed="#enterSearch" minWidth="200.0" prefHeight="45.0" prefWidth="400.0" promptText="Search: Tags, Albums, Metadata, etc..." styleClass="searchField" stylesheets="@style.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
