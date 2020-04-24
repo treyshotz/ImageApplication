@@ -84,7 +84,7 @@ public class ViewAlbum extends NavBarController implements Initializable {
             if (albumImages.size() > 0) {
                 NTNU.IDATT1002.models.Image mainImage = albumImages.get(0);
                 mainImageContainer.setImage(ImageUtil.convertToFXImage(mainImage));
-                mainImageTitle.setText("ADD IMAGE TITLE");
+                mainImageTitle.setText(mainImage.getTitle());
                 mainImageTags.setText(TagService.getTagsAsString(mainImage.getTags()));
                 metadataVBox.setId(String.valueOf(mainImage.getId()));
                 metadataVBox.setOnMouseClicked(this::openPopUpMetadata);
@@ -121,7 +121,7 @@ public class ViewAlbum extends NavBarController implements Initializable {
             Optional<NTNU.IDATT1002.models.Image> findImage = currentAlbum.getImages().stream().filter(img -> img.getId().equals(clickedImageId)).findFirst();
             findImage.ifPresent(newImage -> {
                 Image image = ImageUtil.convertToFXImage(newImage);
-                mainImageTitle.setText("ADD IMAGE TITLE");
+                mainImageTitle.setText(newImage.getTitle());
                 mainImageTags.setText(TagService.getTagsAsString(newImage.getTags()));
                 mainImageContainer.setImage(image);
                 metadataVBox.setId(String.valueOf(newImage.getId()));
